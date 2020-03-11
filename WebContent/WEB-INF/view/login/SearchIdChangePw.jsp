@@ -7,16 +7,8 @@
 <title>Insert title here</title>
 </head>
 <body>
-<form action="searchId" method="get">
+<input type="button" onclick="location.href='${pageContext.request.contextPath}/searchId'" value="아이디찾기"><br>
 
-<input type="submit" value="아이디 찾기">
-
-</form>
-
-<form action="changePw" method="get">
-
-<input type="submit" value="비밀번호 재설정">
-
-</form>
+<input type="button" onclick="location.href='${pageContext.request.contextPath}/changePw'" value="비밀번호 재설정">
 </body>
 </html>

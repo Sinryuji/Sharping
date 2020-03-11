@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -7,11 +8,27 @@
 <title>MainPage</title>
 </head>
 <body>
-<h1>Login</h1>
-<h1>Regist</h1>
-<h1>SellerChange</h1>
-<h1>Basket</h1>
-<h1>CS</h1>
-<h1>ProductList</h1>
+	<h1>SellerChange</h1>
+	<h1>Basket</h1>
+	<h1>CS</h1>
+	<h1>ProductList</h1>
+	<c:if test="${empty authInfo}">
+		<p>환영합니다.</p>
+
+		<p>
+			
+		<a href="<c:url value='/regist'/>">[회원 가입]</a>
+		
+			<a href="<c:url value='/login'/>">[로그인]</a>
+		</p>
+
+	</c:if>
+
+	<c:if test="${!empty authInfo}">
+		<p>${authInfo.name}님 환영합니다.</p>
+		<p>
+			<a href="<c:url value='/logout'/>">[로그아웃]</a>
+		</p>
+	</c:if>
 </body>
 </html>

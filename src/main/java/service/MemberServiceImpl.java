@@ -3,6 +3,8 @@ package service;
 import org.springframework.stereotype.Service;
 
 import dao.MemberDAO;
+import exception.IdPasswordNotMatchingException;
+import vo.AuthInfo;
 import vo.ChangePwVO;
 import vo.MemberVO;
 import vo.SellerVO;
@@ -24,33 +26,50 @@ public class MemberServiceImpl implements MemberService{
 
 	@Override
 	public int registMember(MemberVO memberVO) {
-		return memberDAO.registMember(memberVO);
+		return memberDAO.insertMember(memberVO);
 	}
 	
 	@Override
 	public int registSeller(SellerVO sellerVO) {
-		return memberDAO.registSeller(sellerVO);
+		return memberDAO.insertSeller(sellerVO);
 		
 	}
 	
 	@Override
-	public String searchIdEmail(String email) {
-		return memberDAO.searchIdEmail(email);
+	public String searchIdByEmail(String email) {
+		return memberDAO.selectIdByEmail(email);
 	}
 	
 	@Override
-	public String searchIdPhone(String phone) {
-		return memberDAO.searchIdPhone(phone);
+	public String searchIdByPhone(String phone) {
+		return memberDAO.selectIdByPhone(phone);
 	}
 	
 	@Override
-	public int changePwEmail(ChangePwVO changePwVO) {
-		return memberDAO.changePwEmail(changePwVO);
+	public int changePwByEmail(ChangePwVO changePwVO) {
+		return memberDAO.updatePwByEmail(changePwVO);
 	}
 	
 	@Override
-	public int changePwPhone(ChangePwVO changePwVO) {
-		return memberDAO.changePwPhone(changePwVO);
+	public int changePwByPhone(ChangePwVO changePwVO) {
+		return memberDAO.updatePwByPhone(changePwVO);
+	}
+	
+	@Override
+	public MemberVO searchMemberById(String id) {
+		return memberDAO.selectMemberById(id);
+	}
+	
+	@Override
+	public AuthInfo login(String id, String password) {
+		MemberVO memberVO = memberDAO.selectMemberById(id);
+		if(memberVO == null) {
+			throw new IdPasswordNotMatchingException();
+		}
+		if(!memberVO.getPassword().equals((password))) {
+			throw new IdPasswordNotMatchingException();
+		}
+		return new AuthInfo(memberVO.getId(), memberVO.getEmail(), memberVO.getName());
 	}
 
 }

@@ -7,16 +7,10 @@
 <title>Regist</title>
 </head>
 <body>
-<form action="registMember" method="get">
 
-<input type="submit" value="구매자 회원가입">
+<input type="button" onclick="location.href='${pageContext.request.contextPath}/registMember'" value="구매자 회원가입"><br>
 
-</form>
+<input type="button" onclick="location.href='${pageContext.request.contextPath}/registSeller'" value="판매자 회원가입"><br>
 
-<form action="registSeller" method="get">
-
-<input type="submit" value="판매자 회원가입">
-
-</form>
 </body>
 </html>

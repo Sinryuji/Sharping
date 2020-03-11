@@ -6,15 +6,17 @@ import vo.SellerVO;
 
 public interface MemberDAO {
 
-	public abstract int registMember(MemberVO memberVO);
+	public abstract int insertMember(MemberVO memberVO);
 
-	public abstract int registSeller(SellerVO sellerVO);
+	public abstract int insertSeller(SellerVO sellerVO);
 
-	public abstract String searchIdEmail(String email);
+	public abstract String selectIdByEmail(String email);
 
-	public abstract String searchIdPhone(String phone);
+	public abstract String selectIdByPhone(String phone);
 
-	public abstract int changePwEmail(ChangePwVO changePwVO);
+	public abstract int updatePwByEmail(ChangePwVO changePwVO);
 
-	public abstract int changePwPhone(ChangePwVO changePwVO);
+	public abstract int updatePwByPhone(ChangePwVO changePwVO);
+	
+	public abstract MemberVO selectMemberById(String id);
 }

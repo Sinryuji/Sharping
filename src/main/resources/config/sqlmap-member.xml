@@ -4,30 +4,32 @@
 
 <mapper namespace="memberDAO">
 
-	<insert id="registMember" parameterType="memberVO">
+	<insert id="insertMember" parameterType="memberVO">
 		INSERT INTO MEMBER VALUES (#{id}, #{password}, #{name}, #{phone}, #{email}, SYSDATE, 1)
 	</insert>
 	
-	<insert id="registSeller" parameterType="sellerVO">
+	<insert id="insertSeller" parameterType="sellerVO">
 		INSERT INTO SELLER VALUES (#{id}, #{storeName}, #{storeAddress}, #{storeText}, 1, #{post}, #{address}, #{bankAccount}, #{bankCode})
 	</insert>
 	
-	<select id="searchIdEmail" parameterType="String" resultType="String">
+	<select id="selectIdByEmail" parameterType="String" resultType="String">
 		SELECT "id" FROM MEMBER WHERE "email" = #{email} 
 	</select>
 	
-	<select id="searchIdPhone" parameterType="String" resultType="String">
+	<select id="selectIdByPhone" parameterType="String" resultType="String">
 		SELECT "id" FROM MEMBER WHERE "phone" = #{phone} 
 	</select>
 	
-	<update id="changePwEmail" parameterType="changePwVO">
+	<update id="updatePwByEmail" parameterType="changePwVO">
 		UPDATE MEMBER SET "password" = #{newPassword} WHERE "email" = #{email}
 	</update>
 	
-	<update id="changePwPhone" parameterType="changePwVO">
+	<update id="updatePwByPhone" parameterType="changePwVO">
 		UPDATE MEMBER SET "password" = #{newPassword} WHERE "phone" = #{phone}
 	</update>
 	
-
+	<select  id="selectMemberById" resultType="memberVO" parameterType="String">
+		SELECT * FROM MEMBER WHERE "id"=#{id}
+	 </select>
 
 </mapper>

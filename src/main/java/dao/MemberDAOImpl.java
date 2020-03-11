@@ -16,32 +16,37 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	
 	@Override
-	public int registMember(MemberVO memberVO) {
-		return sqlSessionTemplate.insert("memberDAO.registMember", memberVO);
+	public int insertMember(MemberVO memberVO) {
+		return sqlSessionTemplate.insert("memberDAO.insertMember", memberVO);
 	}
 	
 	@Override
-	public int registSeller(SellerVO sellerVO) {
-		return sqlSessionTemplate.insert("memberDAO.registSeller", sellerVO);
+	public int insertSeller(SellerVO sellerVO) {
+		return sqlSessionTemplate.insert("memberDAO.rinsertSeller", sellerVO);
 	}
 	
 	@Override
-	public String searchIdEmail(String email) {
-		return sqlSessionTemplate.selectOne("memberDAO.searchIdEmail", email);
+	public String selectIdByEmail(String email) {
+		return sqlSessionTemplate.selectOne("memberDAO.selectIdByEmail", email);
 	}
 
 	@Override
-	public String searchIdPhone(String phone) {
-		return sqlSessionTemplate.selectOne("memberDAO.searchIdPhone", phone);
+	public String selectIdByPhone(String phone) {
+		return sqlSessionTemplate.selectOne("memberDAO.selectIdByPhone", phone);
 	}
 	
 	@Override
-	public int changePwEmail(ChangePwVO changePwVO) {
-		return sqlSessionTemplate.update("memberDAO.changePwEmail", changePwVO);
+	public int updatePwByEmail(ChangePwVO changePwVO) {
+		return sqlSessionTemplate.update("memberDAO.updatePwByEmail", changePwVO);
 	}
 	
 	@Override
-	public int changePwPhone(ChangePwVO changePwVO) {
-		return sqlSessionTemplate.update("memberDAO.changePwPhone", changePwVO);
+	public int updatePwByPhone(ChangePwVO changePwVO) {
+		return sqlSessionTemplate.update("memberDAO.updatePwByPhone", changePwVO);
+	}
+	
+	@Override
+	public MemberVO selectMemberById(String id) {
+		return sqlSessionTemplate.selectOne("memberDAO.selectMemberById", id);
 	}
 }

@@ -1,13 +1,19 @@
 package controller;
 
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import exception.IdPasswordNotMatchingException;
 import service.MemberService;
+import vo.AuthInfo;
 import vo.ChangePwVO;
+import vo.LoginVO;
 import vo.MemberVO;
 import vo.SellerVO;
 
@@ -18,6 +24,12 @@ public class MemberController {
 
 	public void setMemberService(MemberService memberService) {
 		this.memberService = memberService;
+	}
+
+	// 메인
+	@RequestMapping("/main")
+	public String main() {
+		return "MainPage";
 	}
 
 	// 회원 가입 페이지
@@ -68,7 +80,7 @@ public class MemberController {
 	// 이메일로 아이디 찾기
 	@RequestMapping(value = "/searchIdEmail")
 	public String searchIdEmail(String email, Model model) {
-		String id = memberService.searchIdEmail(email);
+		String id = memberService.searchIdByEmail(email);
 		model.addAttribute("id", id);
 		return "login/SearchIdResult";
 	}
@@ -76,7 +88,7 @@ public class MemberController {
 	// 핸드폰 번호로 아이디 찾기
 	@RequestMapping(value = "/searchIdPhone")
 	public String searchIdPhone(String phone, Model model) {
-		String id = memberService.searchIdPhone(phone);
+		String id = memberService.searchIdByPhone(phone);
 		model.addAttribute("id", id);
 		return "login/SearchIdResult";
 	}
@@ -87,21 +99,48 @@ public class MemberController {
 		return "login/ChangePw";
 	}
 
-	// 이메일로 비밀번호 재설정
+	// 이메일로 비밀번호 재설정 완료
 	@RequestMapping(value = "/changePwEmail")
 	public String changePwEamil(ChangePwVO changePwVO, Model model) {
-		memberService.changePwEmail(changePwVO);
+		memberService.changePwByEmail(changePwVO);
 		String newPassword = changePwVO.getNewPassword();
 		model.addAttribute("newPassword", newPassword);
 		return "login/ChangePwResult";
 	}
 
-	// 폰번호로 비밀번호 재설정
+	// 폰번호로 비밀번호 재설정 완료
 	@RequestMapping(value = "/changePwPhone")
 	public String changePwPhone(ChangePwVO changePwVO, Model model) {
-		memberService.changePwPhone(changePwVO);
+		memberService.changePwByPhone(changePwVO);
 		String newPassword = changePwVO.getNewPassword();
 		model.addAttribute("newPassword", newPassword);
 		return "login/ChangePwResult";
+	}
+
+	// 로그인 페이지
+	@RequestMapping(value = "/login")
+	public String login() {
+		return "login/Login";
+	}
+
+	// 로그인
+	@RequestMapping(value = "/loginComplete")
+	public String loginComplete(LoginVO loginVO, HttpSession session) {
+		try {
+			AuthInfo authInfo = memberService.login(loginVO.getId(), loginVO.getPassword());
+
+			session.setAttribute("authInfo", authInfo);
+
+			return "login/LoginResult";
+		} catch (IdPasswordNotMatchingException e) {
+			return "login/Login";
+		}
+	}
+
+	// 로그아웃
+	@RequestMapping("/logout")
+	public String logout(HttpSession session) {
+		session.invalidate();
+		return "redirect:/main";
 	}
 }
