@@ -4,12 +4,12 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
+<title>ChangePwResult</title>
+<script>
+  src="https://code.jquery.com/jquery-2.1.4.min.js"
+</script>
 </head>
 <body>
-<h1>Regist</h1>
-<h1>SearchIdPw</h1>
-<h1>GeustOrderSearch</h1>
-<h1>ChangePw</h1>
+${newPassword}
 </body>
 </html>

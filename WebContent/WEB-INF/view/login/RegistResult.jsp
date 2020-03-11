@@ -4,12 +4,9 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Login</title>
+<title>RegistResult</title>
 </head>
 <body>
-<h1>Regist</h1>
-<h1>SearchIdPw</h1>
-<h1>GeustOrderSearch</h1>
-<h1>ChangePw</h1>
+회원 가입 완료~!
 </body>
 </html>

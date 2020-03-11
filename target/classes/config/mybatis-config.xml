@@ -10,6 +10,8 @@
 		<setting name="mapUnderscoreToCamelCase" value="true"/>
 	</settings>
 	<typeAliases>
-		
+		<typeAlias alias="memberVO" type="vo.MemberVO"></typeAlias>
+		<typeAlias alias="sellerVO" type="vo.SellerVO"></typeAlias>
+		<typeAlias alias="changePwVO" type="vo.ChangePwVO"></typeAlias>
 	</typeAliases>
 </configuration>

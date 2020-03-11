@@ -2,8 +2,32 @@
 <!DOCTYPE mapper PUBLIC "-//mybaits.org//DTD Mapper 3.0//EN"
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
-<mapper namespace="">
+<mapper namespace="memberDAO">
 
+	<insert id="registMember" parameterType="memberVO">
+		INSERT INTO MEMBER VALUES (#{id}, #{password}, #{name}, #{phone}, #{email}, SYSDATE, 1)
+	</insert>
+	
+	<insert id="registSeller" parameterType="sellerVO">
+		INSERT INTO SELLER VALUES (#{id}, #{storeName}, #{storeAddress}, #{storeText}, 1, #{post}, #{address}, #{bankAccount}, #{bankCode})
+	</insert>
+	
+	<select id="searchIdEmail" parameterType="String" resultType="String">
+		SELECT "id" FROM MEMBER WHERE "email" = #{email} 
+	</select>
+	
+	<select id="searchIdPhone" parameterType="String" resultType="String">
+		SELECT "id" FROM MEMBER WHERE "phone" = #{phone} 
+	</select>
+	
+	<update id="changePwEmail" parameterType="changePwVO">
+		UPDATE MEMBER SET "password" = #{newPassword} WHERE "email" = #{email}
+	</update>
+	
+	<update id="changePwPhone" parameterType="changePwVO">
+		UPDATE MEMBER SET "password" = #{newPassword} WHERE "phone" = #{phone}
+	</update>
+	
 
 
 </mapper>
