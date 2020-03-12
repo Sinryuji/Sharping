@@ -4,12 +4,14 @@ public class AuthInfo {
 	private String id;
 	private String email;
 	private String name;
+	private String sellerCheck;
 	
 	
-	public AuthInfo(String id, String email, String name) {
+	public AuthInfo(String id, String email, String name, String sellerCheck) {
 		this.id = id;
 		this.email = email;
 		this.name = name;
+		this.sellerCheck = sellerCheck;
 	}
 
 
@@ -43,7 +45,12 @@ public class AuthInfo {
 	}
 	
 	
+	public void setSellerCheck(String sellerCheck) {
+		this.sellerCheck = sellerCheck;
+	}
 	
-	
+	public String getSellerCheck() {
+		return sellerCheck;
+	}
 	
 }

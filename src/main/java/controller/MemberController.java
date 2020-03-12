@@ -193,7 +193,7 @@ public class MemberController {
 		}
 	}
 
-	// 중복확인
+	// 아이디 중복확인
 	@RequestMapping(value = "/idCheck")
 	@ResponseBody
 	public int idCheck(@Valid String id) {
@@ -201,4 +201,18 @@ public class MemberController {
 		return result;
 
 	}
+	
+	// 판매자 전환 페이지
+	@RequestMapping(value = "/changeSeller")
+	public String changeSeller() {
+		return "login/ChangeSeller";
+	}
+	
+	// 판매자 전환 완료
+	@RequestMapping(value = "/changeSellerComplete")
+	public String chageSellerComplete(@Valid SellerVO sellerVO) {
+		memberService.registSeller(sellerVO);
+		return "login/ChangeSellerResult";
+	}
+	
 }

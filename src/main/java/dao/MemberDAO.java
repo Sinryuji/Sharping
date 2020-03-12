@@ -21,4 +21,6 @@ public interface MemberDAO {
 	public abstract MemberVO selectMemberById(String id);
 	
 	public abstract int selectMemberId(String id);
+	
+	public abstract SellerVO selectSellerById(String id);
 }

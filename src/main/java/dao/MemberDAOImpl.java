@@ -55,4 +55,9 @@ public class MemberDAOImpl implements MemberDAO{
 		int result = sqlSessionTemplate.selectOne("memberDAO.selectMemberId", id);
 		return result;
 	}
+	
+	@Override
+	public SellerVO selectSellerById(String id) {
+		return sqlSessionTemplate.selectOne("memberDAO.selectSellerById", id);
+	}
 }

@@ -1,6 +1,6 @@
 package vo;
 
-public class SellerVO extends MemberVO{
+public class SellerVO{
 
 	public String id;
 	public String storeName;

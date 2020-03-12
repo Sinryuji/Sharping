@@ -19,16 +19,22 @@
 			
 		<a href="<c:url value='/regist'/>">[회원 가입]</a>
 		
-			<a href="<c:url value='/login'/>">[로그인]</a>
+		<a href="<c:url value='/login'/>">[로그인]</a>
+		
 		</p>
 
 	</c:if>
 
 	<c:if test="${!empty authInfo}">
 		<p>${authInfo.name}님 환영합니다.</p>
-		<p>
-			<a href="<c:url value='/logout'/>">[로그아웃]</a>
-		</p>
+		
+		<a href="<c:url value='/logout'/>">[로그아웃]</a> <br>
+	
+		
+	<c:if test="${authInfo.sellerCheck == 'false' }">
+		<a href="<c:url value='/changeSeller'/>">[판매하기]</a>
+		
+	</c:if>
 	</c:if>
 </body>
 </html>
