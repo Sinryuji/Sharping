@@ -2,7 +2,7 @@ package vo;
 
 import java.sql.Timestamp;
 
-import org.apache.ibatis.type.Alias;
+
 
 public class MemberVO {
 	

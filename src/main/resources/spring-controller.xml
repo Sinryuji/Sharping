@@ -18,10 +18,11 @@
 		</mvc:interceptor>
 
 	</mvc:interceptors>
+	
 
 
 	<bean id="memberController" class="controller.MemberController">
 		<property name="memberService" ref="memberServiceImpl" />
 	</bean>
-
+	
 </beans>
