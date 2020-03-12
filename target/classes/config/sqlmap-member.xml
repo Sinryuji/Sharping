@@ -32,4 +32,7 @@
 		SELECT * FROM MEMBER WHERE "id"=#{id}
 	 </select>
 
+	<select  id="selectMemberId" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE "id"=#{id}
+	 </select>
 </mapper>

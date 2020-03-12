@@ -3,11 +3,14 @@ package controller;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import exception.AlreadyExistingIdException;
 import exception.IdPasswordNotMatchingException;
 import service.MemberService;
 import service.MemberServiceImpl;
@@ -53,6 +56,14 @@ public class MemberController {
 	// 구매자 회원 가입 완료
 	@RequestMapping(value = "/registCompleteMember")
 	public String registCompleteMember(@Valid MemberVO memberVO) {
+	
+		String pw = memberVO.getPassword();
+		String hashPw = BCrypt.hashpw(pw, BCrypt.gensalt());
+		memberVO.setPassword(hashPw);
+		int result = memberService.idCheck(memberVO.getId());
+		if(result == 1) {
+			throw new AlreadyExistingIdException();
+		}
 		memberService.registMember(memberVO);
 		return "login/RegistResult";
 	}
@@ -60,6 +71,15 @@ public class MemberController {
 	// 판매자 회원 가입 완료
 	@RequestMapping(value = "/registCompleteSeller")
 	public String registCompleteSeller(@Valid MemberVO memberVO, @Valid SellerVO sellerVO) {
+		
+	
+		String pw = memberVO.getPassword();
+		String hashPw = BCrypt.hashpw(pw, BCrypt.gensalt());
+		memberVO.setPassword(hashPw);
+		int result = memberService.idCheck(memberVO.getId());
+		if(result == 1) {
+			throw new AlreadyExistingIdException();
+		}
 		memberService.registMember(memberVO);
 		memberService.registSeller(sellerVO);
 		return "login/RegistResult";
@@ -102,6 +122,9 @@ public class MemberController {
 	// 이메일로 비밀번호 재설정 완료
 	@RequestMapping(value = "/changePwEmail")
 	public String changePwEamil(ChangePwVO changePwVO, Model model) {
+		String pw = changePwVO.getNewPassword();
+		String hashPw = BCrypt.hashpw(pw, BCrypt.gensalt());
+		changePwVO.setNewPassword(hashPw);
 		memberService.changePwByEmail(changePwVO);
 		String newPassword = changePwVO.getNewPassword();
 		model.addAttribute("newPassword", newPassword);
@@ -111,6 +134,9 @@ public class MemberController {
 	// 폰번호로 비밀번호 재설정 완료
 	@RequestMapping(value = "/changePwPhone")
 	public String changePwPhone(ChangePwVO changePwVO, Model model) {
+		String pw = changePwVO.getNewPassword();
+		String hashPw = BCrypt.hashpw(pw, BCrypt.gensalt());
+		changePwVO.setNewPassword(hashPw);
 		memberService.changePwByPhone(changePwVO);
 		String newPassword = changePwVO.getNewPassword();
 		model.addAttribute("newPassword", newPassword);
@@ -128,9 +154,7 @@ public class MemberController {
 	public String loginComplete(LoginVO loginVO, HttpSession session) {
 		try {
 			AuthInfo authInfo = memberService.login(loginVO.getId(), loginVO.getPassword());
-
 			session.setAttribute("authInfo", authInfo);
-
 			return "login/LoginResult";
 		} catch (IdPasswordNotMatchingException e) {
 			return "login/Login";
@@ -144,6 +168,7 @@ public class MemberController {
 		return "redirect:/main";
 	}
 	
+
 	// 인증 문자 발송
 	@ResponseBody
 	@RequestMapping("/sendSms")
@@ -166,5 +191,14 @@ public class MemberController {
 		} else {
 			return "no";
 		}
+	}
+
+	// 중복확인
+	@RequestMapping(value = "/idCheck")
+	@ResponseBody
+	public int idCheck(@Valid String id) {
+		int result = memberService.idCheck(id);
+		return result;
+
 	}
 }

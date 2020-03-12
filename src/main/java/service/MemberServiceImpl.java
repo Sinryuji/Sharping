@@ -17,6 +17,7 @@ import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import dao.MemberDAO;
@@ -83,11 +84,11 @@ public class MemberServiceImpl implements MemberService {
 		if (memberVO == null) {
 			throw new IdPasswordNotMatchingException();
 		}
-		if (!memberVO.getPassword().equals((password))) {
+		if(!BCrypt.checkpw(password, memberVO.getPassword())) {
 			throw new IdPasswordNotMatchingException();
 		}
 		return new AuthInfo(memberVO.getId(), memberVO.getEmail(), memberVO.getName());
-	}
+		}
 
 	@Override
 	public String sendSms(String receiver) {
@@ -149,7 +150,15 @@ public class MemberServiceImpl implements MemberService {
 			client.getConnectionManager().shutdown();
 		}
 		return "true";
-		} 
+		 
 	}
 
+	
+	@Override
+	public int idCheck(String id) {
+		int result = memberDAO.selectMemberId(id);
+		return result;
+	}
+}
+	
 
