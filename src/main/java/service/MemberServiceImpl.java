@@ -1,5 +1,6 @@
 package service;
 
+import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import dao.MemberDAO;
@@ -66,10 +67,10 @@ public class MemberServiceImpl implements MemberService{
 		if(memberVO == null) {
 			throw new IdPasswordNotMatchingException();
 		}
-		if(!memberVO.getPassword().equals((password))) {
+		if(!BCrypt.checkpw(password, memberVO.getPassword())) {
 			throw new IdPasswordNotMatchingException();
 		}
 		return new AuthInfo(memberVO.getId(), memberVO.getEmail(), memberVO.getName());
-	}
+		}
 
 }

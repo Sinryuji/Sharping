@@ -22,7 +22,7 @@ public class MemberDAOImpl implements MemberDAO{
 	
 	@Override
 	public int insertSeller(SellerVO sellerVO) {
-		return sqlSessionTemplate.insert("memberDAO.rinsertSeller", sellerVO);
+		return sqlSessionTemplate.insert("memberDAO.insertSeller", sellerVO);
 	}
 	
 	@Override

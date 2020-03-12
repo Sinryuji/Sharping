@@ -4,7 +4,7 @@ import java.sql.Timestamp;
 
 import org.apache.ibatis.type.Alias;
 
-@Alias("BoardVO")
+
 public class MemberVO {
 	
 	public MemberVO() {}
