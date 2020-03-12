@@ -1,7 +1,8 @@
 package vo;
 
 public class ChangePwVO {
-
+	String id;
+	String password;
 	String email;
 	String newPassword;
 	String phone;
@@ -10,12 +11,33 @@ public class ChangePwVO {
 		super();
 	}
 	
-	
 	public ChangePwVO(String email, String newPassword, String phone) {
 		super();
 		this.email = email;
 		this.newPassword = newPassword;
 		this.phone = phone;
+	}
+
+	public ChangePwVO(String id, String password) {
+		super();
+		this.id = id;
+		this.password = password;
+	}
+
+	public String getId() {
+		return id;
+	}
+
+	public void setId(String id) {
+		this.id = id;
+	}
+
+	public String getPassword() {
+		return password;
+	}
+
+	public void setPassword(String password) {
+		this.password = password;
 	}
 
 	public String getEmail() {

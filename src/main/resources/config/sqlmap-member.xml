@@ -35,4 +35,13 @@
 	<select  id="selectMemberId" resultType="int">
 		SELECT COUNT(*) FROM MEMBER WHERE "id"=#{id}
 	 </select>
+	 
+	 <update id="updatePw" parameterType="changePwVO">
+		UPDATE MEMBER SET "password" = #{newPassword} WHERE "id" = #{id} and "password" = #{password}
+	</update>
+	
+	<delete id="deleteMember">
+		DELETE FROM MEMBER WHERE "id" = #{id} and "password" = #{password}
+	</delete>
+	
 </mapper>
