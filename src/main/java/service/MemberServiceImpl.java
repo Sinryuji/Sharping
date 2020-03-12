@@ -71,5 +71,12 @@ public class MemberServiceImpl implements MemberService{
 		}
 		return new AuthInfo(memberVO.getId(), memberVO.getEmail(), memberVO.getName());
 	}
-
+	
+	@Override
+	public int idCheck(String id) {
+		int result = memberDAO.selectMemberId(id);
+		return result;
+	}
 }
+	
+

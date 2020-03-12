@@ -1,14 +1,14 @@
 package controller;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import exception.AlreadyExistingIdException;
 import exception.IdPasswordNotMatchingException;
 import service.MemberService;
 import vo.AuthInfo;
@@ -53,6 +53,10 @@ public class MemberController {
 	// 구매자 회원 가입 완료
 	@RequestMapping(value = "/registCompleteMember")
 	public String registCompleteMember(@Valid MemberVO memberVO) {
+		int result = memberService.idCheck(memberVO.getId());
+		if(result == 1) {
+			throw new AlreadyExistingIdException();
+		}
 		memberService.registMember(memberVO);
 		return "login/RegistResult";
 	}
@@ -60,6 +64,10 @@ public class MemberController {
 	// 판매자 회원 가입 완료
 	@RequestMapping(value = "/registCompleteSeller")
 	public String registCompleteSeller(@Valid MemberVO memberVO, @Valid SellerVO sellerVO) {
+		int result = memberService.idCheck(memberVO.getId());
+		if(result == 1) {
+			throw new AlreadyExistingIdException();
+		}
 		memberService.registMember(memberVO);
 		memberService.registSeller(sellerVO);
 		return "login/RegistResult";
@@ -142,5 +150,13 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/main";
+	}
+	
+	// 중복확인
+	@RequestMapping(value = "/idCheck")
+	@ResponseBody
+	public int idCheck(@Valid String id) {
+		int result = memberService.idCheck(id);
+		return result;
 	}
 }

@@ -19,4 +19,6 @@ public interface MemberDAO {
 	public abstract int updatePwByPhone(ChangePwVO changePwVO);
 	
 	public abstract MemberVO selectMemberById(String id);
+	
+	public abstract int selectMemberId(String id);
 }

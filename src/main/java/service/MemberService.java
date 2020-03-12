@@ -22,5 +22,7 @@ public interface MemberService {
 	public abstract MemberVO searchMemberById(String id);
 	
 	public abstract AuthInfo login(String id, String password);
+	
+	public abstract int idCheck(String id);
 
 }
