@@ -150,7 +150,7 @@ public class MemberServiceImpl implements MemberService {
 			client.getConnectionManager().shutdown();
 		}
 		return "true";
-		} 
+		 
 	}
 
 	

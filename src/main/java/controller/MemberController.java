@@ -72,7 +72,7 @@ public class MemberController {
 	@RequestMapping(value = "/registCompleteSeller")
 	public String registCompleteSeller(@Valid MemberVO memberVO, @Valid SellerVO sellerVO) {
 		
-	}
+	
 		String pw = memberVO.getPassword();
 		String hashPw = BCrypt.hashpw(pw, BCrypt.gensalt());
 		memberVO.setPassword(hashPw);
@@ -191,6 +191,7 @@ public class MemberController {
 		} else {
 			return "no";
 		}
+	}
 
 	// 중복확인
 	@RequestMapping(value = "/idCheck")
