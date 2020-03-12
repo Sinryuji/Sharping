@@ -72,7 +72,14 @@ public class MemberController {
 	@RequestMapping(value = "/registCompleteSeller")
 	public String registCompleteSeller(@Valid MemberVO memberVO, @Valid SellerVO sellerVO) {
 		
-	
+		String addressEtc = sellerVO.getAddressEtc();
+		
+		String address = sellerVO.getAddress();
+		
+		String addressFinal = address + " " + addressEtc;
+		
+		sellerVO.setAddress(addressFinal);
+		
 		String pw = memberVO.getPassword();
 		String hashPw = BCrypt.hashpw(pw, BCrypt.gensalt());
 		memberVO.setPassword(hashPw);
@@ -211,8 +218,22 @@ public class MemberController {
 	// 판매자 전환 완료
 	@RequestMapping(value = "/changeSellerComplete")
 	public String chageSellerComplete(@Valid SellerVO sellerVO) {
+		
+		String addressEtc = sellerVO.getAddressEtc();
+		
+		String address = sellerVO.getAddress();
+		
+		String addressFinal = address + " " + addressEtc;
+		
+		sellerVO.setAddress(addressFinal);
+		
 		memberService.registSeller(sellerVO);
 		return "login/ChangeSellerResult";
+	}
+	
+	@RequestMapping(value = "/kakao")
+	public String kakao() {
+		return "test/address";
 	}
 	
 }

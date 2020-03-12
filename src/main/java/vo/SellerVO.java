@@ -11,12 +11,13 @@ public class SellerVO{
 	public String address;
 	public int bankCode;
 	public String bankAccount;
+	public String addressEtc;
 	
 	public SellerVO() {
 		super();
 	}
 	public SellerVO(String id, String storeName, String storeAddress, String storeText, int sellerGrade, String post,
-			String address, int bankCode, String bankAccount) {
+			String address, int bankCode, String bankAccount, String addressEtc) {
 		this.id = id;
 		this.storeName = storeName;
 		this.storeAddress = storeAddress;
@@ -26,6 +27,15 @@ public class SellerVO{
 		this.address = address;
 		this.bankCode = bankCode;
 		this.bankAccount = bankAccount;
+		this.addressEtc = addressEtc;
+	}
+	
+	public String getAddressEtc() {
+		return addressEtc;
+	}
+	
+	public void setAddressEtc(String addressEtc) {
+		this.addressEtc = addressEtc;
 	}
 
 	public String getId() {
