@@ -1,16 +1,16 @@
 package controller;
 
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import exception.IdPasswordNotMatchingException;
 import service.MemberService;
+import service.MemberServiceImpl;
 import vo.AuthInfo;
 import vo.ChangePwVO;
 import vo.LoginVO;
@@ -142,5 +142,29 @@ public class MemberController {
 	public String logout(HttpSession session) {
 		session.invalidate();
 		return "redirect:/main";
+	}
+	
+	// 인증 문자 발송
+	@ResponseBody
+	@RequestMapping("/sendSms")
+	public String sendSms(String receiver) {
+		String result = memberService.sendSms(receiver);
+		return result;
+//		memberService.sendSms(receiver);
+//		return "redirect:/sendSMS";
+	}
+	
+	// 문자 인증 확인
+	@ResponseBody
+	@RequestMapping("/smsCheck")
+	public String smsCheck(String code) {
+		
+		String sendCode = Integer.toString(MemberServiceImpl.rand);
+		
+		if(code.equals(sendCode)) {
+			return "ok";
+		} else {
+			return "no";
+		}
 	}
 }
