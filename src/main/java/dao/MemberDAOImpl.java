@@ -49,4 +49,10 @@ public class MemberDAOImpl implements MemberDAO{
 	public MemberVO selectMemberById(String id) {
 		return sqlSessionTemplate.selectOne("memberDAO.selectMemberById", id);
 	}
+	
+	@Override
+	public int selectMemberId(String id) {
+		int result = sqlSessionTemplate.selectOne("memberDAO.selectMemberId", id);
+		return result;
+	}
 }

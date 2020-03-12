@@ -3,7 +3,6 @@ package vo;
 import java.sql.Timestamp;
 
 
-
 public class MemberVO {
 	
 	public MemberVO() {}

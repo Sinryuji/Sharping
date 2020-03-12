@@ -4,6 +4,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
@@ -47,11 +48,38 @@ function phoneCheck() {
 		});
 	}
 </script>
+<script>
+
+$(".idCheck").click(function(){
+	 
+	 var query = {id : $("#id").val()};
+	 
+	 $.ajax({
+	  url : "/Sharping/idCheck",
+	  type : "post",
+	  data : query,
+	  dataType : "json",
+	  success : function(data) {
+	  
+		if(data == 1){
+		   alert("중복된 아이디입니다.");
+		  /*  $(".submit").attr("disabled", "disabled"); */
+		   $("#id").val('');
+		   $("#id").focus();
+	   	} else if(data == 0){
+		   alert("사용가능한 아이디입니다.");
+		   $("#regist").removeAttr("disabled");
+	   	}
+	  }
+	 });  // ajax 끝
+	});
+
+</script>
 </head>
 <body>
 	<form action="registCompleteSeller" method="post">
 		이름:<input type="text" name="name"><br> 
-		아이디:<input type="text" name="id" /><br> 
+		아이디 : <input type="text" id="id" name="id"/>&nbsp&nbsp&nbsp<button class="idCheck" type="button">중복확인</button><br><br>
 		비밀번호:<input type="text" name="password" /><br> 
 		비밀번호 재입력:<input type="text" name="passwordCheck" /><br> 
 		휴대폰번호:<input type="text" name="phone" id="phone" />
@@ -68,5 +96,7 @@ function phoneCheck() {
 		은행코드:<input type="number" name="bankCode" /><br> 
 		<input type="submit" name="regist" id="regist" value="회원가입하기" disabled="true">
 	</form>
+
+
 </body>
 </html>

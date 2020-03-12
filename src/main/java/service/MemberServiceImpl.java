@@ -153,4 +153,12 @@ public class MemberServiceImpl implements MemberService {
 		} 
 	}
 
+	
+	@Override
+	public int idCheck(String id) {
+		int result = memberDAO.selectMemberId(id);
+		return result;
+	}
+}
+	
 

@@ -99,6 +99,7 @@
 		</dependency>
 		
 		<dependency>
+
 			<groupId>org.mindrot</groupId>
 			<artifactId>jbcrypt</artifactId>
 			<version>0.3m</version>
@@ -127,39 +128,15 @@
         <artifactId>spring-security-taglibs</artifactId>
         <version>4.1.0.RELEASE</version>
         </dependency>
+	
+		<dependency>
+		    <groupId>com.fasterxml.jackson.core</groupId>
+		    <artifactId>jackson-databind</artifactId>
+		    <version>2.9.6</version>
+		</dependency>
+
 		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
-		
+
 
 		<dependency>
 			<groupId>org.apache.httpcomponents</groupId>

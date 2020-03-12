@@ -25,6 +25,10 @@ public interface MemberService {
 	
 	public abstract AuthInfo login(String id, String password);
 	
+
 	public abstract String sendSms(String receiver);
+
+	public abstract int idCheck(String id);
+
 
 }

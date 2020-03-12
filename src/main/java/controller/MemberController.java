@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import exception.AlreadyExistingIdException;
 import exception.IdPasswordNotMatchingException;
 import service.MemberService;
 import service.MemberServiceImpl;
@@ -55,11 +56,14 @@ public class MemberController {
 	// 구매자 회원 가입 완료
 	@RequestMapping(value = "/registCompleteMember")
 	public String registCompleteMember(@Valid MemberVO memberVO) {
-		
-		
+	
 		String pw = memberVO.getPassword();
 		String hashPw = BCrypt.hashpw(pw, BCrypt.gensalt());
 		memberVO.setPassword(hashPw);
+		int result = memberService.idCheck(memberVO.getId());
+		if(result == 1) {
+			throw new AlreadyExistingIdException();
+		}
 		memberService.registMember(memberVO);
 		return "login/RegistResult";
 	}
@@ -67,9 +71,15 @@ public class MemberController {
 	// 판매자 회원 가입 완료
 	@RequestMapping(value = "/registCompleteSeller")
 	public String registCompleteSeller(@Valid MemberVO memberVO, @Valid SellerVO sellerVO) {
+		
+	}
 		String pw = memberVO.getPassword();
 		String hashPw = BCrypt.hashpw(pw, BCrypt.gensalt());
 		memberVO.setPassword(hashPw);
+		int result = memberService.idCheck(memberVO.getId());
+		if(result == 1) {
+			throw new AlreadyExistingIdException();
+		}
 		memberService.registMember(memberVO);
 		memberService.registSeller(sellerVO);
 		return "login/RegistResult";
@@ -158,6 +168,7 @@ public class MemberController {
 		return "redirect:/main";
 	}
 	
+
 	// 인증 문자 발송
 	@ResponseBody
 	@RequestMapping("/sendSms")
@@ -180,5 +191,13 @@ public class MemberController {
 		} else {
 			return "no";
 		}
+
+	// 중복확인
+	@RequestMapping(value = "/idCheck")
+	@ResponseBody
+	public int idCheck(@Valid String id) {
+		int result = memberService.idCheck(id);
+		return result;
+
 	}
 }
