@@ -1,7 +1,5 @@
 package vo;
 
-import java.sql.Timestamp;
-
 public class SellerVO extends MemberVO{
 
 	public String id;

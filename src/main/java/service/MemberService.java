@@ -1,5 +1,7 @@
 package service;
 
+import javax.servlet.http.HttpSession;
+
 import vo.AuthInfo;
 import vo.ChangePwVO;
 import vo.MemberVO;
@@ -23,6 +25,10 @@ public interface MemberService {
 	
 	public abstract AuthInfo login(String id, String password);
 	
+
+	public abstract String sendSms(String receiver);
+
 	public abstract int idCheck(String id);
+
 
 }
