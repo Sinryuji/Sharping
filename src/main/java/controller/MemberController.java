@@ -1,15 +1,23 @@
 package controller;
 
+import java.io.File;
+import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-
 import org.mindrot.jbcrypt.BCrypt;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
+import dao.MemberDAO;
 import exception.AlreadyExistingIdException;
 import exception.IdPasswordNotMatchingException;
 import service.MemberService;
@@ -56,12 +64,12 @@ public class MemberController {
 	// 구매자 회원 가입 완료
 	@RequestMapping(value = "/registCompleteMember")
 	public String registCompleteMember(@Valid MemberVO memberVO) {
-	
+
 		String pw = memberVO.getPassword();
 		String hashPw = BCrypt.hashpw(pw, BCrypt.gensalt());
 		memberVO.setPassword(hashPw);
 		int result = memberService.idCheck(memberVO.getId());
-		if(result == 1) {
+		if (result == 1) {
 			throw new AlreadyExistingIdException();
 		}
 		memberService.registMember(memberVO);
@@ -71,13 +79,12 @@ public class MemberController {
 	// 판매자 회원 가입 완료
 	@RequestMapping(value = "/registCompleteSeller")
 	public String registCompleteSeller(@Valid MemberVO memberVO, @Valid SellerVO sellerVO) {
-		
-	
+
 		String pw = memberVO.getPassword();
 		String hashPw = BCrypt.hashpw(pw, BCrypt.gensalt());
 		memberVO.setPassword(hashPw);
 		int result = memberService.idCheck(memberVO.getId());
-		if(result == 1) {
+		if (result == 1) {
 			throw new AlreadyExistingIdException();
 		}
 		memberService.registMember(memberVO);
@@ -91,11 +98,11 @@ public class MemberController {
 		return "login/SearchIdChangePw";
 	}
 
-	// 아이디 찾기 탭
-	@RequestMapping(value = "/searchId")
-	public String searchId() {
-		return "login/SearchId";
-	}
+//	// 아이디 찾기 탭
+//	@RequestMapping(value = "/searchId")
+//	public String searchId() {
+//		return "login/SearchId";
+//	}
 
 	// 이메일로 아이디 찾기
 	@RequestMapping(value = "/searchIdEmail")
@@ -104,7 +111,7 @@ public class MemberController {
 		model.addAttribute("id", id);
 		return "login/SearchIdResult";
 	}
-
+	
 	// 핸드폰 번호로 아이디 찾기
 	@RequestMapping(value = "/searchIdPhone")
 	public String searchIdPhone(String phone, Model model) {
@@ -167,7 +174,6 @@ public class MemberController {
 		session.invalidate();
 		return "redirect:/main";
 	}
-	
 
 	// 인증 문자 발송
 	@ResponseBody
@@ -178,20 +184,80 @@ public class MemberController {
 //		memberService.sendSms(receiver);
 //		return "redirect:/sendSMS";
 	}
-	
+
 	// 문자 인증 확인
 	@ResponseBody
 	@RequestMapping("/smsCheck")
 	public String smsCheck(String code) {
-		
+
 		String sendCode = Integer.toString(MemberServiceImpl.rand);
-		
-		if(code.equals(sendCode)) {
+
+		if (code.equals(sendCode)) {
 			return "ok";
 		} else {
 			return "no";
 		}
 	}
+
+	// 이메일 인증 탭
+	@ResponseBody
+	@RequestMapping("/searchId")
+	public ModelAndView board2() {
+		ModelAndView mv = new ModelAndView();
+		int ran = new Random().nextInt(900000) + 100000;
+		mv.setViewName("login/SearchId");
+		mv.addObject("random", ran);
+		return mv;
+	}
+	
+
+
+	// 이메일 발송 
+	@RequestMapping(value = "/sendEmail")
+	@ResponseBody
+	public boolean sendEmail(@RequestParam String email, @RequestParam int random, HttpServletRequest req) {
+		
+		String id = memberService.searchIdByEmail(email);
+		if(id == null) {
+			return false;
+		}
+		int ran = new Random().nextInt(900000) + 100000;
+		HttpSession session = req.getSession(true);
+		String authCode = String.valueOf(ran);
+		session.setAttribute("authCode", authCode);
+		session.setAttribute("random", random);
+//		String sendEmailId = JavaMailSender
+		String subject = "회원가입 인증 코드 발급 안내 입니다.";
+		StringBuilder sb = new StringBuilder();
+		sb.append("귀하의 인증 코드는 " + authCode + "입니다.");
+		System.out.println(sb);
+		return memberService.sendEmail(subject, sb.toString(), "admin", email, null);
+		}
+	
+	//이메일인증체크
+	@RequestMapping(value = "/emailCheck")
+	@ResponseBody
+	public ResponseEntity<String> emailCheck(@RequestParam String authCode, @RequestParam String random,
+			HttpSession session) {
+		String originalJoinCode = (String) session.getAttribute("authCode");
+		String originalRandom = Integer.toString((int) session.getAttribute("random"));
+		System.out.println(authCode);
+		System.out.println(random);
+		if (originalJoinCode.equals(authCode) && originalRandom.equals(random))
+			return new ResponseEntity<String>("complete", HttpStatus.OK);
+		else
+			return new ResponseEntity<String>("false", HttpStatus.OK);
+	}
+
+//	@RequestMapping(value = "/searchIdEmail")
+//	public String searchIdEmail(String email, Model model) {
+//		
+//		
+//		String id = memberService.searchIdByEmail(email);
+//		model.addAttribute("id", id);
+//		return "login/SearchIdResult";
+//	}
+
 
 	// 중복확인
 	@RequestMapping(value = "/idCheck")

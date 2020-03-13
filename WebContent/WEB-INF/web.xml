@@ -19,6 +19,7 @@
 				classpath:spring-sharping.xml
 				classpath:spring-controller.xml
 				classpath:spring-mvc.xml
+				classpath:email-context.xml
 			</param-value>
 		</init-param>
 		<!-- 서버 실행 시 로드하도록 -->

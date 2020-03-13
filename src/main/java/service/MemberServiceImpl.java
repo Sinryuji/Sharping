@@ -1,9 +1,16 @@
 package service;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Random;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
@@ -17,8 +24,13 @@ import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.servlet.ModelAndView;
 
 import dao.MemberDAO;
 import exception.IdPasswordNotMatchingException;
@@ -29,10 +41,21 @@ import vo.SellerVO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
-	
+
 	static public int rand;
 
 	private MemberDAO memberDAO;
+	
+	private Log log = LogFactory.getLog(MemberServiceImpl.class);
+	@Autowired
+	private JavaMailSender javaMailSender;
+	
+//	private static final Logger logger= LoggerFactory.getLogger(MemberController.class);
+	private static final String String =null;
+	
+	public void setJavaMailSender(JavaMailSender javaMailSender) {
+		this.javaMailSender = javaMailSender;
+	}
 
 	public MemberDAO getMemberDAO() {
 		return memberDAO;
@@ -84,18 +107,18 @@ public class MemberServiceImpl implements MemberService {
 		if (memberVO == null) {
 			throw new IdPasswordNotMatchingException();
 		}
-		if(!BCrypt.checkpw(password, memberVO.getPassword())) {
+		if (!BCrypt.checkpw(password, memberVO.getPassword())) {
 			throw new IdPasswordNotMatchingException();
 		}
 		return new AuthInfo(memberVO.getId(), memberVO.getEmail(), memberVO.getName());
-		}
+	}
 
 	@Override
 	public String sendSms(String receiver) {
 		// 6자리 인증 코드 생성
 		rand = (int) (Math.random() * 899999) + 100000;
-		
-		String sender="01033543929";
+
+		String sender = "01033543929";
 
 		// 인증 코드를 데이터베이스에 저장하는 코드는 생략했습니다.
 
@@ -123,7 +146,8 @@ public class MemberServiceImpl implements MemberService {
 			httpPost.setHeader("Content-type", "application/json; charset=utf-8");
 
 			// 문자에 대한 정보
-			String json = "{\"sender\":\""+sender+"\",\"receivers\":[\"" + receiver + "\"],\"content\":\""+rand+"\"}";
+			String json = "{\"sender\":\"" + sender + "\",\"receivers\":[\"" + receiver + "\"],\"content\":\"" + rand
+					+ "\"}";
 
 			StringEntity se = new StringEntity(json, "UTF-8");
 
@@ -143,22 +167,46 @@ public class MemberServiceImpl implements MemberService {
 			} else {
 				return "false";
 			}
-				
+
 		} catch (Exception e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
 		} finally {
 			client.getConnectionManager().shutdown();
 		}
 		return "true";
-		 
+
 	}
 
-	
 	@Override
 	public int idCheck(String id) {
 		int result = memberDAO.selectMemberId(id);
 		return result;
 	}
-}
 	
+	@Override
+	public boolean sendEmail(String subject,String text,String from,String to, String filePath) {
+		MimeMessage message = javaMailSender.createMimeMessage();
+		
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+			helper.setSubject(subject);
+			helper.setText(text,true);
+			helper.setFrom(from);
+			helper.setTo(to);
+			
+			if(filePath != null) {
+				File file = new File(filePath);
+				if(file.exists()) {
+					helper.addAttachment(file.getName(), new File(filePath));
+				}
+			}
+			
+			javaMailSender.send(message);
+			return true;
+		}catch(MessagingException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
 
+}
