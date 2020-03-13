@@ -40,11 +40,6 @@
 		SELECT COUNT(*) FROM MEMBER WHERE "id"=#{id}
 	 </select>
 	 
-
-	 <select id="selectSellerById" resultType="sellerVO" parameterType="String">
-	 	SELECT * FROM SELLER WHERE "id"=#{id}
-	 </select>
-
 	<update id="updatePwByIdPw" parameterType="changePwVO">
 		UPDATE MEMBER SET "password" = #{newPassword} WHERE "id" = #{id} and "password" = #{password}
 	</update>
