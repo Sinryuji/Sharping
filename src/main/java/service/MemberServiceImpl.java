@@ -3,6 +3,10 @@ package service;
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
@@ -19,6 +23,7 @@ import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.MemberDAO;
 import exception.IdPasswordNotMatchingException;
@@ -30,8 +35,6 @@ import vo.SellerVO;
 @Service
 public class MemberServiceImpl implements MemberService {
 	
-	static public int rand;
-
 	private MemberDAO memberDAO;
 
 	public MemberDAO getMemberDAO() {
@@ -97,9 +100,17 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 	@Override
-	public String sendSms(String receiver) {
+	public String sendSms(@RequestParam String receiver, @RequestParam int random, HttpServletRequest req) {
 		// 6자리 인증 코드 생성
-		rand = (int) (Math.random() * 899999) + 100000;
+		int ran = new Random().nextInt(900000) + 100000;
+		
+		HttpSession session = req.getSession(true);
+		
+		String authCode = String.valueOf(ran);
+		
+		session.setAttribute("authCode", authCode);
+		
+		session.setAttribute("random", random);
 		
 		String sender="01096580540";
 
@@ -129,7 +140,7 @@ public class MemberServiceImpl implements MemberService {
 			httpPost.setHeader("Content-type", "application/json; charset=utf-8");
 
 			// 문자에 대한 정보
-			String json = "{\"sender\":\""+sender+"\",\"receivers\":[\"" + receiver + "\"],\"content\":\""+rand+"\"}";
+			String json = "{\"sender\":\""+sender+"\",\"receivers\":[\"" + receiver + "\"],\"content\":\""+authCode+"\"}";
 
 			StringEntity se = new StringEntity(json, "UTF-8");
 

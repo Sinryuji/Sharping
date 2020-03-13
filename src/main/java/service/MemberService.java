@@ -1,6 +1,6 @@
 package service;
 
-import javax.servlet.http.HttpSession;
+import javax.servlet.http.HttpServletRequest;
 
 import vo.AuthInfo;
 import vo.ChangePwVO;
@@ -26,7 +26,7 @@ public interface MemberService {
 	public abstract AuthInfo login(String id, String password);
 	
 
-	public abstract String sendSms(String receiver);
+	public abstract String sendSms(String receiver, int random, HttpServletRequest req);
 
 	public abstract int idCheck(String id);
 

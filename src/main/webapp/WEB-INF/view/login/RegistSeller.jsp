@@ -28,7 +28,8 @@ function sendSms() {
 	$.ajax({
 		url : "<%=request.getContextPath()%>/sendSms",
 		data : {
-			receiver : $("#phone").val()
+			receiver : $("#phone").val(),
+			random : $("#random").val()
 		},
 		type : "post",
 		success : function(result) {
@@ -48,7 +49,9 @@ function phoneCheck() {
 		url : "<%=request.getContextPath()%>/smsCheck",
 			type : "post",
 			data : {
-				code : $("#confirmNumber").val()
+				authCode : $("#confirmNumber").val(),
+				random : $("#random").val()
+				
 			},
 			success : function(result) {
 				if (result == "ok") {
@@ -115,7 +118,8 @@ function idCheck(){
 		휴대폰번호:<input type="text" name="phone" id="phone" />
 		<button type="button" onclick="sendSms();">전송</button><br> 
 		인증번호:<input type="text" name="confirmNumber" id="confirmNumber" />
-		<button type="button" onclick="phoneCheck();">인증</button><br>
+		<button type="button" onclick="phoneCheck();">인증</button><br> 
+		<input type="hidden" path="random" id="random" value="${random }"/>
 		이메일:<input type="text" name="email" /><br> 
 		스토어이름:<input type="text" name="storeName" /><br> 
 		스토어주소:<input type="text" name="storeAddress" /><br>

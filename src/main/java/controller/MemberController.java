@@ -1,14 +1,18 @@
 package controller;
 
+import java.util.Random;
+
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
 import exception.AlreadyExistingIdException;
 import exception.IdPasswordNotMatchingException;
@@ -49,8 +53,12 @@ public class MemberController {
 
 	// 판매자 회원 가입 탭
 	@RequestMapping(value = "/registSeller")
-	public String registSeller() {
-		return "login/RegistSeller";
+	public ModelAndView registSeller() {
+		ModelAndView mv = new ModelAndView();
+		int ran = new Random().nextInt(900000) + 100000;
+		mv.setViewName("login/RegistSeller");
+		mv.addObject("random", ran);
+		return mv;
 	}
 
 	// 구매자 회원 가입 완료
@@ -179,8 +187,8 @@ public class MemberController {
 	// 인증 문자 발송
 	@ResponseBody
 	@RequestMapping("/sendSms")
-	public String sendSms(String receiver) {
-		String result = memberService.sendSms(receiver);
+	public String sendSms(@RequestParam String receiver, @RequestParam int random, HttpServletRequest req) {
+		String result = memberService.sendSms(receiver, random, req);
 		return result;
 //		memberService.sendSms(receiver);
 //		return "redirect:/sendSMS";
@@ -189,11 +197,15 @@ public class MemberController {
 	// 문자 인증 확인
 	@ResponseBody
 	@RequestMapping("/smsCheck")
-	public String smsCheck(String code) {
+	public String smsCheck(@RequestParam String authCode, @RequestParam String random, HttpSession session) {
 		
-		String sendCode = Integer.toString(MemberServiceImpl.rand);
+		String inputAuthCode = (String) session.getAttribute("authCode");
 		
-		if(code.equals(sendCode)) {
+		String inputRandom = Integer.toString((int) session.getAttribute("random"));
+		
+//		String sendCode = Integer.toString(MemberServiceImpl.rand);
+		
+		if(inputAuthCode.equals(authCode) && inputRandom.equals(random)) {
 			return "ok";
 		} else {
 			return "no";
