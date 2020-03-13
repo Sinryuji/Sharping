@@ -7,8 +7,10 @@
 <title>InfoChange</title>
 </head>
 <body>
-<h1>MyPage</h1>
-<h1>InfoDelete</h1>
-<h1>MemberGrade</h1>
+
+<input type="button" onclick="location.href='${pageContext.request.contextPath}/infoChangeMember'" value="구매자 회원 정보 수정"><br><br>
+
+<input type="button" onclick="location.href='${pageContext.request.contextPath}/infoChangeSeller'" value="판매자 회원 정보 수정"><br>
+
 </body>
 </html>

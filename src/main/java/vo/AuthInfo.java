@@ -4,14 +4,30 @@ public class AuthInfo {
 	private String id;
 	private String email;
 	private String name;
+
 	private String sellerCheck;
 	
+
+	private String phone;
 	
-	public AuthInfo(String id, String email, String name, String sellerCheck) {
+	
+	public String getPhone() {
+		return phone;
+	}
+
+
+	public void setPhone(String phone) {
+		this.phone = phone;
+	}
+
+
+	public AuthInfo(String id, String email, String name, String sellerCheck, String phone) {
 		this.id = id;
 		this.email = email;
 		this.name = name;
+		this.phone = phone;
 		this.sellerCheck = sellerCheck;
+
 	}
 
 

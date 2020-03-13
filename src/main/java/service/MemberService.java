@@ -1,9 +1,12 @@
 package service;
 
+
 import javax.servlet.http.HttpServletRequest;
 
 import vo.AuthInfo;
+import vo.ChangeMemberVO;
 import vo.ChangePwVO;
+import vo.DeleteVO;
 import vo.MemberVO;
 import vo.SellerVO;
 
@@ -23,8 +26,9 @@ public interface MemberService {
 	
 	public abstract MemberVO searchMemberById(String id);
 	
-	public abstract AuthInfo login(String id, String password);
+	public abstract SellerVO searchSellerById(String id);
 	
+	public abstract AuthInfo login(String id, String password);
 
 	public abstract String sendSms(String receiver, int random, HttpServletRequest req);
 
@@ -32,5 +36,11 @@ public interface MemberService {
 	
 	public boolean sendEmail(String subject, String text, String from, String to, String filePath);
 
-
+	public abstract int updatePwByIdPw(ChangePwVO changePwVO);
+	
+	public abstract int updateMemberInfoById(ChangeMemberVO changeMemberVO);
+	
+	public abstract int deleteMemberByIdPw(DeleteVO deleteVO);
+	
+	public abstract int updateSellerInfoById(ChangeMemberVO changeMemberVO);
 }

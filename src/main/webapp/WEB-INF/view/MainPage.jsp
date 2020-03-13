@@ -27,14 +27,19 @@
 
 	<c:if test="${!empty authInfo}">
 		<p>${authInfo.name}님 환영합니다.</p>
+
 		
 		<a href="<c:url value='/logout'/>">[로그아웃]</a> <br>
-	
+		
+		<a href="<c:url value='/infoChange'/>">
+				[회원정보 수정]
+			</a>
 		
 	<c:if test="${authInfo.sellerCheck == 'false' }">
 		<a href="<c:url value='/changeSeller'/>">[판매하기]</a>
 		
 	</c:if>
+
 	</c:if>
 </body>
 </html>

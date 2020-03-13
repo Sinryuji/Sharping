@@ -2,7 +2,9 @@ package dao;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+import vo.ChangeMemberVO;
 import vo.ChangePwVO;
+import vo.DeleteVO;
 import vo.MemberVO;
 import vo.SellerVO;
 
@@ -51,13 +53,36 @@ public class MemberDAOImpl implements MemberDAO{
 	}
 	
 	@Override
+	public SellerVO selectSellerById(String id) {
+		return sqlSessionTemplate.selectOne("memberDAO.selectSellerById", id);
+	}
+	
+	@Override
 	public int selectMemberId(String id) {
 		int result = sqlSessionTemplate.selectOne("memberDAO.selectMemberId", id);
 		return result;
 	}
 	
-	@Override
-	public SellerVO selectSellerById(String id) {
-		return sqlSessionTemplate.selectOne("memberDAO.selectSellerById", id);
+
+
+	public int updatePwByIdPw(ChangePwVO changePwVO) {
+		return sqlSessionTemplate.update("memberDAO.updatePwByIdPw", changePwVO);
 	}
+	
+	@Override
+	public int updateMemberInfoById(ChangeMemberVO changeMemberVO) {
+		return sqlSessionTemplate.update("memberDAO.updateMemberInfoById", changeMemberVO);
+	}
+	
+	@Override
+	public int deleteMemberByIdPw(DeleteVO deleteVO) {
+		return sqlSessionTemplate.delete("memberDAO.deleteMemberByIdPw", deleteVO);
+	}
+	
+	@Override
+	public int updateSellerInfoById(ChangeMemberVO changeMemberVO) {
+		return sqlSessionTemplate.update("memberDAO.updateSellerInfoById", changeMemberVO);
+	}
+	
+
 }

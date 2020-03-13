@@ -42,8 +42,11 @@ import org.springframework.web.servlet.ModelAndView;
 
 import dao.MemberDAO;
 import exception.IdPasswordNotMatchingException;
+import exception.PasswordNotMatchingException;
 import vo.AuthInfo;
+import vo.ChangeMemberVO;
 import vo.ChangePwVO;
+import vo.DeleteVO;
 import vo.MemberVO;
 import vo.SellerVO;
 
@@ -106,6 +109,11 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO searchMemberById(String id) {
 		return memberDAO.selectMemberById(id);
 	}
+	
+	@Override
+	public SellerVO searchSellerById(String id) {
+		return memberDAO.selectSellerById(id);
+	}
 
 	@Override
 	public AuthInfo login(String id, String password) {
@@ -120,10 +128,11 @@ public class MemberServiceImpl implements MemberService {
 		}
 
 		if (sellerVO == null) {
-		return new AuthInfo(memberVO.getId(), memberVO.getEmail(), memberVO.getName(), "false");
+		return new AuthInfo(memberVO.getId(), memberVO.getEmail(), memberVO.getName(), "false", memberVO.getPhone());
 		} else {
-			return new AuthInfo(memberVO.getId(), memberVO.getEmail(), memberVO.getName(), "true");
+			return new AuthInfo(memberVO.getId(), memberVO.getEmail(), memberVO.getName(), "true", memberVO.getPhone());
 		}
+
 		}
 
 
@@ -137,11 +146,13 @@ public class MemberServiceImpl implements MemberService {
 		
 		String authCode = String.valueOf(ran);
 		
+
 		session.setAttribute("authCode", authCode);
 		
 		session.setAttribute("random", random);
 		
 		String sender="01096580540";
+
 
 
 		// 인증 코드를 데이터베이스에 저장하는 코드는 생략했습니다.
@@ -207,6 +218,42 @@ public class MemberServiceImpl implements MemberService {
 		int result = memberDAO.selectMemberId(id);
 		return result;
 	}
+
+	@Override
+	public int updatePwByIdPw(ChangePwVO changePwVO) {
+		MemberVO memberVO = memberDAO.selectMemberById(changePwVO.getId());
+		String password = changePwVO.getPassword();
+		if(BCrypt.checkpw(password, memberVO.getPassword())) {
+			changePwVO.setPassword(memberVO.getPassword());
+		} else {
+			throw new PasswordNotMatchingException();
+		}
+		return memberDAO.updatePwByIdPw(changePwVO);
+	}
+	
+	@Override
+	public int updateMemberInfoById(ChangeMemberVO changeMemberVO) {
+		return memberDAO.updateMemberInfoById(changeMemberVO);
+	}
+	
+	@Override
+	public int deleteMemberByIdPw(DeleteVO deleteVO) {
+		MemberVO memberVO = memberDAO.selectMemberById(deleteVO.getId());
+		String password = deleteVO.getPassword();
+		if(!BCrypt.checkpw(password, memberVO.getPassword())) {
+			throw new PasswordNotMatchingException();
+		}       
+		deleteVO.setPassword(memberVO.getPassword());
+		return memberDAO.deleteMemberByIdPw(deleteVO);
+	}
+	
+	@Override
+	public int updateSellerInfoById(ChangeMemberVO changeMemberVO) {
+		return memberDAO.updateSellerInfoById(changeMemberVO);
+	}
+	
+
+
 	
 	@Override
 	public boolean sendEmail(String subject,String text,String from,String to, String filePath) {

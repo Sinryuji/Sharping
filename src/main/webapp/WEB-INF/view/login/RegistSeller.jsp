@@ -67,7 +67,9 @@ function phoneCheck() {
 		});
 	}
 
+
 function idCheck(){
+
 	 var query = {id : $("#id").val()};
 	 
 	 $.ajax({

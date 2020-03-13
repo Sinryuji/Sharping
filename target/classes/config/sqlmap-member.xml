@@ -9,7 +9,7 @@
 	</insert>
 	
 	<insert id="insertSeller" parameterType="sellerVO">
-		INSERT INTO SELLER VALUES (#{id}, #{storeName}, #{storeAddress}, #{storeText}, 1, #{post}, #{address}, #{bankAccount}, #{bankCode})
+		INSERT INTO SELLER VALUES (#{id}, #{storeName}, #{storeAddress}, #{storeText}, 1, #{post}, #{address}, #{bankCode}, #{bankAccount})
 	</insert>
 	
 	<select id="selectIdByEmail" parameterType="String" resultType="String">
@@ -31,12 +31,39 @@
 	<select  id="selectMemberById" resultType="memberVO" parameterType="String">
 		SELECT * FROM MEMBER WHERE "id"=#{id}
 	 </select>
+	 
+	 <select  id="selectSellerById" resultType="sellerVO" parameterType="String">
+		SELECT * FROM SELLER WHERE "id"=#{id}
+	 </select>
 
 	<select  id="selectMemberId" resultType="int" parameterType="String">
 		SELECT COUNT(*) FROM MEMBER WHERE "id"=#{id}
 	 </select>
 	 
+
 	 <select id="selectSellerById" resultType="sellerVO" parameterType="String">
 	 	SELECT * FROM SELLER WHERE "id"=#{id}
 	 </select>
+
+	<update id="updatePwByIdPw" parameterType="changePwVO">
+		UPDATE MEMBER SET "password" = #{newPassword} WHERE "id" = #{id} and "password" = #{password}
+	</update>
+	
+	<update id="updateMemberInfoById" parameterType="changeMemberVO">
+		UPDATE MEMBER SET "phone" = #{newPhone} , "email" = #{newEmail} WHERE "id" = #{id}
+	</update>
+	
+	<delete id="deleteMemberByIdPw" parameterType="deleteVO">
+		DELETE FROM MEMBER WHERE "id" = #{id} and "password" = #{password}
+	</delete>
+	
+	<update id="updateSellerInfoById" parameterType="changeMemberVO">
+		UPDATE SELLER SET 
+		"storeName" = #{newStoreName} ,	"storeAddress" = #{newStoreAddress} , 
+		"storeText" = #{newStoreText} ,	"post" = #{newPost} , "address" = #{newAddress} ,
+		"bankCode" = #{newBankCode} , "bankAcount" = #{newBankAccount}  
+		 WHERE "id" = #{id}
+	</update>
+	
+	
 </mapper>
