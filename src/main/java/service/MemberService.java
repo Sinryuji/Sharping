@@ -29,6 +29,8 @@ public interface MemberService {
 	public abstract String sendSms(String receiver, int random, HttpServletRequest req);
 
 	public abstract int idCheck(String id);
+	
+	public boolean sendEmail(String subject, String text, String from, String to, String filePath);
 
 
 }
