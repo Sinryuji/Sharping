@@ -47,10 +47,9 @@ function phoneCheck() {
 			}
 		});
 	}
-</script>
-<script>
 
-$(".idCheck").click(function(){
+
+function idCheck(){
 	 
 	 var query = {id : $("#id").val()};
 	 
@@ -72,14 +71,14 @@ $(".idCheck").click(function(){
 	   	}
 	  }
 	 });  // ajax 끝
-	});
+	};
 
 </script>
 </head>
 <body>
 	<form action="registCompleteSeller" method="post">
 		이름:<input type="text" name="name"><br> 
-		아이디 : <input type="text" id="id" name="id"/>&nbsp&nbsp&nbsp<button class="idCheck" type="button">중복확인</button><br><br>
+		아이디 : <input type="text" id="id" name="id"/>&nbsp&nbsp&nbsp<input type="button" onclick="idCheck();" value="중복확인"><br><br>
 		비밀번호:<input type="text" name="password" /><br> 
 		비밀번호 재입력:<input type="text" name="passwordCheck" /><br> 
 		휴대폰번호:<input type="text" name="phone" id="phone" />

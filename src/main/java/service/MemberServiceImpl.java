@@ -22,8 +22,11 @@ import org.springframework.stereotype.Service;
 
 import dao.MemberDAO;
 import exception.IdPasswordNotMatchingException;
+import exception.PasswordNotMatchingException;
 import vo.AuthInfo;
+import vo.ChangeMemberVO;
 import vo.ChangePwVO;
+import vo.DeleteVO;
 import vo.MemberVO;
 import vo.SellerVO;
 
@@ -77,6 +80,11 @@ public class MemberServiceImpl implements MemberService {
 	public MemberVO searchMemberById(String id) {
 		return memberDAO.selectMemberById(id);
 	}
+	
+	@Override
+	public SellerVO searchSellerById(String id) {
+		return memberDAO.selectSellerById(id);
+	}
 
 	@Override
 	public AuthInfo login(String id, String password) {
@@ -87,7 +95,7 @@ public class MemberServiceImpl implements MemberService {
 		if(!BCrypt.checkpw(password, memberVO.getPassword())) {
 			throw new IdPasswordNotMatchingException();
 		}
-		return new AuthInfo(memberVO.getId(), memberVO.getEmail(), memberVO.getName());
+		return new AuthInfo(memberVO.getId(), memberVO.getEmail(), memberVO.getName(), memberVO.getPhone());
 		}
 
 	@Override
@@ -95,7 +103,9 @@ public class MemberServiceImpl implements MemberService {
 		// 6자리 인증 코드 생성
 		rand = (int) (Math.random() * 899999) + 100000;
 		
-		String sender="01033543929";
+		System.out.println(rand);
+		
+		String sender="01096580540";
 
 		// 인증 코드를 데이터베이스에 저장하는 코드는 생략했습니다.
 
@@ -107,7 +117,7 @@ public class MemberServiceImpl implements MemberService {
 		credsProvider.setCredentials(new AuthScope(hostname, 443, AuthScope.ANY_REALM),
 
 				// 청기와랩에 등록한 Application Id 와 API key 를 입력합니다.
-				new UsernamePasswordCredentials("sinsegae", "e4d70bc45f8711ea8dea0cc47a1fcfae"));
+				new UsernamePasswordCredentials("jcyy", "832390da643911ea986f0cc47a1fcfae"));
 
 		AuthCache authCache = new BasicAuthCache();
 		authCache.put(new HttpHost(hostname, 443, "https"), new BasicScheme());
@@ -159,6 +169,40 @@ public class MemberServiceImpl implements MemberService {
 		int result = memberDAO.selectMemberId(id);
 		return result;
 	}
+	
+	@Override
+	public int updatePwByIdPw(ChangePwVO changePwVO) {
+		MemberVO memberVO = memberDAO.selectMemberById(changePwVO.getId());
+		String password = changePwVO.getPassword();
+		if(BCrypt.checkpw(password, memberVO.getPassword())) {
+			changePwVO.setPassword(memberVO.getPassword());
+		} else {
+			throw new PasswordNotMatchingException();
+		}
+		return memberDAO.updatePwByIdPw(changePwVO);
+	}
+	
+	@Override
+	public int updateMemberInfoById(ChangeMemberVO changeMemberVO) {
+		return memberDAO.updateMemberInfoById(changeMemberVO);
+	}
+	
+	@Override
+	public int deleteMemberByIdPw(DeleteVO deleteVO) {
+		MemberVO memberVO = memberDAO.selectMemberById(deleteVO.getId());
+		String password = deleteVO.getPassword();
+		if(!BCrypt.checkpw(password, memberVO.getPassword())) {
+			throw new PasswordNotMatchingException();
+		}       
+		deleteVO.setPassword(memberVO.getPassword());
+		return memberDAO.deleteMemberByIdPw(deleteVO);
+	}
+	
+	@Override
+	public int updateSellerInfoById(ChangeMemberVO changeMemberVO) {
+		return memberDAO.updateSellerInfoById(changeMemberVO);
+	}
+	
 }
 	
 

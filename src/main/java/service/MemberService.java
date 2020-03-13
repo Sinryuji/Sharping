@@ -1,9 +1,9 @@
 package service;
 
-import javax.servlet.http.HttpSession;
-
 import vo.AuthInfo;
+import vo.ChangeMemberVO;
 import vo.ChangePwVO;
+import vo.DeleteVO;
 import vo.MemberVO;
 import vo.SellerVO;
 
@@ -23,12 +23,19 @@ public interface MemberService {
 	
 	public abstract MemberVO searchMemberById(String id);
 	
-	public abstract AuthInfo login(String id, String password);
+	public abstract SellerVO searchSellerById(String id);
 	
+	public abstract AuthInfo login(String id, String password);
 
 	public abstract String sendSms(String receiver);
 
 	public abstract int idCheck(String id);
 
-
+	public abstract int updatePwByIdPw(ChangePwVO changePwVO);
+	
+	public abstract int updateMemberInfoById(ChangeMemberVO changeMemberVO);
+	
+	public abstract int deleteMemberByIdPw(DeleteVO deleteVO);
+	
+	public abstract int updateSellerInfoById(ChangeMemberVO changeMemberVO);
 }

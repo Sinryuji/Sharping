@@ -1,8 +1,8 @@
 package controller;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
-
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
@@ -12,10 +12,13 @@ import org.springframework.web.bind.annotation.ResponseBody;
 
 import exception.AlreadyExistingIdException;
 import exception.IdPasswordNotMatchingException;
+import exception.PasswordNotMatchingException;
 import service.MemberService;
 import service.MemberServiceImpl;
 import vo.AuthInfo;
+import vo.ChangeMemberVO;
 import vo.ChangePwVO;
+import vo.DeleteVO;
 import vo.LoginVO;
 import vo.MemberVO;
 import vo.SellerVO;
@@ -201,4 +204,79 @@ public class MemberController {
 		return result;
 
 	}
+	
+	// 회원 정보 수정 페이지
+	@RequestMapping(value = "/infoChange")
+	public String infoChange() {
+		return "mypage/InfoChange";
+	}
+	
+	// 구매자 회원 정보 수정 탭
+	@RequestMapping(value = "/infoChangeMember")
+	public String infoChangeMember() {
+		return "mypage/InfoChangeMember";
+	}
+
+	// 판매자 회원 정보 수정 탭
+	@RequestMapping(value = "/infoChangeSeller")
+	public String infoChangeSeller(HttpServletRequest req , Model model) {
+		HttpSession session = req.getSession();
+		AuthInfo authInfo = (AuthInfo)session.getAttribute("authInfo");
+		SellerVO sellerVO = memberService.searchSellerById(authInfo.getId());
+		model.addAttribute("seller", sellerVO);
+		return "mypage/InfoChangeSeller";
+	}
+	
+	// 회원 비밀번호 변경
+	@RequestMapping(value = "/infoChangePw")
+	public String changePw(ChangePwVO changePwVO , Model model) {
+		
+		String newPassword = changePwVO.getNewPassword();
+		String hashPw = BCrypt.hashpw(newPassword, BCrypt.gensalt());
+		changePwVO.setNewPassword(hashPw);
+		try {
+		memberService.updatePwByIdPw(changePwVO);
+		} catch(PasswordNotMatchingException e) {
+			e.printStackTrace();
+			return "";
+		}
+		model.addAttribute("newPassword", newPassword);
+		return "mypage/InfoChangePwResult";
+	}	
+	
+	// 구매자 회원 정보 수정
+	@RequestMapping(value = "/infoChangeMemberComplete")
+	public String infoChangeMemberComplete(ChangeMemberVO changeMemberVO) {
+		memberService.updateMemberInfoById(changeMemberVO);
+		return "mypage/InfoChangeMemberResult";
+	}
+	
+	// 판매자 회원 정보 수정
+	@RequestMapping(value = "/infoChangeSellerComplete")
+	public String infoChangeSellerComplete(ChangeMemberVO changeMemberVO) {
+		System.out.println(changeMemberVO);
+		memberService.updateMemberInfoById(changeMemberVO);
+		memberService.updateSellerInfoById(changeMemberVO);
+		return "mypage/InfoChangeMemberResult";
+	}
+
+	// 회원 탈퇴 페이지
+	@RequestMapping(value = "/infoDelete")
+	public String infoDelete() {
+		return "mypage/InfoDelete";
+	}
+	
+	// 회원 탈퇴
+	@RequestMapping(value = "/infoDeleteComplete")
+	public String infoDeleteComplete(DeleteVO deleteVO , HttpSession session) {
+		memberService.deleteMemberByIdPw(deleteVO);
+		session.invalidate();
+		return "mypage/InfoDeleteResult";
+	}
+	
+	@RequestMapping(value = "/phoneCheck")
+	public String phoneCheck() {
+		return "mypage/PhoneCheck";
+	}
+	
 }

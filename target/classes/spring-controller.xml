@@ -10,8 +10,10 @@
 	<mvc:interceptors>
 	
 		<mvc:interceptor>
-
-			<mvc:mapping path="" />
+			
+			<mvc:mapping path="/infoChange/**" />	
+			<mvc:mapping path="/infoChangeMember/**" />
+			<mvc:mapping path="/infoChangeSeller/**" />
 
 			<bean class="interceptor.AuthCheckInterceptor" />
 

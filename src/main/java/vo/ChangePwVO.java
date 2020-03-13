@@ -11,18 +11,14 @@ public class ChangePwVO {
 		super();
 	}
 	
-	public ChangePwVO(String email, String newPassword, String phone) {
+	public ChangePwVO(String id, String email, String newPassword, String phone) {
 		super();
+		this.id = id;
 		this.email = email;
 		this.newPassword = newPassword;
 		this.phone = phone;
 	}
 
-	public ChangePwVO(String id, String password) {
-		super();
-		this.id = id;
-		this.password = password;
-	}
 
 	public String getId() {
 		return id;

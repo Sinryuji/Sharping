@@ -13,5 +13,7 @@
 		<typeAlias alias="memberVO" type="vo.MemberVO"></typeAlias>
 		<typeAlias alias="sellerVO" type="vo.SellerVO"></typeAlias>
 		<typeAlias alias="changePwVO" type="vo.ChangePwVO"></typeAlias>
+		<typeAlias alias="changeMemberVO" type="vo.ChangeMemberVO"></typeAlias>
+		<typeAlias alias="deleteVO" type="vo.DeleteVO"></typeAlias>
 	</typeAliases>
 </configuration>
