@@ -137,6 +137,8 @@ public class MemberServiceImpl implements MemberService {
 		
 		HttpSession session = req.getSession(true);
 		
+		System.out.println(ran);
+		
 		String authCode = String.valueOf(ran);
 		
 
@@ -158,7 +160,7 @@ public class MemberServiceImpl implements MemberService {
 		credsProvider.setCredentials(new AuthScope(hostname, 443, AuthScope.ANY_REALM),
 
 				// 청기와랩에 등록한 Application Id 와 API key 를 입력합니다.
-				new UsernamePasswordCredentials("jcyy", "832390da643911ea986f0cc47a1fcfae"));
+				new UsernamePasswordCredentials("chjj", "3643d0c864f611eab34f0cc47a1fcfae"));
 
 		AuthCache authCache = new BasicAuthCache();
 		authCache.put(new HttpHost(hostname, 443, "https"), new BasicScheme());

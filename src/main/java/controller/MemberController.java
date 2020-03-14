@@ -136,10 +136,14 @@ public class MemberController {
 		return "login/SearchIdResult";
 	}
 
-	// 비밀번호 재설정 탭
+	// 비밀번호 재설정
 	@RequestMapping(value = "/changePw")
-	public String changePw() {
-		return "login/ChangePw";
+	public ModelAndView changePw() {
+		ModelAndView mv = new ModelAndView();
+		int ran = new Random().nextInt(900000) + 100000;
+		mv.setViewName("login/RegistSeller");
+		mv.addObject("random", ran);
+		return mv;
 	}
 
 	// 이메일로 비밀번호 재설정 완료
@@ -222,7 +226,7 @@ public class MemberController {
 	}
 
 
-	// 이메일 인증 탭
+	// 아이디 찾기
 	@ResponseBody
 	@RequestMapping("/searchId")
 	public ModelAndView board2() {
@@ -294,8 +298,12 @@ public class MemberController {
 
 	// 판매자 전환 페이지
 	@RequestMapping(value = "/changeSeller")
-	public String changeSeller() {
-		return "login/ChangeSeller";
+	public ModelAndView changeSeller() {
+		ModelAndView mv = new ModelAndView();
+		int ran = new Random().nextInt(900000) + 100000;
+		mv.setViewName("login/ChangeSeller");
+		mv.addObject("random", ran);
+		return mv;
 	}
 	
 	// 판매자 전환 완료

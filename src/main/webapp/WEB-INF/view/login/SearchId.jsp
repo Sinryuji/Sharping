@@ -102,7 +102,6 @@ $(function(){
 </script>
 </head>
 <body>
-<<<<<<< HEAD:src/main/webapp/WEB-INF/view/login/SearchId.jsp
 
 <h1>아이디 찾기 방법을 선택해주세요</h1>
 
@@ -115,7 +114,7 @@ $(function(){
 	<button type="button" id="emailBtn">이메일발송</button>
 	<input type="text" id="emailCheck" placeholder="인증번호입력">
 	<button type="button" id="emailCheckBtn">이메일인증</button>
-	<input type="text" path="random" id="random" value="${random}"/>
+	<input type="hidden" path="random" id="random" value="${random}"/>
 	
 	<input type="submit" id="searchIdEmail" name="searchIdEmail"
 			value="찾기" disabled="true">
