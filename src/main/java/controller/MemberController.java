@@ -41,6 +41,7 @@ public class MemberController {
 		this.memberService = memberService;
 	}
 
+	
 	// 메인
 	@RequestMapping("/main")
 	public String main() {
