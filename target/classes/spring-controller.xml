@@ -27,4 +27,9 @@
 		<property name="memberService" ref="memberServiceImpl" />
 	</bean>
 	
+	<bean id="productController" class="controller.ProductController">
+		<property name="productService" ref="productServiceImpl"/>
+		<property name="memberService" ref="memberServiceImpl"/>
+	</bean>
+	
 </beans>
