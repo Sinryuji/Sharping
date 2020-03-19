@@ -1,7 +1,7 @@
 package vo;
 
+import java.sql.Date;
 import java.sql.Timestamp;
-import java.util.Date;
 
 public class ProductVO {
 
@@ -14,23 +14,23 @@ public class ProductVO {
 	private String productDisplay;
 	private int stock;
 	private int categoryNum;
-	private Date productDate;
+	private Timestamp productDate;
 	private String id;
 	private String productMeterial;
 	private String manufacturer;
-	private Timestamp mfDate;
+	private Date mfDate;
 	private String origin;
 	private int deliveryPrice;
 	private String optionOneName;
 	private String optionTwoName;
 	private String optionThreeName;
-	
+
 	public ProductVO() {
 		super();
 	}
 	public ProductVO(int productNum, String productName, String productText, int productPrice, String productThumb,
-			String productImage, String productDisplay, int stock, int categoryNum, Date productDate, String id,
-			String productMeterial, String manufacturer, Timestamp mfDate, String origin, int deliveryPrice,
+			String productImage, String productDisplay, int stock, int categoryNum, Timestamp productDate, String id,
+			String productMeterial, String manufacturer, Date mfDate, String origin, int deliveryPrice,
 			String optionOneName, String optionTwoName, String optionThreeName) {
 		super();
 		this.productNum = productNum;
@@ -107,10 +107,10 @@ public class ProductVO {
 	public void setCategoryNum(int categoryNum) {
 		this.categoryNum = categoryNum;
 	}
-	public Date getProductDate() {
+	public Timestamp getProductDate() {
 		return productDate;
 	}
-	public void setProductDate(Date productDate) {
+	public void setProductDate(Timestamp productDate) {
 		this.productDate = productDate;
 	}
 	public String getId() {
@@ -131,10 +131,13 @@ public class ProductVO {
 	public void setManufacturer(String manufacturer) {
 		this.manufacturer = manufacturer;
 	}
-	public Timestamp getMfDate() {
+
+
+	public Date getMfDate() {
 		return mfDate;
 	}
-	public void setMfDate(Timestamp mfDate) {
+
+	public void setMfDate(Date mfDate) {
 		this.mfDate = mfDate;
 	}
 	public String getOrigin() {
@@ -181,4 +184,5 @@ public class ProductVO {
 
 	
 
+	
 }

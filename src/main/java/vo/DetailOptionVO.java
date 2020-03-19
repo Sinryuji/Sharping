@@ -1,15 +1,16 @@
 package vo;
 
 public class DetailOptionVO {
-
+	
 	private int doNum;
 	private String optionName;
 	private int optionLevel;
 	private int productNum;
 	
-	public DetailOptionVO() {
+		public DetailOptionVO() {
 		super();
 	}
+
 	public DetailOptionVO(int doNum, String optionName, int optionLevel, int productNum) {
 		super();
 		this.doNum = doNum;
@@ -17,6 +18,7 @@ public class DetailOptionVO {
 		this.optionLevel = optionLevel;
 		this.productNum = productNum;
 	}
+
 	public int getDoNum() {
 		return doNum;
 	}
@@ -46,7 +48,6 @@ public class DetailOptionVO {
 		return "DetailOptionVO [doNum=" + doNum + ", optionName=" + optionName + ", optionLevel=" + optionLevel
 				+ ", productNum=" + productNum + "]";
 	}
-	
-	
+
 	
 }

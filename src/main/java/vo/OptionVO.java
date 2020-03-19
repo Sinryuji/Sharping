@@ -2,6 +2,7 @@ package vo;
 
 public class OptionVO {
 
+
 	private int optionNum;
 	private int productNum;
 	private int stock;
@@ -9,9 +10,11 @@ public class OptionVO {
 	private int optionTwoNum;
 	private int optionThreeNum;
 
+
 	public OptionVO() {
 		super();
 	}
+
 
 	public OptionVO(int optionNum, int productNum, int stock, int optionOneNum, int optionTwoNum, int optionThreeNum) {
 		super();
@@ -23,9 +26,11 @@ public class OptionVO {
 		this.optionThreeNum = optionThreeNum;
 	}
 
+
 	public int getOptionNum() {
 		return optionNum;
 	}
+
 
 	public void setOptionNum(int optionNum) {
 		this.optionNum = optionNum;
@@ -35,9 +40,11 @@ public class OptionVO {
 		return productNum;
 	}
 
+
 	public void setProductNum(int productNum) {
 		this.productNum = productNum;
 	}
+
 
 	public int getStock() {
 		return stock;
@@ -47,13 +54,16 @@ public class OptionVO {
 		this.stock = stock;
 	}
 
+
 	public int getOptionOneNum() {
 		return optionOneNum;
 	}
 
+
 	public void setOptionOneNum(int optionOneNum) {
 		this.optionOneNum = optionOneNum;
 	}
+
 
 	public int getOptionTwoNum() {
 		return optionTwoNum;
@@ -63,12 +73,15 @@ public class OptionVO {
 		this.optionTwoNum = optionTwoNum;
 	}
 
+
 	public int getOptionThreeNum() {
 		return optionThreeNum;
 	}
+
 
 	public void setOptionThreeNum(int optionThreeNum) {
 		this.optionThreeNum = optionThreeNum;
 	}
 
 }
+
