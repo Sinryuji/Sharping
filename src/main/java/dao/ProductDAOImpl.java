@@ -6,8 +6,9 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import vo.DetailOptionVO;
 import vo.OptionVO;
-import vo.OrderVO;
+import vo.ProductListVO;
 import vo.ProductVO;
+import vo.SearchVO;
 
 public class ProductDAOImpl implements ProductDAO{
 
@@ -75,6 +76,11 @@ public class ProductDAOImpl implements ProductDAO{
 	@Override
 	public int insertDetailOption(DetailOptionVO detailOptionVO) {
 		return sqlSessionTemplate.insert("optionDAO.insertDetailOption" , detailOptionVO);
+	}
+	
+	@Override
+	public List<ProductListVO> getProductList(SearchVO search) {
+		return sqlSessionTemplate.selectList("productDAO.getProductList", search);
 	}
 
 }

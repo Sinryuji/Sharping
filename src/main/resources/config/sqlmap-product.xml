@@ -5,62 +5,107 @@
 <mapper namespace="productDAO">
 
 	<insert id="insertProduct" parameterType="productVO">
-		INSERT INTO PRODUCT VALUES (PRODUCT_SEQ.nextval, #{productName}, #{productText}, 
-									#{productPrice}, #{productThumb}, #{productImage},
-									#{productDisplay} , #{stock} , #{categoryNum} , SYSDATE , 
-									#{id} , #{productMeterial} , #{manufacturer} , #{mfDate} , 
-									#{origin} , #{deliveryPrice} ,
-									#{optionOneName} , #{optionTwoName} , #{optionThreeName})
+		INSERT INTO PRODUCT
+		VALUES (PRODUCT_SEQ.nextval, #{productName}, #{productText},
+		#{productPrice}, #{productThumb}, #{productImage},
+		#{productDisplay} , #{stock} , #{categoryNum} , SYSDATE ,
+		#{id} , #{productMeterial} , #{manufacturer} , #{mfDate} ,
+		#{origin} , #{deliveryPrice} ,
+		#{optionOneName} , #{optionTwoName} , #{optionThreeName})
 	</insert>
-	
+
 	<insert id="insertProductDateIsNull" parameterType="productVO">
-		INSERT INTO PRODUCT ("productNum" , "productName" , "productText" , "productPrice" ,
-							 "productThumb" , "productImage" , "productDisplay" , "stock" , 
-							 "categoryNum" , "productDate" , "id" , "productMeterial" , 
-							 "manufacturer" , "origin" , "deliveryPrice" ,"optionOneName" , "optionTwoName" , "optionThreeName") 
-					VALUES 
-                       (PRODUCT_SEQ.nextval, #{productName}, #{productText}, #{productPrice}, 
-                       						#{productThumb}, #{productImage}, #{productDisplay} ,
-                       						 #{stock} , #{categoryNum} , SYSDATE , #{id} , 
-                       						 #{productMeterial} , #{manufacturer} , #{origin} , #{deliveryPrice} ,
-											#{optionOneName} , #{optionTwoName} , #{optionThreeName})
+		INSERT INTO
+		PRODUCT ("productNum" , "productName" , "productText" , "productPrice"
+		,
+		"productThumb" , "productImage" , "productDisplay" , "stock" ,
+		"categoryNum" , "productDate" , "id" , "productMeterial" ,
+		"manufacturer" , "origin" , "deliveryPrice" ,"optionOneName" , "optionTwoName" ,
+		"optionThreeName")
+		VALUES
+		(PRODUCT_SEQ.nextval, #{productName}, #{productText}, #{productPrice},
+		#{productThumb}, #{productImage}, #{productDisplay} ,
+		#{stock} , #{categoryNum} , SYSDATE , #{id} ,
+		#{productMeterial} , #{manufacturer} , #{origin} , #{deliveryPrice} ,
+		#{optionOneName} , #{optionTwoName} , #{optionThreeName})
 	</insert>
-	
+
 	<insert id="insertOption" parameterType="optionVO">
-		INSERT INTO OPTIONN VALUES (OPTION_SEQ.NEXTVAL, #{productNum}, #{cnt}, #{optionOneNum}, #{optionTwoNum}, #{optionThreeNum})
+		INSERT INTO OPTIONN
+		VALUES (OPTION_SEQ.NEXTVAL, #{productNum}, #{cnt}, #{optionOneNum},
+		#{optionTwoNum}, #{optionThreeNum})
 	</insert>
-	
+
 	<insert id="insertOptionDetailIsNull" parameterType="optionVO">
-		INSERT INTO OPTIONN ("optionNum" , "productNum" , "cnt" , "optionOneNum") VALUES (OPTION_SEQ.NEXTVAL, #{productNum}, #{cnt}, #{optionOneNum})
+		INSERT INTO
+		OPTIONN ("optionNum" , "productNum" , "cnt" , "optionOneNum") VALUES
+		(OPTION_SEQ.NEXTVAL, #{productNum}, #{cnt}, #{optionOneNum})
 	</insert>
-	
+
 	<insert id="insertDetailOption" parameterType="detailOptionVO">
-		INSERT INTO DETAILOPTION VALUES (DETAILOPTION_SEQ.NEXTVAL, #{optionName}, #{optionLevel}, #{productNum})
+		INSERT INTO
+		DETAILOPTION VALUES (DETAILOPTION_SEQ.NEXTVAL, #{optionName},
+		#{optionLevel}, #{productNum})
 	</insert>
 
 	<select id="selectProductByProductNum" resultType="productVO">
-		SELECT * FROM PRODUCT WHERE "productNum" = #{productNum}
+		SELECT * FROM
+		PRODUCT WHERE "productNum" = #{productNum}
 	</select>
-	
+
 	<select id="selectOptionNum" resultType="int">
-		SELECT "optionNum" FROM OPTIONN WHERE "productNum" = #{productNum} and "optionOneNum" = #{optionOneNum} and "optionTwoNum" = #{optionTwoNum} and "optionThreeNum" = #{optionThreeNum}
+		SELECT "optionNum" FROM
+		OPTIONN WHERE "productNum" = #{productNum} and "optionOneNum" =
+		#{optionOneNum} and "optionTwoNum" = #{optionTwoNum} and
+		"optionThreeNum" = #{optionThreeNum}
 	</select>
-	
-	<select id="selectDetailOptionByProductNum" resultType="detailOptionVO">
-		SELECT * FROM DETAILOPTION WHERE "productNum" = #{productNum}
+
+	<select id="selectDetailOptionByProductNum"
+		resultType="detailOptionVO">
+		SELECT * FROM DETAILOPTION WHERE "productNum" =
+		#{productNum}
 	</select>
-	
+
 	<select id="selectOptionLevelMaxByProductNum" resultType="int">
-		SELECT MAX("optionLevel") FROM DETAILOPTION WHERE "productNum" = #{productNum}
+		SELECT
+		MAX("optionLevel") FROM DETAILOPTION WHERE "productNum" =
+		#{productNum}
 	</select>
-	
+
 	<select id="selectProductById" resultType="productVO">
-		SELECT * FROM PRODUCT WHERE "id" = #{id}
+		SELECT * FROM PRODUCT
+		WHERE "id" = #{id}
 	</select>
-	
+
 	<select id="selectOptionByOptionNum" resultType="optionVO">
-		SELECT * FROM OPTIONN WHERE "optionNum" = #{optionNum}
+		SELECT * FROM
+		OPTIONN WHERE "optionNum" = #{optionNum}
 	</select>
-	
+
+	<select resultType="productListVO" id="getProductList">
+		SELECT "productNum", "productName", "productThumb",
+		"productPrice","deliveryPrice" ,"id" FROM PRODUCT WHERE "productName"
+		like '%'||#{keyword}||'%'
+		<if
+			test="searchType=='productNum' and keyword2 != null and keyword2 != '' ">AND "productNum" like '%'||#{keyword2}||'%' </if>
+
+		<if
+			test="searchType=='productName' and keyword2 != null and keyword2 != '' ">AND "productName" like '%'||#{keyword2}||'%' </if>
+
+		<if
+			test="searchType=='id' and keyword2 != null and keyword2 != '' ">AND "id" like '%'||#{keyword2}||'%' </if>
+
+		<if
+			test="minPrice != null and minPrice != '' and maxPrice != null and maxPrice != '' ">AND "productPrice" BETWEEN #{minPrice} AND #{maxPrice} </if>
+
+		<if test="checkDelivery=='on' ">AND "deliveryPrice" = 0 </if>
+
+		<if test="sortType == 'highPrice' ">order by "productPrice" desc </if>
+
+		<if test="sortType == 'lowPrice' ">order by "productPrice" asc </if>
+
+		<if test="sortType == 'productDate' ">order by "productDate" desc </if>
+
+	</select>
 
 </mapper>

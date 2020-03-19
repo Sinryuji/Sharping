@@ -20,7 +20,9 @@ import org.springframework.web.servlet.ModelAndView;
 import exception.AlreadyExistingIdException;
 import exception.IdPasswordNotMatchingException;
 import exception.PasswordNotMatchingException;
+import service.AdminService;
 import service.MemberService;
+import vo.AdminVO;
 import vo.AuthInfo;
 import vo.ChangeMemberVO;
 import vo.ChangePwVO;
@@ -34,9 +36,19 @@ import vo.SellerVO;
 public class MemberController {
 
 	private MemberService memberService;
+	private AdminService adminService;
 
 	public void setMemberService(MemberService memberService) {
 		this.memberService = memberService;
+	}
+	
+
+	public AdminService getAdminService() {
+		return adminService;
+	}
+
+	public void setAdminService(AdminService adminService) {
+		this.adminService = adminService;
 	}
 
 	// 메인
@@ -70,7 +82,7 @@ public class MemberController {
 	// 구매자 회원 가입 완료
 	@RequestMapping(value = "/registCompleteMember")
 	public String registCompleteMember(@Valid MemberVO memberVO) {
-		
+
 		String addressEtc = memberVO.getAddressEtc();
 
 		String address = memberVO.getAddress();
@@ -186,12 +198,23 @@ public class MemberController {
 	@RequestMapping(value = "/loginComplete")
 	public String loginComplete(LoginVO loginVO, HttpSession session) {
 		try {
-			AuthInfo authInfo = memberService.login(loginVO.getId(), loginVO.getPassword());
-			session.setAttribute("authInfo", authInfo);
-			return "login/LoginResult";
+
+			AdminVO adminVO = adminService.login(loginVO.getId(), loginVO.getPassword());
+			if (adminVO != null) {
+				session.setAttribute("adminInfo", adminVO);
+
+			} else {
+
+				AuthInfo authInfo = memberService.login(loginVO.getId(), loginVO.getPassword());
+
+				session.setAttribute("authInfo", authInfo);
+				return "login/LoginResult";
+			}
 		} catch (IdPasswordNotMatchingException e) {
 			return "login/Login";
 		}
+
+		return "admin/AdminPage";
 	}
 
 	// 로그아웃
@@ -418,7 +441,7 @@ public class MemberController {
 
 		return mv;
 	}
-	
+
 	// 주문 페이지의 배송주소록
 	@RequestMapping(value = "/deliveryAddressInOrder")
 	public ModelAndView DeliveryAddressInOrder(HttpServletRequest req) {
@@ -474,7 +497,7 @@ public class MemberController {
 
 		HttpSession session = req.getSession();
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
-		
+
 		String addressEtc = deliveryAddressVO.getAddressEtc();
 
 		String address = deliveryAddressVO.getDaAddress();
@@ -482,11 +505,11 @@ public class MemberController {
 		String addressFinal = address + " " + addressEtc;
 
 		deliveryAddressVO.setDaAddress(addressFinal);
-		
+
 		memberService.insertDeliveryAddress(deliveryAddressVO);
-		
+
 		List<DeliveryAddressVO> deliveryList = memberService.selectDeliveryAddressById(authInfo.getId());
-		
+
 		mv.setViewName("redirect:/deliveryAddress");
 
 		mv.addObject("deliveryList", deliveryList);
@@ -495,58 +518,69 @@ public class MemberController {
 
 		return mv;
 	}
-	
+
 	// 배송주소록 삭제
 	@RequestMapping(value = "deliveryAddressDelete")
 	public ModelAndView DeliveryAddressDelete(@RequestParam String daaName, @RequestParam String id) {
 		ModelAndView mv = new ModelAndView();
-		
+
 		DeliveryAddressVO deliveryAddressVO = new DeliveryAddressVO();
-		
+
 		deliveryAddressVO.setDaaName(daaName);
 		deliveryAddressVO.setId(id);
-		
+
 		memberService.deleteDeliveryAddress(deliveryAddressVO);
-		
+
 		List<DeliveryAddressVO> deliveryList = memberService.selectDeliveryAddressById(deliveryAddressVO.getId());
-		
+
 		mv.setViewName("mypage/DeliveryAddress");
-		
+
 		mv.addObject("deliveryList", deliveryList);
-		
+
 		return mv;
 	}
-	
+
 	// 배송주소록 수정
 	@RequestMapping(value = "deliveryAddressUpdate")
 	public ModelAndView DeliveryAddressUpdate(@RequestParam String daaName, @RequestParam String id) {
 		ModelAndView mv = new ModelAndView();
-		
+
 		DeliveryAddressVO deliveryAddressVO = new DeliveryAddressVO();
-		
+
 		deliveryAddressVO.setDaaName(daaName);
 		deliveryAddressVO.setId(id);
-		
+
 		deliveryAddressVO = memberService.selectDeliveryAddressBydaaNameId(deliveryAddressVO);
-		
+
 		mv.setViewName("mypage/DeliveryAddressUpdate");
 		mv.addObject("deliveryAddress", deliveryAddressVO);
-		
+
 		return mv;
-		
-	
+
 	}
-	
+
 	// 배송 주소록 수정 완료
 	@RequestMapping(value = "deliveryAddressUpdateComplete")
 	public ModelAndView DeliveryAddressUpdateComplete(DeliveryAddressVO deliveryAddressVO) {
 		ModelAndView mv = new ModelAndView();
-		
+
 		memberService.updateDeliveryAddress(deliveryAddressVO);
-		
+
 		mv.setViewName("redirect:/deliveryAddress");
-		
+
 		return mv;
+	}
+
+	// 배송조회
+	@RequestMapping("/deliveryTracker")
+	public String deliveryTracker() {
+		return "mypage/DeliveryTracker";
+	}
+
+	// 관리자 메인
+	@RequestMapping("/admin")
+	public String admin() {
+		return "admin/AdminPage";
 	}
 
 }

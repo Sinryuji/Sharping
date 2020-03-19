@@ -5,8 +5,9 @@ import java.util.List;
 import dao.ProductDAO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
-import vo.OrderVO;
+import vo.ProductListVO;
 import vo.ProductVO;
+import vo.SearchVO;
 
 public class ProductServiceImpl implements ProductService{
 	
@@ -75,5 +76,10 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public int selectOptionLevelMaxByProductNum(int productNum) {
 		return productDAO.selectOptionLevelMaxByProductNum(productNum);
+	}
+	
+	@Override
+	public List<ProductListVO> getProductList(SearchVO search) throws Exception {
+		return productDAO.getProductList(search);
 	}
 }

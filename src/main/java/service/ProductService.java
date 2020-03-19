@@ -2,9 +2,12 @@ package service;
 
 
 import java.util.List;
+
 import vo.DetailOptionVO;
 import vo.OptionVO;
+import vo.ProductListVO;
 import vo.ProductVO;
+import vo.SearchVO;
 
 public interface ProductService {
 	
@@ -30,5 +33,5 @@ public interface ProductService {
 	
 	public abstract int insertDetailOption(DetailOptionVO detailOptionVO);
 	
-	
+	public abstract List<ProductListVO> getProductList(SearchVO search) throws Exception;
 }

@@ -2,9 +2,12 @@ package dao;
 
 
 import java.util.List;
+
 import vo.DetailOptionVO;
 import vo.OptionVO;
+import vo.ProductListVO;
 import vo.ProductVO;
+import vo.SearchVO;
 
 public interface ProductDAO {
 	
@@ -30,6 +33,10 @@ public interface ProductDAO {
 	public abstract int insertOptionDetailIsNull(OptionVO optionVO);
 	
 	public abstract int insertDetailOption(DetailOptionVO detailOptionVO);
+	
+	//상폼리스트
+	public abstract List<ProductListVO> getProductList(SearchVO search) throws Exception;
+
 
 
 }

@@ -5,9 +5,9 @@
 <configuration>
 	<!-- 마이바티스 작동 규칙 정의 -->
 	<settings>
-		<setting name="cacheEnabled" value="false"/>
-		<setting name="useGeneratedKeys" value="false"/>
-		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
 	<typeAliases>
 		<typeAlias alias="memberVO" type="vo.MemberVO"></typeAlias>
@@ -20,5 +20,8 @@
 		<typeAlias alias="detailOptionVO" type="vo.DetailOptionVO"></typeAlias>
 		<typeAlias alias="orderVO" type="vo.OrderVO"></typeAlias>
 		<typeAlias alias="deliveryAddressVO" type="vo.DeliveryAddressVO"></typeAlias>
+		<typeAlias alias="productListVO" type="vo.ProductListVO" ></typeAlias>
+		<typeAlias alias="searchVO" type="vo.SearchVO" ></typeAlias>
+		<typeAlias alias="adminVO" type="vo.AdminVO" ></typeAlias>
 	</typeAliases>
 </configuration>

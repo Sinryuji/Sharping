@@ -1,20 +1,21 @@
 package controller;
 
 
+import java.io.File;
+import java.io.IOException;
+import java.sql.Date;
 import java.util.List;
+import java.util.UUID;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
-import java.io.File;
-import java.io.IOException;
-import java.sql.Date;
-import java.util.UUID;
-
-
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
@@ -24,9 +25,8 @@ import service.MemberService;
 import service.ProductService;
 import vo.AuthInfo;
 import vo.DetailOptionVO;
-import vo.OptionVO;
-import vo.OrderVO;
 import vo.ProductVO;
+import vo.SearchVO;
 import vo.SellerVO;
 
 @Controller
@@ -254,5 +254,43 @@ public class ProductController {
 //		
 //		return mv;
 //	}
+	
+	// 상품 검색 페이지
+	@RequestMapping(value= "/searchProduct")
+	public String SearchProduct() {
+		return "MainPage";
+	}
+	
+	// 상품 리스트 페이지
+	@RequestMapping(value ="/productList", method = RequestMethod.GET)
+	public String getProductList(Model model,
+								@RequestParam(required=false, defaultValue = "productName") String searchType,
+								@RequestParam(required=false) String keyword, @RequestParam(required=false) String keyword2,
+								@RequestParam(required=false) String minPrice, @RequestParam(required=false) String maxPrice,
+								@RequestParam(required=false) String checkDelivery,
+								@RequestParam(required=false, defaultValue = "productDate") String sortType,
+								@RequestParam(required=false) String highPrice, @RequestParam(required=false) String lowPrice,
+								@RequestParam(required=false) String productDate
+								) throws Exception{
+		SearchVO search = new SearchVO();
+		search.setSearchType(searchType);
+		search.setSortType(sortType);
+		search.setKeyword(keyword);
+		search.setKeyword2(keyword2);
+		search.setMinPrice(minPrice);
+		search.setMaxPrice(maxPrice);
+		search.setCheckDelivery(checkDelivery);
+		search.setHighPrice(highPrice);
+		search.setLowPrice(lowPrice);
+		search.setProductDate(productDate);
+		
+		model.addAttribute("productList", productService.getProductList(search));
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("keyword2",keyword2);
+		model.addAttribute("minPrice", minPrice);
+		model.addAttribute("maxPrice", maxPrice);
+		return "product/SearchResult";
+	}
+
 
 }
