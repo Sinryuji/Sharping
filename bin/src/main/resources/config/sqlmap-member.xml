@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybaits.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="memberDAO">
+
+	<insert id="insertMember" parameterType="memberVO">
+		INSERT INTO MEMBER VALUES (#{id}, #{password}, #{name}, #{phone}, #{email}, SYSDATE, 1)
+	</insert>
+	
+	<insert id="insertSeller" parameterType="sellerVO">
+		INSERT INTO SELLER VALUES (#{id}, #{storeName}, #{storeAddress}, #{storeText}, 1, #{post}, #{address}, #{bankCode}, #{bankAccount})
+	</insert>
+	
+	<select id="selectIdByEmail" parameterType="String" resultType="String">
+		SELECT "id" FROM MEMBER WHERE "email" = #{email} 
+	</select>
+	
+	<select id="selectIdByPhone" parameterType="String" resultType="String">
+		SELECT "id" FROM MEMBER WHERE "phone" = #{phone} 
+	</select>
+	
+	<update id="updatePwByEmail" parameterType="changePwVO">
+		UPDATE MEMBER SET "password" = #{newPassword} WHERE "email" = #{email}
+	</update>
+	
+	<update id="updatePwByPhone" parameterType="changePwVO">
+		UPDATE MEMBER SET "password" = #{newPassword} WHERE "phone" = #{phone}
+	</update>
+	
+	<select  id="selectMemberById" resultType="memberVO" parameterType="String">
+		SELECT * FROM MEMBER WHERE "id"=#{id}
+	 </select>
+	 
+	 <select  id="selectSellerById" resultType="sellerVO" parameterType="String">
+		SELECT * FROM SELLER WHERE "id"=#{id}
+	 </select>
+
+	<select  id="selectMemberId" resultType="int">
+		SELECT COUNT(*) FROM MEMBER WHERE "id"=#{id}
+	 </select>
+	 
+	<update id="updatePwByIdPw" parameterType="changePwVO">
+		UPDATE MEMBER SET "password" = #{newPassword} WHERE "id" = #{id} and "password" = #{password}
+	</update>
+	
+	<update id="updateMemberInfoById" parameterType="changeMemberVO">
+		UPDATE MEMBER SET "phone" = #{newPhone} , "email" = #{newEmail} WHERE "id" = #{id}
+	</update>
+	
+	<delete id="deleteMemberByIdPw" parameterType="deleteVO">
+		DELETE FROM MEMBER WHERE "id" = #{id} and "password" = #{password}
+	</delete>
+	
+	<update id="updateSellerInfoById" parameterType="changeMemberVO">
+		UPDATE SELLER SET 
+		"storeName" = #{newStoreName} ,	"storeAddress" = #{newStoreAddress} , 
+		"storeText" = #{newStoreText} ,	"post" = #{newPost} , "address" = #{newAddress} ,
+		"bankCode" = #{newBankCode} , "bankAcount" = #{newBankAccount}  
+		 WHERE "id" = #{id}
+	</update>
+	
+	
+	
+</mapper>
