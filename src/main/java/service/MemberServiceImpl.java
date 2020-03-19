@@ -4,6 +4,7 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
 import java.util.Random;
 
 import javax.mail.MessagingException;
@@ -40,6 +41,7 @@ import vo.AuthInfo;
 import vo.ChangeMemberVO;
 import vo.ChangePwVO;
 import vo.DeleteVO;
+import vo.DeliveryAddressVO;
 import vo.MemberVO;
 import vo.SellerVO;
 
@@ -274,6 +276,31 @@ public class MemberServiceImpl implements MemberService {
 			e.printStackTrace();
 		}
 		return false;
+	}
+	
+	@Override
+	public List<DeliveryAddressVO> selectDeliveryAddressById(String id) {
+		return memberDAO.selectDeliveryAddressById(id);
+	}
+	
+	@Override
+	public int insertDeliveryAddress(DeliveryAddressVO deliveryAddressVO) {
+		return memberDAO.insertDeliveryAddress(deliveryAddressVO);
+	}
+	
+	@Override
+	public int deleteDeliveryAddress(DeliveryAddressVO deliveryAddressVO) {
+		return memberDAO.deleteDeliveryAddress(deliveryAddressVO);
+	}
+	
+	@Override
+	public int updateDeliveryAddress(DeliveryAddressVO deliveryAddressVO) {
+		return memberDAO.updateDeliveryAddress(deliveryAddressVO);
+	}
+	
+	@Override
+	public DeliveryAddressVO selectDeliveryAddressBydaaNameId(DeliveryAddressVO deliveryAddressVO) {
+		return memberDAO.selectDeliveryAddressBydaaNameId(deliveryAddressVO);
 	}
 
 }

@@ -31,13 +31,17 @@
 		
 		<a href="<c:url value='/logout'/>">[로그아웃]</a> <br>
 		
-		<a href="<c:url value='/infoChange'/>">
-				[회원정보 수정]
-			</a>
+		<a href="<c:url value='/infoChange'/>">[회원정보 수정]</a><br>
+		
+		<a href="<c:url value='/myPage'/>">[마이페이지]</a><br>
 		
 	<c:if test="${authInfo.sellerCheck == 'false' }">
 		<a href="<c:url value='/changeSeller'/>">[판매하기]</a>
 		
+	</c:if>
+	
+	<c:if test="${authInfo.sellerCheck == 'true' }">
+		<a href="<c:url value='/sellerPage'/>">[판매자 페이지]</a>
 	</c:if>
 
 	</c:if>

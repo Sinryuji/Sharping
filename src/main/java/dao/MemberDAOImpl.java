@@ -1,10 +1,13 @@
 package dao;
 
+import java.util.List;
+
 import org.mybatis.spring.SqlSessionTemplate;
 
 import vo.ChangeMemberVO;
 import vo.ChangePwVO;
 import vo.DeleteVO;
+import vo.DeliveryAddressVO;
 import vo.MemberVO;
 import vo.SellerVO;
 
@@ -84,5 +87,29 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSessionTemplate.update("memberDAO.updateSellerInfoById", changeMemberVO);
 	}
 	
+	@Override
+	public List<DeliveryAddressVO> selectDeliveryAddressById(String id) {
+		return sqlSessionTemplate.selectList("memberDAO.selectDeliveryAddressById", id);
+	}
+	
+	@Override
+	public int insertDeliveryAddress(DeliveryAddressVO deliveryAddressVO) {
+		return sqlSessionTemplate.insert("memberDAO.insertDeliveryAddress", deliveryAddressVO);
+	}
+	
+	@Override
+	public int deleteDeliveryAddress(DeliveryAddressVO deliveryAddressVO) {
+		return sqlSessionTemplate.delete("memberDAO.deleteDeliveryAddress", deliveryAddressVO);
+	}
+	
+	@Override
+	public int updateDeliveryAddress(DeliveryAddressVO deliveryAddressVO) {
+		return sqlSessionTemplate.update("memberDAO.updateDeliveryAddress", deliveryAddressVO);
+	}
+	
+	@Override
+	public DeliveryAddressVO selectDeliveryAddressBydaaNameId(DeliveryAddressVO deliveryAddressVO) {
+		return sqlSessionTemplate.selectOne("memberDAO.selectDeliveryAddressBydaaNameId", deliveryAddressVO);
+	}
 
 }

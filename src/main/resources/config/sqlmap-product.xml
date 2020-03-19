@@ -7,6 +7,26 @@
 	<select id="selectProductByProductNum" resultType="productVO">
 		SELECT * FROM PRODUCT WHERE "productNum" = #{productNum}
 	</select>
-
+	
+	<select id="selectOptionNum" resultType="int">
+		SELECT "optionNum" FROM OPTIONN WHERE "productNum" = #{productNum} and "optionOneNum" = #{optionOneNum} and "optionTwoNum" = #{optionTwoNum} and "optionThreeNum" = #{optionThreeNum}
+	</select>
+	
+	<select id="selectDetailOptionByProductNum" resultType="detailOptionVO">
+		SELECT * FROM DETAILOPTION WHERE "productNum" = #{productNum}
+	</select>
+	
+	<select id="selectOptionLevelMaxByProductNum" resultType="int">
+		SELECT MAX("optionLevel") FROM DETAILOPTION WHERE "productNum" = #{productNum}
+	</select>
+	
+	<select id="selectProductById" resultType="productVO">
+		SELECT * FROM PRODUCT WHERE "id" = #{id}
+	</select>
+	
+	<select id="selectOptionByOptionNum" resultType="optionVO">
+		SELECT * FROM OPTIONN WHERE "optionNum" = #{optionNum}
+	</select>
+	
 
 </mapper>

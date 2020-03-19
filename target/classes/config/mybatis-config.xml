@@ -16,5 +16,9 @@
 		<typeAlias alias="changeMemberVO" type="vo.ChangeMemberVO"></typeAlias>
 		<typeAlias alias="deleteVO" type="vo.DeleteVO"></typeAlias>
 		<typeAlias alias="productVO" type="vo.ProductVO"></typeAlias>
+		<typeAlias alias="optionVO" type="vo.OptionVO"></typeAlias>
+		<typeAlias alias="detailOptionVO" type="vo.DetailOptionVO"></typeAlias>
+		<typeAlias alias="orderVO" type="vo.OrderVO"></typeAlias>
+		<typeAlias alias="deliveryAddressVO" type="vo.DeliveryAddressVO"></typeAlias>
 	</typeAliases>
 </configuration>

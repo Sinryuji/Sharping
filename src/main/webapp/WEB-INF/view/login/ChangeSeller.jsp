@@ -54,7 +54,7 @@ function phoneCheck() {
 </script>
 
 <!-- 카카오 주소 찾기 api -->
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<!-- <script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
 	<script type="text/javascript">
 		function openDaumZipAddress() {
 			new daum.Postcode({
@@ -66,7 +66,7 @@ function phoneCheck() {
 				}
 			}).open();
 		}
-	</script>
+	</script> -->
 </head>
 <body>
 <form action="changeSellerComplete">
@@ -80,9 +80,9 @@ function phoneCheck() {
 스토어이름:<input type="text" name="storeName" /><br> 
 스토어주소:<input type="text" name="storeAddress" /><br>
 스토어소개글:<input type="text" name="storeText" /><br>
-우편번호:<input type="text" name="post" id="post" readonly /> &nbsp;
+<!-- 우편번호:<input type="text" name="post" id="post" readonly /> &nbsp;
 주소:<input type="text" name="address" id="address" readonly /> &nbsp;
-상세주소:<input type="text" name="addressEtc" id="adressEtc"> &nbsp; <input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /> <br> 
+상세주소:<input type="text" name="addressEtc" id="adressEtc"> &nbsp; <input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /> <br>  -->
 계좌번호:<input type="text" name="bankAccount" /><br> 
 은행코드:<input type="number" name="bankCode" /><br> 
 <input type="submit" id="changeSeller" value="전환하기" disabled="true">

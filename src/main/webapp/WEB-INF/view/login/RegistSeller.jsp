@@ -128,7 +128,7 @@ function idCheck(){
 		스토어소개글:<input type="text" name="storeText" /><br>
 		우편번호:<input type="text" name="post" id="post" readonly /> &nbsp;
 		주소:<input type="text" name="address" id="address" readonly /> &nbsp;
-		상세주소:<input type="text" name="addressEtc" id="adressEtc"> &nbsp; <input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /> <br> 
+		상세주소:<input type="text" name="addressEtc" id="adressEtc"> &nbsp; <input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /> <br>
 		계좌번호:<input type="text" name="bankAccount" /><br> 
 		은행코드:<input type="number" name="bankCode" /><br> 
 		<input type="submit" name="regist" id="regist" value="회원가입하기" disabled="true">

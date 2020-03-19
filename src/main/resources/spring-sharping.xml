@@ -34,6 +34,7 @@
 			<list>
 				<value>classpath:config/sqlmap-member.xml</value>
 				<value>classpath:config/sqlmap-product.xml</value>
+				<value>classpath:config/sqlmap-order.xml</value>
 			</list>
 		</property>
 	</bean>
@@ -61,6 +62,14 @@
 	<bean id="productServiceImpl" class="service.ProductServiceImpl">
 		<property name="productDAO" ref="productDAO"></property>
 	</bean>
+	
+	<bean id="orderDAO" class="dao.OrderDAOImpl">
+		<constructor-arg ref="sqlSessionTemplate"></constructor-arg>
+	</bean>
+	
+	<bean id="orderServiceImpl" class="service.OrderServiceImpl">
+		<property name="orderDAO" ref="orderDAO"></property>
+	</bean> 
 
 
 </beans>

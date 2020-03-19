@@ -32,4 +32,10 @@
 		<property name="memberService" ref="memberServiceImpl"/>
 	</bean>
 	
+	<bean id="orderController" class="controller.OrderController">
+		<property name="orderService" ref="orderServiceImpl"></property>
+		<property name="productService" ref="productServiceImpl"></property>
+		<property name="memberService" ref="memberServiceImpl"></property>
+	</bean>
+	
 </beans>

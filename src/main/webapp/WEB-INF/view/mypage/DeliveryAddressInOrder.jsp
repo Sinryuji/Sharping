@@ -11,7 +11,7 @@
 	crossorigin="anonymous"></script>
 </head>
 <body>
-<input type="button" onclick="location.href='${pageContext.request.contextPath}/deliveryAddressUpload'" value="신규등록">
+<%-- <input type="button" onclick="location.href='${pageContext.request.contextPath}/deliveryAddressUpload'" value="신규등록"> --%>
 <table>
 		<colgroup>
 			<col style="width:5%;" />
@@ -45,7 +45,9 @@
 							<td><c:out value="${list.daPost}"/></td>
 							<td><c:out value="${list.daAddress}"/></td>
 							<td><input type="hidden" id="daaName${status.index}" value="${list.daaName }"><input type="hidden" id="id${status.index}" value="${authInfo.id}">
-							<button class="deliveryAddressUpdate" value="${status.index}">수정</button>&nbsp;<button class="deliveryAddressDelete" value="${status.index}">삭제</button></td>
+							<input type="hidden" id="daName${status.index}" value="${list.daName}"><input type="hidden" id="daPhone${status.index}" value="${list.daPhone}">
+							<input type="hidden" id="daPost${status.index}" value="${list.daPost}"><input type="hidden" id="daAddress${status.index}" value="${list.daAddress}">
+							<button class="deliveryInfoPass" value="${status.index}">선택</button>&nbsp;<button class="deliveryAddressUpdate" value="${status.index}">수정</button>&nbsp;<button class="deliveryAddressDelete" value="${status.index}">삭제</button></td>
 						</tr>
 					</c:forEach>
 				</c:when>
@@ -61,24 +63,15 @@
 					type : "post",
 					data : {
 						daaName : $(daaNameStr).val(),
-						id : $(idStr).val()
-						
-					},
-					
+						id : $(idStr).val()			
+					},		
 					success: function(data) {
 						
 						setTimeout(function() {
 							history.go(0);
 							}, 800);
 					}
-				
-				
-				
-					
 				});
-
-			
-
 		})
 		
 		$('.deliveryAddressUpdate').click(function(){
@@ -112,78 +105,28 @@
 			f.submit();
 			
 		});
-			
-			
-			
-			
-		<%-- 	$.ajax({
-				url : "<%=request.getContextPath()%>/deliveryAddressUpdate",
-					type : "post",
-					data : {
-						daaName : $(daaNameStr).val(),
-						id : $(idStr).val()
-						
-					},
-					
-					success: function(data) {
-						window.location.href="<%=request.getContextPath()%>/deliveryAddressUpdate?daaName=$(daaNameStr).val()&id=$(idStr).val()";
-					}
-				
-				
-				
-					
-				});
-
-			
-
-		}) --%>
 		
-		<%-- $('.deliveryAddressUpdate').click(function(){
-			var daaNameStr = '#daaName' + $(this).val();
-			var idStr = '#id' + $(this).val();
-			$.ajax({
-				url : "<%=request.getContextPath()%>/deliveryAddressUpdate",
-					type : "post",
-					data : {
-						daaName : $(daaNameStr).val(),
-						id : $(idStr).val()
-						
-					},
-					
-					success: function(data) {
-						window.location.href="<%=request.getContextPath()%>/deliveryAddressUpdate?daaName=$(daaNameStr).val()&id=$(idStr).val()";
-					}
-				
-				
-				
-					
-				});
-
-			
-
-		}) --%>
-		
-		<%-- $('.deliveryAddressUpdate').click(function(){
+		$('.deliveryInfoPass').click(function(){
 			var daaNameStr = '#daaName' + $(this).val();
 			var idStr = '#id' + $(this).val();
 			var daNameStr = '#daName' + $(this).val();
 			var daPhoneStr = '#daPhone' + $(this).val();
 			var daPostStr = '#daPost' + $(this).val();
 			var daAddressStr = '#daAddress' + $(this).val();
-			var da
-			$.ajax({
-				url : "<%=request.getContextPath()%>/deliveryAddressUpdate",
-					type : "post",
-					data : {
-						daaName : $(daaNameStr).val(),
-						id : $(idStr).val()
-						
-					}
-				
-				
-					
-				});
-		}) --%>
+			
+			window.opener.document.getElementById("new").checked = true;
+			
+			window.opener.document.getElementById("name").value = $(daNameStr).val();
+			window.opener.document.getElementById("post").value = $(daPostStr).val();
+			window.opener.document.getElementById("address").value = $(daAddressStr).val();
+			window.opener.document.getElementById("phone").value = $(daPhoneStr).val();
+	/* 		window.opener.document.getElementById("daaNameStr").value = $(daaNameStr).val();
+			window.opener.document.getElementById("fromInput").value = $(daaNameStr).val(); */
+			
+			close();
+		})
+			
+	
 	</script>
 </body>
 </html>

@@ -1,8 +1,11 @@
 package dao;
 
+import java.util.List;
+
 import vo.ChangeMemberVO;
 import vo.ChangePwVO;
 import vo.DeleteVO;
+import vo.DeliveryAddressVO;
 import vo.MemberVO;
 import vo.SellerVO;
 
@@ -34,6 +37,16 @@ public interface MemberDAO {
 	public abstract int deleteMemberByIdPw(DeleteVO deleteVO);
 	
 	public abstract int updateSellerInfoById(ChangeMemberVO changeMemberVO);
+	
+	public abstract List<DeliveryAddressVO> selectDeliveryAddressById(String id);
+	
+	public abstract int insertDeliveryAddress(DeliveryAddressVO deliveryAddressVO);
+	
+	public abstract int deleteDeliveryAddress(DeliveryAddressVO deliveryAddressVO);
+	
+	public abstract int updateDeliveryAddress(DeliveryAddressVO deliveryAddressVO);
+	
+	public abstract DeliveryAddressVO selectDeliveryAddressBydaaNameId(DeliveryAddressVO deliveryAddressVO);
 	
 
 }

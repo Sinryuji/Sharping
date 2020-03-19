@@ -7,8 +7,9 @@ public class MemberVO {
 	
 	public MemberVO() {}
 
+
 	public MemberVO(String id, String password, String name, String phone, String email, Timestamp regDate,
-			int memberGrade) {
+			int memberGrade, String post, String address, String addressEtc) {
 		super();
 		this.id = id;
 		this.password = password;
@@ -17,6 +18,9 @@ public class MemberVO {
 		this.email = email;
 		this.regDate = regDate;
 		this.memberGrade = memberGrade;
+		this.post = post;
+		this.address = address;
+		this.addressEtc = addressEtc;
 	}
 
 	private String id;
@@ -26,7 +30,42 @@ public class MemberVO {
 	private String email;
 	private Timestamp regDate;
 	private int memberGrade;
+	private String post;
+	private String address;
+	public String addressEtc;
 	
+	
+	
+	
+	
+	public String getAddressEtc() {
+		return addressEtc;
+	}
+
+
+
+	public void setAddressEtc(String addressEtc) {
+		this.addressEtc = addressEtc;
+	}
+
+
+
+	public String getPost() {
+		return post;
+	}
+
+	public void setPost(String post) {
+		this.post = post;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
 	public String getId() {
 		return id;
 	}

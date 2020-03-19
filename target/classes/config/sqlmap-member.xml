@@ -5,11 +5,11 @@
 <mapper namespace="memberDAO">
 
 	<insert id="insertMember" parameterType="memberVO">
-		INSERT INTO MEMBER VALUES (#{id}, #{password}, #{name}, #{phone}, #{email}, SYSDATE, 1)
+		INSERT INTO MEMBER VALUES (#{id}, #{password}, #{name}, #{phone}, #{email}, SYSDATE, 1, #{post}, #{address})
 	</insert>
 	
 	<insert id="insertSeller" parameterType="sellerVO">
-		INSERT INTO SELLER VALUES (#{id}, #{storeName}, #{storeAddress}, #{storeText}, 1, #{post}, #{address}, #{bankCode}, #{bankAccount})
+		INSERT INTO SELLER VALUES (#{id}, #{storeName}, #{storeAddress}, #{storeText}, 1, #{bankCode}, #{bankAccount})
 	</insert>
 	
 	<select id="selectIdByEmail" parameterType="String" resultType="String">
@@ -58,6 +58,26 @@
 		"storeText" = #{newStoreText} ,	"post" = #{newPost} , "address" = #{newAddress} ,
 		"bankCode" = #{newBankCode} , "bankAcount" = #{newBankAccount}  
 		 WHERE "id" = #{id}
+	</update>
+	
+	<select id="selectDeliveryAddressById" resultType="deliveryAddressVO">
+		SELECT * FROM DELIVERYADDRESS WHERE "id" = #{id}
+	</select>
+	
+	<select id="selectDeliveryAddressBydaaNameId" resultType="deliveryAddressVO">
+		SELECT * FROM DELIVERYADDRESS WHERE "daaName" = #{daaName} AND "id" = #{id}
+	</select>
+	
+	<insert id="insertDeliveryAddress" parameterType="deliveryAddressVO">
+		INSERT INTO DELIVERYADDRESS VALUES (#{id}, #{daPost}, #{daAddress}, #{daaName}, #{daName}, #{daPhone})
+	</insert>
+	
+	<delete id="deleteDeliveryAddress" parameterType="deliveryAddressVO">
+		DELETE FROM DELIVERYADDRESS WHERE "id" = #{id} AND "daaName" = #{daaName}
+	</delete>
+	
+	<update id="updateDeliveryAddress" parameterType="deliveryAddressVO">
+		UPDATE DELIVERYADDRESS SET "id" = #{id}, "daPost" = #{daPost}, "daAddress" = #{daAddress}, "daaName" = #{daaName}, "daName" = #{daName}, "daPhone" = #{daPhone} WHERE "id" = #{id}
 	</update>
 	
 </mapper>

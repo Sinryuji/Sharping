@@ -32,12 +32,14 @@ CREATE TABLE MEMBER (
 	"phone"	VARCHAR2(20)		NOT NULL UNIQUE,
 	"email"	VARCHAR2(40)		NOT NULL UNIQUE,
 	"regDate"	TIMESTAMP		DEFAULT SYSDATE,
-	"memberGrade"	NUMBER		DEFAULT 1
+	"memberGrade"	NUMBER		DEFAULT 1,
+  "post"	VARCHAR2(20)		NOT NULL,
+	"address"	VARCHAR2(200)		NOT NULL
 );
 
 CREATE TABLE ADMIN (
 	"adminId"	VARCHAR2(30)		PRIMARY KEY,
-	"adminPassword"	NUMBER		NOT NULL
+	"adminPassword"	VARCHAR2(70)		NOT NULL
 );
 
 CREATE TABLE CATEGORY (
@@ -83,8 +85,6 @@ CREATE TABLE SELLER (
 	"storeAddress"	VARCHAR2(50)		NOT NULL,
 	"storeText"	VARCHAR2(1000),
 	"sellerGrade"	NUMBER		DEFAULT 1,
-	"post"	VARCHAR2(20)		NOT NULL,
-	"address"	VARCHAR2(200)		NOT NULL,
 	"bankCode"	NUMBER		NOT NULL,
 	"bankAccount"	VARCHAR2(100)		NOT NULL,
   FOREIGN KEY ("id") REFERENCES MEMBER("id") ON DELETE CASCADE,
@@ -172,9 +172,12 @@ CREATE TABLE PRODUCT (
 	"id"	VARCHAR2(30)		NOT NULL,
 	"productMeterial"	VARCHAR2(100),
 	"manufacturer"	VARCHAR2(50),
-	"mfDate"	TIMESTAMP,
+	"mfDate"	DATE,
 	"origin"	VARCHAR2(50),
 	"deliveryPrice"	NUMBER		NOT NULL,
+  "optionOneName" VARCHAR2(20),
+  "optionTwoName" VARCHAR2(20),
+  "optionThreeName" VARCHAR2(20),
   FOREIGN KEY ("categoryNum") REFERENCES CATEGORY("categoryNum") ON DELETE CASCADE,
   FOREIGN KEY ("id") REFERENCES SELLER("id") ON DELETE CASCADE
 );
@@ -197,9 +200,10 @@ CREATE TABLE PAYBANK (
 CREATE TABLE OPTIONN (
 	"optionNum"	NUMBER		PRIMARY KEY,
 	"productNum"	NUMBER		NOT NULL,
-	"cnt"	NUMBER		NOT NULL,
+	"stock"	NUMBER		NOT NULL,
 	"optionOneNum"	NUMBER,
 	"optionTwoNum"	NUMBER,
+  "optionThreeNum" NUMBER,
   FOREIGN KEY ("productNum") REFERENCES PRODUCT("productNum") ON DELETE CASCADE
 );
 
@@ -298,8 +302,9 @@ CREATE TABLE ORDERLIST (
 	"olNum"	NUMBER		PRIMARY KEY,
 	"productName"	VARCHAR2(200)		NOT NULL,
 	"productThumb"	VARCHAR2(200),
-	"optionOneNum"	VARCHAR2(20),
-	"optionTwoNum"	VARCHAR2(20),
+	"optionOneNum"	NUMBER,
+	"optionTwoNum"	NUMBER,
+  "optionThreeNum" NUMBER,
 	"productPrice"	NUMBER		NOT NULL,
 	"cnt"	NUMBER		NOT NULL,
 	"orderNum"	VARCHAR2(100)		NOT NULL,
