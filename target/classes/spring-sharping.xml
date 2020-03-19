@@ -51,15 +51,17 @@
 		<property name="javaMailSender" ref="javaMailSender" />
 	</bean>
 	
-	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
-	</bean>
-	
 	<bean id="productDAO" class="dao.ProductDAOImpl">
 		<constructor-arg ref="sqlSessionTemplate"></constructor-arg>
 	</bean>
 	
 	<bean id="productServiceImpl" class="service.ProductServiceImpl">
 		<property name="productDAO" ref="productDAO"></property>
+	</bean>
+	
+	
+	
+	<bean id="passwordEncoder" class="org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder">
 	</bean>
 
 

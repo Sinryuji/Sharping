@@ -175,6 +175,9 @@ CREATE TABLE PRODUCT (
 	"mfDate"	TIMESTAMP,
 	"origin"	VARCHAR2(50),
 	"deliveryPrice"	NUMBER		NOT NULL,
+  "optionOneName" VARCHAR2(20),
+  "optionTwoName" VARCHAR2(20),
+  "optionThreeName" VARCHAR2(20),
   FOREIGN KEY ("categoryNum") REFERENCES CATEGORY("categoryNum") ON DELETE CASCADE,
   FOREIGN KEY ("id") REFERENCES SELLER("id") ON DELETE CASCADE
 );
@@ -200,6 +203,7 @@ CREATE TABLE OPTIONN (
 	"cnt"	NUMBER		NOT NULL,
 	"optionOneNum"	NUMBER,
 	"optionTwoNum"	NUMBER,
+  "optionThreeNum" NUMBER,
   FOREIGN KEY ("productNum") REFERENCES PRODUCT("productNum") ON DELETE CASCADE
 );
 
@@ -298,8 +302,9 @@ CREATE TABLE ORDERLIST (
 	"olNum"	NUMBER		PRIMARY KEY,
 	"productName"	VARCHAR2(200)		NOT NULL,
 	"productThumb"	VARCHAR2(200),
-	"optionOneNum"	VARCHAR2(20),
-	"optionTwoNum"	VARCHAR2(20),
+	"optionOneNum"	NUMBER,
+	"optionTwoNum"	NUMBER,
+  "optionThreeNum" NUMBER,
 	"productPrice"	NUMBER		NOT NULL,
 	"cnt"	NUMBER		NOT NULL,
 	"orderNum"	VARCHAR2(100)		NOT NULL,

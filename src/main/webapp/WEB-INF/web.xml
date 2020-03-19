@@ -20,6 +20,7 @@
 				classpath:spring-controller.xml
 				classpath:spring-mvc.xml
 				classpath:email-context.xml
+
 			</param-value>
 		</init-param>
 		<!-- 서버 실행 시 로드하도록 -->
@@ -42,6 +43,10 @@
 			<param-name>encoding</param-name>
 			<param-value>UTF-8</param-value>
 		</init-param>
+		 <init-param>
+                <param-name>forceEncoding</param-name>
+                <param-value>true</param-value>
+          </init-param>
 	</filter>
 	
 	<!-- 인코딩 필터가 적용될 url패턴 -->
@@ -60,5 +65,13 @@
 			<transport-guarantee>CONFIDENTIAL</transport-guarantee>
 		</user-data-constraint>
 	</security-constraint> -->
+	<listener>
+		<listener-class>org.springframework.web.util.Log4jConfigListener
+		</listener-class>
+	</listener>
+	<context-param>
+		<param-name>log4jConfigLocation</param-name>
+		<param-value>/WEB-INF/config/log4j.properties</param-value>
+	</context-param>
 	
 </web-app>

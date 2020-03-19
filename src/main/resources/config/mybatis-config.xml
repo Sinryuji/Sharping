@@ -15,6 +15,10 @@
 		<typeAlias alias="changePwVO" type="vo.ChangePwVO"></typeAlias>
 		<typeAlias alias="changeMemberVO" type="vo.ChangeMemberVO"></typeAlias>
 		<typeAlias alias="deleteVO" type="vo.DeleteVO"></typeAlias>
-		<typeAlias alias="productVO" type="vo.ProductVO"></typeAlias>
+		<typeAlias alias="productVO" type="vo.ProductVO"></typeAlias>		
+		<typeAlias alias="basketVO" type="vo.BasketVO"></typeAlias>
+		<typeAlias alias="detailOptionVO" type="vo.DetailOptionVO"></typeAlias>
+		<typeAlias alias="optionVO" type="vo.OptionVO"></typeAlias>
+		<typeAlias alias="basketListVO" type="vo.BasketListVO"></typeAlias>
 	</typeAliases>
-</configuration>
+</configuration> 

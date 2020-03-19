@@ -84,5 +84,7 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSessionTemplate.update("memberDAO.updateSellerInfoById", changeMemberVO);
 	}
 	
+	
+	
 
 }

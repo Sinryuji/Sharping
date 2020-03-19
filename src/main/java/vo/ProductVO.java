@@ -20,14 +20,23 @@ public class ProductVO {
 	private Timestamp mfDate;
 	private String origin;
 	private int deliveryPrice;
+	private String optionOneName;
+	private String optionTwoName;
+	private String optionThreeName;
+	
 
+	
+	
+	
 	public ProductVO() {
 		super();
 	}
 
 	public ProductVO(int productNum, String productName, String productText, int productPrice, String productThumb,
 			String productImage, String productDisplay, int stock, int categoryNum, Timestamp productDate, String id,
-			String productMeterial, String manufacturer, Timestamp mfDate, String origin, int deliveryPrice) {
+			String productMeterial, String manufacturer, Timestamp mfDate, String origin, int deliveryPrice,
+			String optionOneName, String optionTwoName, String optionThreeName, int optionNum, int cnt,
+			int optionOneNum, int optionTwoNum) {
 		super();
 		this.productNum = productNum;
 		this.productName = productName;
@@ -45,8 +54,11 @@ public class ProductVO {
 		this.mfDate = mfDate;
 		this.origin = origin;
 		this.deliveryPrice = deliveryPrice;
+		this.optionOneName = optionOneName;
+		this.optionTwoName = optionTwoName;
+		this.optionThreeName = optionThreeName;
 	}
-
+		
 	public int getProductNum() {
 		return productNum;
 	}
@@ -174,5 +186,37 @@ public class ProductVO {
 	public void setDeliveryPrice(int deliveryPrice) {
 		this.deliveryPrice = deliveryPrice;
 	}
+	public String getOptionOneName() {
+		return optionOneName;
+	}
+	public void setOptionOneName(String optionOneName) {
+		this.optionOneName = optionOneName;
+	}
+	public String getOptionTwoName() {
+		return optionTwoName;
+	}
+	public void setOptionTwoName(String optionTwoName) {
+		this.optionTwoName = optionTwoName;
+	}
+	public String getOptionThreeName() {
+		return optionThreeName;
+	}
+	public void setOptionThreeName(String optionThreeName) {
+		this.optionThreeName = optionThreeName;
+	}
+
+	@Override
+	public String toString() {
+		return "ProductVO [productNum=" + productNum + ", productName=" + productName + ", productText=" + productText
+				+ ", productPrice=" + productPrice + ", productThumb=" + productThumb + ", productImage=" + productImage
+				+ ", productDisplay=" + productDisplay + ", stock=" + stock + ", categoryNum=" + categoryNum
+				+ ", productDate=" + productDate + ", id=" + id + ", productMeterial=" + productMeterial
+				+ ", manufacturer=" + manufacturer + ", mfDate=" + mfDate + ", origin=" + origin + ", deliveryPrice="
+				+ deliveryPrice + ", optionOneName=" + optionOneName + ", optionTwoName=" + optionTwoName
+				+ ", optionThreeName=" + optionThreeName + "]";
+	}
+	
+	
+	
 
 }

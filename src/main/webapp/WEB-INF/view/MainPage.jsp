@@ -34,7 +34,7 @@
 		<a href="<c:url value='/infoChange'/>">
 				[회원정보 수정]
 			</a>
-		
+		<a href="<c:url value='/basket'/>">장바구니</a>
 	<c:if test="${authInfo.sellerCheck == 'false' }">
 		<a href="<c:url value='/changeSeller'/>">[판매하기]</a>
 		
