@@ -1,5 +1,6 @@
 package vo;
 
+import java.sql.Date;
 import java.sql.Timestamp;
 
 public class ProductVO {
@@ -17,9 +18,12 @@ public class ProductVO {
 	private String id;
 	private String productMeterial;
 	private String manufacturer;
-	private Timestamp mfDate;
+	private Date mfDate;
 	private String origin;
 	private int deliveryPrice;
+	private String optionOneName;
+	private String optionTwoName;
+	private String optionThreeName;
 
 	public ProductVO() {
 		super();
@@ -27,7 +31,8 @@ public class ProductVO {
 
 	public ProductVO(int productNum, String productName, String productText, int productPrice, String productThumb,
 			String productImage, String productDisplay, int stock, int categoryNum, Timestamp productDate, String id,
-			String productMeterial, String manufacturer, Timestamp mfDate, String origin, int deliveryPrice) {
+			String productMeterial, String manufacturer, Date mfDate, String origin, int deliveryPrice,
+			String optionOneName, String optionTwoName, String optionThreeName) {
 		super();
 		this.productNum = productNum;
 		this.productName = productName;
@@ -45,6 +50,9 @@ public class ProductVO {
 		this.mfDate = mfDate;
 		this.origin = origin;
 		this.deliveryPrice = deliveryPrice;
+		this.optionOneName = optionOneName;
+		this.optionTwoName = optionTwoName;
+		this.optionThreeName = optionThreeName;
 	}
 
 	public int getProductNum() {
@@ -151,11 +159,11 @@ public class ProductVO {
 		this.manufacturer = manufacturer;
 	}
 
-	public Timestamp getMfDate() {
+	public Date getMfDate() {
 		return mfDate;
 	}
 
-	public void setMfDate(Timestamp mfDate) {
+	public void setMfDate(Date mfDate) {
 		this.mfDate = mfDate;
 	}
 
@@ -175,4 +183,28 @@ public class ProductVO {
 		this.deliveryPrice = deliveryPrice;
 	}
 
+	public String getOptionOneName() {
+		return optionOneName;
+	}
+
+	public void setOptionOneName(String optionOneName) {
+		this.optionOneName = optionOneName;
+	}
+
+	public String getOptionTwoName() {
+		return optionTwoName;
+	}
+
+	public void setOptionTwoName(String optionTwoName) {
+		this.optionTwoName = optionTwoName;
+	}
+
+	public String getOptionThreeName() {
+		return optionThreeName;
+	}
+
+	public void setOptionThreeName(String optionThreeName) {
+		this.optionThreeName = optionThreeName;
+	}
+	
 }

@@ -73,6 +73,7 @@ p {
 }
 </style>
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+
 <script>	
 	$(function() {
 	      $('#area').keyup(function (e){
@@ -108,7 +109,7 @@ p {
 <h1>SellerPage</h1>
 상품 업로드 <br><br>
 <form action="uploadCompleteProduct" method="post" enctype="multipart/form-data">
-판매자 : <input type="text" name="id" value="${authInfo.id}"><br><br>
+판매자 : <input type="text" name="id" value="이은호"><br><br>
 
 카테고리 분류<br><br>
 <input type="number" name="categoryNum"><br><br>
@@ -156,12 +157,15 @@ productThumb <br><br>
 <span id="counter">0</span><span> / 500</span>
 </div>
 
-productDisplay &nbsp;&nbsp;
+productDisplay <br><br>
 <label class="switch">
   <input type="checkbox" name="productDisplay" id="dis">
   <span class="slider round"></span>
 </label>
 <p>미진열</p><p style="display:none;">진열</p><br><br>
+<!-- <input type="checkbox" name="productDisplay" id="dis"><br><br> -->
+
+
 
 상품소재  <input type="text" name="productMeterial"><br><br>
 
@@ -176,25 +180,18 @@ productDisplay &nbsp;&nbsp;
 
 <br>옵션설정  <br><br>
 
-<input type="button" id="plus" value="옵션 추가">&nbsp;&nbsp;<input type="button" id="minus" value="옵션 삭제" ><br><br>
-<div id="optionBox">
-  <span id="op1">
-    1차 옵션명  <input type="text" name="optionOneName" id="o1">&nbsp;&nbsp;
-  </span>
-  <span id="op2">
-    2차 옵션명  <input type="text" name="optionTwoName" id="o2">&nbsp;&nbsp;
-  </span>
-  <span id="op3">
-    3차 옵션명  <input type="text" name="optionThreeName" id="o3">&nbsp;&nbsp;
-  </span>  
-</div>
+옵션1 <input type="number" name="optionOneNum"><br><br>
+옵션2 <input type="number" name="optionTwoNum"><br><br>
+옵션3 <input type="number" name="optionThreeNum"><br><br>
+
+
 
 <br><br><input type="submit" value="저장">&nbsp;&nbsp;
 <input type="reset" value="초기화"><br><br><br>
 </form>
 <script>
-    
-    $("#mfDate").change(function(){
+
+	$("#mfDate").change(function(){
 		document.getElementById("hidden").value = 'notNull' 
 	});
 
@@ -205,51 +202,8 @@ productDisplay &nbsp;&nbsp;
 				document.getElementById("dis").value = 'FALSE';
 			}
 		});
+
 	
-	$("#one").click(function(){
-        const str = '<select name="option1"><option value="1"></option><select>';
-        $("#option").html(str);
-    });
-
-    var count = 0;
-
-	$(function(){
-	    $('#op1').hide();
-	    $('#op2').hide();
-	    $('#op3').hide();
-	    $("#plus").click(function(){
-		    count++;
-		    if(count == 1){
-		      $('#op1').show();
-		    }else if(count == 2){
-		      $('#op2').show();
-		    }else if(count == 3){
-		      $('#op3').show();
-		    }else if(count == 4){
-		      count--;
-		    }
-	    })
-	});
-
-	$("#minus").on("click" , function(){
-	    count--;    
-	    if(count == 2){	
-	      $('#op3').hide();
-	      $('#o3').val('');
-	      $('#do3').val('');
-	    }else if(count == 1){
-	      $('#op2').hide();
-	      $('#o2').val('');
-	      $('#do2').val('');
-	    }else if(count == 0){
-	      $('#op1').hide();
-	      $('#o1').val('');
-	      $('#do1').val('');
-	    }else if(count == -1){
-	        count++;
-	    }        
-	});
-
 </script>
 </body>
 </html>
