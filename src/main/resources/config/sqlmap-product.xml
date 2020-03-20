@@ -4,108 +4,139 @@
 
 <mapper namespace="productDAO">
 
+
 	<insert id="insertProduct" parameterType="productVO">
-		INSERT INTO PRODUCT
-		VALUES (PRODUCT_SEQ.nextval, #{productName}, #{productText},
-		#{productPrice}, #{productThumb}, #{productImage},
-		#{productDisplay} , #{stock} , #{categoryNum} , SYSDATE ,
-		#{id} , #{productMeterial} , #{manufacturer} , #{mfDate} ,
-		#{origin} , #{deliveryPrice} ,
-		#{optionOneName} , #{optionTwoName} , #{optionThreeName})
+		INSERT INTO PRODUCT VALUES (PRODUCT_SEQ.nextval, #{productName}, #{productText}, 
+									#{productPrice}, #{productThumb}, #{productImage},
+									#{productDisplay} , #{stock} , #{categoryNum} , SYSDATE , 
+									#{id} , #{productMeterial} , #{manufacturer} , #{mfDate} , 
+									#{origin} , #{deliveryPrice} ,
+									#{optionOneName} , #{optionTwoName} , #{optionThreeName})
 	</insert>
-
+	
 	<insert id="insertProductDateIsNull" parameterType="productVO">
-		INSERT INTO
-		PRODUCT ("productNum" , "productName" , "productText" , "productPrice"
-		,
-		"productThumb" , "productImage" , "productDisplay" , "stock" ,
-		"categoryNum" , "productDate" , "id" , "productMeterial" ,
-		"manufacturer" , "origin" , "deliveryPrice" ,"optionOneName" , "optionTwoName" ,
-		"optionThreeName")
-		VALUES
-		(PRODUCT_SEQ.nextval, #{productName}, #{productText}, #{productPrice},
-		#{productThumb}, #{productImage}, #{productDisplay} ,
-		#{stock} , #{categoryNum} , SYSDATE , #{id} ,
-		#{productMeterial} , #{manufacturer} , #{origin} , #{deliveryPrice} ,
-		#{optionOneName} , #{optionTwoName} , #{optionThreeName})
+		INSERT INTO PRODUCT ("productNum" , "productName" , "productText" , "productPrice" ,
+							 "productThumb" , "productImage" , "productDisplay" , "stock" , 
+							 "categoryNum" , "productDate" , "id" , "productMeterial" , 
+							 "manufacturer" , "origin" , "deliveryPrice" ,"optionOneName" , "optionTwoName" , "optionThreeName") 
+					VALUES 
+                       (PRODUCT_SEQ.nextval, #{productName}, #{productText}, #{productPrice}, 
+                       						#{productThumb}, #{productImage}, #{productDisplay} ,
+                       						 #{stock} , #{categoryNum} , SYSDATE , #{id} , 
+                       						 #{productMeterial} , #{manufacturer} , #{origin} , #{deliveryPrice} ,
+											#{optionOneName} , #{optionTwoName} , #{optionThreeName})
 	</insert>
-
+	
 	<insert id="insertOption" parameterType="optionVO">
-		INSERT INTO OPTIONN
-		VALUES (OPTION_SEQ.NEXTVAL, #{productNum}, #{cnt}, #{optionOneNum},
-		#{optionTwoNum}, #{optionThreeNum})
+		INSERT INTO OPTIONN VALUES (OPTION_SEQ.NEXTVAL, #{productNum}, #{cnt}, #{optionOneNum}, #{optionTwoNum}, #{optionThreeNum})
 	</insert>
-
+	
 	<insert id="insertOptionDetailIsNull" parameterType="optionVO">
-		INSERT INTO
-		OPTIONN ("optionNum" , "productNum" , "cnt" , "optionOneNum") VALUES
-		(OPTION_SEQ.NEXTVAL, #{productNum}, #{cnt}, #{optionOneNum})
+		INSERT INTO OPTIONN ("optionNum" , "productNum" , "cnt" , "optionOneNum") VALUES (OPTION_SEQ.NEXTVAL, #{productNum}, #{cnt}, #{optionOneNum})
 	</insert>
-
+	
 	<insert id="insertDetailOption" parameterType="detailOptionVO">
-		INSERT INTO
-		DETAILOPTION VALUES (DETAILOPTION_SEQ.NEXTVAL, #{optionName},
-		#{optionLevel}, #{productNum})
+		INSERT INTO DETAILOPTION VALUES (DETAILOPTION_SEQ.NEXTVAL, #{optionName}, #{optionLevel}, #{productNum})
 	</insert>
 
 	<select id="selectProductByProductNum" resultType="productVO">
 		SELECT * FROM
 		PRODUCT WHERE "productNum" = #{productNum}
 	</select>
-
+	
 	<select id="selectOptionNum" resultType="int">
-		SELECT "optionNum" FROM
-		OPTIONN WHERE "productNum" = #{productNum} and "optionOneNum" =
-		#{optionOneNum} and "optionTwoNum" = #{optionTwoNum} and
-		"optionThreeNum" = #{optionThreeNum}
+		SELECT "optionNum" FROM OPTIONN WHERE "productNum" = #{productNum} and "optionOneNum" = #{optionOneNum} and "optionTwoNum" = #{optionTwoNum} and "optionThreeNum" = #{optionThreeNum}
 	</select>
-
-	<select id="selectDetailOptionByProductNum"
-		resultType="detailOptionVO">
-		SELECT * FROM DETAILOPTION WHERE "productNum" =
-		#{productNum}
+	
+	<select id="selectDetailOptionByProductNum" resultType="detailOptionVO">
+		SELECT * FROM DETAILOPTION WHERE "productNum" = #{productNum}
 	</select>
-
+	
 	<select id="selectOptionLevelMaxByProductNum" resultType="int">
-		SELECT
-		MAX("optionLevel") FROM DETAILOPTION WHERE "productNum" =
-		#{productNum}
+		SELECT MAX("optionLevel") FROM DETAILOPTION WHERE "productNum" = #{productNum}
 	</select>
-
+	
 	<select id="selectProductById" resultType="productVO">
-		SELECT * FROM PRODUCT
-		WHERE "id" = #{id}
+		SELECT * FROM PRODUCT WHERE "id" = #{id}
 	</select>
-
+	
 	<select id="selectOptionByOptionNum" resultType="optionVO">
+		SELECT * FROM OPTIONN WHERE "optionNum" = #{optionNum}
+	</select>
+	
+
+	<select id="selectOptionByProductNum" resultType="optionVO">
 		SELECT * FROM
-		OPTIONN WHERE "optionNum" = #{optionNum}
+		OPTIONN WHERE "productNum" = #{productNum}
 	</select>
 
-	<select resultType="productListVO" id="getProductList">
-		SELECT "productNum", "productName", "productThumb",
-		"productPrice","deliveryPrice" ,"id" FROM PRODUCT WHERE "productName"
-		like '%'||#{keyword}||'%'
-		<if
-			test="searchType=='productNum' and keyword2 != null and keyword2 != '' ">AND "productNum" like '%'||#{keyword2}||'%' </if>
+	<insert id="insertBasket" parameterType="basketVO">
+		INSERT INTO
+		BASKET
+		values(BASKET_SEQ.nextval, #{id} ,#{optionNum},#{cnt})
+	</insert>
 
-		<if
-			test="searchType=='productName' and keyword2 != null and keyword2 != '' ">AND "productName" like '%'||#{keyword2}||'%' </if>
 
-		<if
-			test="searchType=='id' and keyword2 != null and keyword2 != '' ">AND "id" like '%'||#{keyword2}||'%' </if>
-
-		<if
-			test="minPrice != null and minPrice != '' and maxPrice != null and maxPrice != '' ">AND "productPrice" BETWEEN #{minPrice} AND #{maxPrice} </if>
-
-		<if test="checkDelivery=='on' ">AND "deliveryPrice" = 0 </if>
-
-		<if test="sortType == 'highPrice' ">order by "productPrice" desc </if>
-
-		<if test="sortType == 'lowPrice' ">order by "productPrice" asc </if>
-
-		<if test="sortType == 'productDate' ">order by "productDate" desc </if>
-
+	<select id="selectBasketByOptionNum" parameterType="hashmap" resultType="basketListVO">
+		select * from (select b."basketNum", p."productPrice",p."deliveryPrice" , m."id",
+		o."productNum",b."cnt" ,o."stock" from OPTIONN o, PRODUCT p, BASKET b, MEMBER m
+		where p."productNum" = o."productNum" and b."optionNum" = o."optionNum")
+		<foreach collection="array" item="basketNum" open="WHERE" separator="OR">
+			"basketNum" = #{basketNum}
+		</foreach>
 	</select>
+
+	<select id="selectBasketList" resultType="basketListVO">
+		SELECT b."basketNum",
+		p."productImage", b."optionNum", p."productPrice",p."deliveryPrice"
+		,p."productName",
+		m."id", o."productNum",o."stock",b."cnt" from OPTIONN
+		o, PRODUCT p, BASKET b, MEMBER m
+		where p."productNum" = o."productNum"
+		and b."optionNum" = o."optionNum"
+		and b."id" = #{id}
+	</select>
+
+	<update id="updateCnt" parameterType="basketVO">
+		UPDATE BASKET set "cnt" = #{cnt} where "id" = #{id} and "optionNum"=#{optionNum}
+	</update>
+	
+	<delete id="deleteBasketByBasketNum" parameterType="basketVO">
+		DELETE FROM BASKET where "basketNum" = #{basketNum}
+	</delete>
+
+
+
+
+	
+		<select id="getProductList"  resultType="productListVO">
+		SELECT "productNum", "productName", "productThumb", "productPrice","deliveryPrice" ,"id" FROM PRODUCT WHERE "productName" like '%'||#{keyword}||'%'	
+	
+			<if test="searchType=='productNum' and keyword2 != null and keyword2 != '' ">
+				AND "productNum" like '%'||#{keyword2}||'%'
+			</if>
+			<if test="searchType=='productName' and keyword2 != null and keyword2 != '' ">
+				AND "productName" like '%'||#{keyword2}||'%'	
+			</if>
+			<if test="searchType=='id' and keyword2 != null and keyword2 != '' ">
+				AND "id" like '%'||#{keyword2}||'%'
+			</if>						
+			<if test="minPrice != null and minPrice != '' and maxPrice != null and maxPrice != '' ">
+				AND "productPrice" BETWEEN #{minPrice} AND #{maxPrice}
+			</if>
+			<if test="checkDelivery=='on' ">
+				AND "deliveryPrice" = 0
+			</if>
+			<if test="sortType == 'highPrice' ">
+				order by "productPrice" desc
+			</if>
+			<if test="sortType == 'lowPrice' ">
+				order by "productPrice" asc
+			</if>	
+			<if test="sortType == 'productDate' ">
+				order by "productDate" desc
+			</if>		
+	</select>
+	
 
 </mapper>

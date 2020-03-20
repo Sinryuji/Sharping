@@ -87,6 +87,7 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSessionTemplate.update("memberDAO.updateSellerInfoById", changeMemberVO);
 	}
 	
+
 	@Override
 	public List<DeliveryAddressVO> selectDeliveryAddressById(String id) {
 		return sqlSessionTemplate.selectList("memberDAO.selectDeliveryAddressById", id);
@@ -111,5 +112,6 @@ public class MemberDAOImpl implements MemberDAO{
 	public DeliveryAddressVO selectDeliveryAddressBydaaNameId(DeliveryAddressVO deliveryAddressVO) {
 		return sqlSessionTemplate.selectOne("memberDAO.selectDeliveryAddressBydaaNameId", deliveryAddressVO);
 	}
+
 
 }

@@ -1,13 +1,13 @@
 package vo;
 
 public class DetailOptionVO {
-	
+
 	private int doNum;
 	private String optionName;
 	private int optionLevel;
 	private int productNum;
-	
-		public DetailOptionVO() {
+
+	public DetailOptionVO() {
 		super();
 	}
 

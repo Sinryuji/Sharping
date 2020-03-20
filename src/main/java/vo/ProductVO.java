@@ -32,6 +32,7 @@ public class ProductVO {
 			String productImage, String productDisplay, int stock, int categoryNum, Timestamp productDate, String id,
 			String productMeterial, String manufacturer, Date mfDate, String origin, int deliveryPrice,
 			String optionOneName, String optionTwoName, String optionThreeName) {
+
 		super();
 		this.productNum = productNum;
 		this.productName = productName;
@@ -53,6 +54,7 @@ public class ProductVO {
 		this.optionTwoName = optionTwoName;
 		this.optionThreeName = optionThreeName;
 	}
+
 	public int getProductNum() {
 		return productNum;
 	}
@@ -170,7 +172,7 @@ public class ProductVO {
 	public void setOptionThreeName(String optionThreeName) {
 		this.optionThreeName = optionThreeName;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "ProductVO [productNum=" + productNum + ", productName=" + productName + ", productText=" + productText
@@ -182,7 +184,6 @@ public class ProductVO {
 				+ ", optionThreeName=" + optionThreeName + "]";
 	}
 
-	
 
 	
 }

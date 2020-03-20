@@ -2,7 +2,6 @@ package vo;
 
 public class OptionVO {
 
-
 	private int optionNum;
 	private int productNum;
 	private int stock;
@@ -10,13 +9,14 @@ public class OptionVO {
 	private int optionTwoNum;
 	private int optionThreeNum;
 
-
 	public OptionVO() {
 		super();
 	}
 
 
+
 	public OptionVO(int optionNum, int productNum, int stock, int optionOneNum, int optionTwoNum, int optionThreeNum) {
+
 		super();
 		this.optionNum = optionNum;
 		this.productNum = productNum;
@@ -45,7 +45,6 @@ public class OptionVO {
 		this.productNum = productNum;
 	}
 
-
 	public int getStock() {
 		return stock;
 	}
@@ -59,11 +58,9 @@ public class OptionVO {
 		return optionOneNum;
 	}
 
-
 	public void setOptionOneNum(int optionOneNum) {
 		this.optionOneNum = optionOneNum;
 	}
-
 
 	public int getOptionTwoNum() {
 		return optionTwoNum;
@@ -73,14 +70,18 @@ public class OptionVO {
 		this.optionTwoNum = optionTwoNum;
 	}
 
-
 	public int getOptionThreeNum() {
 		return optionThreeNum;
 	}
-
-
+	
 	public void setOptionThreeNum(int optionThreeNum) {
 		this.optionThreeNum = optionThreeNum;
+	}
+
+	@Override
+	public String toString() {
+		return "OptionVO [optionNum=" + optionNum + ", productNum=" + productNum + ", stock=" + stock
+				+ ", optionOneNum=" + optionOneNum + ", optionTwoNum=" + optionTwoNum + "]";
 	}
 
 }

@@ -1,12 +1,17 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Product</title>
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	crossorigin="anonymous"></script>
+
 </head>
 <body>
 <h1>OrderPage</h1>
@@ -36,6 +41,7 @@
 
 <c:if test="${maxOptionLevel == 1}">
 <select name="optionOneNum">
+
 	<option value="none">=== ${product.optionOneName} ===</option>
 	<c:forEach var="detailOption" items="${detailOptionList}" varStatus="status">
 	<c:if test="${detailOption.optionLevel == 1}">
@@ -43,6 +49,7 @@
 	</c:if>
 	</c:forEach>
 </select>
+
 </c:if>
 
 <c:if test="${maxOptionLevel == 2 }">
@@ -55,6 +62,7 @@
 	</c:forEach>
 </select>
 <select name="optionTwoNum">
+
 	<option value="none">=== ${product.optionTwoName} ===</option>
 	<c:forEach var="detailOption" items="${detailOptionList}" varStatus="status">
 	<c:if test="${detailOption.optionLevel == 2}">
@@ -62,6 +70,7 @@
 	</c:if>
 	</c:forEach>
 </select>
+
 </c:if>
 
 <c:if test="${maxOptionLevel == 3}">
@@ -82,6 +91,7 @@
 	</c:forEach>
 </select>
 <select name="optionThreeNum">
+
 	<option value="none">=== ${product.optionThreeName} ===</option>
 	<c:forEach var="detailOption" items="${detailOptionList}" varStatus="status">
 	<c:if test="${detailOption.optionLevel == 3}">
@@ -91,9 +101,10 @@
 </select>
 </c:if>
 <br>
-수량:<input type="number" name="cnt" id="cnt" value="1">
+수량:<input type="number" name="cnt" id="cnt" value="1" min="1" max="${product.stock}">
 결제금액:<input type="number" name="payPrice" id="payPrice" value="${product.productPrice }" readonly>
-<input type="submit" value="주문">
+<input type="submit" value="주문"><br>
+<button type="button"  class="basketBtn">담기</button>
 </form>
 <script>
 $('#cnt').change(function(){
@@ -101,5 +112,42 @@ $('#cnt').change(function(){
 })
 
 </script>
+<script>
+	$(".basketBtn").click(function(){
+		
+	 	var cnt = $("#cnt").val();
+		var productNum = ${product.productNum};
+		var optionOneNum = $("#optionOneNum").val();
+		var optionTwoNum = $("#optionTwoNum").val();
+		var optionThreeNum = $("#optionThreeNum").val();
+		var data = { 
+				cnt : cnt,
+				productNum : productNum,
+				optionOneNum : optionOneNum,
+				optionTwoNum : optionTwoNum,
+				optionThreeNum : optionThreeNum
+				};
+		$.ajax({
+			type:"get",
+			url:"<%=request.getContextPath()%>/basketInsert",
+			data: data,
+			success : function(result){
+				if(result == 1){
+					alert("담았으");
+					$(".cnt").val("1");
+					window.location.href='<%=request.getContextPath()%>/basket';
+				}else{
+					alert("로그인하세요");
+					windows.open("/login/Login","로그인페이지","null");
+					$(".cnt").val("1");
+				}
+			},
+			error : function(){
+				alert("옵션을 선택하세요");
+			}
+		});
+	});
+</script>
+
 </body>
 </html>

@@ -4,9 +4,14 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
+
 import vo.DetailOptionVO;
 import vo.OptionVO;
 import vo.ProductListVO;
+
+import vo.BasketListVO;
+import vo.BasketVO;
+
 import vo.ProductVO;
 import vo.SearchVO;
 
@@ -34,9 +39,7 @@ public class ProductDAOImpl implements ProductDAO{
 
 		return sqlSessionTemplate.selectOne("productDAO.selectProductByProductNum", productNum);
 	}
-	
 
-	
 	@Override
 	public List<DetailOptionVO> selectDetailOptionByProductNum(int productNum) {
 		return sqlSessionTemplate.selectList("productDAO.selectDetailOptionByProductNum", productNum);
@@ -46,9 +49,16 @@ public class ProductDAOImpl implements ProductDAO{
 	public List<ProductVO> selectProductById(String id) {
 		return sqlSessionTemplate.selectList("productDAO.selectProductById", id);
 	}
+
+	public List<OptionVO> selectOptionByProductNum(int productNum) {
+		
+		return sqlSessionTemplate.selectList("productDAO.selectOptionByProductNum",productNum);
+
+	}
 	
 	@Override
 	public int selectOptionNum(OptionVO optionVO) {
+
 		return sqlSessionTemplate.selectOne("productDAO.selectOptionNum", optionVO);
 	}
 	
@@ -81,6 +91,36 @@ public class ProductDAOImpl implements ProductDAO{
 	@Override
 	public List<ProductListVO> getProductList(SearchVO search) {
 		return sqlSessionTemplate.selectList("productDAO.getProductList", search);
+
+	}
+
+	@Override
+	public List<BasketListVO> selectBasketList(String id) {
+		
+		return sqlSessionTemplate.selectList("productDAO.selectBasketList",id);
+	}
+
+	@Override
+	public void insertBasket(BasketVO basketVO) {
+		
+		sqlSessionTemplate.insert("productDAO.insertBasket",basketVO);
+		
+	}
+
+	@Override
+	public void updateCnt(BasketVO basketVO) {
+		sqlSessionTemplate.update("productDAO.updateCnt", basketVO);
+	}
+
+	@Override
+	public List<BasketListVO> selectBasketByOptionNum(int[] basketNums) {
+		return sqlSessionTemplate.selectList("productDAO.selectBasketByOptionNum", basketNums);
+	}
+	
+	@Override
+	public int deleteBasketByBasketNum(int basketNum) {
+		return sqlSessionTemplate.delete("productDAO.deleteBasketByBasketNum", basketNum);
+
 	}
 
 }

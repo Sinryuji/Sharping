@@ -22,6 +22,8 @@
 		<typeAlias alias="deliveryAddressVO" type="vo.DeliveryAddressVO"></typeAlias>
 		<typeAlias alias="productListVO" type="vo.ProductListVO" ></typeAlias>
 		<typeAlias alias="searchVO" type="vo.SearchVO" ></typeAlias>
-		<typeAlias alias="adminVO" type="vo.AdminVO" ></typeAlias>
+		<typeAlias alias="adminVO" type="vo.AdminVO" ></typeAlias>	
+		<typeAlias alias="basketVO" type="vo.BasketVO"></typeAlias>
+		<typeAlias alias="basketListVO" type="vo.BasketListVO"></typeAlias>
 	</typeAliases>
-</configuration>
+</configuration> 

@@ -1,16 +1,21 @@
 package service;
 
+
 import java.util.List;
 
 import dao.ProductDAO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
 import vo.ProductListVO;
+
+import java.util.HashMap;
+import vo.BasketListVO;
+import vo.BasketVO;
 import vo.ProductVO;
 import vo.SearchVO;
 
-public class ProductServiceImpl implements ProductService{
-	
+public class ProductServiceImpl implements ProductService {
+
 	private ProductDAO productDAO;
 	
 	public ProductDAO getProductDAO() {
@@ -21,7 +26,6 @@ public class ProductServiceImpl implements ProductService{
 		this.productDAO = productDAO;
 	}
 
-	
 	@Override
 	public int uploadProduct(ProductVO productVO) {
 		return productDAO.insertProduct(productVO);
@@ -36,12 +40,23 @@ public class ProductServiceImpl implements ProductService{
 	public ProductVO selectProduct(int productNum) {
 		return productDAO.selectProductByProductNum(productNum);
 	}
-	
-	@Override
 
+	@Override
 	public List<DetailOptionVO> selectDetailOption(int productNum) {
 		return productDAO.selectDetailOptionByProductNum(productNum);
 	}
+
+//	@Override
+//	public List<ProductVO> productListById(String id) {
+//		return productDAO.selectProductById(id);
+//	}
+
+	@Override
+	public List<OptionVO> selectOptionByProduct(int productNum) {
+		
+		return productDAO.selectOptionByProductNum(productNum);
+	}
+
 
 	public int insertOption(OptionVO optionVO) {
 		return productDAO.insertOption(optionVO);
@@ -50,6 +65,36 @@ public class ProductServiceImpl implements ProductService{
 	@Override
 	public int insertOptionDetailIsNull(OptionVO optionVO) {
 		return productDAO.insertOptionDetailIsNull(optionVO);
+	}
+
+
+
+	@Override
+	public List<BasketListVO> selectBasketList(String id) {
+		return productDAO.selectBasketList(id);
+	}
+
+	@Override
+	public void insertBasket(BasketVO basketVO) {
+		productDAO.insertBasket(basketVO);
+	}
+
+	@Override
+	public void updateCnt(BasketVO basketVO) {
+		
+		productDAO.updateCnt(basketVO);
+	}
+
+	@Override
+	public List<BasketListVO> selectBasket(int[] basketNums) {
+		return productDAO.selectBasketByOptionNum(basketNums);
+	}
+
+	@Override
+	public int deleteBasket(int basketNum) {
+		
+		return productDAO.deleteBasketByBasketNum(basketNum);
+
 	}
 	
 	@Override
