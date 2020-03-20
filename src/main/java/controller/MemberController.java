@@ -83,13 +83,13 @@ public class MemberController {
 	@RequestMapping(value = "/registCompleteMember")
 	public String registCompleteMember(@Valid MemberVO memberVO) {
 
-		String addressEtc = memberVO.getAddressEtc();
-
-		String address = memberVO.getAddress();
-
-		String addressFinal = address + " " + addressEtc;
-
-		memberVO.setAddress(addressFinal);
+//		String addressEtc = memberVO.getAddressEtc();
+//
+//		String address = memberVO.getAddress();
+//
+//		String addressFinal = address + " " + addressEtc;
+//
+//		memberVO.setAddress(addressFinal);
 
 		String pw = memberVO.getPassword();
 		String hashPw = BCrypt.hashpw(pw, BCrypt.gensalt());
@@ -106,13 +106,13 @@ public class MemberController {
 	@RequestMapping(value = "/registCompleteSeller")
 	public String registCompleteSeller(@Valid MemberVO memberVO, @Valid SellerVO sellerVO) {
 
-		String addressEtc = memberVO.getAddressEtc();
-
-		String address = memberVO.getAddress();
-
-		String addressFinal = address + " " + addressEtc;
-
-		memberVO.setAddress(addressFinal);
+//		String addressEtc = memberVO.getAddressEtc();
+//
+//		String address = memberVO.getAddress();
+//
+//		String addressFinal = address + " " + addressEtc;
+//
+//		memberVO.setAddress(addressFinal);
 
 		String pw = memberVO.getPassword();
 		String hashPw = BCrypt.hashpw(pw, BCrypt.gensalt());
@@ -356,7 +356,11 @@ public class MemberController {
 
 	// 구매자 회원 정보 수정 탭
 	@RequestMapping(value = "/infoChangeMember")
-	public String infoChangeMember() {
+	public String infoChangeMember(HttpServletRequest req, Model model) {
+		HttpSession session = req.getSession();
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		MemberVO memberVO = memberService.searchMemberById(authInfo.getId());
+		model.addAttribute("member", memberVO);
 		return "mypage/InfoChangeMember";
 	}
 
@@ -366,7 +370,9 @@ public class MemberController {
 		HttpSession session = req.getSession();
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 		SellerVO sellerVO = memberService.searchSellerById(authInfo.getId());
+		MemberVO memberVO = memberService.searchMemberById(authInfo.getId());
 		model.addAttribute("seller", sellerVO);
+		model.addAttribute("member", memberVO);
 		return "mypage/InfoChangeSeller";
 	}
 
@@ -390,6 +396,15 @@ public class MemberController {
 	// 구매자 회원 정보 수정
 	@RequestMapping(value = "/infoChangeMemberComplete")
 	public String infoChangeMemberComplete(ChangeMemberVO changeMemberVO) {
+		
+//		String addressEtc = changeMemberVO.getNewAddressEtc();
+//
+//		String address = changeMemberVO.getNewAddress();
+//
+//		String addressFinal = address + " " + addressEtc;
+//
+//		changeMemberVO.setNewAddress(addressFinal);
+		
 		memberService.updateMemberInfoById(changeMemberVO);
 		return "mypage/InfoChangeMemberResult";
 	}
@@ -397,7 +412,15 @@ public class MemberController {
 	// 판매자 회원 정보 수정
 	@RequestMapping(value = "/infoChangeSellerComplete")
 	public String infoChangeSellerComplete(ChangeMemberVO changeMemberVO) {
-		System.out.println(changeMemberVO);
+		
+//		String addressEtc = changeMemberVO.getNewAddressEtc();
+//
+//		String address = changeMemberVO.getNewAddress();
+//
+//		String addressFinal = address + " " + addressEtc;
+//
+//		changeMemberVO.setNewAddress(addressFinal);
+		
 		memberService.updateMemberInfoById(changeMemberVO);
 		memberService.updateSellerInfoById(changeMemberVO);
 		return "mypage/InfoChangeMemberResult";
@@ -498,13 +521,13 @@ public class MemberController {
 		HttpSession session = req.getSession();
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 
-		String addressEtc = deliveryAddressVO.getAddressEtc();
-
-		String address = deliveryAddressVO.getDaAddress();
-
-		String addressFinal = address + " " + addressEtc;
-
-		deliveryAddressVO.setDaAddress(addressFinal);
+//		String addressEtc = deliveryAddressVO.getAddressEtc();
+//
+//		String address = deliveryAddressVO.getDaAddress();
+//
+//		String addressFinal = address + " " + addressEtc;
+//
+//		deliveryAddressVO.setDaAddress(addressFinal);
 
 		memberService.insertDeliveryAddress(deliveryAddressVO);
 

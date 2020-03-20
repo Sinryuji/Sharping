@@ -5,7 +5,7 @@
 <mapper namespace="memberDAO">
 
 	<insert id="insertMember" parameterType="memberVO">
-		INSERT INTO MEMBER VALUES (#{id}, #{password}, #{name}, #{phone}, #{email}, SYSDATE, 1, #{post}, #{address})
+		INSERT INTO MEMBER VALUES (#{id}, #{password}, #{name}, #{phone}, #{email}, SYSDATE, 1, #{post}, #{address}, #{addressEtc})
 	</insert>
 	
 	<insert id="insertSeller" parameterType="sellerVO">
@@ -45,7 +45,7 @@
 	</update>
 	
 	<update id="updateMemberInfoById" parameterType="changeMemberVO">
-		UPDATE MEMBER SET "phone" = #{newPhone} , "email" = #{newEmail} WHERE "id" = #{id}
+		UPDATE MEMBER SET "phone" = #{newPhone} , "email" = #{newEmail} "post" = #{newPost}, "address" = #{newAddress} "addressEtc" = #{newAddressEtc} WHERE "id" = #{id}
 	</update>
 	
 	<delete id="deleteMemberByIdPw" parameterType="deleteVO">
@@ -55,9 +55,7 @@
 	<update id="updateSellerInfoById" parameterType="changeMemberVO">
 		UPDATE SELLER SET 
 		"storeName" = #{newStoreName} ,	"storeAddress" = #{newStoreAddress} , 
-		"storeText" = #{newStoreText} ,	"post" = #{newPost} , "address" = #{newAddress} ,
-		"bankCode" = #{newBankCode} , "bankAcount" = #{newBankAccount}  
-		 WHERE "id" = #{id}
+		"storeText" = #{newStoreText} ,	"bankCode" = #{newBankCode} , "bankAcount" = #{newBankAccount} WHERE "id" = #{id}
 	</update>
 	
 	<select id="selectDeliveryAddressById" resultType="deliveryAddressVO">
@@ -69,7 +67,7 @@
 	</select>
 	
 	<insert id="insertDeliveryAddress" parameterType="deliveryAddressVO">
-		INSERT INTO DELIVERYADDRESS VALUES (#{id}, #{daPost}, #{daAddress}, #{daaName}, #{daName}, #{daPhone})
+		INSERT INTO DELIVERYADDRESS VALUES (#{id}, #{daPost}, #{daAddress}, #{daaName}, #{daName}, #{daPhone}, #{daAddressEtc})
 	</insert>
 	
 	<delete id="deleteDeliveryAddress" parameterType="deliveryAddressVO">
@@ -77,7 +75,7 @@
 	</delete>
 	
 	<update id="updateDeliveryAddress" parameterType="deliveryAddressVO">
-		UPDATE DELIVERYADDRESS SET "id" = #{id}, "daPost" = #{daPost}, "daAddress" = #{daAddress}, "daaName" = #{daaName}, "daName" = #{daName}, "daPhone" = #{daPhone} WHERE "id" = #{id}
+		UPDATE DELIVERYADDRESS SET "id" = #{id}, "daPost" = #{daPost}, "daAddress" = #{daAddress}, "daaName" = #{daaName}, "daName" = #{daName}, "daPhone" = #{daPhone} "daAddressEtc" = #{daAddressEtc} WHERE "id" = #{id}
 	</update>
 
 </mapper>

@@ -43,7 +43,7 @@
 							<td><c:out value="${list.daName}"/></td>
 							<td><c:out value="${list.daPhone}"/></td>
 							<td><c:out value="${list.daPost}"/></td>
-							<td><c:out value="${list.daAddress}"/></td>
+							<td><c:out value="${list.daAddress} ${list.daAddressEtc}"/></td>
 							<td><input type="hidden" id="daaName${status.index}" value="${list.daaName }"><input type="hidden" id="id${status.index}" value="${authInfo.id}">
 							<input type="hidden" id="daName${status.index}" value="${list.daName}"><input type="hidden" id="daPhone${status.index}" value="${list.daPhone}">
 							<input type="hidden" id="daPost${status.index}" value="${list.daPost}"><input type="hidden" id="daAddress${status.index}" value="${list.daAddress}">

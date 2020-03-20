@@ -43,7 +43,7 @@
 							<td><c:out value="${list.daName}"/></td>
 							<td><c:out value="${list.daPhone}"/></td>
 							<td><c:out value="${list.daPost}"/></td>
-							<td><c:out value="${list.daAddress}"/></td>
+							<td><c:out value="${list.daAddress} ${list.daAddressEtc}"/></td>
 							<td><input type="hidden" id="daaName${status.index}" value="${list.daaName }"><input type="hidden" id="id${status.index}" value="${authInfo.id}">
 							<button class="deliveryAddressUpdate" value="${status.index}">수정</button>&nbsp;<button class="deliveryAddressDelete" value="${status.index}">삭제</button></td>
 						</tr>

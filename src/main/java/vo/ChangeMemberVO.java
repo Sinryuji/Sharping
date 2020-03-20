@@ -9,6 +9,7 @@ public class ChangeMemberVO {
 	private String newStoreText;
 	private String newPost;
 	private String newAddress;
+	private String newAddressEtc;
 	private int newBankCode;
 	private String newBankAccount;
 
@@ -16,7 +17,7 @@ public class ChangeMemberVO {
 	public ChangeMemberVO() {}
 	
 	public ChangeMemberVO(String id, String newPhone, String newEmail, String newStoreName, String newStoreAddress,
-			String newStoreText, String newPost, String newAddress, int newBankCode, String newBankAccount) {
+			String newStoreText, String newPost, String newAddress, int newBankCode, String newBankAccount, String newAddressEtc) {
 		super();
 		this.id = id;
 		this.newPhone = newPhone;
@@ -28,6 +29,15 @@ public class ChangeMemberVO {
 		this.newAddress = newAddress;
 		this.newBankCode = newBankCode;
 		this.newBankAccount = newBankAccount;
+		this.newAddressEtc = newAddressEtc;
+	}
+
+	public String getNewAddressEtc() {
+		return newAddressEtc;
+	}
+
+	public void setNewAddressEtc(String newAddressEtc) {
+		this.newAddressEtc = newAddressEtc;
 	}
 
 	public String getNewStoreName() {
@@ -115,7 +125,7 @@ public class ChangeMemberVO {
 		return "ChangeMemberVO [id=" + id + ", newPhone=" + newPhone + ", newEmail=" + newEmail + ", newStoreName="
 				+ newStoreName + ", newStoreAddress=" + newStoreAddress + ", newStoreText=" + newStoreText
 				+ ", newPost=" + newPost + ", newAddress=" + newAddress + ", newBankCode=" + newBankCode
-				+ ", newBankAccount=" + newBankAccount + "]";
+				+ ", newBankAccount=" + newBankAccount + ", newAddressEtc=" + newAddressEtc + "]";
 	}	
 	
 	

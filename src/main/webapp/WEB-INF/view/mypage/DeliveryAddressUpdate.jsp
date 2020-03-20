@@ -28,7 +28,7 @@
 연락처 : <input type="text" name="daPhone" id="daPhone" value="${deliveryAddress.daPhone}"><br>
 우편번호:<input type="text" name="daPost" id="daPost" readonly value="${deliveryAddress.daPost}"/> &nbsp;
 주소:<input type="text" name="daAddress" id="daAddress" readonly value="${deliveryAddress.daAddress}" style="width : 300px"/> &nbsp;
-상세주소:<input type="text" name="addressEtc" id="adressEtc"> &nbsp; <input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /> <br> 
+상세주소:<input type="text" name="daAddressEtc" id="daAdressEtc" value="${deliveryAddress.daAddressEtc}" > &nbsp; <input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /> <br> 
 <input type="hidden" name="id" id="id" value="${authInfo.id }">
 <input type="submit" value="수정">&nbsp;&nbsp;<input type="button" id="cancle" value="취소">
 <script>

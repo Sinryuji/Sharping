@@ -20,6 +20,21 @@ function openPop(){
 }
 
 </script>
+<!-- 카카오 주소 찾기 api -->
+<script type="text/JavaScript" src="http://code.jquery.com/jquery-1.7.min.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script type="text/javascript">
+		function openDaumZipAddress() {
+			new daum.Postcode({
+				oncomplete:function(data) {
+					$("#newPost").val(data.zonecode);
+					$("#newAddress").val(data.address);
+					$("#newAddressEtc").focus();
+					console.log(data);
+				}
+			}).open();
+		}
+	</script>
 </head>
 <body>
 
@@ -44,6 +59,9 @@ function openPop(){
 		<br>휴대폰번호 : <input type="text" name="newPhone" id="newPhone" value="${authInfo.phone}" required/><br><br>
 		이메일 : <input type="text" name="newEmail" id="newEmail" value="${authInfo.email}" required/><br><br>
 		아이디 : <input type="text" name="id"  id="id" value="${authInfo.id}"/><br><br>
+		우편번호:<input type="text" name="newPost" id="newPost" value="${member.post}" readonly /> &nbsp;
+		주소:<input type="text" name="newAddress" id="newAddress" value="${member.address}" readonly /> &nbsp;
+		상세주소:<input type="text" name="newAddressEtc" id="newAddressEtc" value="${member.addressEtc}"> &nbsp; <input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /> <br> 
 		<input type="submit" class="submit" value="회원정보 수정">&nbsp&nbsp
 		<input type="button" onclick="javascript:history.back();" value="정보수정 취소">&nbsp&nbsp
 		<input type="button" onclick="location.href='${pageContext.request.contextPath}/infoDelete'" value="회원탈퇴">

@@ -8,7 +8,7 @@ public class DeliveryAddressVO {
 	private String daAddress;
 	private String daName;
 	private String daPhone;
-	private String addressEtc;
+	private String daAddressEtc;
 	
 	public DeliveryAddressVO() {
 		super();
@@ -16,7 +16,7 @@ public class DeliveryAddressVO {
 
 	
 	public DeliveryAddressVO(String daaName, String id, String daPost, String daAddress, String daName, String daPhone,
-			String addressEtc) {
+			String daAddressEtc) {
 		super();
 		this.daaName = daaName;
 		this.id = id;
@@ -24,16 +24,21 @@ public class DeliveryAddressVO {
 		this.daAddress = daAddress;
 		this.daName = daName;
 		this.daPhone = daPhone;
-		this.addressEtc = addressEtc;
+		this.daAddressEtc = daAddressEtc;
+	}
+
+	
+	
+	public String getDaAddressEtc() {
+		return daAddressEtc;
 	}
 
 
-	public String getAddressEtc() {
-		return addressEtc;
+	public void setDaAddressEtc(String daAddressEtc) {
+		this.daAddressEtc = daAddressEtc;
 	}
-	public void setAddressEtc(String addressEtc) {
-		this.addressEtc = addressEtc;
-	}
+
+
 	public String getDaaName() {
 		return daaName;
 	}

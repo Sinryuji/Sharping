@@ -90,6 +90,21 @@ function openPop(){
 
 
 </script>
+<!-- 카카오 주소 찾기 api -->
+<script type="text/JavaScript" src="http://code.jquery.com/jquery-1.7.min.js"></script>
+<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+	<script type="text/javascript">
+		function openDaumZipAddress() {
+			new daum.Postcode({
+				oncomplete:function(data) {
+					$("#newPost").val(data.zonecode);
+					$("#newAddress").val(data.address);
+					$("#newAddressEtc").focus();
+					console.log(data);
+				}
+			}).open();
+		}
+	</script>
 </head>
 <body>
 		이름 : <input type="text" name="name" id="name" value="${authInfo.name}" readonly ><br><br>
@@ -109,8 +124,9 @@ function openPop(){
 		스토어이름:<input type="text" name="newStoreName" value="${seller.storeName }" /><br><br> 
 		스토어주소:<input type="text" name="newStoreAddress" value="${seller.storeAddress }" /><br><br>
 		스토어소개글:<input type="text" name="newStoreText" value="${seller.storeText }" /><br><br>
-		우편번호:<input type="text" name="newPost" value="${seller.post }" /><br><br>
-		주소:<input type="text" name="newAddress" value="${seller.address }" /><br><br>
+		우편번호:<input type="text" name="newPost" id="newPost" value="${member.post}" readonly /> &nbsp;
+		주소:<input type="text" name="newAddress" id="newAddress" value="${member.address}" readonly /> &nbsp;
+		상세주소:<input type="text" name="newAddressEtc" id="newAddressEtc" value="${member.addressEtc}"> &nbsp; <input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /> <br><br>
 		계좌번호:<input type="text" name="newBankAccount" value="${seller.bankAccount }" /><br><br> 
 		은행코드:<input type="number" name="newBankCode" value="${seller.bankCode }" /><br><br> 
 		<input type="submit" id="submit" class="submit" value="회원정보 수정" >&nbsp&nbsp
