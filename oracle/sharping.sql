@@ -190,8 +190,8 @@ CREATE TABLE PRODUCT (
 /*오더넘 / 뱅크코드 / 버츄어 넘버 참조*/
 CREATE TABLE PAYBANK (
 	"orderNum"	VARCHAR2(100)		PRIMARY KEY,
-	"payDate"	TIMESTAMP		NOT NULL,
-	"cancleDate"	TIMESTAMP		NOT NULL,
+	"payDate"	TIMESTAMP,
+	"cancleDate"	TIMESTAMP,
 	"bankCode"	NUMBER		NOT NULL,
 	"vaNum"	VARCHAR2(30)		NOT NULL,
   FOREIGN KEY ("orderNum") REFERENCES ORDERR("orderNum") ON DELETE CASCADE,

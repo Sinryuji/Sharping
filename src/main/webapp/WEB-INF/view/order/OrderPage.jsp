@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -26,6 +27,12 @@
 	</script>
 </head>
 <body>
+<c:if test="${cnt > option.stock}">
+<script>
+alert("상품의 재고 보다 선택한 수량이 많습니다. 재고 : " + ${option.stock});
+history.go(-1);
+</script>
+</c:if>
 <form name="frmData" id="frmData" method="post">
 	<input type="hidden" name="id" id="id" value="${authInfo.id}">
 </form>

@@ -63,6 +63,7 @@ public class OrderController {
 		int optionNum = productService.selectOptionNum(optionVO);
 
 		OptionVO option = productService.selectOptionByOptionNum(optionNum);
+		
 
 		ProductVO product = productService.selectProduct(option.getProductNum());
 		
@@ -99,6 +100,16 @@ public class OrderController {
 
 		mv.setViewName("order/OrderResult");
 
+		return mv;
+	}
+	
+	// 카드 결제 팝업 창
+	@RequestMapping("/payingCare")
+	public ModelAndView payingCard() {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("order/PayingCard");
+		
 		return mv;
 	}
 }

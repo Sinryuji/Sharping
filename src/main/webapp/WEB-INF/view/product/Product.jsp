@@ -101,7 +101,7 @@
 </select>
 </c:if>
 <br>
-수량:<input type="number" name="cnt" id="cnt" value="1" min="1" max="${product.stock}">
+수량:<input type="number" name="cnt" id="cnt" value="1" min="1">
 결제금액:<input type="number" name="payPrice" id="payPrice" value="${product.productPrice }" readonly>
 <input type="submit" value="주문"><br>
 <button type="button"  class="basketBtn">담기</button>
@@ -117,9 +117,9 @@ $('#cnt').change(function(){
 		
 	 	var cnt = $("#cnt").val();
 		var productNum = ${product.productNum};
-		var optionOneNum = $("#optionOneNum").val();
-		var optionTwoNum = $("#optionTwoNum").val();
-		var optionThreeNum = $("#optionThreeNum").val();
+		var optionOneNum = $("select[name=optionOneNum]").val();
+		var optionTwoNum = $("select[name=optionTwoNum]").val();
+		var optionThreeNum = $("select[name=optionThreeNum]").val();
 		var data = { 
 				cnt : cnt,
 				productNum : productNum,

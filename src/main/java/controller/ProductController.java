@@ -184,6 +184,8 @@ public class ProductController {
 
 		List<DetailOptionVO> detailOptionList = productService.selectDetailOption(productNum);
 		
+		
+		
 		int maxOptionLevel = 0;
 		
 		if(detailOptionList.size() != 0) {

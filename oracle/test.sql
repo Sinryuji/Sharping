@@ -16,6 +16,8 @@ select * from product;
 
 select * from optionn;
 
+delete from member;
+
 commit;
 
 insert into category values (1, '의류', 1, 0);
@@ -26,19 +28,19 @@ insert into product values (2, '티', '티입니당', 100, '1', '1', 'FALSE', 1, 1, s
 
 delete from product where "productNum" = 2;
 
-insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 1, 1, 1, 3, 5);
-insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 1, 1, 1, 3, 6);
-insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 1, 1, 1, 4, 5);
-insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 1, 1, 1, 4, 6);
-insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 1, 1, 2, 3, 5);
-insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 1, 1, 2, 3, 6);
-insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 1, 1, 2, 4, 5);
-insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 1, 1, 2, 4, 6);
+insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 1, 5, 1, 3, 5);
+insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 1, 5, 1, 3, 6);
+insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 1, 5, 1, 4, 5);
+insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 1, 5, 1, 4, 6);
+insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 1, 5, 2, 3, 5);
+insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 1, 5, 2, 3, 6);
+insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 1, 5, 2, 4, 5);
+insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 1, 5, 2, 4, 6);
 
-insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 2, 1, 7, 9, 0);
-insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 2, 1, 7, 10, 0);
-insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 2, 1, 8, 9, 0);
-insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 2, 1, 8, 10, 0);
+insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 2, 5, 7, 9, 0);
+insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 2, 5, 7, 10, 0);
+insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 2, 5, 8, 9, 0);
+insert into OPTIONN values (OPTION_SEQ.NEXTVAL, 2, 5, 8, 10, 0);
 
 delete from OPTIONN;
 
