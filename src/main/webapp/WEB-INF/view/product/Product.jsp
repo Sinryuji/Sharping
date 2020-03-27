@@ -33,7 +33,7 @@
 <span id="manufacturer">제조사 : ${product.manufacturer}</span><br>
 <span id="mfDate">제조일자 : ${product.mfDate}</span><br>
 <span id="origin">원산지 : ${product.origin}</span><br>
-<span id="deliveryPrice">배송비 : ${product.deliveryPrice}</span><br>
+<span>배송비 : ${product.deliveryPrice}</span><br>
 
 
 <form action="orderPage">
@@ -103,6 +103,7 @@
 <br>
 수량:<input type="number" name="cnt" id="cnt" value="1" min="1">
 결제금액:<input type="number" name="payPrice" id="payPrice" value="${product.productPrice }" readonly>
+<input type="hidden" name="deliveryPrice" id="deliveryPrice" value="${product.deliveryPrice}">
 <input type="submit" value="주문"><br>
 <button type="button"  class="basketBtn">담기</button>
 </form>

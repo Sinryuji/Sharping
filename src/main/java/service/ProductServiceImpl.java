@@ -3,17 +3,18 @@ package service;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import dao.ProductDAO;
+import vo.BasketListVO;
+import vo.BasketVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
 import vo.ProductListVO;
-
-import java.util.HashMap;
-import vo.BasketListVO;
-import vo.BasketVO;
 import vo.ProductVO;
 import vo.SearchVO;
 
+@Service
 public class ProductServiceImpl implements ProductService {
 
 	private ProductDAO productDAO;

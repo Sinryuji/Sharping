@@ -5,8 +5,31 @@
 <mapper namespace="orderDAO">
 
 	<insert id="insertOrder" parameterType="orderVO">
-		INSERT INTO ORDER VALUES (ORDER_SEQ.NEXTVAL, sysdate, #{state}, #{payCase}, #{payPrice}, #{trackingNum}, #{toName}, #{toPhone}, #{toPost}, #{toAddress}, #{id})
+		INSERT INTO ORDERR VALUES (ORDER_SEQ.NEXTVAL, SYSDATE, #{state}, #{payCase}, #{payPrice}, #{trackingNum}, #{toName}, #{toPhone}, #{toPost}, #{toAddress}, #{id}, #{deliveryMessage})
 	</insert>
 
+	<insert id="insertPayCard" parameterType="orderVO">
+		INSERT INTO PAYCARD VALUES (#{orderNum}, #{impId})
+	</insert>
+	
+	<select id="selectLatelyOrderNum" resultType="orderVO" parameterType="String">
+		SELECT * FROM ORDERR WHERE "orderDate" = (SELECT MAX("orderDate") FROM ORDERR WHERE "id" = #{id})
+	</select>
+	
+	<insert id="insertOrderList" parameterType="orderListVO">
+		INSERT INTO ORDERLIST VALUES (ORDERLIST_SEQ.NEXTVAL, #{productName}, #{productThumb}, #{optionOneNum}, #{optionTwoNum}, #{optionThreeNum}, #{payPrice}, #{cnt}, #{orderNum}, #{optionNum})
+	</insert>
+	
+	<update id="decrementStockProduct" parameterType="orderListVO">
+		UPDATE PRODUCT SET "stock" = "stock" - #{cnt} WHERE "productNum" = #{productNum}
+	</update>
+	
+	<update id="decrementStockOption" parameterType="orderListVO">
+		UPDATE OPTIONN SET "stock" = "stock" - #{cnt} WHERE "optionNum" = #{optionNum}
+	</update>
+	
+	<select id="selectProductNumByOptionNum" resultType="int" parameterType="int">
+		SELECT "productNum" FROM OPTIONN WHERE "optionNum" = #{optionNum}
+	</select>
 
 </mapper>

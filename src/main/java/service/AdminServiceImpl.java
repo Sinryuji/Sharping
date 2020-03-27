@@ -1,11 +1,13 @@
 package service;
 
 import org.springframework.security.crypto.bcrypt.BCrypt;
+import org.springframework.stereotype.Service;
 
 import dao.AdminDAO;
 import exception.IdPasswordNotMatchingException;
 import vo.AdminVO;
 
+@Service
 public class AdminServiceImpl implements AdminService {
 
 	private AdminDAO adminDAO;

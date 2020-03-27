@@ -67,17 +67,18 @@ CREATE TABLE BANK (
 
 /*멤버아이디 참조*/
 CREATE TABLE ORDERR (
-	"orderNum"	VARCHAR2(100)		PRIMARY KEY,
+	"orderNum"	NUMBER		PRIMARY KEY,
 	"orderDate"	TIMESTAMP		DEFAULT SYSDATE,
 	"state"	VARCHAR2(20) CHECK ("state" in ('입금 대기', '결제 완료', '배송 준비중', '배송 중', '배송 완료', '구매 확정', '주문 취소', '반품 완료', '교환 완료')) NOT NULL,
 	"payCase"	VARCHAR2(30) CHECK ("payCase" in ('무통장 입금', '카드'))		NOT NULL,
 	"payPrice"	NUMBER		NOT NULL,
-	"trackingNum"	VARCHAR2(20)	  NOT NULL,
+	"trackingNum"	VARCHAR2(20)	  ,
 	"toName"	VARCHAR2(20)		NOT NULL,
 	"toPhone"	VARCHAR2(20)		NOT NULL,
 	"toPost"	VARCHAR2(20)		NOT NULL,
 	"toAddress"	VARCHAR2(200)		NOT NULL,
 	"id"	VARCHAR2(30)		NOT NULL,
+  "deliveryMessage" VARCHAR2(100),
   FOREIGN KEY ("id") REFERENCES MEMBER("id") ON DELETE CASCADE
 );
 
@@ -121,7 +122,7 @@ CREATE TABLE NOTICE (
 /*오더넘 참조*/
 CREATE TABLE REVIEW (
 	"reviewNum"	NUMBER		PRIMARY KEY,
-	"orderNum"	VARCHAR2(100)		NOT NULL,
+	"orderNum"			NOT NULL,
 	"id"	VARCHAR2(30)		NOT NULL,
 	"reviewText"	VARCHAR2(1000)		NOT NULL,
 	"score"	NUMBER		NOT NULL,
@@ -132,7 +133,7 @@ CREATE TABLE REVIEW (
 
 /*오더넘 참조*/
 CREATE TABLE GUEST (
-	"orderNum"	VARCHAR2(100)		PRIMARY KEY,
+	"orderNum"	NUMBER		PRIMARY KEY,
 	"guestName"	VARCHAR2(30)		NOT NULL,
 	"guestPhone"	VARCHAR2(30)		NOT NULL,
 	"guestPassword"	VARCHAR2(70)		NOT NULL,
@@ -141,7 +142,7 @@ CREATE TABLE GUEST (
 
 /*오더넘 참조*/
 CREATE TABLE PAYCARD (
-	"orderNum"	VARCHAR2(100)		PRIMARY KEY,
+	"orderNum"	NUMBER		PRIMARY KEY,
 	"impId"	VARCHAR2(30)		NOT NULL,
   FOREIGN KEY ("orderNum") REFERENCES ORDERR("orderNum") ON DELETE CASCADE
 );
@@ -152,7 +153,7 @@ CREATE TABLE PAYCARD (
 /*오더넘과 뱅크코드 참조*/
 CREATE TABLE VIRTUALACCOUNT (
 	"vaNum"	VARCHAR2(30)		PRIMARY KEY,
-	"orderNum"	VARCHAR2(100)		NOT NULL,
+	"orderNum"	NUMBER		NOT NULL,
 	"bankCode"	NUMBER		NOT NULL,
 	"payPrice"	NUMBER		NOT NULL,
 	"respCode"	VARCHAR2(20) CHECK ("respCode" IN ('YES', 'NO'))		NOT NULL,
@@ -189,7 +190,7 @@ CREATE TABLE PRODUCT (
 
 /*오더넘 / 뱅크코드 / 버츄어 넘버 참조*/
 CREATE TABLE PAYBANK (
-	"orderNum"	VARCHAR2(100)		PRIMARY KEY,
+	"orderNum"	NUMBER		PRIMARY KEY,
 	"payDate"	TIMESTAMP,
 	"cancleDate"	TIMESTAMP,
 	"bankCode"	NUMBER		NOT NULL,
@@ -311,7 +312,7 @@ CREATE TABLE ORDERLIST (
   "optionThreeNum" NUMBER,
 	"productPrice"	NUMBER		NOT NULL,
 	"cnt"	NUMBER		NOT NULL,
-	"orderNum"	VARCHAR2(100)		NOT NULL,
+	"orderNum"	NUMBER		NOT NULL,
 	"optionNum"	NUMBER		NOT NULL,
   FOREIGN KEY ("orderNum") REFERENCES ORDERR("orderNum") ON DELETE CASCADE,
   FOREIGN KEY ("optionNum") REFERENCES OPTIONN("optionNum") ON DELETE CASCADE

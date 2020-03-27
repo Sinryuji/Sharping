@@ -179,7 +179,6 @@ public class ProductController {
 	@RequestMapping("/product")
 	public ModelAndView product(int productNum) {
 		ProductVO productVO = productService.selectProduct(productNum);
-		System.out.println(productVO.getId());
 		SellerVO sellerVO = memberService.searchSellerById(productVO.getId());
 
 		List<DetailOptionVO> detailOptionList = productService.selectDetailOption(productNum);

@@ -25,5 +25,7 @@
 		<typeAlias alias="adminVO" type="vo.AdminVO" ></typeAlias>	
 		<typeAlias alias="basketVO" type="vo.BasketVO"></typeAlias>
 		<typeAlias alias="basketListVO" type="vo.BasketListVO"></typeAlias>
+		<typeAlias alias="payingCardVO" type="vo.PayingCardVO"></typeAlias>
+		<typeAlias alias="orderListVO" type="vo.OrderListVO"></typeAlias>
 	</typeAliases>
 </configuration> 

@@ -18,13 +18,26 @@ select * from optionn;
 
 delete from member;
 
+select * from orderr where "orderDate" = (select max("orderDate") from orderr where "id" = 'test');
+
+select * from orderr;
+
+select * from payCard;
+
+select * from orderlist;
+
+delete from orderr;
+
+delete from payCard;
+
+
 commit;
 
 insert into category values (1, '의류', 1, 0);
 
-insert into product values (1, '후드티', '후드티입니당', 100, '1', '1', 'FALSE', 1, 1, sysdate, 'test', '면', '은호모직', sysdate, '한국', 100, '상품', '색상', '사이즈');
+insert into product values (1, '후드티', '후드티입니당', 100, '1', '1', 'FALSE', 100, 1, sysdate, 'test', '면', '은호모직', sysdate, '한국', 100, '상품', '색상', '사이즈');
 
-insert into product values (2, '티', '티입니당', 100, '1', '1', 'FALSE', 1, 1, sysdate, 'test', '면', '은호모직', sysdate, '한국', 100, '상품', '색상', '');
+insert into product values (2, '티', '티입니당', 100, '1', '1', 'FALSE', 100, 1, sysdate, 'test', '면', '은호모직', sysdate, '한국', 100, '상품', '색상', '');
 
 delete from product where "productNum" = 2;
 
@@ -52,6 +65,8 @@ delete from DETAILOPTION;
 
 drop sequence DETAILOPTION_SEQ;
 
+drop sequence ORDER_SEQ;
+
 CREATE SEQUENCE DETAILOPTION_SEQ
   START WITH 1
   INCREMENT BY 1
@@ -61,7 +76,17 @@ CREATE SEQUENCE DETAILOPTION_SEQ
   NOCACHE
 ;
 
+
 CREATE SEQUENCE OPTION_SEQ
+  START WITH 1
+  INCREMENT BY 1
+  NOMAXVALUE
+  NOMINVALUE
+  NOCYCLE
+  NOCACHE
+;
+
+CREATE SEQUENCE ORDER_SEQ
   START WITH 1
   INCREMENT BY 1
   NOMAXVALUE

@@ -47,7 +47,7 @@
 </script>
 </head>
 <body>
-	<form>
+	<form action="orderPage">
 		<table>
 		<c:choose>
 			<c:when test="${empty basketList }">
@@ -89,7 +89,7 @@
 						<a href="<%=request.getContextPath()%>/deleteBasket?basketNum=${basket.basketNum}">X</a>
 						<%-- <input type="hidden" id="hiddenCnt${status.index }" value = ""> --%>
 						<input type="hidden" id="hiddenOn${status.index }" value = "${basket.optionNum}">
- 					</td>
+ 					</td> 
 				</tr>
 			</c:forEach>
 			</c:when>
@@ -107,18 +107,18 @@
 			</tr>
 			<%-- <c:forEach var="basketinfo" items="${productinfo}"> --%>
 			<tr>
-				<td><input type="number" id="totalPrice" value="${totalPrice}" readonly/></td>
-				<td><input type="number" id="totalDeliveryPrice" value="${totalDeliveryPrice}" readonly/></td>
+				<td><input type="number" id="payPrice" name="payPrice" value="${totalPrice}" readonly/></td>
+				<td><input type="number" id="deliveryPrice" name="deliveryPrice" value="${totalDeliveryPrice}" readonly/></td>
 			</tr>
 			<%-- </c:forEach> --%>
 			</c:when>
 		</c:choose>
 		</table>
-		
+		<input type="submit" value="주문">
 	</form>
 
 	<h1>OrderPage</h1>
-	<input type="submit" value="주문" formaction="/orderPage">
+	
 	<script>
 	 $('.cnt').change(function(){
 		
@@ -200,8 +200,8 @@ $.ajax({
 				type : "post",
 				success : function(data) {
 
-					$("#totalPrice").val(data.totalPrice);
-					$('#totalDeliveryPrice').val(data.totalDeliveryPrice);
+					$("#payPrice").val(data.totalPrice);
+					$('#deliveryPrice').val(data.totalDeliveryPrice);
 
 				}
 			})

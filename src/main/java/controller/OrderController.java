@@ -14,6 +14,9 @@ import service.ProductService;
 import vo.AuthInfo;
 import vo.MemberVO;
 import vo.OptionVO;
+import vo.OrderListVO;
+import vo.OrderVO;
+import vo.PayingCardVO;
 import vo.ProductVO;
 import vo.SellerVO;
 
@@ -50,7 +53,7 @@ public class OrderController {
 
 	// 주문 페이지
 	@RequestMapping("/orderPage")
-	public ModelAndView orderPage(HttpServletRequest req, OptionVO optionVO, @RequestParam int cnt, @RequestParam int payPrice) {
+	public ModelAndView orderPage(HttpServletRequest req, OptionVO optionVO, @RequestParam int cnt, @RequestParam int payPrice, @RequestParam(required=false) int deliveryPrice) {
 		ModelAndView mv = new ModelAndView();
 		
 		
@@ -59,18 +62,18 @@ public class OrderController {
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 		
 		// authInfo가 null일 경우 비회원 주문조회 추가
+		
+		payPrice += deliveryPrice;
 
 		int optionNum = productService.selectOptionNum(optionVO);
 
 		OptionVO option = productService.selectOptionByOptionNum(optionNum);
-		
-
+	
 		ProductVO product = productService.selectProduct(option.getProductNum());
 		
 		MemberVO member = memberService.searchMemberById(authInfo.getId());
 		
-
-		SellerVO seller = memberService.searchSellerById(product.getId());
+		SellerVO seller = memberService.searchSellerById(product.getId());	
 
 		mv.setViewName("order/OrderPage");
 
@@ -92,11 +95,43 @@ public class OrderController {
 
 		return mv;
 	}
+	
+	
 
-	// 주문 완료 버튼
-	@RequestMapping("/orderResult")
-	public ModelAndView orderResult() {
+	// 카드 결제 완료 및 주문 완료
+	@RequestMapping("/orderCardResult")
+	public ModelAndView orderResult(OrderVO orderVO, OrderListVO orderListVO) {
 		ModelAndView mv = new ModelAndView();
+		
+		orderVO.setState("결제 완료");
+		orderVO.setPayCase("카드");
+		orderVO.setTrackingNum("");
+		
+		orderService.insertOrder(orderVO);
+		
+		OrderVO order = new OrderVO();
+		
+		order = orderService.selectLatelyOrderNum(orderVO.getId());
+		
+		orderVO.setOrderNum(order.getOrderNum());
+		
+		orderListVO.setOrderNum(order.getOrderNum());
+		
+		int insertPayCardResult = orderService.insertPayCard(orderVO);
+		
+		int insertOrderResult = orderService.insertOrderList(orderListVO);
+		
+		int productNum = orderService.selectProductNumByOptionNum(orderListVO.getOptionNum());
+		
+		orderListVO.setProductNum(productNum);
+		
+		if(insertPayCardResult > 0) {
+			orderService.decrementStockProduct(orderListVO);
+		}
+		
+		if(insertOrderResult > 0) {
+			orderService.decrementStockOption(orderListVO);
+		}
 
 		mv.setViewName("order/OrderResult");
 
@@ -104,11 +139,30 @@ public class OrderController {
 	}
 	
 	// 카드 결제 팝업 창
-	@RequestMapping("/payingCare")
-	public ModelAndView payingCard() {
+	@RequestMapping("/payingCard")
+	public ModelAndView payingCard(PayingCardVO payingCardVO, OrderVO orderVO, OrderListVO orderListVO) {
 		ModelAndView mv = new ModelAndView();
 		
+		String address = orderVO.getToAddress();
+		String addressEtc = orderVO.getToAddressEtc();
+		
+		String result = "";
+		
+		if(addressEtc != null) {
+		result = address + " " + addressEtc;
+		}
+		else {
+			result = address;
+		}
+		
+		orderVO.setToAddress(result);
+
+		
 		mv.setViewName("order/PayingCard");
+		mv.addObject("payingCard", payingCardVO);
+		mv.addObject("order", orderVO);
+		mv.addObject("orderList", orderListVO);
+		
 		
 		return mv;
 	}

@@ -9,5 +9,6 @@
 <body>
 <h1>BankDeposit</h1>
 <h1>MyPage</h1>
+주문이 완료되었습니다~
 </body>
 </html>
