@@ -28,7 +28,7 @@
 	</insert>
 	
 	<insert id="insertOption" parameterType="optionVO">
-		INSERT INTO OPTIONN VALUES (OPTION_SEQ.NEXTVAL, #{productNum}, #{cnt}, #{optionOneNum}, #{optionTwoNum}, #{optionThreeNum})
+		INSERT INTO OPTIONN VALUES (OPTION_SEQ.NEXTVAL, #{productNum}, #{stock}, #{optionOneNum}, #{optionTwoNum}, #{optionThreeNum})
 	</insert>
 	
 	<insert id="insertOptionDetailIsNull" parameterType="optionVO">
@@ -138,5 +138,74 @@
 			</if>		
 	</select>
 	
+	<update id="updateProductByProductNum" parameterType="productVO">
+      UPDATE PRODUCT SET 
+	      "productName" = #{productName} ,   "productText" = #{productText} , "productPrice" = #{productPrice} , 
+	      "productThumb" = #{productThumb} , "productImage" = #{productImage} ,"productDisplay" = #{productDisplay} ,
+	      "stock" = #{stock} , "categoryNum" = #{categoryNum} ,"productMeterial" = #{productMeterial} , 
+	      "manufacturer" = #{manufacturer}  , "mfDate" = #{mfDate} , "origin" = #{origin} , 
+		  "deliveryPrice" = #{deliveryPrice} ,"optionOneName" = #{optionOneName} , 
+		  "optionTwoName" = #{optionTwoName} , "optionThreeName" = #{optionThreeName}
+	  WHERE "productNum" = #{productNum}
+   </update>
+   
+   <update id="updateProductByProductNumDateIsNull" parameterType="productVO">
+      UPDATE PRODUCT SET 
+	      "productName" = #{productName} ,   "productText" = #{productText} , "productPrice" = #{productPrice} , 
+	      "productThumb" = #{productThumb} , "productImage" = #{productImage} ,"productDisplay" = #{productDisplay} ,
+	      "stock" = #{stock} , "categoryNum" = #{categoryNum} ,"productMeterial" = #{productMeterial} , 
+	      "manufacturer" = #{manufacturer}  , "origin" = #{origin} , 
+		  "deliveryPrice" = #{deliveryPrice} ,"optionOneName" = #{optionOneName} , 
+		  "optionTwoName" = #{optionTwoName} , "optionThreeName" = #{optionThreeName}
+	  WHERE "productNum" = #{productNum}
+   </update>
+   
+   <delete id="deleteProductByProductNum" parameterType="productVO">
+   		DELETE FROM PRODUCT WHERE "productNum" = #{productNum}
+   </delete>
+   
+   <delete id="deleteDetailOption" parameterType="int">
+   		DELETE FROM DETAILOPTION WHERE "doNum" = #{doNum}
+   </delete>
+   
+ 	<select id="selectMaxDoNumByProductNum" parameterType="int" resultType="int">
+ 		SELECT MAX("doNum") FROM DETAILOPTION WHERE "productNum" = #{productNum}
+ 	</select>
+ 	
+ 	<select id="selectOptionAll" resultType="optionVO">
+ 		SELECT * FROM OPTIONN
+ 	</select>
+ 	
+ 	<delete id="deleteOptionByDoNum" parameterType="int">
+ 		DELETE FROM OPTIONN WHERE "optionOneNum" = #{doNum} OR "optionTwoNum" = #{doNum} OR "optionThreeNum" = #{doNum}
+ 	</delete>
+ 	
+ 	<delete id="deleteOptionByOptionNum" parameterType="int">
+ 		DELETE FROM OPTIONN WHERE "optionNum" = #{optionNum}
+ 	</delete>
+ 	
+ 	<select id="selectDetailOptionByDoNum" parameterType="int" resultType="detailOptionVO">
+ 		SELECT * FROM DETAILOPTION WHERE "doNum" = #{doNum}
+ 	</select>
+ 	
+ 	<select id="selectOptionByOptionOneNum" parameterType="optionVO" resultType="optionVO">
+ 		SELECT * FROM OPTIONN WHERE "optionOneNum" = #{optionOneNum}
+ 	</select>
+ 	
+ 	<select id="selectOptionByOptionTwoNum" parameterType="optionVO" resultType="optionVO">
+ 		SELECT * FROM OPTIONN WHERE "optionTwoNum" = #{optionTwoNum}
+ 	</select>
+ 	
+ 	<!-- <select id="selectOptionByOptionThreeNum" parameterType="optionVO" resultType="optionVO">
+ 		SELECT * FROM OPTIONN WHERE "optionThreeNum" = #{doNum}
+ 	</select> -->
+ 	
+ 	<update id="updateProductDisplayByProductNum" parameterType="productVO">
+      UPDATE PRODUCT SET "productDisplay" = #{productDisplay} WHERE "productNum" = #{productNum}
+    </update>
+   
+   <delete id="deleteSelectProductByProductNum" parameterType="productVO">
+ 		DELETE FROM PRODUCT WHERE "productNum" = #{productNum}
+ 	</delete>
 
 </mapper>

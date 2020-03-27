@@ -127,4 +127,85 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductListVO> getProductList(SearchVO search) throws Exception {
 		return productDAO.getProductList(search);
 	}
+	
+	@Override
+	public int updateProductByProductNum(ProductVO productVO) {
+		return productDAO.updateProductByProductNum(productVO);
+	}
+	
+	@Override
+	public int updateProductByProductNumDateIsNull(ProductVO productVO) {
+		return productDAO.updateProductByProductNumDateIsNull(productVO);
+	}
+	
+	@Override
+	public int deleteProductByProductNum(ProductVO productVO) {
+		return productDAO.deleteProductByproductNum(productVO);
+	}
+	
+	@Override
+	public int deleteDetailOption(int doNum) {
+		return productDAO.deleteDetailOption(doNum);
+	}
+	
+	@Override
+	public int selectMaxDoNumByProductNum(int productNum) {
+		return productDAO.selectMaxDoNumByProductNum(productNum);
+	}
+	
+	@Override
+	public List<OptionVO> selectOptionAll() {
+		return productDAO.selectOptionAll();
+	}
+	
+	@Override
+	public int deleteOptionOneByDoNum(int doNum) {
+		return productDAO.deleteOptionOneByDoNum(doNum);
+	}
+	
+	@Override
+	public int deleteOptionTwoByDoNum(int doNum) {
+		return productDAO.deleteOptionTwoByDoNum(doNum);
+	}
+	
+	@Override
+	public int deleteOptionThreeByDoNum(int doNum) {
+		return productDAO.deleteOptionThreeByDoNum(doNum);
+	}
+	
+	@Override
+	public int deleteOptionByDoNum(int doNum) {
+		return productDAO.deleteOptionByDoNum(doNum);
+	}
+
+	@Override
+	public int deleteOptionByOptionNum(int optionNum) {
+		return productDAO.deleteOptionByOptionNum(optionNum);
+	}
+	
+	@Override
+	public List<OptionVO> selectOptionByOptionOneNum(OptionVO optionVO) {
+		return productDAO.selectOptionByOptionOneNum(optionVO);
+	}
+	
+	@Override
+	public List<OptionVO> selectOptionByOptionTwoNum(OptionVO optionVO) {
+		return productDAO.selectOptionByOptionTwoNum(optionVO);
+	}
+	
+	@Override
+	public DetailOptionVO selectDetailOptionByDoNum(int doNum) {
+		return productDAO.selectDetailOptionByDoNum(doNum);
+	}
+	
+	@Override
+	public int updateProductDisplayByProductNum(ProductVO productVO) {
+		return productDAO.updateProductDisplayByProductNum(productVO);
+	}
+	
+	@Override
+	public int deleteSelectProductByProductNum(ProductVO productVO) {
+		return productDAO.deleteSelectProductByProductNum(productVO);
+	}
+	
 }

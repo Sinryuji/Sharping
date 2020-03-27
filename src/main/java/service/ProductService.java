@@ -57,5 +57,37 @@ public interface ProductService {
 	public abstract List<BasketListVO> selectBasket(int[] basketNums);
 	
 	public abstract int deleteBasket(int basketNum);
+	
+	public abstract int updateProductByProductNum(ProductVO productVO);
+	
+	public abstract int updateProductByProductNumDateIsNull(ProductVO productVO);
+	
+	public abstract int deleteProductByProductNum(ProductVO productVO);
+	
+	public abstract int deleteDetailOption(int doNum);
+	
+	public abstract int selectMaxDoNumByProductNum(int productNum);
+	
+	public abstract List<OptionVO> selectOptionAll();
+	
+	public abstract int deleteOptionOneByDoNum(int doNum);
+	
+	public abstract int deleteOptionTwoByDoNum(int doNum);
+	
+	public abstract int deleteOptionThreeByDoNum(int doNum);
+	
+	public abstract int deleteOptionByDoNum(int doNum);
+	
+	public abstract int deleteOptionByOptionNum(int optionNum);
+	
+	public abstract List<OptionVO> selectOptionByOptionOneNum (OptionVO optionVO);
+	
+	public abstract List<OptionVO> selectOptionByOptionTwoNum (OptionVO optionVO);
+	
+	public abstract DetailOptionVO selectDetailOptionByDoNum (int doNum);
+	
+	public abstract int updateProductDisplayByProductNum (ProductVO productVO);
+	
+	public abstract int deleteSelectProductByProductNum (ProductVO productVO);
 
 }

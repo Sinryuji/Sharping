@@ -74,18 +74,18 @@ public class ProductDAOImpl implements ProductDAO{
 
 	@Override
 	public int insertOption(OptionVO optionVO) {
-		return sqlSessionTemplate.insert("optionDAO.insertOption" , optionVO);
+		return sqlSessionTemplate.insert("productDAO.insertOption" , optionVO);
 	}
 	
 	
 	@Override
 	public int insertOptionDetailIsNull(OptionVO optionVO) {
-		return sqlSessionTemplate.insert("optionDAO.insertOptionDetailIsNull" , optionVO);
+		return sqlSessionTemplate.insert("productDAO.insertOptionDetailIsNull" , optionVO);
 	}
 	
 	@Override
 	public int insertDetailOption(DetailOptionVO detailOptionVO) {
-		return sqlSessionTemplate.insert("optionDAO.insertDetailOption" , detailOptionVO);
+		return sqlSessionTemplate.insert("productDAO.insertDetailOption" , detailOptionVO);
 	}
 	
 	@Override
@@ -121,6 +121,87 @@ public class ProductDAOImpl implements ProductDAO{
 	public int deleteBasketByBasketNum(int basketNum) {
 		return sqlSessionTemplate.delete("productDAO.deleteBasketByBasketNum", basketNum);
 
+	}
+	
+	@Override
+	public int updateProductByProductNum(ProductVO productVO) {
+		return sqlSessionTemplate.update("productDAO.updateProductByProductNum", productVO);
+	}
+	
+	@Override
+	public int updateProductByProductNumDateIsNull(ProductVO productVO) {
+		return sqlSessionTemplate.update("productDAO.updateProductByProductNumDateIsNull", productVO);
+	}
+	
+	@Override
+	public int deleteProductByproductNum(ProductVO productVO) {
+		return sqlSessionTemplate.delete("productDAO.deleteProductByProductNum", productVO);
+	}
+	
+	@Override
+	public int deleteDetailOption(int doNum) {
+		return sqlSessionTemplate.delete("productDAO.deleteDetailOption", doNum);
+	}
+	
+	@Override
+	public int selectMaxDoNumByProductNum(int productNum) {
+		return sqlSessionTemplate.selectOne("productDAO.selectMaxDoNumByProductNum", productNum);
+	}
+	
+	@Override
+	public List<OptionVO> selectOptionAll() {
+		return sqlSessionTemplate.selectList("productDAO.selectOptionAll");
+	}
+	
+	@Override
+	public int deleteOptionOneByDoNum(int doNum) {
+		return sqlSessionTemplate.delete("productDAO.deleteOptionOneByDoNum", doNum);
+	}
+	
+	@Override
+	public int deleteOptionTwoByDoNum(int doNum) {
+		return sqlSessionTemplate.delete("productDAO.deleteOptionTwoByDoNum", doNum);
+	}
+
+	
+	@Override
+	public int deleteOptionThreeByDoNum(int doNum) {
+		return sqlSessionTemplate.delete("productDAO.deleteOptionThreeByDoNum", doNum);
+	}
+
+	@Override
+	public int deleteOptionByDoNum(int doNum) {
+		return sqlSessionTemplate.delete("productDAO.deleteOptionByDoNum", doNum);
+	}
+	
+	@Override
+	public int deleteOptionByOptionNum(int optionNum) {
+		return sqlSessionTemplate.delete("productDAO.deleteOptionByOptionNum", optionNum);
+	}
+	
+	@Override
+	public List<OptionVO> selectOptionByOptionOneNum(OptionVO optionVO) {
+		return sqlSessionTemplate.selectList("productDAO.selectOptionByOptionOneNum", optionVO);
+	}
+	
+	@Override
+	public List<OptionVO> selectOptionByOptionTwoNum(OptionVO optionVO) {
+		return sqlSessionTemplate.selectList("productDAO.selectOptionByOptionTwoNum", optionVO);
+	}
+	
+	@Override
+	public DetailOptionVO selectDetailOptionByDoNum(int doNum) {
+		return sqlSessionTemplate.selectOne("productDAO.selectDetailOptionByDoNum", doNum);
+	}
+	
+	@Override
+	public int updateProductDisplayByProductNum(ProductVO productVO) {
+		return sqlSessionTemplate.update("productDAO.updateProductDisplayByProductNum", productVO);
+	}
+	
+	@Override
+	public int deleteSelectProductByProductNum(ProductVO productVO) {
+		return sqlSessionTemplate.delete("productDAO.deleteSelectProductByProductNum", productVO);
 	}
 
 }

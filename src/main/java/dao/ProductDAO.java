@@ -2,16 +2,11 @@ package dao;
 
 import java.util.List;
 
+import vo.BasketListVO;
+import vo.BasketVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
 import vo.ProductListVO;
-
-import java.util.HashMap;
-
-
-import vo.BasketListVO;
-import vo.BasketVO;
-
 import vo.ProductVO;
 import vo.SearchVO;
 
@@ -61,6 +56,37 @@ public interface ProductDAO {
 	public abstract List<BasketListVO> selectBasketByOptionNum(int[] basketNums);
 	
 	public abstract int deleteBasketByBasketNum(int basketNum);
+		
+	public abstract int updateProductByProductNum(ProductVO productVO);
 	
-
+	public abstract int updateProductByProductNumDateIsNull(ProductVO productVO);
+	
+	public abstract int deleteProductByproductNum(ProductVO productVO);
+	
+	public abstract int deleteDetailOption(int doNum);
+	
+	public abstract int selectMaxDoNumByProductNum(int productNum);
+	
+	public abstract List<OptionVO> selectOptionAll();
+	
+	public abstract int deleteOptionOneByDoNum(int doNum);
+	
+	public abstract int deleteOptionTwoByDoNum(int doNum);
+	
+	public abstract int deleteOptionThreeByDoNum(int doNum);
+	
+	public abstract int deleteOptionByDoNum(int doNum);
+	
+	public abstract int deleteOptionByOptionNum(int optionNum);
+	
+	public abstract List<OptionVO> selectOptionByOptionOneNum (OptionVO optionVO);
+	
+	public abstract List<OptionVO> selectOptionByOptionTwoNum (OptionVO optionVO);
+	
+	public abstract DetailOptionVO selectDetailOptionByDoNum (int doNum);
+	
+	public abstract int updateProductDisplayByProductNum (ProductVO productVO);
+	
+	public abstract int deleteSelectProductByProductNum (ProductVO productVO);
+	
 }

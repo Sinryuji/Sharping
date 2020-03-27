@@ -117,9 +117,9 @@ $('#cnt').change(function(){
 		
 	 	var cnt = $("#cnt").val();
 		var productNum = ${product.productNum};
-		var optionOneNum = $("#optionOneNum").val();
-		var optionTwoNum = $("#optionTwoNum").val();
-		var optionThreeNum = $("#optionThreeNum").val();
+		var optionOneNum = $("select[name=optionOneNum]").val();
+		var optionTwoNum = $("select[name=optionTwoNum]").val();
+		var optionThreeNum = $("select[name=optionThreeNum]").val();
 		var data = { 
 				cnt : cnt,
 				productNum : productNum,

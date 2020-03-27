@@ -600,10 +600,6 @@ public class MemberController {
 		return "mypage/DeliveryTracker";
 	}
 
-	// 관리자 메인
-	@RequestMapping("/admin")
-	public String admin() {
-		return "admin/AdminPage";
-	}
+	
 
 }
