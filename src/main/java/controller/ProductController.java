@@ -6,8 +6,10 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 import java.util.UUID;
 
+import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -41,6 +43,12 @@ public class ProductController {
 	
 	private ProductService productService;
 	private MemberService memberService;
+	
+	@Resource(name = "uploadPath")
+	private String uploadPath;
+	
+	@Resource(name = "ThumUploadPath")
+	private String ThumUploadPath;
 
 
 	public ProductController() {
@@ -104,7 +112,7 @@ public class ProductController {
 		productVO.setProductName(mtfRequest.getParameter("productName"));
 		productVO.setStock(Integer.parseInt(mtfRequest.getParameter("stock")));
 		productVO.setProductPrice(Integer.parseInt(mtfRequest.getParameter("productPrice")));
-		productVO.setProductImage(uploadPath + saveName);
+		productVO.setProductImage(File.separator + "upload" + File.separator + saveName);
 		productVO.setProductText(mtfRequest.getParameter("productText"));
 		
 		if(mtfRequest.getParameter("productDisplay") == null) {
@@ -113,7 +121,7 @@ public class ProductController {
 		productVO.setProductDisplay(mtfRequest.getParameter("productDisplay"));
 		}
 		
-		productVO.setProductThumb(ThumUploadPath + thumbFileName);
+		productVO.setProductThumb(File.separator + "upload" + File.separator + "thum" + File.separator + thumbFileName);
 		
 		if(mtfRequest.getParameter("productMeterial") == null) {
 			productVO.setProductMeterial("-");
@@ -240,6 +248,54 @@ public class ProductController {
 
 		return mv;
 	}
+	
+	
+	// 상품 관리 탭 (진열여부)
+	@RequestMapping("/updateProductDisplay")
+	@ResponseBody
+	public String updateProductDisplay(@RequestParam int productNum, @RequestParam String productDisplay) {
+		ProductVO productVO = new ProductVO();
+		
+		productVO.setProductNum(productNum);
+		System.out.println(productNum);
+		productVO.setProductDisplay(productDisplay);
+		System.out.println(productDisplay);
+		System.out.println(productVO);
+		productService.updateProductDisplayByProductNum(productVO);
+		
+		return "complete";
+	}
+	
+	
+	// 상품 관리 탭 상품 전체 삭제
+	@RequestMapping(value = "deleteSelectProductByProductNum")
+	@ResponseBody
+	public ModelAndView deleteSelectProductByProductNum(HttpServletRequest req, @RequestParam(value = "chk[]") List<String> selArr , ProductVO productVO) {
+		HttpSession session = req.getSession();
+		
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		int result = 0;
+		int productNum = 0;
+		
+		if(authInfo != null) {
+			for(String i : selArr) {
+				productNum = Integer.parseInt(i);
+				productVO.setProductNum(productNum);
+				productService.deleteProductByProductNum(productVO);
+			}
+		}
+		ModelAndView mv = new ModelAndView();
+				
+		List<ProductVO> productList = productService.productListById(authInfo.getId());
+		
+		mv.setViewName("seller/ProductManage");
+		
+		mv.addObject("productList", productList);
+		
+		return mv;
+	}
+	
 
 	// 주문 관리 탭
 	@RequestMapping("/orderManage")
@@ -454,6 +510,374 @@ public class ProductController {
 		
 		return mv;
 	}
+	
+	
+	// 상품 수정 페이지
+	@RequestMapping(value = "/updateProduct")
+	public ModelAndView updatedProduct(@RequestParam int productNum) {
+		ModelAndView mv = new ModelAndView();
+		
+		ProductVO productVO = new ProductVO();
+		
+		productVO.setProductNum(productNum);
+		
+		productVO = productService.selectProduct(productNum);
+		
+		List<DetailOptionVO> alldo = productService.selectDetailOption(productNum);
+		
+		List<DetailOptionVO> onedo = new ArrayList<DetailOptionVO>();
+		List<DetailOptionVO> twodo = new ArrayList<DetailOptionVO>();
+		List<DetailOptionVO> threedo = new ArrayList<DetailOptionVO>();
+		
+		for (int i = 0 ; i < alldo.size() ; i++) {
+			if(alldo.get(i).getOptionLevel() == 1) {
+				onedo.add(alldo.get(i));
+			}
+			if(alldo.get(i).getOptionLevel() == 2) {
+				twodo.add(alldo.get(i));
+			}
+			if(alldo.get(i).getOptionLevel() == 3) {
+				threedo.add(alldo.get(i));
+			}
+		}
 
+		mv.setViewName("seller/UpdateProduct");
+		mv.addObject("onedo", onedo);
+		mv.addObject("twodo", twodo);
+		mv.addObject("threedo", threedo);
+		mv.addObject("product", productVO);
+
+		return mv;
+	}
+	
+	// 상품 수정 완료 페이지
+	@RequestMapping(value = "/updateProductResult")
+	public ModelAndView updateProductResult(MultipartHttpServletRequest mtfRequest) {
+		ModelAndView mv = new ModelAndView();
+		ProductVO productVO = new ProductVO();
+		MultipartFile mf = mtfRequest.getFile("productImage");
+		MultipartFile mft = mtfRequest.getFile("productThumb");
+		// 새로운 파일이 등록되었는지 확인
+		if(mf.getOriginalFilename() != null && mf.getOriginalFilename() != "") {
+			// 기존 파일 삭제
+			new File(uploadPath + mf).delete();
+			new File(ThumUploadPath + mft).delete();
+						
+			// 새로 업로드한 파일 등록
+			UUID uid = UUID.randomUUID();
+			String fileName = mf.getOriginalFilename();
+			String saveName = uid.toString() + "_" + fileName;
+			File target = new File(uploadPath, saveName);
+			String thumFileName = mft.getOriginalFilename();
+			String thumSaveName = uid.toString() + "_" + thumFileName;
+			String thumbFileName = "s_" + thumSaveName;
+			File Thum = new File(ThumUploadPath, thumSaveName );
+			try {
+				FileCopyUtils.copy(mf.getBytes(), target);
+				FileCopyUtils.copy(mft.getBytes(), Thum);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			productVO.setProductNum(Integer.parseInt(mtfRequest.getParameter("productNum")));
+			productVO.setCategoryNum(Integer.parseInt(mtfRequest.getParameter("categoryNum")));
+			productVO.setProductName(mtfRequest.getParameter("productName"));
+			productVO.setStock(Integer.parseInt(mtfRequest.getParameter("stock")));
+			productVO.setProductPrice(Integer.parseInt(mtfRequest.getParameter("productPrice")));
+			productVO.setProductImage(File.separator + "upload" + File.separator + saveName);
+			productVO.setProductText(mtfRequest.getParameter("productText"));
+			
+			if(mtfRequest.getParameter("productDisplay") == null) {
+				productVO.setProductDisplay("FALSE");
+			} else {
+			productVO.setProductDisplay(mtfRequest.getParameter("productDisplay"));
+			}
+			
+			productVO.setProductThumb(File.separator + "upload" + File.separator + "thum" + File.separator + thumbFileName);
+			
+			if(mtfRequest.getParameter("productMeterial") == null) {
+				productVO.setProductMeterial("-");
+			} else {
+				productVO.setProductMeterial(mtfRequest.getParameter("productMeterial"));
+			}
+			
+			if(mtfRequest.getParameter("manufacturer") == null) {
+				productVO.setManufacturer("-");
+			} else {
+				productVO.setManufacturer(mtfRequest.getParameter("manufacturer"));
+			}
+					
+			if(mtfRequest.getParameter("origin") == null) {
+				productVO.setOrigin("-");
+			} else {
+				productVO.setOrigin(mtfRequest.getParameter("origin"));
+			}
+			
+			productVO.setDeliveryPrice(Integer.parseInt(mtfRequest.getParameter("deliveryPrice")));
+			productVO.setOptionOneName(mtfRequest.getParameter("optionOneName"));
+			productVO.setOptionTwoName(mtfRequest.getParameter("optionTwoName"));
+			productVO.setOptionThreeName(mtfRequest.getParameter("optionThreeName"));
+		
+			String d = mtfRequest.getParameter("mfDate");
+	
+			if(mtfRequest.getParameter("hidden").equals("n")) {
+				System.out.println("1 : " + productVO.toString());
+				productService.updateProductByProductNumDateIsNull(productVO);
+			} else {
+				productVO.setMfDate(Date.valueOf(d));
+				System.out.println("2 : " + productVO.toString());
+				productService.updateProductByProductNum(productVO);
+			}
+			
+			int THUMB_WIDTH = 300;
+			int THUMB_HEIGHT = 300;
+			
+			  File thumbnail = new File(ThumUploadPath, thumbFileName);
+	
+			  if (target.exists()) {
+			   thumbnail.getParentFile().mkdirs();
+			   try {
+					Thumbnails.of(Thum).size(THUMB_WIDTH, THUMB_HEIGHT).toFile(thumbnail);
+					if(thumbnail.exists()) {
+						Thum.delete();
+					}
+				} catch (IOException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				  }
+			  }
+			  mv.setViewName("redirect:/productManage");
+		} else { // 새로운 파일이 등록되지 않았다면
+			// 기존 이미지를 그대로 사용
+			productVO.setProductNum(Integer.parseInt(mtfRequest.getParameter("productNum")));
+			productVO.setCategoryNum(Integer.parseInt(mtfRequest.getParameter("categoryNum")));
+			productVO.setProductName(mtfRequest.getParameter("productName"));
+			productVO.setStock(Integer.parseInt(mtfRequest.getParameter("stock")));
+			productVO.setProductPrice(Integer.parseInt(mtfRequest.getParameter("productPrice")));
+			productVO.setProductImage(mtfRequest.getParameter("oriProductImage"));
+			productVO.setProductText(mtfRequest.getParameter("productText"));
+			
+			if(mtfRequest.getParameter("productDisplay") == null) {
+				productVO.setProductDisplay("FALSE");
+			} else {
+			productVO.setProductDisplay(mtfRequest.getParameter("productDisplay"));
+			}
+			
+			productVO.setProductThumb(mtfRequest.getParameter("oriProductThumb"));
+			
+			if(mtfRequest.getParameter("productMeterial") == null) {
+				productVO.setProductMeterial("-");
+			} else {
+				productVO.setProductMeterial(mtfRequest.getParameter("productMeterial"));
+			}
+			
+			if(mtfRequest.getParameter("manufacturer") == null) {
+				productVO.setManufacturer("-");
+			} else {
+				productVO.setManufacturer(mtfRequest.getParameter("manufacturer"));
+			}
+					
+			if(mtfRequest.getParameter("origin") == null) {
+				productVO.setOrigin("-");
+			} else {
+				productVO.setOrigin(mtfRequest.getParameter("origin"));
+			}
+			
+			productVO.setDeliveryPrice(Integer.parseInt(mtfRequest.getParameter("deliveryPrice")));
+			productVO.setOptionOneName(mtfRequest.getParameter("optionOneName"));
+			productVO.setOptionTwoName(mtfRequest.getParameter("optionTwoName"));
+			productVO.setOptionThreeName(mtfRequest.getParameter("optionThreeName"));
+		
+			String d = mtfRequest.getParameter("mfDate");
+
+			if(mtfRequest.getParameter("hidden").equals("n")) {
+				productService.updateProductByProductNumDateIsNull(productVO);
+			} else {
+				productVO.setMfDate(Date.valueOf(d));
+				productService.updateProductByProductNum(productVO);
+			}
+			
+			  }
+		mv.setViewName("redirect:/productManage");
+		return mv;
+	}
+	
+	
+		// 상품 삭제
+		@RequestMapping(value = "deleteProduct")
+		public ModelAndView deleteProduct(HttpServletRequest req, @RequestParam int productNum) {
+			ModelAndView mv = new ModelAndView();
+			
+			ProductVO productVO = new ProductVO();
+			
+			productVO.setProductNum(productNum);
+			
+			productService.deleteProductByProductNum(productVO);
+			
+			HttpSession session = req.getSession();
+			
+			AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+			
+			List<ProductVO> productList = productService.productListById(authInfo.getId());
+			
+			mv.setViewName("seller/ProductManage");
+			
+			mv.addObject("productList", productList);
+
+			return mv;
+		}
+
+		
+		// 디테일 옵션 저장
+		@RequestMapping(value = "insertDetailOption")
+		@ResponseBody
+		public Map<String, Object> insertDetailOption(DetailOptionVO detailOptionVO) {
+			
+			productService.insertDetailOption(detailOptionVO);
+			
+			int productNum = detailOptionVO.getProductNum();
+	
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+	
+			map.put("optionName", detailOptionVO.getOptionName());
+			map.put("doNum", productService.selectMaxDoNumByProductNum(productNum));
+			
+			return map;
+		}
+		
+		// 옵션 저장
+		@RequestMapping(value = "insertOption", produces = "text/json;charset=UTF-8")
+		@ResponseBody
+		public String insertOption(OptionVO optionVO) {
+			
+			int optionNum;
+			
+			String optionNumm = null;
+			
+			try {
+			
+			optionNum = productService.selectOptionNum(optionVO);
+			
+			System.out.println(optionNum);
+			
+			optionNumm = Integer.toString(optionNum);
+			
+			System.out.println(optionNumm);
+			
+			} catch(NullPointerException e) {
+				
+			}
+			
+			if(optionNumm == null) {
+				productService.insertOption(optionVO);
+				return "success";
+			}
+			return "null";
+			
+			
+		} 
+		
+		// 디테일 옵션 삭제
+		@RequestMapping(value = "deleteDetailOption")
+		@ResponseBody
+		public Map<String, Object> deleteDetailOption(int doNum) {
+			productService.deleteDetailOption(doNum);
+			
+			productService.deleteOptionByDoNum(doNum);
+			
+//			productService.deleteOptionOneByDoNum(doNum);
+//			productService.deleteOptionTwoByDoNum(doNum);
+//			productService.deleteOptionThreeByDoNum(doNum);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			System.out.println(doNum);
+			map.put("doNum", doNum);
+				
+			return map;
+		}
+		
+		//디테일 옵션 선택 수량 번경
+		@RequestMapping(value = "selectDetailOption")
+		@ResponseBody
+		public Map<String, Object> selectDetailOption(OptionVO optionVO) {
+			int optionNum = 0;
+			Map<String, Object> map = new HashMap<String, Object>();
+			try {
+			optionNum = productService.selectOptionNum(optionVO);
+			
+			OptionVO option = productService.selectOptionByOptionNum(optionNum);
+			int stock = option.getStock();
+			
+			map.put("stock", stock);
+			} catch (NullPointerException e){
+				
+			}
+			
+			return map;
+		}
+		
+		// 옵션 삭제
+		@RequestMapping(value = "deleteOption", produces = "text/json;charset=UTF-8")
+		@ResponseBody
+		public String deleteOption(OptionVO optionVO) {
+			
+			int optionNum = productService.selectOptionNum(optionVO);
+			
+			productService.deleteOptionByOptionNum(optionNum);
+			
+			return "success";
+			
+		}
+		
+		// 1차 상세 옵션 고름
+		@RequestMapping(value = "selectOptionOne")
+		@ResponseBody
+		public Map<String, Object> selectOptionOne(OptionVO optionVO){
+			
+			System.out.println(optionVO);
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			List<OptionVO> list = productService.selectOptionByOptionOneNum(optionVO);
+			
+			List<DetailOptionVO> list2 = new ArrayList<DetailOptionVO>();
+			
+			for(int i = 0 ; i < list.size() ; i++) {
+				int doNum = list.get(i).getOptionTwoNum();
+				list2.add(productService.selectDetailOptionByDoNum(doNum));
+			}
+			
+			map.put("list", list2);
+			
+			return map;
+			
+		}
+		
+		// 2차 상세 옵션 고름
+				@RequestMapping(value = "selectOptionTwo")
+				@ResponseBody
+				public Map<String, Object> selectOptionTwo(OptionVO optionVO){
+					
+					System.out.println(optionVO);
+					
+					Map<String, Object> map = new HashMap<String, Object>();
+					
+					List<OptionVO> list = productService.selectOptionByOptionTwoNum(optionVO);
+					
+					List<DetailOptionVO> list2 = new ArrayList<DetailOptionVO>();
+					
+					for(int i = 0 ; i < list.size() ; i++) {
+						int doNum = list.get(i).getOptionThreeNum();
+						list2.add(productService.selectDetailOptionByDoNum(doNum));
+					}
+					
+					map.put("list", list2);
+					
+					return map;
+					
+				}
+		
 
 }

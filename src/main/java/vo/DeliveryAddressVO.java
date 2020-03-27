@@ -10,7 +10,7 @@ public class DeliveryAddressVO {
 	private String daPhone;
 	private String daAddressEtc;
 	private String newDaaName;
-	
+
 	public DeliveryAddressVO() {
 		super();
 	}

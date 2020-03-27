@@ -30,7 +30,7 @@
 주소:<input type="text" name="daAddress" id="daAddress" readonly value="${deliveryAddress.daAddress}" style="width : 300px"/> &nbsp;
 상세주소:<input type="text" name="daAddressEtc" id="daAdressEtc" value="${deliveryAddress.daAddressEtc}" > &nbsp; <input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /> <br> 
 <input type="hidden" name="id" id="id" value="${authInfo.id }">
-<input type="hidden" name="daaName" id="daaName" value="${deliveryAddress.daaName} }">
+<input type="hidden" name="daaName" id="daaName" value="${deliveryAddress.daaName}">
 <input type="submit" value="수정">&nbsp;&nbsp;<input type="button" id="cancle" value="취소">
 <script>
 	$('#cancle').click(function(){

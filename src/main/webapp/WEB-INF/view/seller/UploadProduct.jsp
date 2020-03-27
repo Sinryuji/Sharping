@@ -108,7 +108,7 @@ p {
 <h1>SellerPage</h1>
 상품 업로드 <br><br>
 <form action="uploadCompleteProduct" method="post" enctype="multipart/form-data">
-판매자 : <input type="text" name="id" value="${authInfo.id}"><br><br>
+판매자 : <input type="text" name="id" value="${authInfo.id}" readonly><br><br>
 
 카테고리 분류<br><br>
 <input type="number" name="categoryNum"><br><br>
