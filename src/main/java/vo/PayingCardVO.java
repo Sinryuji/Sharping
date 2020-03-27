@@ -66,8 +66,6 @@ public class PayingCardVO {
 	public void setMemberPost(String memberPost) {
 		this.memberPost = memberPost;
 	}
-	
-	
-	
 
 }
+

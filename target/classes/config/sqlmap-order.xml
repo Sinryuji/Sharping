@@ -3,7 +3,46 @@
 "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 
 <mapper namespace="orderDAO">
-
+	
+	<insert id="insertVirtualAccount" parameterType="virtualAccountVO">
+		INSERT INTO VIRTUALACCOUNT VALUES(#{vaNum},#{orderNum},#{bankCode},#{payPrice},#{respCode},sysdate)
+	
+	</insert>
+	
+	<select id="selectOrder" resultType="orderVO">
+		SELECT * FROM ORDERR WHERE "orderNum" = #{orderNum}
+	</select>
+	
+	<select id="selectByVirtualAccount" resultType="payBankVO">
+		SELECT * FROM VIRTUALACCOUNT WHERE "orderNum" = #{orderNum}
+	</select>
+	
+	<insert id="insertPayBank" parameterType="payBankVO">
+		INSERT INTO PAYBANK VALUES(#{orderNum},'','',#{bankCode},#{vaNum})
+		
+	</insert>
+	
+	<select id="selectPayBank" resultType="payBankVO">
+		SELECT * FROM PAYBANK WHERE "orderNum" = #{orderNum}
+	</select>
+	
+	<update id="updateRespCode" parameterType="payMoneyVO" >
+		UPDATE VIRTUALACCOUNT SET "respCode" = 'YES' WHERE "vaNum" = #{vaNum} and "bankCode" = #{bankCode} and "payPrice" = #{payPrice}
+	</update>
+	
+	<update id="updatepayDate" parameterType="int">
+		UPDATE PAYBANK SET "payDate" = sysdate
+	</update>
+	
+	<update id="updateState" parameterType="int">
+		UPDATE ORDERR SET "state" = '결제 완료'
+	</update>
+	
+	<select id="selectByBankVO" resultType="bankVO">
+		SELECT * FROM BANK
+	</select>
+	
+	
 	<insert id="insertOrder" parameterType="orderVO">
 		INSERT INTO ORDERR VALUES (ORDER_SEQ.NEXTVAL, SYSDATE, #{state}, #{payCase}, #{payPrice}, #{trackingNum}, #{toName}, #{toPhone}, #{toPost}, #{toAddress}, #{id}, #{deliveryMessage})
 	</insert>
@@ -17,7 +56,7 @@
 	</select>
 	
 	<insert id="insertOrderList" parameterType="orderListVO">
-		INSERT INTO ORDERLIST VALUES (ORDERLIST_SEQ.NEXTVAL, #{productName}, #{productThumb}, #{optionOneNum}, #{optionTwoNum}, #{optionThreeNum}, #{payPrice}, #{cnt}, #{orderNum}, #{optionNum})
+		INSERT INTO ORDERLIST VALUES (ORDERLIST_SEQ.NEXTVAL, #{productName}, #{productThumb}, #{optionOneNum}, #{optionTwoNum}, #{optionThreeNum}, #{productPrice}, #{cnt}, #{orderNum}, #{optionNum})
 	</insert>
 	
 	<update id="decrementStockProduct" parameterType="orderListVO">

@@ -1,6 +1,7 @@
 package vo;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class OrderVO {
 
@@ -18,7 +19,6 @@ public class OrderVO {
 	private String toAddressEtc;
 	private String impId;
 	private String deliveryMessage;
-	
 	public OrderVO() {
 		super();
 	}
@@ -125,6 +125,15 @@ public class OrderVO {
 	public void setId(String id) {
 		this.id = id;
 	}
+	@Override
+	public String toString() {
+		return "OrderVO [orderNum=" + orderNum + ", orderDate=" + orderDate + ", state=" + state + ", payCase="
+				+ payCase + ", payPrice=" + payPrice + ", trackingNum=" + trackingNum + ", toName=" + toName
+				+ ", toPhone=" + toPhone + ", toPost=" + toPost + ", toAddress=" + toAddress + ", id=" + id
+				+ ", toAddressEtc=" + toAddressEtc + ", impId=" + impId + ", deliveryMessage=" + deliveryMessage + "]";
+	}
+	
+	
 	
 	
 	

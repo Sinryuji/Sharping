@@ -3,39 +3,35 @@ package controller;
 import java.io.File;
 import java.io.IOException;
 import java.sql.Date;
+import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 import java.util.UUID;
-import java.util.HashMap;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
-
-import org.springframework.web.bind.annotation.ResponseBody;
-
 import org.springframework.web.servlet.ModelAndView;
 
 import net.coobird.thumbnailator.Thumbnails;
 import service.MemberService;
 import service.ProductService;
 import vo.AuthInfo;
-
-import vo.DetailOptionVO;
-
 import vo.BasketListVO;
 import vo.BasketVO;
-
+import vo.DetailOptionVO;
 import vo.OptionVO;
-
 import vo.ProductVO;
 import vo.SearchVO;
 import vo.SellerVO;
@@ -260,10 +256,12 @@ public class ProductController {
 	@ResponseBody
 	@RequestMapping("/basketInsert")
 	public int addBasket(OptionVO optionVO, HttpServletRequest req, @RequestParam int cnt) {
+		ModelAndView mv = new ModelAndView();
 		int result = 0;
 		HttpSession session = req.getSession();
 		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
 		int optionNum = productService.selectOptionNum(optionVO);
+		
 		System.out.println(optionNum);
 		BasketVO basketVO = new BasketVO();
 		if (authinfo != null) {
@@ -289,22 +287,34 @@ public class ProductController {
 		System.out.println(authinfo.getId() + "들어가?");
 		List<BasketListVO> basketList = productService.selectBasketList(authinfo.getId());
 		int productCnt = basketList.size();
+		System.out.println(basketList.toString()+"머야머야");
+		
+//		JSONObject TotalstoreNameJson = new JSONObject(); 			
+//		JSONArray storeNameListJsonArray = new JSONArray();
 		int a = 0;
 		int c = 0;
+	
+		int[] optionNums = new int[productCnt];
+		String storeName = null;
 		for (int i = 0; i < productCnt; i++) {
+			JSONObject storeNameListJson = new JSONObject();	
 			int b = basketList.get(i).getProductPrice() * basketList.get(i).getCnt();
 			int d = basketList.get(i).getDeliveryPrice();
-			System.out.println(basketList.get(i).getStock());
+			optionNums[i] = basketList.get(i).getOptionNum();
+			
+//			storeNameListJson.put("storeName", basketList.get(i).getstoreName()); 
+//			storeNameListJsonArray.add(storeNameListJson);
 			a += b;
 			c += d;
 		}
-		System.out.println(basketList.toString());
+		System.out.println(basketList.toString()+"머지머지");
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("product/Basket");
 		mv.addObject("basketList", basketList);
 		mv.addObject("productCnt", productCnt);
 		mv.addObject("totalPrice", a);
 		mv.addObject("totalDeliveryPrice", c);
+		mv.addObject("optionNums", optionNums);
 		System.out.println(mv.toString());
 		return mv;
 	}
@@ -340,19 +350,34 @@ public class ProductController {
 		if (basketNums != null) {
 			System.out.println("널아님");
 			List<BasketListVO> basketSelect = productService.selectBasket(basketNums);
+			
+			System.out.println(basketSelect.toString());
+//			int[] optionNum = productService.selectOptionByBasketNum(basketNums);
+//			System.out.println(optionNum+"?????"); 
+//			List<OptionVO> optionVO = productService.selectOptionBybasketNums(optionNum);
 			int productCnt = basketSelect.size();
+			System.out.println(productCnt);
+			int[] optionNums = new int[productCnt];
 			int a = 0;
 			int c = 0;
 			for (int i = 0; i < productCnt; i++) {
 				int b = basketSelect.get(i).getProductPrice() * basketSelect.get(i).getCnt();
 				int d = basketSelect.get(i).getDeliveryPrice();
+				optionNums[i] = basketSelect.get(i).getOptionNum();
+				System.out.println(basketSelect.get(i).getOptionNum());
+//				int[] optionNum = basketSelect.get(i).getOptionNum(); 
+//				String li = (String) map.get("list");
+			
 				a += b;
 				c += d;
 			}
+//			map.put("option", optionVO);
 			map.put("totalPrice", a);
 			map.put("basketSelect", basketSelect);
 			map.put("totalDeliveryPrice", c);
+			map.put("optionNums", optionNums);
 		} else {
+			map.put("optionNums", null);
 			map.put("totalPrice", 0);
 			map.put("basketSelect", null);
 			map.put("totalDeliveryPrice", 0);

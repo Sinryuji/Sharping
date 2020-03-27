@@ -1,7 +1,7 @@
 package vo;
 
 public class OrderListVO {
-	
+
 	private int olNum;
 	private String productName;
 	private String productThumb;
@@ -18,7 +18,9 @@ public class OrderListVO {
 		super();
 	}
 	public OrderListVO(int olNum, String productName, String productThumb, int optionOneNum, int optionTwoNum,
-			int optionThreeNum, int cnt, int orderNum, int optionNum, int productPrice, int productNum){
+
+			int optionThreeNum, int cnt, int orderNum, int optionNum, int productPrice, int productNum) {
+
 		super();
 		this.olNum = olNum;
 		this.productName = productName;
@@ -39,10 +41,11 @@ public class OrderListVO {
 	public void setProductNum(int productNum) {
 		this.productNum = productNum;
 	}
-	public int getproductPrice() {
+
+	public int getProductPrice() {
 		return productPrice;
 	}
-	public void setPproductPrice(int productPrice) {
+	public void setProductPrice(int productPrice) {
 		this.productPrice = productPrice;
 	}
 	public int getOlNum() {
@@ -99,7 +102,15 @@ public class OrderListVO {
 	public void setOptionNum(int optionNum) {
 		this.optionNum = optionNum;
 	}
-	
+
+	@Override
+	public String toString() {
+		return "OrderListVO [olNum=" + olNum + ", productName=" + productName + ", productThumb=" + productThumb
+				+ ", optionOneNum=" + optionOneNum + ", optionTwoNum=" + optionTwoNum + ", optionThreeNum="
+				+ optionThreeNum + ", cnt=" + cnt + ", orderNum=" + orderNum + ", optionNum=" + optionNum
+				+ ", productPrice=" + productPrice + ", productNum" + productNum + "]";
+	}
+
 	
 	
 

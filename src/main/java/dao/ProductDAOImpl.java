@@ -14,6 +14,7 @@ import vo.BasketVO;
 
 import vo.ProductVO;
 import vo.SearchVO;
+import vo.SellerVO;
 
 public class ProductDAOImpl implements ProductDAO{
 
@@ -122,5 +123,16 @@ public class ProductDAOImpl implements ProductDAO{
 		return sqlSessionTemplate.delete("productDAO.deleteBasketByBasketNum", basketNum);
 
 	}
+	
+	@Override
+	public List<OptionVO> selectOptionByOptionNumList(int[] optionNums) {
+		return sqlSessionTemplate.selectList("productDAO.selectOptionByOptionNumList",optionNums);
+	}
+
+	@Override
+	public List<ProductVO> selectProducts(int[] productNums) {
+		return sqlSessionTemplate.selectList("productDAO.selectProducts" , productNums);
+	}
+
 
 }

@@ -26,6 +26,11 @@
 		<typeAlias alias="basketVO" type="vo.BasketVO"></typeAlias>
 		<typeAlias alias="basketListVO" type="vo.BasketListVO"></typeAlias>
 		<typeAlias alias="payingCardVO" type="vo.PayingCardVO"></typeAlias>
+		<typeAlias alias="virtualAccountVO" type="vo.VirtualAccountVO"></typeAlias>
+		<typeAlias alias="payBankVO" type="vo.PayBankVO"></typeAlias>
+		<typeAlias alias="payMoneyVO" type="vo.PayMoneyVO"></typeAlias>
+		<typeAlias alias="bankVO" type="vo.BankVO"></typeAlias>
 		<typeAlias alias="orderListVO" type="vo.OrderListVO"></typeAlias>
+
 	</typeAliases>
 </configuration> 

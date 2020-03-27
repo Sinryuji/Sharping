@@ -47,7 +47,7 @@
 </script>
 </head>
 <body>
-	<form action="orderPage">
+	<form action="orderPageByBasket">
 		<table>
 		<c:choose>
 			<c:when test="${empty basketList }">
@@ -55,7 +55,7 @@
 			</c:when>
 			<c:when test="${!empty basketList}">
 			<tr>
-				<th></th>
+				<th><a href="<%=request.getContextPath()%>/store?storeName=${storeNames}" title="storeNames">${storeNames}</a></th>
 				<th>상품이미지</th>
 				<th>상품명</th>
 				<th>수량</th>
@@ -65,20 +65,21 @@
 			<c:forEach var="basket" items="${basketList}" varStatus="status">
 				<tr>
 					<!--체크박스  -->
-					<td><input type="checkbox" name="${status.index}"class="checkboxs" id="checkedProduct${status.index}"value="${basket.basketNum}" checked />
+					<td><input type="checkbox" name="basketNums"class="checkboxs" id="checkedProduct${status.index}"value="${basket.basketNum}" checked />
 					<!--상품이미지  -->
-					<td><a href="#" 상품페이지 이동> ${basket.productImage}</a></td>
+					<td><a href="#"> ${basket.productThumb}</a></td>
 					<!--상풍명  -->
 					<td><c:out value="${basket.productName}"/></td>
 					<td><!--상품수량  -->
 						<!-- <button type="button" class="plus">+</button>  -->
 						<input type="number" class="cnt" id="${status.index}" name="cnt${status.index }" min="1" max="${basket.stock}"	value="${basket.cnt}" />
+						<input type="hidden" name="cnt" id="cnt" value="${basket.cnt}"/>
+						<input type="hidden" name="payPrice" id="payPrice" value="${basket.productPrice*basket.cnt}"/>
 						<!-- <button type="button" class="minus">-</button> -->
 					</td>
 					<!-- 상품가격 -->
-					<td><input type="number" id="price${status.index}"
-						value="${basket.productPrice*basket.cnt}" /> <input type="hidden"
-						id="pricee${status.index}" value="${basket.productPrice}"></td>
+					<td><input type="number" id="price${status.index}"	value="${basket.productPrice*basket.cnt}" /> 
+						<input type="hidden" id="pricee${status.index}" value="${basket.productPrice}"></td>
 					<!--배송비  -->
 					
 					<td>${basket.deliveryPrice}</td>
@@ -105,17 +106,29 @@
 				<th>주문합계금액</th>
 				<th>배송비</th>
 			</tr>
-			<%-- <c:forEach var="basketinfo" items="${productinfo}"> --%>
 			<tr>
-				<td><input type="number" id="payPrice" name="payPrice" value="${totalPrice}" readonly/></td>
-				<td><input type="number" id="deliveryPrice" name="deliveryPrice" value="${totalDeliveryPrice}" readonly/></td>
+
+				<td><input type="number" id="totalPrice" name="totalPrice" value="${totalPrice}" readonly/></td>
+				<td><input type="number" id="totalDeliveryPrice" name="totalDeliveryPrice" value="${totalDeliveryPrice}" readonly/></td>
 			</tr>
-			<%-- </c:forEach> --%>
+			<p  id="optionsInfo">
+			<c:forEach var="optionNum" items="${optionNums}" varStatus="status">
+			
+			<input type="hidden" name="optionNums" value="${optionNum }" readonly/>
+			
+			</c:forEach>
+			</p>
+			
+		
+			
 			</c:when>
 		</c:choose>
 		</table>
-		<input type="submit" value="주문">
+
+		<input type="submit"  value="주문">
 	</form>
+	
+	 		
 
 	<h1>OrderPage</h1>
 	
@@ -163,26 +176,14 @@
 		 
 		 
 	 })
-	
-	
-	
-	
-	
-	/*  $('.cnt').change(function(){
-		
-		 var index = $(this).attr('id') 
-		 var priceStr = '#price' + index;
-		 var priceeStr = '#pricee' + index;
-		 
-		 $(priceStr).val($(this).val() * $(priceeStr).val());
-	 }) */
+	 
 	 
 $('.checkboxs').click(function(){
 
 var checkboxs = [];
 var total = ${productCnt};
 for(var i = 0 ; i < total ; i++) {
-	var index = $(this).attr('name')
+	//var index = $(this).attr('name')
 	var checkStr = '#checkedProduct' + i;
 	if($(checkStr).is(":checked") == true) {
 		checkboxs.push($(checkStr).val());
@@ -199,13 +200,53 @@ $.ajax({
 				},
 				type : "post",
 				success : function(data) {
-
-					$("#payPrice").val(data.totalPrice);
-					$('#deliveryPrice').val(data.totalDeliveryPrice);
-
+					var list = [];
+					list = data.optionNums;
+					var str = "";
+					if(data.optionNums != null) {
+					for(var i = 0 ; i < list.length ; i++){
+						str += '<input type="text" name="optionNums" value="' + list[i] + '"/>'
+					}
+					}
+					
+					if(data.optionNums == null) {
+						str = "";
+					}
+					$("#optionsInfo").html(str);
+					$("#totalPrice").val(data.totalPrice);
+					$('#totalDeliveryPrice').val(data.totalDeliveryPrice);
+					
 				}
 			})
 		});
-	</script>
+	 
+//주문버튼 누를때 	 
+<%-- 	 $('.orderPage').click(function(){
+
+		 var checkboxs = [];
+		 	var index = $(this).attr('name')
+		 	var checkStr = '#checkedProduct';
+		 	if($(checkStr).is(":checked") == true) {
+		 		checkboxs.push($(checkStr).val());
+		 	};
+		 
+
+		 $.ajax({
+
+		 	url : "<%=request.getContextPath()%>/orderPage",
+		 				traditional : true,
+		 				async : false,
+		 				data : {
+		 					basketNums : checkboxs
+		 				},
+		 				type : "post",
+		 				success : function() {
+
+		 				}
+		 			})
+		 		}); --%>
+	 
+	 </script>
+	 
 </body>
 </html>

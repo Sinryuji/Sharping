@@ -14,6 +14,7 @@ import vo.BasketVO;
 
 import vo.ProductVO;
 import vo.SearchVO;
+import vo.SellerVO;
 
 public interface ProductDAO {
 
@@ -61,6 +62,13 @@ public interface ProductDAO {
 	public abstract List<BasketListVO> selectBasketByOptionNum(int[] basketNums);
 	
 	public abstract int deleteBasketByBasketNum(int basketNum);
+	
+	
+	//장바구니에서 뽑아오는 옵션vo List
+	public abstract List<OptionVO> selectOptionByOptionNumList(int[] optionNums);
+	
+	public abstract List<ProductVO> selectProducts(int[] productNums);
+
 	
 
 }

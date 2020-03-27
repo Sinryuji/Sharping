@@ -56,4 +56,6 @@ public interface MemberService {
 	public abstract int updateDeliveryAddress(DeliveryAddressVO deliveryAddressVO);
 	
 	public abstract DeliveryAddressVO selectDeliveryAddressBydaaNameId(DeliveryAddressVO deliveryAddressVO);
+	
+	public abstract List<SellerVO> searchSellerByIds(String[] proId);
 }

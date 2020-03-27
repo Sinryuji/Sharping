@@ -35,6 +35,14 @@
 	 <select  id="selectSellerById" resultType="sellerVO" parameterType="String">
 		SELECT * FROM SELLER WHERE "id"=#{id}
 	 </select>
+	 
+	 <!--판매자 리스트 뽑아오기  -->
+	 <select id="searchSellerByIds" parameterType="hashmap" resultType="sellerVO">
+	 	SELECT * FROM SELLER 
+	 	<foreach collection="array" item="id" open="WHERE" separator="OR">
+			"id"=#{id}
+		</foreach>
+	 </select>
 
 	<select  id="selectMemberId" resultType="int" parameterType="String">
 		SELECT COUNT(*) FROM MEMBER WHERE "id"=#{id}

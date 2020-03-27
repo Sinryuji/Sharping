@@ -25,7 +25,7 @@
 <span id="productText">상품설명 : ${product.productText}</span><br>
 <span id="productPrice">상품가격 : ${product.productPrice}</span><br>
 <span id="productImage">상품썸네일 : ${product.productImage}</span><br>
-<span id="stock">상품사진 : ${product.stock}</span><br>
+<span id="stock">상품재고 : ${product.stock}</span><br>
 <span id="categoryNum">카테고리번호 : ${product.categoryNum}</span><br>
 <span id="productDate">상품등록날짜 : ${product.productDate}</span><br>
 <span id="storeName">판매자명 : ${seller.storeName}</span><br>
@@ -37,7 +37,7 @@
 
 
 <form action="orderPage">
-<input type="hidden" name="productNum" value="${product.productNum}">
+<input type="hidden" name="productNum" id="productNum" value="${product.productNum}">
 
 <c:if test="${maxOptionLevel == 1}">
 <select name="optionOneNum">
@@ -139,8 +139,7 @@ $('#cnt').change(function(){
 					window.location.href='<%=request.getContextPath()%>/basket';
 				}else{
 					alert("로그인하세요");
-					windows.open("/login/Login","로그인페이지","null");
-					$(".cnt").val("1");
+					window.location.href='<%=request.getContextPath()%>/login';
 				}
 			},
 			error : function(){

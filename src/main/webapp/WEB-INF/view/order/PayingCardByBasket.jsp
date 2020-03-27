@@ -45,7 +45,7 @@ IMP.request_pay({
     
 });
 </script>
-<form id="buyerInfo" name="buyerInfo" action="orderCardResult">
+<form id="buyerInfo" name="buyerInfo" action="orderCardResultByBasket">
 <input type="hidden" id="id" name="id" value="${order.id}">
 <input type="hidden" id="toName" name="toName" value="${order.toName}">
 <input type="hidden" id="toPhone" name="toPhone" value="${order.toPhone}">

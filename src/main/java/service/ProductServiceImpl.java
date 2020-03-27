@@ -13,6 +13,7 @@ import vo.OptionVO;
 import vo.ProductListVO;
 import vo.ProductVO;
 import vo.SearchVO;
+import vo.SellerVO;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -127,5 +128,16 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductListVO> getProductList(SearchVO search) throws Exception {
 		return productDAO.getProductList(search);
+	}
+
+
+	@Override
+	public List<OptionVO> selectOptionByOptionNumList(int[] optionNum) {
+		return productDAO.selectOptionByOptionNumList(optionNum);
+	}
+
+	@Override
+	public List<ProductVO> selectProducts(int[] productNums) {
+		return productDAO.selectProducts(productNums);
 	}
 }

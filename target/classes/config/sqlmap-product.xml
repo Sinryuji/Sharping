@@ -48,6 +48,23 @@
 		SELECT "optionNum" FROM OPTIONN WHERE "productNum" = #{productNum} and "optionOneNum" = #{optionOneNum} and "optionTwoNum" = #{optionTwoNum} and "optionThreeNum" = #{optionThreeNum}
 	</select>
 	
+	<!-- optionNumList -->
+	<select id="selectOptionByOptionNumList" parameterType="hashmap" resultType="optionVO">
+	 	SELECT * FROM OPTIONN 
+	 	<foreach collection="array" item="optionNum" open="WHERE" separator="OR">
+			"optionNum" = #{optionNum}
+		</foreach>
+	</select>
+	
+	<select id="selectProducts" parameterType="hashmap" resultType="productVO">
+		SELECT * FROM PRODUCT
+		<foreach collection="array" item="productNum" open="WHERE" separator="OR">
+			"productNum" = #{productNum}
+		</foreach>
+	</select>
+	
+	
+	
 	<select id="selectDetailOptionByProductNum" resultType="detailOptionVO">
 		SELECT * FROM DETAILOPTION WHERE "productNum" = #{productNum}
 	</select>
@@ -71,28 +88,38 @@
 	</select>
 
 	<insert id="insertBasket" parameterType="basketVO">
-		INSERT INTO
-		BASKET
-		values(BASKET_SEQ.nextval, #{id} ,#{optionNum},#{cnt})
+		MERGE INTO BASKET b
+		USING DUAL
+		ON (b."optionNum" = #{optionNum})
+		WHEN MATCHED THEN
+		UPDATE SET "cnt" = "cnt"+ #{cnt}
+		
+		WHEN NOT MATCHED THEN
+		INSERT ("basketNum","id","optionNum","cnt")
+		VALUES(BASKET_SEQ.nextval, #{id} ,#{optionNum},#{cnt})
 	</insert>
 
 
 	<select id="selectBasketByOptionNum" parameterType="hashmap" resultType="basketListVO">
-		select * from (select b."basketNum", p."productPrice",p."deliveryPrice" , m."id",
-		o."productNum",b."cnt" ,o."stock" from OPTIONN o, PRODUCT p, BASKET b, MEMBER m
+		select * from (select b."basketNum", p."productPrice",p."deliveryPrice" , m."id", p."productName",p."productThumb",
+		o."productNum",b."cnt" ,o."stock",b."optionNum" from OPTIONN o, PRODUCT p, BASKET b, MEMBER m
 		where p."productNum" = o."productNum" and b."optionNum" = o."optionNum")
 		<foreach collection="array" item="basketNum" open="WHERE" separator="OR">
 			"basketNum" = #{basketNum}
 		</foreach>
 	</select>
+	
 
+	
+	
+	
 	<select id="selectBasketList" resultType="basketListVO">
-		SELECT b."basketNum",
-		p."productImage", b."optionNum", p."productPrice",p."deliveryPrice"
-		,p."productName",
+		SELECT b."basketNum", p."productName",
+		p."productThumb", b."optionNum", p."productPrice",p."deliveryPrice"
+		,p."productName", s."storeName",
 		m."id", o."productNum",o."stock",b."cnt" from OPTIONN
-		o, PRODUCT p, BASKET b, MEMBER m
-		where p."productNum" = o."productNum"
+		o, PRODUCT p, BASKET b, MEMBER m, SELLER s
+		where p."productNum" = o."productNum" and p."id" = s."id"
 		and b."optionNum" = o."optionNum"
 		and b."id" = #{id}
 	</select>
