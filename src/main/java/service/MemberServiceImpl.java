@@ -1,9 +1,19 @@
 package service;
 
 import java.io.BufferedReader;
+import java.io.File;
 import java.io.InputStream;
 import java.io.InputStreamReader;
+import java.util.List;
+import java.util.Random;
 
+import javax.mail.MessagingException;
+import javax.mail.internet.MimeMessage;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
+
+import org.apache.commons.logging.Log;
+import org.apache.commons.logging.LogFactory;
 import org.apache.http.HttpHost;
 import org.apache.http.HttpResponse;
 import org.apache.http.auth.AuthScope;
@@ -17,8 +27,12 @@ import org.apache.http.impl.auth.BasicScheme;
 import org.apache.http.impl.client.BasicAuthCache;
 import org.apache.http.impl.client.BasicCredentialsProvider;
 import org.apache.http.impl.client.DefaultHttpClient;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.MimeMessageHelper;
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import dao.MemberDAO;
 import exception.IdPasswordNotMatchingException;
@@ -27,15 +41,25 @@ import vo.AuthInfo;
 import vo.ChangeMemberVO;
 import vo.ChangePwVO;
 import vo.DeleteVO;
+import vo.DeliveryAddressVO;
 import vo.MemberVO;
 import vo.SellerVO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
-	
-	static public int rand;
 
 	private MemberDAO memberDAO;
+	
+	private Log log = LogFactory.getLog(MemberServiceImpl.class);
+	@Autowired
+	private JavaMailSender javaMailSender;
+	
+//	private static final Logger logger= LoggerFactory.getLogger(MemberController.class);
+	private static final String String =null;
+	
+	public void setJavaMailSender(JavaMailSender javaMailSender) {
+		this.javaMailSender = javaMailSender;
+	}
 
 	public MemberDAO getMemberDAO() {
 		return memberDAO;
@@ -89,23 +113,44 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public AuthInfo login(String id, String password) {
 		MemberVO memberVO = memberDAO.selectMemberById(id);
+		SellerVO sellerVO = memberDAO.selectSellerById(id);
+		
 		if (memberVO == null) {
 			throw new IdPasswordNotMatchingException();
 		}
-		if(!BCrypt.checkpw(password, memberVO.getPassword())) {
+		if (!BCrypt.checkpw(password, memberVO.getPassword())) {
 			throw new IdPasswordNotMatchingException();
 		}
-		return new AuthInfo(memberVO.getId(), memberVO.getEmail(), memberVO.getName(), memberVO.getPhone());
+
+		if (sellerVO == null) {
+		return new AuthInfo(memberVO.getId(), memberVO.getEmail(), memberVO.getName(), "false", memberVO.getPhone());
+		} else {
+			return new AuthInfo(memberVO.getId(), memberVO.getEmail(), memberVO.getName(), "true", memberVO.getPhone());
 		}
 
+		}
+
+
 	@Override
-	public String sendSms(String receiver) {
+	public String sendSms(@RequestParam String receiver, @RequestParam int random, HttpServletRequest req) {
 		// 6자리 인증 코드 생성
-		rand = (int) (Math.random() * 899999) + 100000;
+
+		int ran = new Random().nextInt(900000) + 100000;
 		
-		System.out.println(rand);
+		HttpSession session = req.getSession(true);
+		
+		System.out.println(ran);
+		
+		String authCode = String.valueOf(ran);
+		
+
+		session.setAttribute("authCode", authCode);
+		
+		session.setAttribute("random", random);
 		
 		String sender="01096580540";
+
+
 
 		// 인증 코드를 데이터베이스에 저장하는 코드는 생략했습니다.
 
@@ -117,7 +162,7 @@ public class MemberServiceImpl implements MemberService {
 		credsProvider.setCredentials(new AuthScope(hostname, 443, AuthScope.ANY_REALM),
 
 				// 청기와랩에 등록한 Application Id 와 API key 를 입력합니다.
-				new UsernamePasswordCredentials("jcyy", "832390da643911ea986f0cc47a1fcfae"));
+				new UsernamePasswordCredentials("chjj", "3643d0c864f611eab34f0cc47a1fcfae"));
 
 		AuthCache authCache = new BasicAuthCache();
 		authCache.put(new HttpHost(hostname, 443, "https"), new BasicScheme());
@@ -133,7 +178,9 @@ public class MemberServiceImpl implements MemberService {
 			httpPost.setHeader("Content-type", "application/json; charset=utf-8");
 
 			// 문자에 대한 정보
-			String json = "{\"sender\":\""+sender+"\",\"receivers\":[\"" + receiver + "\"],\"content\":\""+rand+"\"}";
+
+			String json = "{\"sender\":\""+sender+"\",\"receivers\":[\"" + receiver + "\"],\"content\":\""+authCode+"\"}";
+
 
 			StringEntity se = new StringEntity(json, "UTF-8");
 
@@ -153,23 +200,22 @@ public class MemberServiceImpl implements MemberService {
 			} else {
 				return "false";
 			}
-				
+
 		} catch (Exception e) {
 			System.err.println("Error: " + e.getLocalizedMessage());
 		} finally {
 			client.getConnectionManager().shutdown();
 		}
 		return "true";
-		 
+
 	}
 
-	
 	@Override
 	public int idCheck(String id) {
 		int result = memberDAO.selectMemberId(id);
 		return result;
 	}
-	
+
 	@Override
 	public int updatePwByIdPw(ChangePwVO changePwVO) {
 		MemberVO memberVO = memberDAO.selectMemberById(changePwVO.getId());
@@ -203,6 +249,58 @@ public class MemberServiceImpl implements MemberService {
 		return memberDAO.updateSellerInfoById(changeMemberVO);
 	}
 	
-}
-	
 
+
+	
+	@Override
+	public boolean sendEmail(String subject,String text,String from,String to, String filePath) {
+		MimeMessage message = javaMailSender.createMimeMessage();
+		
+		try {
+			MimeMessageHelper helper = new MimeMessageHelper(message, true, "UTF-8");
+			helper.setSubject(subject);
+			helper.setText(text,true);
+			helper.setFrom(from);
+			helper.setTo(to);
+			
+			if(filePath != null) {
+				File file = new File(filePath);
+				if(file.exists()) {
+					helper.addAttachment(file.getName(), new File(filePath));
+				}
+			}
+			
+			javaMailSender.send(message);
+			return true;
+		}catch(MessagingException e) {
+			e.printStackTrace();
+		}
+		return false;
+	}
+	
+	@Override
+	public List<DeliveryAddressVO> selectDeliveryAddressById(String id) {
+		return memberDAO.selectDeliveryAddressById(id);
+	}
+	
+	@Override
+	public int insertDeliveryAddress(DeliveryAddressVO deliveryAddressVO) {
+		return memberDAO.insertDeliveryAddress(deliveryAddressVO);
+	}
+	
+	@Override
+	public int deleteDeliveryAddress(DeliveryAddressVO deliveryAddressVO) {
+		return memberDAO.deleteDeliveryAddress(deliveryAddressVO);
+	}
+	
+	@Override
+	public int updateDeliveryAddress(DeliveryAddressVO deliveryAddressVO) {
+		return memberDAO.updateDeliveryAddress(deliveryAddressVO);
+	}
+	
+	@Override
+	public DeliveryAddressVO selectDeliveryAddressBydaaNameId(DeliveryAddressVO deliveryAddressVO) {
+		return memberDAO.selectDeliveryAddressBydaaNameId(deliveryAddressVO);
+	}
+
+}

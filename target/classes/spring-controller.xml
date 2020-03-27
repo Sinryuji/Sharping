@@ -8,23 +8,48 @@
 	http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
 
 	<mvc:interceptors>
-	
+
 		<mvc:interceptor>
-			
-			<mvc:mapping path="/infoChange/**" />	
+
+			<mvc:mapping path="/infoChange/**" />
 			<mvc:mapping path="/infoChangeMember/**" />
 			<mvc:mapping path="/infoChangeSeller/**" />
+			<mvc:mapping path="/uploadProduct/**" />
 
 			<bean class="interceptor.AuthCheckInterceptor" />
 
 		</mvc:interceptor>
 
+		<mvc:interceptor>
+
+			<mvc:mapping path="/admin/**" />
+
+			<bean class="interceptor.AdminInterceptor" />
+
+		</mvc:interceptor>
+
 	</mvc:interceptors>
-	
+
 
 
 	<bean id="memberController" class="controller.MemberController">
 		<property name="memberService" ref="memberServiceImpl" />
+		<property ref="adminServiceImpl" name="adminService" />
 	</bean>
-	
+
+	<bean id="productController" class="controller.ProductController">
+		<property name="productService" ref="productServiceImpl" />
+		<property name="memberService" ref="memberServiceImpl" />
+	</bean>
+
+	<bean id="orderController" class="controller.OrderController">
+		<property name="orderService" ref="orderServiceImpl"></property>
+		<property name="productService" ref="productServiceImpl"></property>
+		<property name="memberService" ref="memberServiceImpl"></property>
+	</bean>
+
+	<bean class="controller.AdminController" id="adminController">
+		<!-- <property name="adminService" ref="adminServiceImpl" /> -->
+	</bean>
+
 </beans>

@@ -6,27 +6,47 @@
 	</projects>
 	<buildSpec>
 		<buildCommand>
+<<<<<<< HEAD
 			<name>org.eclipse.wst.common.project.facet.core.builder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
+=======
 			<name>org.eclipse.jdt.core.javabuilder</name>
+>>>>>>> f6a7cd2863a4505e4341437005b15995f03b2081
 			<arguments>
 			</arguments>
 		</buildCommand>
 		<buildCommand>
+<<<<<<< HEAD
+			<name>org.eclipse.jdt.core.javabuilder</name>
+=======
+			<name>org.eclipse.wst.common.project.facet.core.builder</name>
+>>>>>>> f6a7cd2863a4505e4341437005b15995f03b2081
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+<<<<<<< HEAD
 			<name>org.springframework.ide.eclipse.core.springbuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
-			<name>org.springframework.ide.eclipse.boot.validation.springbootbuilder</name>
-			<arguments>
-			</arguments>
-		</buildCommand>
-		<buildCommand>
+=======
 			<name>org.eclipse.wst.validation.validationbuilder</name>
+>>>>>>> f6a7cd2863a4505e4341437005b15995f03b2081
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+<<<<<<< HEAD
+			<name>org.springframework.ide.eclipse.boot.validation.springbootbuilder</name>
+=======
+			<name>org.springframework.ide.eclipse.core.springbuilder</name>
+>>>>>>> f6a7cd2863a4505e4341437005b15995f03b2081
+			<arguments>
+			</arguments>
+		</buildCommand>
+		<buildCommand>
+<<<<<<< HEAD
+			<name>org.eclipse.wst.validation.validationbuilder</name>
+=======
+			<name>org.springframework.ide.eclipse.boot.validation.springbootbuilder</name>
+>>>>>>> f6a7cd2863a4505e4341437005b15995f03b2081
 			<arguments>
 			</arguments>
 		</buildCommand>
@@ -37,9 +57,15 @@
 		</buildCommand>
 	</buildSpec>
 	<natures>
+<<<<<<< HEAD
 		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
 		<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
 		<nature>org.springframework.ide.eclipse.core.springnature</nature>
+=======
+		<nature>org.springframework.ide.eclipse.core.springnature</nature>
+		<nature>org.eclipse.jem.workbench.JavaEMFNature</nature>
+		<nature>org.eclipse.wst.common.modulecore.ModuleCoreNature</nature>
+>>>>>>> f6a7cd2863a4505e4341437005b15995f03b2081
 		<nature>org.eclipse.jdt.core.javanature</nature>
 		<nature>org.eclipse.m2e.core.maven2Nature</nature>
 		<nature>org.eclipse.wst.common.project.facet.core.nature</nature>

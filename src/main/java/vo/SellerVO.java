@@ -1,32 +1,29 @@
 package vo;
 
-public class SellerVO extends MemberVO{
+public class SellerVO{
 
 	public String id;
 	public String storeName;
 	public String storeAddress;
 	public String storeText;
 	public int sellerGrade;
-	public String post;
-	public String address;
 	public int bankCode;
 	public String bankAccount;
 	
 	public SellerVO() {
 		super();
 	}
-	public SellerVO(String id, String storeName, String storeAddress, String storeText, int sellerGrade, String post,
-			String address, int bankCode, String bankAccount) {
+	public SellerVO(String id, String storeName, String storeAddress, String storeText, int sellerGrade, int bankCode, String bankAccount) {
 		this.id = id;
 		this.storeName = storeName;
 		this.storeAddress = storeAddress;
 		this.storeText = storeText;
 		this.sellerGrade = sellerGrade;
-		this.post = post;
-		this.address = address;
 		this.bankCode = bankCode;
 		this.bankAccount = bankAccount;
 	}
+	
+	
 
 	public String getId() {
 		return id;
@@ -58,18 +55,7 @@ public class SellerVO extends MemberVO{
 	public void setSellerGrade(int sellerGrade) {
 		this.sellerGrade = sellerGrade;
 	}
-	public String getPost() {
-		return post;
-	}
-	public void setPost(String post) {
-		this.post = post;
-	}
-	public String getAddress() {
-		return address;
-	}
-	public void setAddress(String address) {
-		this.address = address;
-	}
+
 	public int getBankCode() {
 		return bankCode;
 	}

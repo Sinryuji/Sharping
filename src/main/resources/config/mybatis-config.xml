@@ -5,9 +5,9 @@
 <configuration>
 	<!-- 마이바티스 작동 규칙 정의 -->
 	<settings>
-		<setting name="cacheEnabled" value="false"/>
-		<setting name="useGeneratedKeys" value="false"/>
-		<setting name="mapUnderscoreToCamelCase" value="true"/>
+		<setting name="cacheEnabled" value="false" />
+		<setting name="useGeneratedKeys" value="false" />
+		<setting name="mapUnderscoreToCamelCase" value="true" />
 	</settings>
 	<typeAliases>
 		<typeAlias alias="memberVO" type="vo.MemberVO"></typeAlias>
@@ -15,5 +15,15 @@
 		<typeAlias alias="changePwVO" type="vo.ChangePwVO"></typeAlias>
 		<typeAlias alias="changeMemberVO" type="vo.ChangeMemberVO"></typeAlias>
 		<typeAlias alias="deleteVO" type="vo.DeleteVO"></typeAlias>
+		<typeAlias alias="productVO" type="vo.ProductVO"></typeAlias>
+		<typeAlias alias="optionVO" type="vo.OptionVO"></typeAlias>
+		<typeAlias alias="detailOptionVO" type="vo.DetailOptionVO"></typeAlias>
+		<typeAlias alias="orderVO" type="vo.OrderVO"></typeAlias>
+		<typeAlias alias="deliveryAddressVO" type="vo.DeliveryAddressVO"></typeAlias>
+		<typeAlias alias="productListVO" type="vo.ProductListVO" ></typeAlias>
+		<typeAlias alias="searchVO" type="vo.SearchVO" ></typeAlias>
+		<typeAlias alias="adminVO" type="vo.AdminVO" ></typeAlias>	
+		<typeAlias alias="basketVO" type="vo.BasketVO"></typeAlias>
+		<typeAlias alias="basketListVO" type="vo.BasketListVO"></typeAlias>
 	</typeAliases>
-</configuration>
+</configuration> 
