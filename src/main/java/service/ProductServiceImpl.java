@@ -4,13 +4,10 @@ package service;
 import java.util.List;
 
 import dao.ProductDAO;
-import vo.DetailOptionVO;
-import vo.OptionVO;
-import vo.ProductListVO;
-
-import java.util.HashMap;
 import vo.BasketListVO;
 import vo.BasketVO;
+import vo.DetailOptionVO;
+import vo.OptionVO;
 import vo.ProductVO;
 import vo.SearchVO;
 
@@ -124,7 +121,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<ProductListVO> getProductList(SearchVO search) throws Exception {
+	public List<ProductVO> getProductList(SearchVO search) throws Exception {
 		return productDAO.getProductList(search);
 	}
+	
 }

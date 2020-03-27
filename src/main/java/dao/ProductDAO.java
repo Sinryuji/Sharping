@@ -2,16 +2,10 @@ package dao;
 
 import java.util.List;
 
-import vo.DetailOptionVO;
-import vo.OptionVO;
-import vo.ProductListVO;
-
-import java.util.HashMap;
-
-
 import vo.BasketListVO;
 import vo.BasketVO;
-
+import vo.DetailOptionVO;
+import vo.OptionVO;
 import vo.ProductVO;
 import vo.SearchVO;
 
@@ -42,7 +36,7 @@ public interface ProductDAO {
 	public abstract int insertDetailOption(DetailOptionVO detailOptionVO);
 	
 	//상폼리스트
-	public abstract List<ProductListVO> getProductList(SearchVO search) throws Exception;
+	public abstract List<ProductVO> getProductList(SearchVO search) throws Exception;
 
 
 //	public abstract List<ProductVO> selectProductById(String id);
@@ -61,6 +55,6 @@ public interface ProductDAO {
 	public abstract List<BasketListVO> selectBasketByOptionNum(int[] basketNums);
 	
 	public abstract int deleteBasketByBasketNum(int basketNum);
-	
+
 
 }

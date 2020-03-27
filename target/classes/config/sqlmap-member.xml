@@ -75,7 +75,7 @@
 	</delete>
 	
 	<update id="updateDeliveryAddress" parameterType="deliveryAddressVO">
-		UPDATE DELIVERYADDRESS SET "id" = #{id}, "daPost" = #{daPost}, "daAddress" = #{daAddress}, "daaName" = #{daaName}, "daName" = #{daName}, "daPhone" = #{daPhone} "daAddressEtc" = #{daAddressEtc} WHERE "id" = #{id}
+		UPDATE DELIVERYADDRESS SET "id" = #{id}, "daPost" = #{daPost}, "daAddress" = #{daAddress}, "daaName" = #{daaName}, "daName" = #{daName}, "daPhone" = #{daPhone}, "daAddressEtc" = #{daAddressEtc} WHERE "id" = #{id}
 	</update>
 
 </mapper>

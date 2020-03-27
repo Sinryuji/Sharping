@@ -20,10 +20,11 @@
 		<typeAlias alias="detailOptionVO" type="vo.DetailOptionVO"></typeAlias>
 		<typeAlias alias="orderVO" type="vo.OrderVO"></typeAlias>
 		<typeAlias alias="deliveryAddressVO" type="vo.DeliveryAddressVO"></typeAlias>
-		<typeAlias alias="productListVO" type="vo.ProductListVO" ></typeAlias>
 		<typeAlias alias="searchVO" type="vo.SearchVO" ></typeAlias>
 		<typeAlias alias="adminVO" type="vo.AdminVO" ></typeAlias>	
 		<typeAlias alias="basketVO" type="vo.BasketVO"></typeAlias>
 		<typeAlias alias="basketListVO" type="vo.BasketListVO"></typeAlias>
+		<typeAlias alias="sellerListVO" type="vo.SellerListVO"></typeAlias>
+		<typeAlias alias="noticeVO" type="vo.NoticeVO"></typeAlias>
 	</typeAliases>
 </configuration> 

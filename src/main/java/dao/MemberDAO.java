@@ -47,6 +47,6 @@ public interface MemberDAO {
 	public abstract int updateDeliveryAddress(DeliveryAddressVO deliveryAddressVO);
 	
 	public abstract DeliveryAddressVO selectDeliveryAddressBydaaNameId(DeliveryAddressVO deliveryAddressVO);
-	
+
 
 }

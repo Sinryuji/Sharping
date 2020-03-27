@@ -112,6 +112,6 @@ public class MemberDAOImpl implements MemberDAO{
 	public DeliveryAddressVO selectDeliveryAddressBydaaNameId(DeliveryAddressVO deliveryAddressVO) {
 		return sqlSessionTemplate.selectOne("memberDAO.selectDeliveryAddressBydaaNameId", deliveryAddressVO);
 	}
-
+	
 
 }

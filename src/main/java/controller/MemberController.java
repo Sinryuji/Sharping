@@ -201,7 +201,7 @@ public class MemberController {
 
 			AdminVO adminVO = adminService.login(loginVO.getId(), loginVO.getPassword());
 			if (adminVO != null) {
-				session.setAttribute("adminInfo", adminVO);
+				session.setAttribute("adminVO", adminVO);
 
 			} else {
 
@@ -600,10 +600,5 @@ public class MemberController {
 		return "mypage/DeliveryTracker";
 	}
 
-	// 관리자 메인
-	@RequestMapping("/admin")
-	public String admin() {
-		return "admin/AdminPage";
-	}
 
 }

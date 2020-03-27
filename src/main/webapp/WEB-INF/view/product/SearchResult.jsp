@@ -1,3 +1,4 @@
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>   
@@ -22,9 +23,21 @@ integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706t
 		padding-top:70px;
 		padding-bottom : 30px;
 	}
+	
+    #mm {
+    		 text-align: center;
+ 			 margin: 0 auto;
+    	} 
+  
+	
 </style>
 </head>
 <body>
+
+    
+    <div id="mm">
+	<a href="<c:url value='/main'/>"> <h1>메인</h1> </a>
+	</div>
 
 	<form action="productList">
 		<h2>메인검색
@@ -136,16 +149,20 @@ $("#btnSearch").click(function(){
 	}
 		
 	var url = "${pageContext.request.contextPath}"+"/productList";
-	url = url + "?searchType=" + $("#searchType").val() + "&sortType=" + $("#sortType").val() + "&keyword=" + $("#keyword").val() + "&keyword2=" + $("#keyword2").val() + "&minPrice=" + $("#minPrice").val() + "&maxPrice=" + $("#maxPrice").val()+ "&checkDelivery=" + $("#checkDelivery").val();
+	url = url + "?searchType=" + $("#searchType").val() + "&sortType=" + $("#sortType").val() + "&keyword=" + $("#keyword").val() 
+			  + "&keyword2=" + $("#keyword2").val() + "&minPrice=" + $("#minPrice").val() + "&maxPrice=" + $("#maxPrice").val()
+			  + "&checkDelivery=" + $("#checkDelivery").val();
 	location.href = url;
 	console.log(url);
 });	
 
 function productView(productNum){
-	var url = "${pageContext.request.contextPath}"+"/상품불러오는";
-	url = url + "?productNum=" + "productNum";
+	var url = "${pageContext.request.contextPath}"+"/product";
+	url = url + "?productNum=" + productNum;
 	location.href = url;
 }
+
+
  
 </script>
 

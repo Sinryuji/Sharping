@@ -5,7 +5,12 @@ import java.sql.Timestamp;
 
 public class MemberVO {
 	
-	public MemberVO() {}
+	public MemberVO() {
+		super();
+	}
+	
+	
+
 
 
 	public MemberVO(String id, String password, String name, String phone, String email, Timestamp regDate,
@@ -21,6 +26,7 @@ public class MemberVO {
 		this.post = post;
 		this.address = address;
 		this.addressEtc = addressEtc;
+
 	}
 
 	private String id;
@@ -34,10 +40,10 @@ public class MemberVO {
 	private String address;
 	public String addressEtc;
 	
+
 	
-	
-	
-	
+
+
 	public String getAddressEtc() {
 		return addressEtc;
 	}
@@ -108,8 +114,14 @@ public class MemberVO {
 	public void setMemberGrade(int memberGrade) {
 		this.memberGrade = memberGrade;
 	}
-	
-	
+
+	@Override
+	public String toString() {
+		return "MemberVO [id=" + id + ", password=" + password + ", name=" + name + ", phone=" + phone + ", email="
+				+ email + ", regDate=" + regDate + ", memberGrade=" + memberGrade + ", post=" + post + ", address="
+				+ address + ", addressEtc=" + addressEtc + "]";
+	}
+
 }
 
 	

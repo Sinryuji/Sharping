@@ -11,9 +11,23 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
+	
+	<style>
+    	#mm {
+    		 text-align: center;
+ 			 margin: 0 auto;
+    	}
+    </style>
+	
 
 </head>
 <body>
+    
+    <div id="mm">
+	<a href="<c:url value='/main'/>"> <h1>메인</h1> </a>
+	</div>
+
+
 <h1>OrderPage</h1>
 <h1>Basket</h1>
 <h1>ProductQa</h1>
@@ -117,9 +131,9 @@ $('#cnt').change(function(){
 		
 	 	var cnt = $("#cnt").val();
 		var productNum = ${product.productNum};
-		var optionOneNum = $("#optionOneNum").val();
-		var optionTwoNum = $("#optionTwoNum").val();
-		var optionThreeNum = $("#optionThreeNum").val();
+		var optionOneNum = $("select[name=optionOneNum]").val();
+		var optionTwoNum = $("select[name=optionTwoNum]").val();
+		var optionThreeNum = $("select[name=optionThreeNum]").val();
 		var data = { 
 				cnt : cnt,
 				productNum : productNum,

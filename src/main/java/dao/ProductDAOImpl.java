@@ -4,14 +4,10 @@ import java.util.List;
 
 import org.mybatis.spring.SqlSessionTemplate;
 
-
-import vo.DetailOptionVO;
-import vo.OptionVO;
-import vo.ProductListVO;
-
 import vo.BasketListVO;
 import vo.BasketVO;
-
+import vo.DetailOptionVO;
+import vo.OptionVO;
 import vo.ProductVO;
 import vo.SearchVO;
 
@@ -89,7 +85,7 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 	
 	@Override
-	public List<ProductListVO> getProductList(SearchVO search) {
+	public List<ProductVO> getProductList(SearchVO search) {
 		return sqlSessionTemplate.selectList("productDAO.getProductList", search);
 
 	}
@@ -120,7 +116,8 @@ public class ProductDAOImpl implements ProductDAO{
 	@Override
 	public int deleteBasketByBasketNum(int basketNum) {
 		return sqlSessionTemplate.delete("productDAO.deleteBasketByBasketNum", basketNum);
-
 	}
+	
+
 
 }

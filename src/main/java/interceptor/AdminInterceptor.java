@@ -14,15 +14,17 @@ public class AdminInterceptor extends HandlerInterceptorAdapter {
 	 public boolean preHandle(HttpServletRequest request,
 	    HttpServletResponse response, Object handler) throws Exception {
 	  
-	  HttpSession session = request.getSession();
-	  AdminVO adminVO = (AdminVO)session.getAttribute("admin");
-	  
-	  if(adminVO == null ) {
-		  response.sendRedirect(request.getContextPath() + "/login");
-	   return false;
+
+	  HttpSession session = request.getSession(false);
+	  if(session != null) {
+		 Object adminVO = session.getAttribute("adminVO");
+		 if(adminVO != null) {
+			 return true;
+		 }
 	  }
-	  
-	  return true;
+	  response.sendRedirect(request.getContextPath() + "/login");
+	  return false;	 
+		 
 	 }
 	
 }

@@ -3,16 +3,10 @@ package service;
 
 import java.util.List;
 
-import vo.DetailOptionVO;
-import vo.OptionVO;
-import vo.ProductListVO;
-
-import java.util.HashMap;
-
-
 import vo.BasketListVO;
 import vo.BasketVO;
-
+import vo.DetailOptionVO;
+import vo.OptionVO;
 import vo.ProductVO;
 import vo.SearchVO;
 
@@ -40,7 +34,7 @@ public interface ProductService {
 	
 	public abstract int insertDetailOption(DetailOptionVO detailOptionVO);
 	
-	public abstract List<ProductListVO> getProductList(SearchVO search) throws Exception;
+	public abstract List<ProductVO> getProductList(SearchVO search) throws Exception;
 
 
 //	public abstract List<ProductVO> productListById(String id);
@@ -57,5 +51,5 @@ public interface ProductService {
 	public abstract List<BasketListVO> selectBasket(int[] basketNums);
 	
 	public abstract int deleteBasket(int basketNum);
-
+	
 }
