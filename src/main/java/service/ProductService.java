@@ -15,6 +15,7 @@ import vo.BasketVO;
 
 import vo.ProductVO;
 import vo.SearchVO;
+import vo.SellerVO;
 
 public interface ProductService {
 
@@ -24,6 +25,8 @@ public interface ProductService {
 
 	public abstract ProductVO selectProduct(int productNum);
 	
+	public abstract List<ProductVO> selectProducts(int[] productNums);
+	
 	public abstract List<DetailOptionVO> selectDetailOption(int productNum);
 	
 	public abstract List<ProductVO> productListById(String id);
@@ -31,6 +34,9 @@ public interface ProductService {
 	public abstract int selectOptionNum(OptionVO optionVO);
 	
 	public abstract OptionVO selectOptionByOptionNum(int optionNum);
+	
+	//장바구니에서 뽑아오는 옵션vo
+	public abstract List<OptionVO> selectOptionByOptionNumList(int[] optionNums);
 	
 	public abstract int selectOptionLevelMaxByProductNum(int productNum);
 
@@ -57,5 +63,6 @@ public interface ProductService {
 	public abstract List<BasketListVO> selectBasket(int[] basketNums);
 	
 	public abstract int deleteBasket(int basketNum);
+	
 
 }

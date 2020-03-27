@@ -25,7 +25,7 @@
 <span id="productText">상품설명 : ${product.productText}</span><br>
 <span id="productPrice">상품가격 : ${product.productPrice}</span><br>
 <span id="productImage">상품썸네일 : ${product.productImage}</span><br>
-<span id="stock">상품사진 : ${product.stock}</span><br>
+<span id="stock">상품재고 : ${product.stock}</span><br>
 <span id="categoryNum">카테고리번호 : ${product.categoryNum}</span><br>
 <span id="productDate">상품등록날짜 : ${product.productDate}</span><br>
 <span id="storeName">판매자명 : ${seller.storeName}</span><br>
@@ -37,7 +37,7 @@
 
 
 <form action="orderPage">
-<input type="hidden" name="productNum" value="${product.productNum}">
+<input type="hidden" name="productNum" id="productNum" value="${product.productNum}">
 
 <c:if test="${maxOptionLevel == 1}">
 <select name="optionOneNum">
@@ -103,6 +103,7 @@
 <br>
 수량:<input type="number" name="cnt" id="cnt" value="1" min="1" max="${product.stock}">
 결제금액:<input type="number" name="payPrice" id="payPrice" value="${product.productPrice }" readonly>
+<input type="hidden" name="deliveryPrice" value="${product.deliveryPrice}">
 <input type="submit" value="주문"><br>
 <button type="button"  class="basketBtn">담기</button>
 </form>
@@ -117,9 +118,9 @@ $('#cnt').change(function(){
 		
 	 	var cnt = $("#cnt").val();
 		var productNum = ${product.productNum};
-		var optionOneNum = $("#optionOneNum").val();
-		var optionTwoNum = $("#optionTwoNum").val();
-		var optionThreeNum = $("#optionThreeNum").val();
+		var optionOneNum = $("select[name=optionOneNum]").val();
+		var optionTwoNum = $("select[name=optionTwoNum]").val();
+		var optionThreeNum = $("select[name=optionThreeNum]").val();
 		var data = { 
 				cnt : cnt,
 				productNum : productNum,
@@ -138,8 +139,7 @@ $('#cnt').change(function(){
 					window.location.href='<%=request.getContextPath()%>/basket';
 				}else{
 					alert("로그인하세요");
-					windows.open("/login/Login","로그인페이지","null");
-					$(".cnt").val("1");
+					window.location.href='<%=request.getContextPath()%>/login';
 				}
 			},
 			error : function(){

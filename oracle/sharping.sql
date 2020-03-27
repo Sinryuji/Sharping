@@ -188,7 +188,7 @@ CREATE TABLE PRODUCT (
 
 
 /*오더넘 / 뱅크코드 / 버츄어 넘버 참조*/
-CREATE TABLE PAYBANK (
+CREATE TABLE    (
 	"orderNum"	VARCHAR2(100)		PRIMARY KEY,
 	"payDate"	TIMESTAMP		NOT NULL,
 	"cancleDate"	TIMESTAMP		NOT NULL,

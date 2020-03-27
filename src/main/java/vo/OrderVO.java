@@ -1,13 +1,14 @@
 package vo;
 
 import java.sql.Timestamp;
+import java.util.List;
 
 public class OrderVO {
 
 	private int orderNum;
 	private Timestamp orderDate;
-	private String stats;
-	private String patCase;
+	private String state;
+	private String payCase;
 	private int payPrice;
 	private String trackingNum;
 	private String toName;
@@ -15,17 +16,20 @@ public class OrderVO {
 	private String toPost;
 	private String toAddress;
 	private String id;
-	
+	private String toAddressEtc;
+	private String impId;
+	private String deliveryMessage;
+
 	public OrderVO() {
 		super();
 	}
-	public OrderVO(int orderNum, Timestamp orderDate, String stats, String patCase, int payPrice, String trackingNum,
-			String toName, String toPhone, String toPost, String toAddress, String id) {
+	public OrderVO(int orderNum, Timestamp orderDate, String state, String payCase, int payPrice, String trackingNum,
+			String toName, String toPhone, String toPost, String toAddress, String id, String toAddressEtc, String impId, String deliveryMessage) {
 		super();
 		this.orderNum = orderNum;
 		this.orderDate = orderDate;
-		this.stats = stats;
-		this.patCase = patCase;
+		this.state = state;
+		this.payCase = payCase;
 		this.payPrice = payPrice;
 		this.trackingNum = trackingNum;
 		this.toName = toName;
@@ -33,6 +37,28 @@ public class OrderVO {
 		this.toPost = toPost;
 		this.toAddress = toAddress;
 		this.id = id;
+		this.toAddressEtc = toAddressEtc;
+		this.impId = impId;
+		this.deliveryMessage = deliveryMessage;
+	}
+	
+	public String getDeliveryMessage() {
+		return deliveryMessage;
+	}
+	public void setDeliveryMessage(String deliveryMessage) {
+		this.deliveryMessage = deliveryMessage;
+	}
+	public String getImpId() {
+		return impId;
+	}
+	public void setImpId(String impId) {
+		this.impId = impId;
+	}
+	public String getToAddressEtc() {
+		return toAddressEtc;
+	}
+	public void setToAddressEtc(String toAddressEtc) {
+		this.toAddressEtc = toAddressEtc;
 	}
 	public int getOrderNum() {
 		return orderNum;
@@ -46,17 +72,17 @@ public class OrderVO {
 	public void setOrderDate(Timestamp orderDate) {
 		this.orderDate = orderDate;
 	}
-	public String getStats() {
-		return stats;
+	public String getState() {
+		return state;
 	}
-	public void setStats(String stats) {
-		this.stats = stats;
+	public void setState(String state) {
+		this.state = state;
 	}
-	public String getPatCase() {
-		return patCase;
+	public String getPayCase() {
+		return payCase;
 	}
-	public void setPatCase(String patCase) {
-		this.patCase = patCase;
+	public void setPayCase(String payCase) {
+		this.payCase = payCase;
 	}
 	public int getPayPrice() {
 		return payPrice;
@@ -100,6 +126,15 @@ public class OrderVO {
 	public void setId(String id) {
 		this.id = id;
 	}
+	@Override
+	public String toString() {
+		return "OrderVO [orderNum=" + orderNum + ", orderDate=" + orderDate + ", state=" + state + ", payCase="
+				+ payCase + ", payPrice=" + payPrice + ", trackingNum=" + trackingNum + ", toName=" + toName
+				+ ", toPhone=" + toPhone + ", toPost=" + toPost + ", toAddress=" + toAddress + ", id=" + id
+				+ ", toAddressEtc=" + toAddressEtc + ", impId=" + impId + ", deliveryMessage=" + deliveryMessage + "]";
+	}
+	
+	
 	
 	
 	

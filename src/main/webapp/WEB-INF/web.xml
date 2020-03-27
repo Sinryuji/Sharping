@@ -5,6 +5,8 @@
 		http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
 	version="3.0">
 	<display-name>10_board_mybatis</display-name>
+	
+
 
 	<!-- 요청을 처리하는 디스패처 서블릿 등록 -->
 	<servlet>

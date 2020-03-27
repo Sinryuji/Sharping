@@ -302,5 +302,10 @@ public class MemberServiceImpl implements MemberService {
 	public DeliveryAddressVO selectDeliveryAddressBydaaNameId(DeliveryAddressVO deliveryAddressVO) {
 		return memberDAO.selectDeliveryAddressBydaaNameId(deliveryAddressVO);
 	}
+	
+	@Override
+	public List<SellerVO> searchSellerByIds(String[] proId) {
+		return memberDAO.searchSellerByIds(proId);
+	}
 
 }
