@@ -19,14 +19,14 @@
 <body>
 
     <div id="mm">
-	<a href="<c:url value='/main'/>"> <h1>메인</h1> </a>
+	<h1><a href="<c:url value='/main'/>"> 메인 </a></h1>
 	</div>
 
 	<h1>SellerChange</h1>
 	<h1>Basket</h1>
 	<h1>CS</h1>
 	
-	<a href="<c:url value='/deliveryTracker'/>"> <h1>DeliveryTracker</h1> </a>
+	<h1><a href="<c:url value='/deliveryTracker'/>"> DeliveryTracker</a></h1>
 		
 	<form action="productList">
 		<input type="text" name="keyword"  placeholder="키워드를 입력하세요."/>
