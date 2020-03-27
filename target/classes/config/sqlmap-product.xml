@@ -136,7 +136,7 @@
 
 
 	
-		<select id="getProductList"  resultType="productListVO">
+		<select id="getProductList"  resultType="productVO">
 		SELECT "productNum", "productName", "productThumb", "productPrice","deliveryPrice" ,"id" FROM PRODUCT WHERE "productName" like '%'||#{keyword}||'%'	
 	
 			<if test="searchType=='productNum' and keyword2 != null and keyword2 != '' ">

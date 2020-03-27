@@ -6,10 +6,8 @@ import vo.BasketListVO;
 import vo.BasketVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
-import vo.ProductListVO;
 import vo.ProductVO;
 import vo.SearchVO;
-import vo.SellerVO;
 
 public interface ProductDAO {
 
@@ -38,7 +36,7 @@ public interface ProductDAO {
 	public abstract int insertDetailOption(DetailOptionVO detailOptionVO);
 	
 	//상폼리스트
-	public abstract List<ProductListVO> getProductList(SearchVO search) throws Exception;
+	public abstract List<ProductVO> getProductList(SearchVO search) throws Exception;
 
 
 //	public abstract List<ProductVO> selectProductById(String id);
@@ -94,5 +92,6 @@ public interface ProductDAO {
 	public abstract List<OptionVO> selectOptionByOptionNumList(int[] optionNums);
 	
 	public abstract List<ProductVO> selectProducts(int[] productNums);
+
 
 }

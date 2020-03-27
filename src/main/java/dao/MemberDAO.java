@@ -49,6 +49,6 @@ public interface MemberDAO {
 	public abstract DeliveryAddressVO selectDeliveryAddressBydaaNameId(DeliveryAddressVO deliveryAddressVO);
 	
 	public abstract List<SellerVO> searchSellerByIds(String[] proId);
-	
+
 
 }

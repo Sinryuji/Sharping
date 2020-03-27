@@ -1,17 +1,23 @@
 package service;
 
+import java.util.List;
+
 import org.springframework.security.crypto.bcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 
 import dao.AdminDAO;
+import dao.MemberDAO;
 import exception.IdPasswordNotMatchingException;
 import vo.AdminVO;
+import vo.MemberVO;
+import vo.NoticeVO;
+import vo.SellerVO;
 
 @Service
 public class AdminServiceImpl implements AdminService {
 
 	private AdminDAO adminDAO;
-	
+	private MemberDAO memberDAO;
 	
 
 	public AdminServiceImpl() {
@@ -30,8 +36,15 @@ public class AdminServiceImpl implements AdminService {
 	public void setAdminDAO(AdminDAO adminDAO) {
 		this.adminDAO = adminDAO;
 	}
-
 	
+	public MemberDAO getMemberDAO() {
+		return memberDAO;
+	}
+
+	public void setMemberDAO(MemberDAO memberDAO) {
+		this.memberDAO = memberDAO;
+	}
+
 	public AdminVO searchAdminById(String adminId) {
 		return adminDAO.selectAdminById(adminId);
 	}
@@ -48,5 +61,61 @@ public class AdminServiceImpl implements AdminService {
 		} else {
 			return new AdminVO(adminVO.getAdminId(), adminVO.getAdminPassword());
 		}
+	}
+	
+	@Override
+	public int registAdmin(AdminVO adminVO) {
+		return adminDAO.insertAdmin(adminVO);
+	}
+	
+	@Override
+	public int adminIdCheck(String adminId) {
+		int result = adminDAO.selectAdminId(adminId);
+		return result;
+	}
+	
+	@Override
+	public List<MemberVO> getMemberList(AdminVO adminVO) throws Exception {
+		return adminDAO.getMemberList(adminVO);
+	}
+	
+	@Override
+	public List<SellerVO> getSellerList(AdminVO adminVO) throws Exception {
+		return adminDAO.getSellerList(adminVO);
+	}
+	
+	@Override
+	public int deleteMemberById(MemberVO memberVO) {
+		return adminDAO.deleteMemberById(memberVO);
+	}
+	
+	@Override
+	public int deleteSellerById(SellerVO sellerVO) {
+		return adminDAO.deleteSellerById(sellerVO);
+	}
+	
+	@Override
+	public List<NoticeVO> getNoticeList(NoticeVO noticeVO) throws Exception {
+		return adminDAO.getNoticeList(noticeVO);
+	}
+	
+	@Override
+	public NoticeVO selectNoticeByNoticeNum(int noticeNum) throws Exception {
+		return adminDAO.selectNoticeByNoticeNum(noticeNum);
+	}
+
+	@Override
+	public int deleteNoticeByNoticeNum(int noticeNum) throws Exception {
+		return adminDAO.deleteNoticeByNoticeNum(noticeNum);
+	}
+	
+	@Override
+	public int updateNoticeByNoticeNum(NoticeVO noticeVO) throws Exception {
+		return adminDAO.updateNoticeByNoticeNum(noticeVO);
+	}
+	
+	@Override
+	public int insertNotice(NoticeVO noticeVO) throws Exception {
+		return adminDAO.insertNotice(noticeVO);
 	}
 }

@@ -10,7 +10,6 @@ import vo.BasketListVO;
 import vo.BasketVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
-import vo.ProductListVO;
 import vo.ProductVO;
 import vo.SearchVO;
 import vo.SellerVO;
@@ -126,7 +125,7 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public List<ProductListVO> getProductList(SearchVO search) throws Exception {
+	public List<ProductVO> getProductList(SearchVO search) throws Exception {
 		return productDAO.getProductList(search);
 	}
 
@@ -220,5 +219,6 @@ public class ProductServiceImpl implements ProductService {
 	public int deleteSelectProductByProductNum(ProductVO productVO) {
 		return productDAO.deleteSelectProductByProductNum(productVO);
 	}
+
 	
 }

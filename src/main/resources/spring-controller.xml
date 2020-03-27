@@ -48,8 +48,9 @@
 		<property name="memberService" ref="memberServiceImpl"></property>
 	</bean>
 
-	<bean class="controller.AdminController" id="adminController">
-		<!-- <property name="adminService" ref="adminServiceImpl" /> -->
+	<bean id="adminController" class="controller.AdminController">
+		<property name="adminService" ref="adminServiceImpl" />
+		<property name="memberService" ref="memberServiceImpl" />
 	</bean>
 
 </beans>

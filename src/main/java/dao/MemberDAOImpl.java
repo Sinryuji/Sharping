@@ -113,6 +113,7 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSessionTemplate.selectOne("memberDAO.selectDeliveryAddressBydaaNameId", deliveryAddressVO);
 	}
 	
+
 	@Override
 	public List<SellerVO> searchSellerByIds(String[] proId) {
 		return sqlSessionTemplate.selectList("memberDAO.searchSellerByIds",proId);

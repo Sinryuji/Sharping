@@ -20,7 +20,6 @@
 		<typeAlias alias="detailOptionVO" type="vo.DetailOptionVO"></typeAlias>
 		<typeAlias alias="orderVO" type="vo.OrderVO"></typeAlias>
 		<typeAlias alias="deliveryAddressVO" type="vo.DeliveryAddressVO"></typeAlias>
-		<typeAlias alias="productListVO" type="vo.ProductListVO" ></typeAlias>
 		<typeAlias alias="searchVO" type="vo.SearchVO" ></typeAlias>
 		<typeAlias alias="adminVO" type="vo.AdminVO" ></typeAlias>	
 		<typeAlias alias="basketVO" type="vo.BasketVO"></typeAlias>
@@ -31,6 +30,7 @@
 		<typeAlias alias="payMoneyVO" type="vo.PayMoneyVO"></typeAlias>
 		<typeAlias alias="bankVO" type="vo.BankVO"></typeAlias>
 		<typeAlias alias="orderListVO" type="vo.OrderListVO"></typeAlias>
-
+		<typeAlias alias="sellerListVO" type="vo.SellerListVO"></typeAlias>
+		<typeAlias alias="noticeVO" type="vo.NoticeVO"></typeAlias>
 	</typeAliases>
 </configuration> 

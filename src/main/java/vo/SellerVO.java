@@ -10,6 +10,8 @@ public class SellerVO{
 	public int bankCode;
 	public String bankAccount;
 	
+	
+	
 	public SellerVO() {
 		super();
 	}
@@ -68,6 +70,7 @@ public class SellerVO{
 	public void setBankAccount(String bankAccount) {
 		this.bankAccount = bankAccount;
 	}
+
 	
 	
 }

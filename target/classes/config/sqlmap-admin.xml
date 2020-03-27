@@ -4,9 +4,61 @@
 
 <mapper namespace="adminDAO">
 
-	<select  id="selectAdminById" resultType="adminVO" parameterType="String">
+	<insert id="insertAdmin" parameterType="adminVO">
+		INSERT INTO ADMIN VALUES (#{adminId}, #{adminPassword})
+	</insert>
+
+	<select id="selectAdminById" resultType="adminVO"
+		parameterType="String">
 		SELECT * FROM ADMIN WHERE "adminId"=#{adminId}
-	 </select>
-	 	
+	</select>
+
+	<select id="selectAdminId" resultType="int"
+		parameterType="String">
+		SELECT COUNT(*) FROM ADMIN WHERE "adminId"=#{adminId}
+	</select>
+
+	<select id="getMemberList" resultType="memberVO">
+		SELECT "id", "email", "regDate", "memberGrade" FROM MEMBER
+		<if test="keywordM != null and keywordM != '' ">
+			WHERE "id" like '%'||#{keywordM}||'%'
+		</if>                
+	</select>
 	
+	<select id="getSellerList" resultType="sellerListVO">
+		SELECT S."id", M."email", M."regDate", S."sellerGrade" FROM MEMBER M, SELLER S
+		WHERE S."id" = M."id"
+		<if test="keywordM != null and keywordM != '' ">
+			AND S."id" like '%'||#{keywordM}||'%'
+		</if>
+	</select>
+	
+	<select id="deleteMemberById" parameterType="memberVO">
+		DELETE FROM MEMBER WHERE "id"=#{id}              
+	</select>
+	
+	<select id="deleteSellerById" parameterType="sellerVO">
+		DELETE FROM SELLER WHERE "id"=#{id}              
+	</select>
+	
+	<select id="selectNoticeByNoticeNum" resultType="noticeVO" parameterType="int">
+		SELECT * FROM NOTICE WHERE "noticeNum"=#{noticeNum}
+	</select>
+	
+	<select id="getNoticeList" resultType="noticeVO">
+		SELECT "noticeNum", "adminId", "noticeSubject", "noticeDate", "noticePost" FROM NOTICE              
+	</select>
+	
+	<select id="deleteNoticeByNoticeNum" parameterType="noticeVO">
+		DELETE FROM NOTICE WHERE "noticeNum"=#{noticeNum}              
+	</select>
+
+	<select id="insertNotice" parameterType="noticeVO">
+		INSERT INTO NOTICE ("noticeNum", "adminId", "noticeSubject", "noticeText", "noticeDate", "noticePost") 
+		values (NOTICE_SEQ.nextval, #{adminId}, #{noticeSubject}, #{noticeText}, SYSDATE, #{noticePost})
+	</select>
+	
+	<select id="updateNoticeByNoticeNum" parameterType="String">
+		UPDATE NOTICE SET "noticeSubject"=#{noticeSubject}, "noticeText"=#{noticeText}
+	</select>
 </mapper>

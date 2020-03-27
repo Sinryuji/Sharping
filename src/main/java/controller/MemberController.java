@@ -201,7 +201,7 @@ public class MemberController {
 
 			AdminVO adminVO = adminService.login(loginVO.getId(), loginVO.getPassword());
 			if (adminVO != null) {
-				session.setAttribute("adminInfo", adminVO);
+				session.setAttribute("adminVO", adminVO);
 
 			} else {
 

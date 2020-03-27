@@ -11,6 +11,7 @@ public class AuthInfo {
 	private String phone;
 	
 	
+	
 	public String getPhone() {
 		return phone;
 	}
@@ -68,5 +69,7 @@ public class AuthInfo {
 	public String getSellerCheck() {
 		return sellerCheck;
 	}
+
+	
 	
 }
