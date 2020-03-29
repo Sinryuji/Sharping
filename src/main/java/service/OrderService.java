@@ -57,4 +57,8 @@ public interface OrderService {
 	public abstract int decrementStockOption(OrderListVO orderListVO);
 	
 	public abstract int selectProductNumByOptionNum(int optionNum);
+	
+	public abstract List<OrderVO> selectOrderById(String id);
+	
+	public abstract List<OrderListVO> selectOrderListByOrderNum(int orderNum);
 }

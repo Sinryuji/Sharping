@@ -7,6 +7,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -22,14 +24,21 @@ import exception.IdPasswordNotMatchingException;
 import exception.PasswordNotMatchingException;
 import service.AdminService;
 import service.MemberService;
+import service.OrderService;
+import service.ProductService;
 import vo.AdminVO;
 import vo.AuthInfo;
 import vo.ChangeMemberVO;
 import vo.ChangePwVO;
 import vo.DeleteVO;
 import vo.DeliveryAddressVO;
+import vo.DetailOptionVO;
 import vo.LoginVO;
 import vo.MemberVO;
+import vo.OptionVO;
+import vo.OrderListVO;
+import vo.OrderVO;
+import vo.ProductVO;
 import vo.SellerVO;
 
 @Controller
@@ -37,6 +46,17 @@ public class MemberController {
 
 	private MemberService memberService;
 	private AdminService adminService;
+	private OrderService orderService;
+	private ProductService productService;
+	
+	public void setProductService(ProductService productService) {
+		this.productService = productService;
+	}
+
+	public void setOrderService(OrderService orderService) {
+		this.orderService = orderService;
+	}
+
 
 	public void setMemberService(MemberService memberService) {
 		this.memberService = memberService;
@@ -491,10 +511,53 @@ public class MemberController {
 
 		HttpSession session = req.getSession();
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		List<OrderVO> orders = orderService.selectOrderById(authInfo.getId());
+		
+		JSONArray ordersJsonArray = new JSONArray();
+		
+		for(int i = 0 ; i < orders.size() ; i++) {
+			JSONArray orderListsJsonArray = new JSONArray();
+			JSONObject orderJson = new JSONObject();
+			orderJson.put("orderNum", orders.get(i).getOrderNum());
+			orderJson.put("payPrice", orders.get(i).getPayPrice());
+			orderJson.put("orderData", orders.get(i).getOrderDate());
+			orderJson.put("state", orders.get(i).getState());
+			List<OrderListVO> orderLists = orderService.selectOrderListByOrderNum(orders.get(i).getOrderNum());
+			System.out.println(orderLists.size());
+			for(int j = 0 ; j < orderLists.size() ; j++) {
+				JSONObject orderListJson = new JSONObject();
+				orderListJson.put("productThumb", orderLists.get(j).getProductThumb());
+				orderListJson.put("productName", orderLists.get(j).getProductName());
+				orderListJson.put("optionNum", orderLists.get(j).getOptionNum());
+				orderListJson.put("olNum", orderLists.get(j).getOlNum());
+				OptionVO optionVO = productService.selectOptionByOptionNum(orderLists.get(j).getOptionNum());
+				ProductVO productVO = productService.selectProduct(optionVO.getProductNum());
+				SellerVO sellerVO = memberService.searchSellerById(productVO.getId());
+				DetailOptionVO detailOptionVO1 = productService.selectDetailOptionByDoNum(optionVO.getOptionOneNum());
+				DetailOptionVO detailOptionVO2 = productService.selectDetailOptionByDoNum(optionVO.getOptionTwoNum());
+				DetailOptionVO detailOptionVO3 = productService.selectDetailOptionByDoNum(optionVO.getOptionThreeNum());
+				String optionName = detailOptionVO1.getOptionName() +  " / " + detailOptionVO2.getOptionName() + " / " + detailOptionVO3.getOptionName(); 
+				orderListJson.put("storeName", sellerVO.getStoreName());
+				orderListJson.put("optionName", optionName);
+				orderListsJsonArray.add(orderListJson);
+			}
+			orderJson.put("orderLists", orderListsJsonArray);
+			orderJson.put("orderListsSize", orderLists.size());
+			ordersJsonArray.add(orderJson);
+		};
+		
+		String ordersToString = ordersJsonArray.toString();
+		
+		System.out.println(ordersToString);
 
 		mv.setViewName("mypage/MyPage");
 
 		mv.addObject("authInfo", authInfo);
+		
+		mv.addObject("ordersToString", ordersToString);
+		
+		mv.addObject("ordersJsonArray", ordersJsonArray);
 
 		return mv;
 	}

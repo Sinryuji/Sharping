@@ -104,5 +104,15 @@ public class OrderDAOImpl implements OrderDAO{
 	public int selectProductNumByOptionNum(int optionNum) {
 		return sqlSessionTemplate.selectOne("orderDAO.selectProductNumByOptionNum", optionNum);
 	}
+	
+	@Override
+	public List<OrderVO> selectOrderById(String id) {
+		return sqlSessionTemplate.selectList("orderDAO.selectOrderById", id);
+	}
+	
+	@Override
+	public List<OrderListVO> selectOrderListByOrderNum(int orderNum) {
+		return sqlSessionTemplate.selectList("orderDAO.selectOrderListByOrderNum", orderNum);
+	}
 
 }

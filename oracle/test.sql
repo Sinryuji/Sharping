@@ -114,3 +114,5 @@ SELECT "optionNum" FROM OPTIONN WHERE "productNum" = 1 and "optionOneNum" = 1 an
 commit;
 
 SELECT MAX("optionLevel") FROM DETAILOPTION WHERE "productNum" = 2;
+
+insert into ADMIN VALUES ('admin', '$2a$10$o8OCjxqC2tDcgTIZgcgMBeAWd0gsmHfnH4lMs7jv76J3/Ra43virm');

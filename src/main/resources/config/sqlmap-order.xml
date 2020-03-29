@@ -13,6 +13,14 @@
 		SELECT * FROM ORDERR WHERE "orderNum" = #{orderNum}
 	</select>
 	
+	<select id="selectOrderById" resultType="orderVO">
+		SELECT * FROM ORDERR WHERE "id" = #{id}
+	</select>
+	
+	<select id="selectOrderListByOrderNum" resultType="orderListVO">
+		SELECT * FROM ORDERLIST WHERE "orderNum" = #{orderNum}
+	</select>
+	
 	<select id="selectByVirtualAccount" resultType="payBankVO">
 		SELECT * FROM VIRTUALACCOUNT WHERE "orderNum" = #{orderNum}
 	</select>

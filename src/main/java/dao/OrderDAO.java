@@ -4,7 +4,6 @@ package dao;
 import java.util.List;
 
 import vo.BankVO;
-
 import vo.OrderListVO;
 import vo.OrderVO;
 import vo.PayBankVO;
@@ -56,6 +55,10 @@ public interface OrderDAO {
 	public abstract int decrementStockOption(OrderListVO orderListVO);
 	
 	public abstract int selectProductNumByOptionNum(int optionNum);
+	
+	public abstract List<OrderVO> selectOrderById(String id);
+	
+	public abstract List<OrderListVO> selectOrderListByOrderNum(int orderNum);
 
 }
 

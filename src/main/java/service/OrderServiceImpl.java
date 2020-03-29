@@ -114,5 +114,15 @@ public class OrderServiceImpl implements OrderService{
 	public int selectProductNumByOptionNum(int optionNum) {
 		return orderDAO.selectProductNumByOptionNum(optionNum);
 	}
+	
+	@Override
+	public List<OrderVO> selectOrderById(String id) {
+		return orderDAO.selectOrderById(id);
+	}
+	
+	@Override
+	public List<OrderListVO> selectOrderListByOrderNum(int orderNum) {
+		return orderDAO.selectOrderListByOrderNum(orderNum);
+	}
 
 }

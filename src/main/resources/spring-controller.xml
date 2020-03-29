@@ -35,6 +35,8 @@
 	<bean id="memberController" class="controller.MemberController">
 		<property name="memberService" ref="memberServiceImpl" />
 		<property ref="adminServiceImpl" name="adminService" />
+		<property name="orderService" ref="orderServiceImpl"/>
+		<property name="productService" ref="productServiceImpl"/>
 	</bean>
 
 	<bean id="productController" class="controller.ProductController">
