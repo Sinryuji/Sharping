@@ -87,6 +87,8 @@ public class MemberController {
 		mv.setViewName("MainPage");
 		mv.addObject("cetegorys", categorys);
 		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + categorys);
+		
 		return mv;
 	}
 

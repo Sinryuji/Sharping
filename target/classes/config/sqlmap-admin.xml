@@ -57,9 +57,7 @@
 		INSERT INTO NOTICE VALUES (NOTICE_SEQ.nextval, #{adminId}, #{noticeSubject}, #{noticeText}, SYSDATE, #{noticePost})
 	</insert>
 	
-	<select id="updateNoticeByNoticeNum" parameterType="String">
-		UPDATE NOTICE SET "noticeSubject"=#{noticeSubject}, "noticeText"=#{noticeText}
-	</select>
+	
 	
 	<select id="selectCategoryByCategoryDepth" parameterType="int" resultType="categoryVO">
 		SELECT * FROM CATEGORY WHERE "categoryDepth" = #{categoryDepth}

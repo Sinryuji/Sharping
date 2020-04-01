@@ -8,7 +8,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
-<<<<<<< HEAD
 <script>
   src="https://code.jquery.com/jquery-2.1.4.min.js"
 </script>
