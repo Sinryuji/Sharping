@@ -1,29 +1,26 @@
 package controller;
 
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
-
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
-import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 import exception.AlreadyExistingIdException;
 import service.AdminService;
 import service.MemberService;
 import vo.AdminVO;
+import vo.CategoryVO;
 import vo.MemberVO;
 import vo.NoticeVO;
 import vo.SellerVO;
-
 
 @Controller
 public class AdminController {
@@ -178,80 +175,125 @@ public class AdminController {
 		adminService.deleteMemberById(memberVO);
 		return "admin/MemberManage";
 	}
-	
+
 	// 판매회원삭제하기
 	@RequestMapping(value = "/admin/deleteSeller")
 	public String deleteSeller(SellerVO sellerVO) throws Exception {
 		adminService.deleteSellerById(sellerVO);
 		return "admin/MemberManage";
 	}
-	
+
 	// 공지사항관리
 	@RequestMapping(value = "/admin/noticeManage", method = RequestMethod.GET)
 	public String getnoticeList(Model model) throws Exception {
 		NoticeVO noticeVO = new NoticeVO();
-
 		model.addAttribute("noticeList", adminService.getNoticeList(noticeVO));
-		
+
 		return "admin/NoticeManage";
 	}
-	
+
 	// 공지사항 열람
 	@RequestMapping("/admin/noticeContent")
 	public ModelAndView noticeView(int noticeNum) throws Exception {
 		NoticeVO noticeVO = adminService.selectNoticeByNoticeNum(noticeNum);
-		
-		
+
 		ModelAndView mv = new ModelAndView();
 
-			mv.setViewName("admin/NoticeContent");
-			mv.addObject("notice", noticeVO);
+		mv.setViewName("admin/NoticeContent");
+		mv.addObject("notice", noticeVO);
 
 		return mv;
 	}
-	
-	//공지사항 삭제
+
+	// 공지사항 삭제
 	@RequestMapping(value = "/admin/deleteNotice")
 	public String deleteNotice(int noticeNum) throws Exception {
 		adminService.deleteNoticeByNoticeNum(noticeNum);
 		return "admin/NoticeManage";
 	}
-	
-	//공지사항 수정
-//	@RequestMapping(value = "/admin/updateNotice", method = RequestMethod.GET)
-//	public String updateNotice(@RequestParam("noticeNum") int noticeNum,
-//								@RequestParam(value = "mode", required=false) String mode, Model model) throws Exception {
-//		
-//		model.addAttribute("noticeContent", adminService.selectNoticeByNoticeNum(noticeNum));
-//		model.addAttribute("mode", mode);
-//		model.addAttribute("noticeVO", new NoticeVO());
-//		return "admin/WriteNotice";
-//	}
-	
-	//공지사항 등록화면
+
+	// 공지사항 등록화면
 	@RequestMapping(value = "/admin/writeNotice")
-	public String writeNotice() throws Exception{
+	public String writeNotice() throws Exception {
+
 		return "/admin/WriteNotice";
 	}
-	
-	//공지사항 새글작성
-	@RequestMapping(value = "/admin/insertNotice")
-	public ModelAndView insertNotice(NoticeVO noticeVO, HttpSession session) throws Exception {
-		AdminVO adminVO = (AdminVO) session.getAttribute("adminVO");
-        ModelAndView mv = new ModelAndView("redirect:/admin/noticeManage");
-        adminService.insertNotice(noticeVO);
-        return mv;
-	}
-	
-	//공지사항 새 글 저장
-	@RequestMapping(value = "/admin/saveNotice", method=RequestMethod.POST)
-	public String saveNotice(@ModelAttribute("NoticeVO") NoticeVO noticeVO,	
-							RedirectAttributes rttr) throws Exception {
 
-			adminService.insertNotice(noticeVO);
-			return "redirect:/admin/noticeManage";
+	// 공지사항 작성
+	@RequestMapping(value = "/admin/inserNotice", method = RequestMethod.GET)
+	public String insertNotice(Model model) {
+		model.addAttribute("noticeVO", new NoticeVO());
+		return "/admin/insertNotice";
 	}
 
-	
+	// 공지사항 작성 등록 요청
+	@RequestMapping(value = "/admin/insertNotice", method = RequestMethod.POST)
+	public String inertNotice(@Valid NoticeVO noticeVO, BindingResult bindingResult) throws Exception {
+		if (bindingResult.hasErrors()) {
+			return "/admin/insertNotice";
+		}
+		if (noticeVO.getNoticePost() == null) {
+			noticeVO.setNoticePost("FALSE");
+		}
+		adminService.insertNotice(noticeVO);
+		return "redirect:/admin/noticeManage";
+	}
+
+	// 공지사항 수정
+	@RequestMapping(value = "/admin/updateNotice", method = RequestMethod.GET)
+	public String updateNotice(@RequestParam("noticeNum") int noticeNum, Model model) throws Exception {
+		NoticeVO noticeVO = adminService.selectNoticeByNoticeNum(noticeNum);
+		model.addAttribute("updateNotice", noticeVO);
+		return "/admin/UpdateNotice";
+	}
+
+	// 공지사항 수정 등록 요청
+	@RequestMapping(value = "/admin/updateNotice", method = RequestMethod.POST)
+	public String updateNotice(NoticeVO noticeVO) throws Exception {
+
+		if (noticeVO.getNoticePost() == null) {
+			noticeVO.setNoticePost("FALSE");
+		}
+		adminService.updateNoticeByNoticeNum(noticeVO);
+		return "redirect:/admin/noticeManage";
+	}
+
+	// 공지사항 진열여부
+	@RequestMapping("/admin/updateNoticePost")
+	@ResponseBody
+	public String updateNoticePost(@RequestParam int noticeNum, @RequestParam String noticePost) throws Exception {
+		NoticeVO noticeVO = new NoticeVO();
+
+		noticeVO.setNoticeNum(noticeNum);
+		noticeVO.setNoticePost(noticePost);
+		adminService.updateNoticePostByNoticeNum(noticeVO);
+
+		return "complete";
+	}
+
+	// 카테고리 등록
+//	@RequestMapping(value = "/admin/registCategory", method = RequestMethod.GET)
+//	public String registerCategory(Model model) throws Exception{
+//		List<CategoryVO> categoryVO = null;
+//		categoryVO = adminService.selectCategory();
+//		model.addAttribute("category", JSONArray.fromObject(categoryVO));
+//		
+//		return "admin/CategoryManage";
+//	}
+
+	// 카테고리 조회
+	@RequestMapping(value = "/admin/selectCategory", method = RequestMethod.GET)
+	public String selectCategory(Model model) throws Exception {
+
+		CategoryVO category = new CategoryVO();
+
+		category.setCategoryDepth(1);
+		category.setCategoryName("의류");
+		category.setCategoryNum(1);
+		category.setPcNum(0);
+
+		model.addAttribute("categoryVO", category);
+		return "/admin/CategoryManage";
+	}
+
 }
-

@@ -7,21 +7,122 @@
 <meta charset="UTF-8">
 <title>MemberManage</title>
 
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/woocommerce-layout.css'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/woocommerce-smallscreen.css'
+	type='text/css' media='only screen and (max-width: 768px)' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/woocommerce.css'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/font-awesome.min.css'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/style.css'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/easy-responsive-shortcodes.css'
+	type='text/css' media='all' />
+
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 
 <style>
-#mm {
-	text-align: center;
+
+ body {
+	font-family: '맑은 고딕', verdana;
+	padding: 0;
+	margin: 0;
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	 
+}
+
+div#root {
+	width: 90%;
 	margin: 0 auto;
 }
 
+header#header {
+	font-size: 60px;
+	padding: 20px 0;
+	text-shadow: black 0.2em 0.2em 0.2em;
+	color: white;
+}
+
+header#header h1 a {
+	color: #000;
+	font-weight: bold;
+}
+
+nav#nav {
+	padding: 10px;
+	text-align: right;
+}
+
+nav#nav ul li a {
+	display: inline-block;
+	margin-bottom: 10px;
+}
+
+section#container {
+	padding: 20px 0;
+	border-top: 2px solid #eee;
+	border-bottom: 2px solid #eee;
+}
+
+section#container::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+aside {
+	float: left;
+	width: 200px;
+}
+
+div#containerBox {
+	float: right;
+	width: calc(100% - 200px - 20px);
+}
+
+aside ul li {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+footer#footer {
+	background: #999999; /* f9f9f9 */
+	position: relative;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	padding: 7px 0;
+	text-align: center;
+}
+
+footer#footer div {
+	display: inline-block;
+	margin-right: 10px;
+}     
+
 .big_tab ul {
-	overflow: hidden;
+	overflow: auto;
+	margin-left: 300px;
 	width: 100%;
 }
 
 .big_tab ul li {
-	width: 25%;
+	width: 30%;
 	box-sizing: border-box;
 	float: left;
 	list-style-type: none;
@@ -33,6 +134,13 @@
 .big_tab ul li.activeClass {
 	font-weight: bold;
 	font-size: 20px;
+}
+
+.tab-contents form {
+	width: 600px;
+	float: right;
+	padding-top: 10px;
+	padding-bottom: 10px;
 }
 
 @media ( max-width :500px) {
@@ -47,19 +155,26 @@
 </head>
 <body>
 
-	<div id="mm">
-		<a href="<c:url value='/admin'/>">
-			<h1>관리자메인</h1>
-		</a>
-	</div>
+	<header id="header">
+		<div id="beaderBox">
+			<%@ include file="../include/AdminHeader.jsp"%>
+		</div>
+	</header>
 
+	<nav id="nav">
+		<div id="navBox">
+			<%@ include file="../include/AdminNav.jsp"%>
+		</div>
+	</nav>
 
-
-	<b><h2>회원관리</h2></b>
-
-
-
-	<div class="tabmenu">
+	<article>
+	<section id="container">
+		<aside>
+			<%@ include file="../include/AdminAside.jsp"%>
+		</aside>
+		<div id="containerBox"><h4>회원 관리</h4>
+		
+	<div class="tabmenu" >
 		<div class="big_tab">
 			<ul>
 				<li><a id="t1" href="#tab01">구매회원</a></li>
@@ -67,23 +182,16 @@
 			</ul>
 		</div>
 	</div>
+	
 	<div id="tab01" class="tab-contents">
-
 		<form action="memberList">
 			<input type="text" name="keywordM" placeholder="키워드를 입력하세요." value="${keywordM}" />
 			<input type="submit" value="검색">
 		</form>
 
 		<div class="container">
-			<div class="table-responsive">
-				<table class="table table-striped table-sm">
-					<colgroup>
-						<col style="width: 5%;" />
-						<col style="width: auto;" />
-						<col style="width: 15%;" />
-						<col style="width: 10%;" />
-						<col style="width: 10%;" />
-					</colgroup>
+			<div class="tableInfo">
+				<table class="infoMember">
 					<thead>
 						<tr>
 							<th>아이디</th>
@@ -184,6 +292,18 @@
 			</div>
 		</div>
 	</div>
+	</div>
+	</section>
+	</article>
+
+	<footer id="footer">
+		<div id=footerBox>
+			<%@ include file="../include/AdminFooter.jsp"%>
+		</div>
+	</footer>
+
+
+	
 
 
 	<script>

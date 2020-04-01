@@ -9,6 +9,7 @@ import dao.AdminDAO;
 import dao.MemberDAO;
 import exception.IdPasswordNotMatchingException;
 import vo.AdminVO;
+import vo.CategoryVO;
 import vo.MemberVO;
 import vo.NoticeVO;
 import vo.SellerVO;
@@ -99,6 +100,7 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.getNoticeList(noticeVO);
 	}
 	
+	
 	@Override
 	public NoticeVO selectNoticeByNoticeNum(int noticeNum) throws Exception {
 		return adminDAO.selectNoticeByNoticeNum(noticeNum);
@@ -117,5 +119,30 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int insertNotice(NoticeVO noticeVO) throws Exception {
 		return adminDAO.insertNotice(noticeVO);
+	}
+	
+	@Override
+	public int updateNoticePostByNoticeNum(NoticeVO noticeVO) throws Exception {
+		return adminDAO.updateNoticePostByNoticeNum(noticeVO);
+	}
+	
+	@Override
+	public List<CategoryVO> selectCategory() throws Exception {
+		return adminDAO.selectCategory();
+	}
+	
+	@Override
+	public int insertCategory(CategoryVO categoryVO) throws Exception {
+		return adminDAO.insertCategory(categoryVO);
+	}
+	
+	@Override
+	public int updateCategory(CategoryVO categoryVO) throws Exception {
+		return adminDAO.updateCategory(categoryVO);
+	}
+
+	@Override
+	public int deleteCategory(int categoryNum) throws Exception {
+		return adminDAO.deleteCategory(categoryNum);
 	}
 }

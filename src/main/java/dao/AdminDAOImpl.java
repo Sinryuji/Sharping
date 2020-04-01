@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import vo.AdminVO;
+import vo.CategoryVO;
 import vo.MemberVO;
 import vo.NoticeVO;
 import vo.SellerVO;
@@ -57,6 +58,7 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<NoticeVO> getNoticeList(NoticeVO noticeVO) throws Exception {
 		return sqlSessionTemplate.selectList("adminDAO.getNoticeList", noticeVO);
 	}
+	
 
 	@Override
 	public NoticeVO selectNoticeByNoticeNum(int noticeNum) {
@@ -76,5 +78,30 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int insertNotice(NoticeVO noticeVO) throws Exception {
 		return sqlSessionTemplate.insert("adminDAO.insertNotice", noticeVO);
+	}
+	
+	@Override
+	public int updateNoticePostByNoticeNum(NoticeVO noticeVO) throws Exception {
+		return sqlSessionTemplate.update("adminDAO.updateNoticePostByNoticeNum", noticeVO);
+	}
+	
+	@Override
+	public List<CategoryVO> selectCategory() throws Exception {
+		return sqlSessionTemplate.selectList("adminDAO.selectCategory");
+	}
+	
+	@Override
+	public int insertCategory(CategoryVO categoryVO) throws Exception {
+		return sqlSessionTemplate.insert("adminDAO.insertCategory");
+	}
+	
+	@Override
+	public int updateCategory(CategoryVO categoryVO) throws Exception {
+		return sqlSessionTemplate.update("adminDAO.updateCategory");
+	}
+	
+	@Override
+	public int deleteCategory(int categoryNum) throws Exception {
+		return sqlSessionTemplate.delete("adminDAO.deleteCategory");
 	}
 }

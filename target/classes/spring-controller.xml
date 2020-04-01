@@ -27,6 +27,7 @@
 			<bean class="interceptor.AdminInterceptor" />
 
 		</mvc:interceptor>
+		
 
 	</mvc:interceptors>
 

@@ -57,7 +57,7 @@ body {
 
 </head>
 <body>
-
+		<form>
 		<div class="container" role="main">
 			<h2>공지사항</h2>
 
@@ -70,12 +70,13 @@ body {
 			</div>
 			</div>
 			
-		<form>
+
 			<input type="button" value="삭제하기" id="delete">
 			<input type="button" value="수정하기" id="update">
 			<input type="button" value="닫기" onclick="window.close()">
 			<input type="hidden" id="adp" value=""/>
 			<input type="hidden" value="${notice.noticeNum}" name="noticeNum">
+			
 		</form>
 		
 		<script>
@@ -132,10 +133,13 @@ body {
 				}
 				
 				$("#upPro").click(function(){
-		
-					var url = "${pageContext.request.contextPath}/updateNotice";
-					url = url + "?noticeNum=" + ${notice.noticeNum};
-					location.href = url;
+					
+
+							var formup = $("form[role='form']");
+							formup.attr("method", "get");
+							formup.submit(); 
+							
+
 
 				});
 			}

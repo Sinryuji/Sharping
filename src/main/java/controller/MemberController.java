@@ -41,7 +41,6 @@ public class MemberController {
 	public void setMemberService(MemberService memberService) {
 		this.memberService = memberService;
 	}
-	
 
 	public AdminService getAdminService() {
 		return adminService;
@@ -159,7 +158,7 @@ public class MemberController {
 	public ModelAndView changePw() {
 		ModelAndView mv = new ModelAndView();
 		int ran = new Random().nextInt(900000) + 100000;
-		mv.setViewName("login/RegistSeller");
+		mv.setViewName("login/ChangePw");
 		mv.addObject("random", ran);
 		return mv;
 	}
@@ -396,7 +395,7 @@ public class MemberController {
 	// 구매자 회원 정보 수정
 	@RequestMapping(value = "/infoChangeMemberComplete")
 	public String infoChangeMemberComplete(ChangeMemberVO changeMemberVO) {
-		
+
 //		String addressEtc = changeMemberVO.getNewAddressEtc();
 //
 //		String address = changeMemberVO.getNewAddress();
@@ -404,7 +403,7 @@ public class MemberController {
 //		String addressFinal = address + " " + addressEtc;
 //
 //		changeMemberVO.setNewAddress(addressFinal);
-		
+
 		memberService.updateMemberInfoById(changeMemberVO);
 		return "mypage/InfoChangeMemberResult";
 	}
@@ -412,7 +411,7 @@ public class MemberController {
 	// 판매자 회원 정보 수정
 	@RequestMapping(value = "/infoChangeSellerComplete")
 	public String infoChangeSellerComplete(ChangeMemberVO changeMemberVO) {
-		
+
 //		String addressEtc = changeMemberVO.getNewAddressEtc();
 //
 //		String address = changeMemberVO.getNewAddress();
@@ -420,7 +419,7 @@ public class MemberController {
 //		String addressFinal = address + " " + addressEtc;
 //
 //		changeMemberVO.setNewAddress(addressFinal);
-		
+
 		memberService.updateMemberInfoById(changeMemberVO);
 		memberService.updateSellerInfoById(changeMemberVO);
 		return "mypage/InfoChangeMemberResult";
@@ -599,6 +598,5 @@ public class MemberController {
 	public String deliveryTracker() {
 		return "mypage/DeliveryTracker";
 	}
-
 
 }

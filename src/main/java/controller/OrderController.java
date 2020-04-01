@@ -82,7 +82,7 @@ public class OrderController {
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 
 		// authInfo가 null일 경우 비회원 주문조회 추가
-		
+
 		payPrice += deliveryPrice;
 
 		List<BankVO> bankVO = orderService.selectBankCodeList();
@@ -90,13 +90,13 @@ public class OrderController {
 		int optionNum = productService.selectOptionNum(optionVO);
 
 		OptionVO option = productService.selectOptionByOptionNum(optionNum);
-	
+
 		ProductVO product = productService.selectProduct(option.getProductNum());
 
 		MemberVO member = memberService.searchMemberById(authInfo.getId());
 
 		SellerVO seller = memberService.searchSellerById(product.getId());
-		
+
 		mv.setViewName("order/OrderPage");
 
 		mv.addObject("optionNum", optionNum);
@@ -223,7 +223,6 @@ public class OrderController {
 
 		return mv;
 	}
-	
 
 	// 상품 페이지에서 들어간 주문 페이지의 무통장 입금 주문 완료 버튼
 	@RequestMapping("/orderResult")
@@ -234,7 +233,7 @@ public class OrderController {
 		orderVO.setState("입금 대기");
 		orderVO.setPayCase("무통장 입금");
 		orderVO.setTrackingNum("");
-		
+
 		String address = orderVO.getToAddress();
 		String addressEtc = orderVO.getToAddressEtc();
 
@@ -245,10 +244,9 @@ public class OrderController {
 		} else {
 			result = address;
 		}
-		
+
 		orderVO.setToAddress(result);
 
-	
 		// 주문 인설트하고
 		orderService.insertOrder(orderVO);
 
@@ -317,7 +315,7 @@ public class OrderController {
 	@RequestMapping(value = "/orderResultByBasket")
 	public ModelAndView orderResult(HttpServletRequest req, int payPrice, String orderListJsonArray, OrderVO orderVO,
 			@RequestParam int bankCode) {
-		
+
 		JSONArray orderListJsonListt = null;
 		JSONParser parser = new JSONParser();
 		try {
@@ -325,7 +323,6 @@ public class OrderController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-
 
 		String address = orderVO.getToAddress();
 		String addressEtc = orderVO.getToAddressEtc();
@@ -494,48 +491,49 @@ public class OrderController {
 	}
 
 	// 상품페이지에서 누른 주문 페이지의 카드 결제 완료 및 주문 완료
-		@RequestMapping("/orderCardResult")
-		public ModelAndView orderResult(OrderVO orderVO, OrderListVO orderListVO) {
-			ModelAndView mv = new ModelAndView();
-			
-			orderVO.setState("결제 완료");
-			orderVO.setPayCase("카드");
-			orderVO.setTrackingNum("");
-			
-			orderService.insertOrder(orderVO);
-			
-			OrderVO order = new OrderVO();
-			
-			order = orderService.selectLatelyOrderNum(orderVO.getId());
-			
-			orderVO.setOrderNum(order.getOrderNum());
-			
-			orderListVO.setOrderNum(order.getOrderNum());
-			
-			int insertPayCardResult = orderService.insertPayCard(orderVO);
-			
-			int insertOrderResult = orderService.insertOrderList(orderListVO);
-			
-			int productNum = orderService.selectProductNumByOptionNum(orderListVO.getOptionNum());
-			
-			orderListVO.setProductNum(productNum);
-			
-			if(insertPayCardResult > 0) {
-				orderService.decrementStockProduct(orderListVO);
-			}
-			
-			if(insertOrderResult > 0) {
-				orderService.decrementStockOption(orderListVO);
-			}
+	@RequestMapping("/orderCardResult")
+	public ModelAndView orderResult(OrderVO orderVO, OrderListVO orderListVO) {
+		ModelAndView mv = new ModelAndView();
 
-			mv.setViewName("order/OrderResult");
+		orderVO.setState("결제 완료");
+		orderVO.setPayCase("카드");
+		orderVO.setTrackingNum("");
 
-			return mv;
+		orderService.insertOrder(orderVO);
+
+		OrderVO order = new OrderVO();
+
+		order = orderService.selectLatelyOrderNum(orderVO.getId());
+
+		orderVO.setOrderNum(order.getOrderNum());
+
+		orderListVO.setOrderNum(order.getOrderNum());
+
+		int insertPayCardResult = orderService.insertPayCard(orderVO);
+
+		int insertOrderResult = orderService.insertOrderList(orderListVO);
+
+		int productNum = orderService.selectProductNumByOptionNum(orderListVO.getOptionNum());
+
+		orderListVO.setProductNum(productNum);
+
+		if (insertPayCardResult > 0) {
+			orderService.decrementStockProduct(orderListVO);
 		}
+
+		if (insertOrderResult > 0) {
+			orderService.decrementStockOption(orderListVO);
+		}
+
+		mv.setViewName("order/OrderResult");
+
+		return mv;
+	}
 
 	// 장바구니에서 누른 주문페이지의 카드 결제 팝업 창
 	@RequestMapping("/payingCardByBasket")
-	public ModelAndView payingCardByBasket(PayingCardVO payingCardVO, OrderVO orderVO, OrderListVO orderListVO, int payPrice, String orderListJsonArray) {
+	public ModelAndView payingCardByBasket(PayingCardVO payingCardVO, OrderVO orderVO, OrderListVO orderListVO,
+			int payPrice, String orderListJsonArray) {
 		ModelAndView mv = new ModelAndView();
 
 		String address = orderVO.getToAddress();
@@ -560,12 +558,12 @@ public class OrderController {
 
 		return mv;
 	}
-	
+
 	// 장바구니에서 누른 주문 페이지의 카드 결제 완료 및 주문 완료
 	@RequestMapping("/orderCardResultByBasket")
 	public ModelAndView orderResult(OrderVO orderVO, int payPrice, String orderListJsonArray) {
 		ModelAndView mv = new ModelAndView();
-		
+
 		JSONArray orderListJsonListt = null;
 		JSONParser parser = new JSONParser();
 		try {
@@ -573,7 +571,7 @@ public class OrderController {
 		} catch (ParseException e) {
 			e.printStackTrace();
 		}
-		
+
 		orderVO.setPayPrice(payPrice);
 
 		orderVO.setState("결제 완료");
@@ -581,7 +579,7 @@ public class OrderController {
 		orderVO.setTrackingNum("");
 
 		orderService.insertOrder(orderVO);
-		
+
 		OrderVO order = new OrderVO();
 		// 주문자 아이디 이용해서 오더정보 받아오고
 		order = orderService.selectLatelyOrderNum(orderVO.getId());
@@ -610,6 +608,5 @@ public class OrderController {
 
 		return mv;
 	}
-
 
 }

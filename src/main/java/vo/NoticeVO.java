@@ -13,7 +13,7 @@ public class NoticeVO {
 	
 	
 
-	public Integer getNoticeNum() {
+	public int getNoticeNum() {
 		return noticeNum;
 	}
 	public void setNoticeNum(Integer noticeNum) {
@@ -48,6 +48,11 @@ public class NoticeVO {
 	}
 	public void setNoticePost(String noticePost) {
 		this.noticePost = noticePost;
+	}
+	@Override
+	public String toString() {
+		return "NoticeVO [noticeNum=" + noticeNum + ", adminId=" + adminId + ", noticeSubject=" + noticeSubject
+				+ ", noticeText=" + noticeText + ", noticeDate=" + noticeDate + ", noticePost=" + noticePost + "]";
 	}
 	
 	
