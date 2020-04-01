@@ -9,6 +9,7 @@
 </head>
 <body>
 <form action="payMoney">
+<input type="hidden" value="${payNum}" name="payNum"> 
 입금 은행 <select name="bankCode"> 
 <option value="none">은행을 선택해 주세요</option> 
 <c:forEach var="bankCode" items="${bankInfo}" varStatus="status">

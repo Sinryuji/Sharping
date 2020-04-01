@@ -154,6 +154,9 @@
 			<if test="checkDelivery=='on' ">
 				AND "deliveryPrice" = 0
 			</if>
+			<if test="categoryNum != null">
+				AND "categoryNum" = #{categoryNum}
+			</if>
 			<if test="sortType == 'highPrice' ">
 				order by "productPrice" desc
 			</if>
@@ -162,7 +165,9 @@
 			</if>	
 			<if test="sortType == 'productDate' ">
 				order by "productDate" desc
-			</if>		
+			</if>
+			
+					
 	</select>
 	
 	<update id="updateProductByProductNum" parameterType="productVO">
@@ -211,16 +216,20 @@
  		DELETE FROM OPTIONN WHERE "optionNum" = #{optionNum}
  	</delete>
  	
- 	<select id="selectDetailOptionByDoNum" parameterType="int" resultType="detailOptionVO">
- 		SELECT * FROM DETAILOPTION WHERE "doNum" = #{doNum}
+ 	<select id="selectDetailOptionByOptionOneNum" parameterType="optionVO" resultType="detailOptionVO">
+ 		SELECT * FROM DETAILOPTION WHERE "doNum" = #{optionTwoNum} AND "productNum" = #{productNum}
+ 	</select>
+ 	
+ 	<select id="selectDetailOptionByOptionTwoNum" parameterType="optionVO" resultType="detailOptionVO">
+ 		SELECT * FROM DETAILOPTION WHERE "doNum" = #{optionThreeNum} AND "productNum" = #{productNum}
  	</select>
  	
  	<select id="selectOptionByOptionOneNum" parameterType="optionVO" resultType="optionVO">
- 		SELECT * FROM OPTIONN WHERE "optionOneNum" = #{optionOneNum}
+ 		SELECT * FROM OPTIONN WHERE "optionOneNum" = #{optionOneNum} ORDER BY "optionTwoNum" ASC
  	</select>
  	
  	<select id="selectOptionByOptionTwoNum" parameterType="optionVO" resultType="optionVO">
- 		SELECT * FROM OPTIONN WHERE "optionTwoNum" = #{optionTwoNum}
+ 		SELECT * FROM OPTIONN WHERE "optionTwoNum" = #{optionTwoNum} AND "optionOneNum" = #{optionOneNum}
  	</select>
  	
  	<!-- <select id="selectOptionByOptionThreeNum" parameterType="optionVO" resultType="optionVO">
@@ -234,5 +243,20 @@
    <delete id="deleteSelectProductByProductNum" parameterType="productVO">
  		DELETE FROM PRODUCT WHERE "productNum" = #{productNum}
  	</delete>
+ 	
+ 	<select id="selectDetailOptionByDoNum" parameterType="int" resultType="detailOptionVO">
+ 		SELECT * FROM DETAILOPTION WHERE "doNum" = #{doNum}
+ 	</select>
+ 	
+ 	<select id="selectProductByCategoryNum" parameterType="int" resultType="productVO">
+ 		SELECT * FROM PRODUCT
+ 		<foreach collection="array" item="categoryNum" open="WHERE" separator="OR">
+			"categoryNum" = #{categoryNum}
+		</foreach>
+ 	</select>
+ 	
+ 	<update id="updateProductByCategoryNumZero" parameterType="int">
+ 		UPDATE PRODUCT SET "categoryNum" = 0 WHERE "productNum" = #{productNum}
+ 	</update>
 
 </mapper>

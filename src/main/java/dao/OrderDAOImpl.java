@@ -5,7 +5,6 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import vo.BankVO;
-
 import vo.OrderListVO;
 import vo.OrderVO;
 import vo.PayBankVO;
@@ -61,13 +60,13 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 
 	@Override //결제완료일 
-	public void updatePaydateByPaybank(int result) {
-		sqlSessionTemplate.update("orderDAO.updatepayDate",result);
+	public void updatePaydateByPaybank(String vaNum) {
+		sqlSessionTemplate.update("orderDAO.updatepayDate",vaNum);
 	}
 	
 	@Override //주문상태변경
-	public void updateStateByOrder(int success) {
-		sqlSessionTemplate.update("orderDAO.updateState", success);
+	public void updateStateByOrder(int payNum) {
+		sqlSessionTemplate.update("orderDAO.updateState", payNum);
 	}
 
 	@Override
@@ -113,6 +112,46 @@ public class OrderDAOImpl implements OrderDAO{
 	@Override
 	public List<OrderListVO> selectOrderListByOrderNum(int orderNum) {
 		return sqlSessionTemplate.selectList("orderDAO.selectOrderListByOrderNum", orderNum);
+	}
+	
+	@Override
+	public OrderListVO selectOrderListByOlNum(int olNum) {
+		return sqlSessionTemplate.selectOne("orderDAO.selectOrderListByOlNum", olNum);
+	}
+	
+	@Override
+	public int updateOrderByOrderNum(int orderNum) {
+		return sqlSessionTemplate.update("orderDAO.updateOrderByOrderNum", orderNum);
+	}
+	
+	@Override
+	public List<OrderVO> selectOrderSearch(OrderVO orderVO) {
+		return sqlSessionTemplate.selectList("orderDAO.selectOrderSearch", orderVO);
+	}
+	
+	@Override
+	public List<OrderVO> selectOrderSort(OrderVO orderVO) {
+		return sqlSessionTemplate.selectList("orderDAO.selectOrderSort", orderVO);
+	}
+	
+	@Override
+	public int selectPayNumConut(int payNum) {
+		return sqlSessionTemplate.selectOne("orderDAO.selectPayNumCount", payNum);
+	}
+	
+	@Override
+	public List<OrderVO> selectOrderDate(OrderVO orderVO) {
+		return sqlSessionTemplate.selectList("orderDAO.selectOrderDate", orderVO);
+	}
+	
+	@Override
+	public int updatePayPriceVirtualAccount(VirtualAccountVO virtualAccountVO) {
+		return sqlSessionTemplate.update("orderDAO.updatePayPriceVirtualAccount", virtualAccountVO);
+	}
+	
+	@Override
+	public List<OrderVO> selectOrderByPayNum(int payNum) {
+		return sqlSessionTemplate.selectList("orderDAO.selectOrderByPayNum", payNum);
 	}
 
 }

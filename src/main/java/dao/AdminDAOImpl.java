@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import vo.AdminVO;
+import vo.CategoryVO;
 import vo.MemberVO;
 import vo.NoticeVO;
 import vo.SellerVO;
@@ -76,5 +77,50 @@ public class AdminDAOImpl implements AdminDAO {
 	@Override
 	public int insertNotice(NoticeVO noticeVO) throws Exception {
 		return sqlSessionTemplate.insert("adminDAO.insertNotice", noticeVO);
+	}
+	
+	@Override
+	public List<CategoryVO> selectCategoryByCategoryDepth(int categoryDepth) {
+		return sqlSessionTemplate.selectList("adminDAO.selectCategoryByCategoryDepth", categoryDepth);
+	}
+	
+	@Override
+	public List<CategoryVO> selectCategoryByPcNum(int pcNum) {
+		return sqlSessionTemplate.selectList("adminDAO.selectCategoryByPcNum", pcNum);
+	}
+	
+	@Override
+	public int selectMaxCategoryNum() {
+		return sqlSessionTemplate.selectOne("adminDAO.selectMaxCategoryNum");
+	}
+	
+	@Override
+	public CategoryVO selectCategoryByCategoryNum(int categoryNum) {
+		return sqlSessionTemplate.selectOne("adminDAO.selectCategoryByCategoryNum", categoryNum);
+	}
+	
+	@Override
+	public int insertCategoryDepthOne(String categoryName) {
+		return sqlSessionTemplate.insert("adminDAO.insertCategoryDepthOne", categoryName);
+	}
+	
+	@Override
+	public int insertCategoryDepthTwo(CategoryVO categoryVO) {
+		return sqlSessionTemplate.insert("adminDAO.insertCategoryDepthTwo", categoryVO);
+	}
+	
+	@Override
+	public int insertCategoryDepthThree(CategoryVO categoryVO) {
+		return sqlSessionTemplate.insert("adminDAO.insertCategoryDepthThree", categoryVO);
+	}
+	
+	@Override
+	public int updateCategory(CategoryVO categoryVO) {
+		return sqlSessionTemplate.update("adminDAO.updateCategory", categoryVO);
+	}
+	
+	@Override
+	public int deleteCategory(int categoryNum) {
+		return sqlSessionTemplate.delete("adminDAO.deleteCategory", categoryNum);
 	}
 }

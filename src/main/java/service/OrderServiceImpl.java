@@ -69,14 +69,14 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override //무통장입금 결제완료일 업데이트
-	public void updatePaydateByPaybank(int result) {
-		orderDAO.updatePaydateByPaybank(result);
+	public void updatePaydateByPaybank(String vaNum) {
+		orderDAO.updatePaydateByPaybank(vaNum);
 		
 	}
 
 	@Override //주문상태 변경
-	public void updateStateByOrder(int success) {
-		orderDAO.updateStateByOrder(success);
+	public void updateStateByOrder(int payNum) {
+		orderDAO.updateStateByOrder(payNum);
 		
 	}
 
@@ -124,5 +124,44 @@ public class OrderServiceImpl implements OrderService{
 	public List<OrderListVO> selectOrderListByOrderNum(int orderNum) {
 		return orderDAO.selectOrderListByOrderNum(orderNum);
 	}
+	
+	@Override
+	public OrderListVO selectOrderListByOlNum(int olNum) {
+		return orderDAO.selectOrderListByOlNum(olNum);
+	}
+	
+	@Override
+	public int updateOrderByOrderNum(int orderNum) {
+		return orderDAO.updateOrderByOrderNum(orderNum);
+	}
+	
+	@Override
+	public List<OrderVO> selectOrderSearch(OrderVO orderVO) {
+		return orderDAO.selectOrderSearch(orderVO);
+	}
+	
+	@Override
+	public List<OrderVO> selectOrderSort(OrderVO orderVO) {
+		return orderDAO.selectOrderSort(orderVO);
+	}
+	
+	@Override
+	public int selectPayNumConut(int payNum) {
+		return orderDAO.selectPayNumConut(payNum);
+	}
+	
+	@Override
+	public List<OrderVO> selectOrderDate(OrderVO orderVO) {
+		return orderDAO.selectOrderDate(orderVO);
+	}
 
+	@Override
+	public int updatePayPriceVirtualAccount(VirtualAccountVO virtualAccountVO) {
+		return orderDAO.updatePayPriceVirtualAccount(virtualAccountVO);
+	}
+	
+	@Override
+	public List<OrderVO> selectOrderByPayNum(int payNum) {
+		return orderDAO.selectOrderByPayNum(payNum);
+	}
 }

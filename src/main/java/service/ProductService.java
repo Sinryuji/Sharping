@@ -83,11 +83,20 @@ public interface ProductService {
 	
 	public abstract List<OptionVO> selectOptionByOptionTwoNum (OptionVO optionVO);
 	
-	public abstract DetailOptionVO selectDetailOptionByDoNum (int doNum);
+	public abstract DetailOptionVO selectDetailOptionByOptionOneNum (OptionVO optionVO);
+	
+	public abstract DetailOptionVO selectDetailOptionByOptionTwoNum (OptionVO optionVO);
 	
 	public abstract int updateProductDisplayByProductNum (ProductVO productVO);
 	
 	public abstract int deleteSelectProductByProductNum (ProductVO productVO);
-
+	
+	public abstract DetailOptionVO selectDetailOptionByDoNum (int doNum);
+	
+	// 카테고리번호로 상품들 가져오기
+	public abstract List<ProductVO> selectProductByCategoryNum (int[] categoryNums);
+	
+	// 상품들 카테고리 번호 수정하기
+	public abstract int updateProductByCategoryNumZero (int productNum);
 
 }

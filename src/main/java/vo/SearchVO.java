@@ -12,7 +12,14 @@ public class SearchVO {
 	private String highPrice;
 	private String lowPrice;
 	private String productDate;
-	
+	private Integer categoryNum;
+
+	public Integer getCategoryNum() {
+		return categoryNum;
+	}
+	public void setCategoryNum(Integer categoryNum) {
+		this.categoryNum = categoryNum;
+	}
 	public String getSearchType() {
 		return searchType;
 	}

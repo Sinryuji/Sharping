@@ -1,5 +1,9 @@
 package controller;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
@@ -19,6 +23,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.fasterxml.jackson.databind.ObjectMapper;
+
 import exception.AlreadyExistingIdException;
 import exception.IdPasswordNotMatchingException;
 import exception.PasswordNotMatchingException;
@@ -28,6 +34,7 @@ import service.OrderService;
 import service.ProductService;
 import vo.AdminVO;
 import vo.AuthInfo;
+import vo.CategoryVO;
 import vo.ChangeMemberVO;
 import vo.ChangePwVO;
 import vo.DeleteVO;
@@ -48,7 +55,7 @@ public class MemberController {
 	private AdminService adminService;
 	private OrderService orderService;
 	private ProductService productService;
-	
+
 	public void setProductService(ProductService productService) {
 		this.productService = productService;
 	}
@@ -57,11 +64,9 @@ public class MemberController {
 		this.orderService = orderService;
 	}
 
-
 	public void setMemberService(MemberService memberService) {
 		this.memberService = memberService;
 	}
-	
 
 	public AdminService getAdminService() {
 		return adminService;
@@ -73,8 +78,16 @@ public class MemberController {
 
 	// 메인
 	@RequestMapping("/main")
-	public String main() {
-		return "MainPage";
+	public ModelAndView main() {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		List<CategoryVO> categorys = adminService.selectCategoryByCategoryDepth(1);
+		
+		mv.setViewName("MainPage");
+		mv.addObject("cetegorys", categorys);
+		
+		return mv;
 	}
 
 	// 회원 가입 페이지
@@ -179,7 +192,7 @@ public class MemberController {
 	public ModelAndView changePw() {
 		ModelAndView mv = new ModelAndView();
 		int ran = new Random().nextInt(900000) + 100000;
-		mv.setViewName("login/RegistSeller");
+		mv.setViewName("login/ChangePw");
 		mv.addObject("random", ran);
 		return mv;
 	}
@@ -416,7 +429,7 @@ public class MemberController {
 	// 구매자 회원 정보 수정
 	@RequestMapping(value = "/infoChangeMemberComplete")
 	public String infoChangeMemberComplete(ChangeMemberVO changeMemberVO) {
-		
+
 //		String addressEtc = changeMemberVO.getNewAddressEtc();
 //
 //		String address = changeMemberVO.getNewAddress();
@@ -424,7 +437,7 @@ public class MemberController {
 //		String addressFinal = address + " " + addressEtc;
 //
 //		changeMemberVO.setNewAddress(addressFinal);
-		
+
 		memberService.updateMemberInfoById(changeMemberVO);
 		return "mypage/InfoChangeMemberResult";
 	}
@@ -432,7 +445,7 @@ public class MemberController {
 	// 판매자 회원 정보 수정
 	@RequestMapping(value = "/infoChangeSellerComplete")
 	public String infoChangeSellerComplete(ChangeMemberVO changeMemberVO) {
-		
+
 //		String addressEtc = changeMemberVO.getNewAddressEtc();
 //
 //		String address = changeMemberVO.getNewAddress();
@@ -440,7 +453,7 @@ public class MemberController {
 //		String addressFinal = address + " " + addressEtc;
 //
 //		changeMemberVO.setNewAddress(addressFinal);
-		
+
 		memberService.updateMemberInfoById(changeMemberVO);
 		memberService.updateSellerInfoById(changeMemberVO);
 		return "mypage/InfoChangeMemberResult";
@@ -506,26 +519,94 @@ public class MemberController {
 
 	// 마이 페이지
 	@RequestMapping(value = "/myPage")
-	public ModelAndView myPage(HttpServletRequest req) {
+	public ModelAndView myPage(HttpServletRequest req, @RequestParam(required=false) String keywordO, @RequestParam(required=false) String state, @RequestParam(required=false) Date firstDate, @RequestParam(required=false) Date secondDate) {
 		ModelAndView mv = new ModelAndView();
 
 		HttpSession session = req.getSession();
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 		
-		List<OrderVO> orders = orderService.selectOrderById(authInfo.getId());
+		List<OrderVO> orders = new ArrayList<OrderVO>();
 		
+		OrderVO order = new OrderVO();
+		
+		if(keywordO == null && state == null && firstDate == null && secondDate == null) {
+
+			System.out.println("그냥 마이페이지");
+			orders = orderService.selectOrderById(authInfo.getId());
+		
+		}
+		
+		if(keywordO != null && state == null && firstDate == null && secondDate == null) {
+			
+			System.out.println("검색 마이페이지");
+			order = new OrderVO();
+
+			order.setId(authInfo.getId());
+			order.setKeywordO(keywordO);
+			orders = orderService.selectOrderSearch(order);
+			
+		}
+			
+		
+		if(keywordO == null && state != null && firstDate == null && secondDate == null) {
+			
+			System.out.println("정렬 마이페이지");
+			order = new OrderVO();
+
+			if(state.equals("전체 주문 상태")) {
+				orders = orderService.selectOrderById(authInfo.getId());
+			}
+			else {
+				order.setId(authInfo.getId());
+				order.setState(state);;
+				orders = orderService.selectOrderSort(order);
+			}
+			
+		}
+			
+		
+		if(keywordO == null && state == null && firstDate != null && secondDate != null) {
+
+			System.out.println("날짜 마이페이지");
+			order = new OrderVO();
+			
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			long firstTimestampLong = firstDate.getTime();
+			long secondTimestampLong = secondDate.getTime();
+			
+			Timestamp firstTimestamp = Timestamp.valueOf(sdf.format(firstTimestampLong));
+			Timestamp secondTimestamp = Timestamp.valueOf(sdf.format(secondTimestampLong));
+			
+			order.setId(authInfo.getId());
+			order.setFirstDate(firstTimestamp);
+			order.setSecondDate(secondTimestamp);
+			orders = orderService.selectOrderDate(order);
+			
+		}
+			
+		
+
 		JSONArray ordersJsonArray = new JSONArray();
-		
-		for(int i = 0 ; i < orders.size() ; i++) {
+
+		for (int i = 0; i < orders.size(); i++) {
 			JSONArray orderListsJsonArray = new JSONArray();
 			JSONObject orderJson = new JSONObject();
 			orderJson.put("orderNum", orders.get(i).getOrderNum());
 			orderJson.put("payPrice", orders.get(i).getPayPrice());
 			orderJson.put("orderData", orders.get(i).getOrderDate());
 			orderJson.put("state", orders.get(i).getState());
+			orderJson.put("payNum", orders.get(i).getPayNum());
+			System.out.println( orders.get(i).getPayNum());
+			orderJson.put("payNumCount", orderService.selectPayNumConut(orders.get(i).getPayNum()));
+			if(i != 0) {
+			orderJson.put("prePayNum", orders.get(i-1).getPayNum());
+			}
+			if(i == 0) {
+				orderJson.put("prePayNum", orders.get(i).getPayNum());
+			}
 			List<OrderListVO> orderLists = orderService.selectOrderListByOrderNum(orders.get(i).getOrderNum());
 			System.out.println(orderLists.size());
-			for(int j = 0 ; j < orderLists.size() ; j++) {
+			for (int j = 0; j < orderLists.size(); j++) {
 				JSONObject orderListJson = new JSONObject();
 				orderListJson.put("productThumb", orderLists.get(j).getProductThumb());
 				orderListJson.put("productName", orderLists.get(j).getProductName());
@@ -534,10 +615,19 @@ public class MemberController {
 				OptionVO optionVO = productService.selectOptionByOptionNum(orderLists.get(j).getOptionNum());
 				ProductVO productVO = productService.selectProduct(optionVO.getProductNum());
 				SellerVO sellerVO = memberService.searchSellerById(productVO.getId());
+				String optionName = "";
 				DetailOptionVO detailOptionVO1 = productService.selectDetailOptionByDoNum(optionVO.getOptionOneNum());
 				DetailOptionVO detailOptionVO2 = productService.selectDetailOptionByDoNum(optionVO.getOptionTwoNum());
 				DetailOptionVO detailOptionVO3 = productService.selectDetailOptionByDoNum(optionVO.getOptionThreeNum());
-				String optionName = detailOptionVO1.getOptionName() +  " / " + detailOptionVO2.getOptionName() + " / " + detailOptionVO3.getOptionName(); 
+				if (detailOptionVO1 != null) {
+					optionName += detailOptionVO1.getOptionName();
+				}
+				if (detailOptionVO2 != null) {
+					optionName += " / " + detailOptionVO2.getOptionName();
+				}
+				if (detailOptionVO3 != null) {
+					optionName += " / " + detailOptionVO3.getOptionName();
+				}
 				orderListJson.put("storeName", sellerVO.getStoreName());
 				orderListJson.put("optionName", optionName);
 				orderListsJsonArray.add(orderListJson);
@@ -547,17 +637,20 @@ public class MemberController {
 			ordersJsonArray.add(orderJson);
 		};
 		
+
 		String ordersToString = ordersJsonArray.toString();
-		
+
 		System.out.println(ordersToString);
 
 		mv.setViewName("mypage/MyPage");
 
 		mv.addObject("authInfo", authInfo);
-		
+
 		mv.addObject("ordersToString", ordersToString);
-		
+
 		mv.addObject("ordersJsonArray", ordersJsonArray);
+		
+		mv.addObject("state", state);
 
 		return mv;
 	}
@@ -662,6 +755,24 @@ public class MemberController {
 	public String deliveryTracker() {
 		return "mypage/DeliveryTracker";
 	}
-
+	
+	// 마이페이지 배송 조회
+	@RequestMapping(value = "deliveryTracking")
+	public ModelAndView deliveryTracking(int orderNum) {
+		ModelAndView mv = new ModelAndView();
+		
+		OrderVO order = orderService.selectOrderByorderNum(orderNum);
+		
+	
+		mv.setViewName("mypage/DeliveryTrackingByMyPage");
+		
+		System.out.println(order.getTrackingCode());
+		System.out.println(order.getTrackingNum());
+		
+		mv.addObject("trackingCode", order.getTrackingCode());
+		mv.addObject("trackingNum", order.getTrackingNum());
+		
+		return mv;
+	}
 
 }

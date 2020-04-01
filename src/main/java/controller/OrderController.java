@@ -4,6 +4,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
@@ -234,6 +235,7 @@ public class OrderController {
 		orderVO.setState("입금 대기");
 		orderVO.setPayCase("무통장 입금");
 		orderVO.setTrackingNum("");
+		orderVO.setTrackingCode("");
 		
 		String address = orderVO.getToAddress();
 		String addressEtc = orderVO.getToAddressEtc();
@@ -283,7 +285,7 @@ public class OrderController {
 		}
 		String vaNum = ranNum + "-" + bankCode + "-" + ymd;
 		virtualAccountVO.setVaNum(vaNum);
-		virtualAccountVO.setOrderNum(orderVO.getOrderNum());
+		virtualAccountVO.setPayNum(orderVO.getPayNum());
 		virtualAccountVO.setBankCode(bankCode);
 		virtualAccountVO.setPayPrice(orderVO.getPayPrice());
 		virtualAccountVO.setRespCode("NO");
@@ -340,31 +342,50 @@ public class OrderController {
 
 		orderVO.setToAddress(result);
 
-		orderVO.setPayPrice(payPrice);
+		
 
 		HttpSession session = req.getSession();
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 		orderVO.setState("입금 대기");
 		orderVO.setPayCase("무통장 입금");
 		orderVO.setTrackingNum("");
+		orderVO.setTrackingCode("");
 
-		// 주문 인설트하고
+//		// 주문 인설트하고
 		orderVO.setId(authInfo.getId());
-		System.out.println(orderVO);
-		orderService.insertOrder(orderVO);
-
-		OrderVO order = new OrderVO();
-		// 주문자 아이디 이용해서 오더정보 받아오고
-		order = orderService.selectLatelyOrderNum(orderVO.getId());
-		// 오더에 오더넘버 셋하고
-		orderVO.setOrderNum(order.getOrderNum());
+		int payNum = new Random().nextInt(900000) + 100000;
+		
+//		orderService.insertOrder(orderVO);
+//
+//		OrderVO order = new OrderVO();
+//		// 주문자 아이디 이용해서 오더정보 받아오고
+//		order = orderService.selectLatelyOrderNum(orderVO.getId());
+//		// 오더에 오더넘버 셋하고
+//		orderVO.setOrderNum(order.getOrderNum());
 
 		Gson gson = new Gson();
+		
+		orderVO.setPayNum(payNum);
+		
+		OrderVO order = null;
 
 		for (int i = 0; i < orderListJsonListt.size(); i++) {
-			System.out.println(orderListJsonListt.get(i).toString());
 			OrderListVO orderListVO = new OrderListVO();
 			orderListVO = gson.fromJson(orderListJsonListt.get(i).toString(), OrderListVO.class);
+			OptionVO option = productService.selectOptionByOptionNum(orderListVO.getOptionNum());
+			ProductVO product = productService.selectProduct(option.getProductNum());
+			
+			int orderPrice = orderListVO.getCnt() * orderListVO.getProductPrice() + product.getDeliveryPrice();
+			// 주문 인설트하고
+			orderVO.setPayPrice(orderPrice);
+			orderService.insertOrder(orderVO);
+			
+
+			order = new OrderVO();
+			// 주문자 아이디 이용해서 오더정보 받아오고
+			order = orderService.selectLatelyOrderNum(orderVO.getId());
+			// 오더에 오더넘버 셋하고
+			orderVO.setOrderNum(order.getOrderNum());
 			orderListVO.setOrderNum(orderVO.getOrderNum());
 			System.out.println(orderListVO);
 			int insertOrderResult = orderService.insertOrderList(orderListVO);
@@ -401,9 +422,9 @@ public class OrderController {
 		String vaNum = ranNum + "-" + bankCode + "-" + ymd;
 
 		virtualAccountVO.setVaNum(vaNum);
-		virtualAccountVO.setOrderNum(orderVO.getOrderNum());
+		virtualAccountVO.setPayNum(orderVO.getPayNum());
 		virtualAccountVO.setBankCode(bankCode);
-		virtualAccountVO.setPayPrice(orderVO.getPayPrice());
+		virtualAccountVO.setPayPrice(payPrice);
 		virtualAccountVO.setRespCode("NO");
 		// 입금 마감일자 구현해야해야
 //		virtualAccountVO.setDepositDate(depositDate);
@@ -412,7 +433,7 @@ public class OrderController {
 //		무통장 입금이 가상계좌랑 주문번호 셀렉트 해와서 
 		PayBankVO payBankVO = new PayBankVO();
 		System.out.println("orerVO : " + orderVO);
-		payBankVO = orderService.selectVirtualAccountByorderNum(orderVO.getOrderNum());
+		payBankVO = orderService.selectVirtualAccountByorderNum(orderVO.getPayNum());
 //		payBankVO.setOrderNum(payBankVO.getOrderNum());
 //		payBankVO.setBankCode(payBankVO.getBankCode());
 //		payBankVO.setVaNum(payBankVO.getVaNum());
@@ -433,18 +454,19 @@ public class OrderController {
 
 	// 입금하러가기
 	@RequestMapping("/insertMoney")
-	public ModelAndView insertMoney() {
+	public ModelAndView insertMoney(int payNum) {
 
 		ModelAndView mv = new ModelAndView();
 		List<BankVO> bankVO = orderService.selectBankCodeList();
 		mv.setViewName("order/InsertMoney");
 		mv.addObject("bankInfo", bankVO);
+		mv.addObject("payNum", payNum);
 		return mv;
 	}
 
 	// 입금
 	@RequestMapping("/payMoney")
-	public ModelAndView pay(@RequestParam int payPrice, @RequestParam int bankCode, @RequestParam String vaNum) {
+	public ModelAndView pay(@RequestParam int payPrice, @RequestParam int bankCode, @RequestParam String vaNum, int payNum) {
 
 //		돈을 입금할때 은행코드와 주문번호 가상계좌 3개가 일치해야하고 
 //		가상계좌에 payPrice랑 값이 같은지 비교하고 respCode를 "YES"로 업데이트 해준다.
@@ -457,8 +479,8 @@ public class OrderController {
 //		그 외에는 입금실패 
 		if (result == 1) {
 			ModelAndView mv = new ModelAndView();
-			orderService.updatePaydateByPaybank(result);
-			orderService.updateStateByOrder(result);
+			orderService.updatePaydateByPaybank(vaNum);
+			orderService.updateStateByOrder(payNum);
 		} else {
 		}
 		ModelAndView mv = new ModelAndView();
@@ -501,6 +523,7 @@ public class OrderController {
 			orderVO.setState("결제 완료");
 			orderVO.setPayCase("카드");
 			orderVO.setTrackingNum("");
+			orderVO.setTrackingCode("");
 			
 			orderService.insertOrder(orderVO);
 			
@@ -579,21 +602,42 @@ public class OrderController {
 		orderVO.setState("결제 완료");
 		orderVO.setPayCase("카드");
 		orderVO.setTrackingNum("");
-
-		orderService.insertOrder(orderVO);
+		orderVO.setTrackingCode("");
 		
-		OrderVO order = new OrderVO();
-		// 주문자 아이디 이용해서 오더정보 받아오고
-		order = orderService.selectLatelyOrderNum(orderVO.getId());
-		// 오더에 오더넘버 셋하고
-		orderVO.setOrderNum(order.getOrderNum());
+		int payNum = new Random().nextInt(900000) + 100000;
+		
+
+//		orderService.insertOrder(orderVO);
+		
+		OrderVO order = null;
+//		// 주문자 아이디 이용해서 오더정보 받아오고
+//		order = orderService.selectLatelyOrderNum(orderVO.getId());
+//		// 오더에 오더넘버 셋하고
+//		orderVO.setOrderNum(order.getOrderNum());
 
 		Gson gson = new Gson();
+		orderVO.setPayNum(payNum);
 
 		for (int i = 0; i < orderListJsonListt.size(); i++) {
-			System.out.println(orderListJsonListt.get(i).toString());
 			OrderListVO orderListVO = new OrderListVO();
 			orderListVO = gson.fromJson(orderListJsonListt.get(i).toString(), OrderListVO.class);
+			OptionVO option = productService.selectOptionByOptionNum(orderListVO.getOptionNum());
+			ProductVO product = productService.selectProduct(option.getProductNum());
+			
+			int orderPrice = orderListVO.getCnt() * orderListVO.getProductPrice() + product.getDeliveryPrice();
+			
+			orderVO.setPayNum(payNum);
+			
+			orderService.insertOrder(orderVO);
+			
+			
+			order = new OrderVO();
+			// 주문자 아이디 이용해서 오더정보 받아오고
+			order = orderService.selectLatelyOrderNum(orderVO.getId());
+			// 오더에 오더넘버 셋하고
+			orderVO.setOrderNum(order.getOrderNum());
+			System.out.println(orderListJsonListt.get(i).toString());
+			
 			orderListVO.setOrderNum(orderVO.getOrderNum());
 			System.out.println(orderListVO);
 			int insertOrderResult = orderService.insertOrderList(orderListVO);
@@ -608,6 +652,69 @@ public class OrderController {
 
 		mv.setViewName("order/OrderResult");
 
+		return mv;
+	}
+	
+	// 주문 취소
+	@RequestMapping(value = "/orderCancle")
+	public ModelAndView orderCancle(int orderNum) {
+		ModelAndView mv = new ModelAndView();
+		
+		List<OrderListVO> orderList = orderService.selectOrderListByOrderNum(orderNum);
+		OptionVO option = productService.selectOptionByOptionNum(orderList.get(0).getOptionNum());
+		ProductVO product = productService.selectProduct(option.getProductNum());
+		OrderVO order = orderService.selectOrderByorderNum(orderList.get(0).getOrderNum());
+		SellerVO seller = memberService.searchSellerById(product.getId());
+		
+		
+		mv.setViewName("order/OrderCancle");
+		mv.addObject("orderList", orderList.get(0));
+		mv.addObject("product", product);
+		mv.addObject("order", order);
+		mv.addObject("seller", seller);
+		
+		return mv;
+	}
+	
+	// 주문 취소 안료
+	@RequestMapping(value = "/orderCancleComplete")
+	public ModelAndView orderCancleComplete(int orderNum) {
+		ModelAndView mv = new ModelAndView();
+		
+		
+		List<OrderListVO> orderList = orderService.selectOrderListByOrderNum(orderNum);
+		OptionVO option = productService.selectOptionByOptionNum(orderList.get(0).getOptionNum());
+		ProductVO product = productService.selectProduct(option.getProductNum());
+		OrderVO order = orderService.selectOrderByorderNum(orderList.get(0).getOrderNum());
+		SellerVO seller = memberService.searchSellerById(product.getId());
+		int result = orderService.updateOrderByOrderNum(order.getOrderNum());
+		PayBankVO payBank = orderService.selectPayBank(order.getPayNum());
+		VirtualAccountVO virtualAccount = new VirtualAccountVO();
+		virtualAccount.setVaNum(payBank.getVaNum());
+		try {
+			Thread.sleep(500);
+		} catch (InterruptedException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		List<OrderVO> orders = orderService.selectOrderByPayNum(order.getPayNum());
+		System.out.println(orders.size());
+		int payPrice = 0;
+		for(int i = 0 ; i < orders.size() ; i++) {
+			payPrice += orders.get(i).getPayPrice();
+		}
+		virtualAccount.setPayPrice(payPrice);
+		
+		orderService.updatePayPriceVirtualAccount(virtualAccount);
+
+		
+		mv.setViewName("order/OrderCancleComplete");
+		mv.addObject("result", result);
+		mv.addObject("orderList", orderList.get(0));
+		mv.addObject("product", product);
+		mv.addObject("order", order);
+		mv.addObject("seller", seller);
+		
 		return mv;
 	}
 

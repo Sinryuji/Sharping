@@ -206,8 +206,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public DetailOptionVO selectDetailOptionByDoNum(int doNum) {
-		return productDAO.selectDetailOptionByDoNum(doNum);
+	public DetailOptionVO selectDetailOptionByOptionOneNum(OptionVO optionVO) {
+		return productDAO.selectDetailOptionByOptionOneNum(optionVO);
 	}
 	
 	@Override
@@ -219,6 +219,24 @@ public class ProductServiceImpl implements ProductService {
 	public int deleteSelectProductByProductNum(ProductVO productVO) {
 		return productDAO.deleteSelectProductByProductNum(productVO);
 	}
-
 	
+	@Override
+	public DetailOptionVO selectDetailOptionByOptionTwoNum(OptionVO optionVO) {
+		return productDAO.selectDetailOptionByOptionTwoNum(optionVO);
+	}
+
+	@Override
+	public DetailOptionVO selectDetailOptionByDoNum(int doNum) {
+		return productDAO.selectDetailOptionByDoNum(doNum);
+	}
+	
+	@Override
+	public List<ProductVO> selectProductByCategoryNum(int[] categoryNums) {
+		return productDAO.selectProductByCategoryNum(categoryNums);
+	}
+	
+	@Override
+	public int updateProductByCategoryNumZero(int productNum) {
+		return productDAO.updateProductByCategoryNumZero(productNum);
+	}
 }

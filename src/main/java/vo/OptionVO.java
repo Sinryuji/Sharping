@@ -79,11 +79,17 @@ public class OptionVO {
 		this.optionThreeNum = optionThreeNum;
 	}
 
+
+
+
 	@Override
 	public String toString() {
 		return "OptionVO [optionNum=" + optionNum + ", productNum=" + productNum + ", stock=" + stock
-				+ ", optionOneNum=" + optionOneNum + ", optionTwoNum=" + optionTwoNum + "]";
+				+ ", optionOneNum=" + optionOneNum + ", optionTwoNum=" + optionTwoNum + ", optionThreeNum="
+				+ optionThreeNum + "]";
 	}
+
+	
 
 }
 

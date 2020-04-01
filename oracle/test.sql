@@ -33,9 +33,19 @@ delete from payCard;
 
 commit;
 
-insert into category values (1, '의류', 1, 0);
+insert into category values (CATEGORY_SEQ.NEXTVAL, '의류', 1, 0);
+insert into category values (CATEGORY_SEQ.NEXTVAL, '가전', 1, 0);
+insert into category values (CATEGORY_SEQ.NEXTVAL, '식품', 1, 0);
+insert into category values (CATEGORY_SEQ.NEXTVAL, '남성의류', 2, 1);
+insert into category values (CATEGORY_SEQ.NEXTVAL, '컴퓨터', 2, 2);
+insert into category values (CATEGORY_SEQ.NEXTVAL, '냉동식품', 2, 3);
+insert into category values (CATEGORY_SEQ.NEXTVAL, '후드티', 3, 4);
+insert into category values (CATEGORY_SEQ.NEXTVAL, '노트북', 3, 5);
+insert into category values (CATEGORY_SEQ.NEXTVAL, '만두', 3, 6);
 
 insert into product values (1, '후드티', '후드티입니당', 100, '1', '1', 'FALSE', 100, 1, sysdate, 'test', '면', '은호모직', sysdate, '한국', 100, '상품', '색상', '사이즈');
+
+insert into product values (3, '후우드티', '후드티입니당', 100, '1', '1', 'FALSE', 100, 27, sysdate, 'test', '면', '은호모직', sysdate, '한국', 100, '상품', '색상', '사이즈');
 
 insert into product values (2, '티', '티입니당', 100, '1', '1', 'FALSE', 100, 1, sysdate, 'test', '면', '은호모직', sysdate, '한국', 100, '상품', '색상', '');
 

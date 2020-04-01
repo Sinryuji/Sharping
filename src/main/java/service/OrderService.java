@@ -38,15 +38,17 @@ public interface OrderService {
 	public abstract int updateRespCode(PayMoneyVO payMoney);
 	
 	//무통장입금 결제완료일 업데이트
-	public abstract void updatePaydateByPaybank(int result);
+	public abstract void updatePaydateByPaybank(String vaNum);
 	
 	//주문 상태 변경
-	public abstract void updateStateByOrder(int success);
+	public abstract void updateStateByOrder(int payNum);
 	
 	//뱅크코드 리스트
 	public abstract List<BankVO>selectBankCodeList();
 
 	public abstract int insertPayCard(OrderVO orderVO);
+	
+//	public abstract OrderVO selectLatelyOrderNum(String id);
 	
 	public abstract OrderVO selectLatelyOrderNum(String id);
 	
@@ -61,4 +63,20 @@ public interface OrderService {
 	public abstract List<OrderVO> selectOrderById(String id);
 	
 	public abstract List<OrderListVO> selectOrderListByOrderNum(int orderNum);
+	
+	public abstract OrderListVO selectOrderListByOlNum(int olNum);
+	
+	public abstract int updateOrderByOrderNum(int orderNum);
+	
+	public abstract List<OrderVO> selectOrderSearch(OrderVO orderVO);
+	
+	public abstract List<OrderVO> selectOrderSort(OrderVO orderVO);
+	
+	public abstract int selectPayNumConut(int payNum);
+	
+	public abstract List<OrderVO> selectOrderDate(OrderVO orderVO);
+	
+	public abstract int updatePayPriceVirtualAccount(VirtualAccountVO virtualAccountVO);
+	
+	public abstract List<OrderVO> selectOrderByPayNum(int payNum);
 }

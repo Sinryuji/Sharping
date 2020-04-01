@@ -4,26 +4,30 @@ import java.sql.Timestamp;
 
 public class PayBankVO {
 	
-	private String orderNum;
+	private int payNum;
 	private Timestamp payDate;
 	private Timestamp cancleDate;
 	private int bankCode;
 	private String vaNum;
 	
 	public PayBankVO() {}
-	public PayBankVO(String orderNum, Timestamp payDate, Timestamp cancleDate, int bankCode, String vaNum) {
+	
+	
+	public PayBankVO(int payNum, Timestamp payDate, Timestamp cancleDate, int bankCode, String vaNum) {
 		super();
-		this.orderNum = orderNum;
+		this.payNum = payNum;
 		this.payDate = payDate;
 		this.cancleDate = cancleDate;
 		this.bankCode = bankCode;
 		this.vaNum = vaNum;
 	}
-	public String getOrderNum() {
-		return orderNum;
+
+
+	public int getPayNum() {
+		return payNum;
 	}
-	public void setOrderNum(String orderNum) {
-		this.orderNum = orderNum;
+	public void setPayNum(int payNum) {
+		this.payNum = payNum;
 	}
 	public Timestamp getPayDate() {
 		return payDate;
@@ -49,11 +53,14 @@ public class PayBankVO {
 	public void setVaNum(String vaNum) {
 		this.vaNum = vaNum;
 	}
+
+
 	@Override
 	public String toString() {
-		return "PayBankVO [orderNum=" + orderNum + ", payDate=" + payDate + ", cancleDate=" + cancleDate + ", bankCode="
+		return "PayBankVO [payNum=" + payNum + ", payDate=" + payDate + ", cancleDate=" + cancleDate + ", bankCode="
 				+ bankCode + ", vaNum=" + vaNum + "]";
 	}
+	
 	
 	
 	

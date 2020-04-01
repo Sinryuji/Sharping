@@ -61,4 +61,41 @@
 	<select id="updateNoticeByNoticeNum" parameterType="String">
 		UPDATE NOTICE SET "noticeSubject"=#{noticeSubject}, "noticeText"=#{noticeText}
 	</select>
+	
+	<select id="selectCategoryByCategoryDepth" parameterType="int" resultType="categoryVO">
+		SELECT * FROM CATEGORY WHERE "categoryDepth" = #{categoryDepth}
+	</select>
+	
+	<select id="selectCategoryByPcNum" parameterType="int" resultType="categoryVO">
+		SELECT * FROM CATEGORY WHERE "pcNum" = #{pcNum}
+	</select>
+	
+	<insert id="insertCategoryDepthOne" parameterType="String">
+		INSERT INTO CATEGORY VALUES (CATEGORY_SEQ.NEXTVAL, #{categoryName}, 1, 0)
+	</insert>
+	
+	<insert id="insertCategoryDepthTwo" parameterType="categoryVO">
+		INSERT INTO CATEGORY VALUES (CATEGORY_SEQ.NEXTVAL, #{categoryName}, 2, #{categoryNum})
+	</insert>
+	
+	<insert id="insertCategoryDepthThree" parameterType="categoryVO">
+		INSERT INTO CATEGORY VALUES (CATEGORY_SEQ.NEXTVAL, #{categoryName}, 3, #{categoryNum})
+	</insert>
+	
+	<select id="selectMaxCategoryNum" resultType="int">
+		SELECT MAX("categoryNum") FROM CATEGORY
+	</select>
+	
+	<select id="selectCategoryByCategoryNum" resultType="categoryVO">
+		SELECT * FROM CATEGORY WHERE "categoryNum" = #{categoryNum}
+	</select>
+	
+	<update id="updateCategory" parameterType="categoryVO">
+		UPDATE CATEGORY SET "categoryName" = #{categoryName} WHERE "categoryNum" = #{categoryNum}
+	</update>
+	
+	<delete id="deleteCategory" parameterType="int">
+		DELETE FROM CATEGORY WHERE "categoryNum" = #{categoryNum}
+	</delete>
+	
 </mapper>

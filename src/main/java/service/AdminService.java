@@ -3,6 +3,7 @@ package service;
 import java.util.List;
 
 import vo.AdminVO;
+import vo.CategoryVO;
 import vo.MemberVO;
 import vo.NoticeVO;
 import vo.SellerVO;
@@ -46,4 +47,31 @@ public interface AdminService {
 	
 	//공지사항 등록
 	public abstract int insertNotice(NoticeVO noticeVO) throws Exception;
+	
+	//카테고리 뎊스 기준으로 블러오기
+	public abstract List<CategoryVO> selectCategoryByCategoryDepth (int categoryDepth);
+	
+	//부모 카테고리 번호로 카테고리 가져오기
+	public abstract List<CategoryVO> selectCategoryByPcNum(int pcNum);
+	
+	//카테고리 번호 최대값 가져오기
+	public abstract int selectMaxCategonryNum();
+	
+	//카테고리 번호로 카테고리 가져오기
+	public abstract CategoryVO selectCategoryByCategoryNum(int categoryNum);
+	
+	//대분류 카테고리 추가
+	public abstract int insertCategoryDepthOne(String categoryName);
+	
+	//중분류 카테고리 추가
+	public abstract int insertCategoryDepthTwo(CategoryVO categoryVO);
+	
+	//소분류 카테고리 추가
+	public abstract int insertCategoryDepthThree(CategoryVO categoryVO);
+	
+	//카테고리 수정
+	public abstract int updateCategory(CategoryVO categoryVO);
+	
+	//카테고리 삭제
+	public abstract int deleteCategory(int categoryNum);
 }

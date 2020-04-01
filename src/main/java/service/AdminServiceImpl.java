@@ -9,6 +9,7 @@ import dao.AdminDAO;
 import dao.MemberDAO;
 import exception.IdPasswordNotMatchingException;
 import vo.AdminVO;
+import vo.CategoryVO;
 import vo.MemberVO;
 import vo.NoticeVO;
 import vo.SellerVO;
@@ -117,5 +118,50 @@ public class AdminServiceImpl implements AdminService {
 	@Override
 	public int insertNotice(NoticeVO noticeVO) throws Exception {
 		return adminDAO.insertNotice(noticeVO);
+	}
+	
+	@Override
+	public List<CategoryVO> selectCategoryByCategoryDepth(int categoryDepth) {
+		return adminDAO.selectCategoryByCategoryDepth(categoryDepth);
+	}
+	
+	@Override
+	public List<CategoryVO> selectCategoryByPcNum(int pcNum) {
+		return adminDAO.selectCategoryByPcNum(pcNum);
+	}
+	
+	@Override
+	public int selectMaxCategonryNum() {
+		return adminDAO.selectMaxCategoryNum();
+	}
+	
+	@Override
+	public CategoryVO selectCategoryByCategoryNum(int categoryNum) {
+		return adminDAO.selectCategoryByCategoryNum(categoryNum);
+	}
+	
+	@Override
+	public int insertCategoryDepthOne(String categoryName) {
+		return adminDAO.insertCategoryDepthOne(categoryName);
+	}
+	
+	@Override
+	public int insertCategoryDepthTwo(CategoryVO categoryVO) {
+		return adminDAO.insertCategoryDepthTwo(categoryVO);
+	}
+	
+	@Override
+	public int insertCategoryDepthThree(CategoryVO categoryVO) {
+		return adminDAO.insertCategoryDepthThree(categoryVO);
+	}
+	
+	@Override
+	public int updateCategory(CategoryVO categoryVO) {
+		return adminDAO.updateCategory(categoryVO);
+	}
+	
+	@Override
+	public int deleteCategory(int categoryNum) {
+		return adminDAO.deleteCategory(categoryNum);
 	}
 }

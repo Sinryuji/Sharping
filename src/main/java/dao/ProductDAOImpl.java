@@ -195,8 +195,8 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 	
 	@Override
-	public DetailOptionVO selectDetailOptionByDoNum(int doNum) {
-		return sqlSessionTemplate.selectOne("productDAO.selectDetailOptionByDoNum", doNum);
+	public DetailOptionVO selectDetailOptionByOptionOneNum(OptionVO optionVO) {
+		return sqlSessionTemplate.selectOne("productDAO.selectDetailOptionByOptionOneNum", optionVO);
 	}
 	
 	@Override
@@ -207,6 +207,26 @@ public class ProductDAOImpl implements ProductDAO{
 	@Override
 	public int deleteSelectProductByProductNum(ProductVO productVO) {
 		return sqlSessionTemplate.delete("productDAO.deleteSelectProductByProductNum", productVO);
+	}
+	
+	@Override
+	public DetailOptionVO selectDetailOptionByOptionTwoNum(OptionVO optionVO) {
+		return sqlSessionTemplate.selectOne("productDAO.selectDetailOptionByOptionTwoNum", optionVO);
+	}
+	
+	@Override
+	public DetailOptionVO selectDetailOptionByDoNum(int doNum) {
+		return sqlSessionTemplate.selectOne("productDAO.selectDetailOptionByDoNum", doNum);
+	}
+	
+	@Override
+	public List<ProductVO> selectProductByCategoryNum(int[] categoryNums) {
+		return sqlSessionTemplate.selectList("productDAO.selectProductByCategoryNum", categoryNums);
+	}
+	
+	@Override
+	public int updateProductByCategoryNumZero(int productNum) {
+		return sqlSessionTemplate.update("productDAO.updateProductByCategoryZero", productNum);
 	}
 
 }

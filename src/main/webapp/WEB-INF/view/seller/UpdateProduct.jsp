@@ -156,11 +156,35 @@ overflow:hidden;
 <body>
 <h1>SellerPage</h1>
 상품 업로드 <br><br>
+
+<div
+		style="border-right: 2px solid black; float: left; width: 33%; height: 400px; text-align: center">
+		대분류<br>
+		<br>
+		<div id="DepthOneSpace">
+			<c:forEach var="category" items="${cetegorys}" varStatus="status">
+				<div id="categoryName${category.categoryNum}"><h4><a href="#" class="depthOne" data-type="${category.categoryNum}">${category.categoryName}</a></h4></div>
+			</c:forEach>
+		</div>
+	</div>
+	<div
+		style="border-right: 2px solid black; float: left; width: 33%; height: 400px; text-align: center">
+		중분류<br>
+		<br>
+		<div id="DepthTwoSpace"></div>
+	</div>
+	<div style="float: left; width: 33%; height: 400px; text-align: center">
+		소분류<br>
+		<br>
+		<div id="DepthThreeSpace"></div>
+	</div>
+
 <form action="updateProductResult" method="post" enctype="multipart/form-data">
 판매자 : <input type="text" name="id" value="${authInfo.id}" readonly><br><br>
 
 카테고리 분류<br><br>
-<input type="number" name="categoryNum" value="${product.categoryNum }"><br><br>
+<input type="text" id="categoryNameView" value="${category.categoryName}">
+<input type="hidden" name="categoryNum" value="${category.categoryNum}"><br><br>
 
 상품명  <input type="text" name="productName" value="${product.productName }"><br><br>
 
@@ -232,10 +256,9 @@ productDisplay &nbsp;&nbsp;
 
 <br>옵션설정  <br><br>
 
-<input type="button" id="plus" value="옵션 추가">&nbsp;&nbsp;<input type="button" id="minus" value="옵션 삭제" ><br><br>
 <div id="detailOptionBox1">
 	<span id="dop1">
-  		1차 상세 옵션 <input type="text" name="optionOneDetail" id="do1">&nbsp;&nbsp;<button type="button" id="do1_btn" class="btn" value="1">저장</button>&nbsp;&nbsp;<button type="button" id="do2_bt2" class="btn2" value="1">관리</button>
+  		1차 상세 옵션 <input type="text" name="optionOneDetail" id="doText1">&nbsp;&nbsp;<button type="button" id="do1_btn" class="btn" value="1">저장</button>&nbsp;&nbsp;<button type="button" id="do2_bt2" class="btn2" value="1">관리</button>
  	</span>
  </div>
  <div class="optiondetail-scroll">
@@ -282,7 +305,7 @@ productDisplay &nbsp;&nbsp;
  </div>
 <div id="detailOptionBox2">
 	<span id="dop2">
-  		2차 상세 옵션 <input type="text" name="optionTwoDetail" id="do2">&nbsp;&nbsp;<button type="button" id="do2_btn" class="btn" value="2">저장</button>&nbsp;&nbsp;<button type="button" id="do2_btn2" class="btn2" value="2">관리</button>
+  		2차 상세 옵션 <input type="text" name="optionTwoDetail" id="doText2">&nbsp;&nbsp;<button type="button" id="do2_btn" class="btn" value="2">저장</button>&nbsp;&nbsp;<button type="button" id="do2_btn2" class="btn2" value="2">관리</button>
 	</span>
 </div>
 <div class="optiondetail-scroll">
@@ -329,7 +352,7 @@ productDisplay &nbsp;&nbsp;
  </div>
 <div id="detailOptionBox3">
 	<span id="dop3">
-  		3차 상세 옵션 <input type="text" name="optionThreeDetail" id="do3">&nbsp;&nbsp;<button type="button" id="do3_btn" class="btn" value="3">저장</button>&nbsp;&nbsp;<button type="button" id="do3_btn3" class="bt2n" value="3">관리</button>
+  		3차 상세 옵션 <input type="text" name="optionThreeDetail" id="doText3">&nbsp;&nbsp;<button type="button" id="do3_btn" class="btn" value="3">저장</button>&nbsp;&nbsp;<button type="button" id="do3_btn3" class="btn2" value="3">관리</button>
 	</span>
 </div>
 <div class="optiondetail-scroll">
@@ -380,7 +403,7 @@ productDisplay &nbsp;&nbsp;
 <input type="hidden" id="h2" name="optionTwoName" value="${product.optionTwoName}">
 <input type="hidden" id="h3" name="topnThreeName" value="${product.optionThreeName}">
   <span id="op1">
-    1차 옵션&nbsp;&nbsp;<select name="optionOneName" id="o1" >
+    1차 옵션&nbsp;&nbsp;<select name="optionOneName" class="detailOptionSelect" id="o1" >
     	<option id="title1" value="0">${product.optionOneName}</option>
     	<c:forEach var="one" items="${onedo}" varStatus="status">
     	<option id="${one.doNum}" value="${one.doNum}">${one.optionName}</option>
@@ -388,23 +411,23 @@ productDisplay &nbsp;&nbsp;
     </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span>
   <span id="op2">
-    2차 옵션&nbsp;&nbsp;<select name="optionTwoName" id="o2" >
+    2차 옵션&nbsp;&nbsp;<select name="optionTwoName" class="detailOptionSelect" id="o2" >
     	<option id="title2" value="0">${product.optionTwoName}</option>
     	<c:forEach var="two" items="${twodo}" varStatus="status">
-    	<option id="${one.doNum}" value="${two.doNum}">${two.optionName}</option>
+    	<option id="${two.doNum}" value="${two.doNum}">${two.optionName}</option>
     	</c:forEach>
     </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span>
   <span id="op3">
-    3차 옵션&nbsp;&nbsp;<select name="optionThreeName" id="o3" >
+    3차 옵션&nbsp;&nbsp;<select name="optionThreeName" class="detailOptionSelect" id="o3" >
     	<option id="title3" value="0">${product.optionThreeName}</option>
     	<c:forEach var="three" items="${threedo}" varStatus="status">
-    	<option id="${one.doNum}" value="${three.doNum}">${three.optionName}</option>
+    	<option id="${three.doNum}" value="${three.doNum}">${three.optionName}</option>
     	</c:forEach>
     </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
   </span> 
   수량: <input id="stock" name="stock" type="number">
-  <button type="button" id="insertOption" name="insertOption" value="">추가</button>&nbsp;&nbsp;&nbsp;
+  <button type="button" id="insertOption" name="insertOption" value="" disabled="disabled">추가</button>&nbsp;&nbsp;&nbsp;
   <div>
   <span>
   <button type="button" class="btn2" value="">옵션 관리</button>
@@ -456,8 +479,14 @@ productDisplay &nbsp;&nbsp;
 				  	<label for="option2">2차 옵션</label>
 
 				    <select name="optionDetailNo2" class="formControl" id="option2">
+				    
+				    	<option id="default2" value="0">선택</option>
+				    
+				    	<c:forEach items="${twodo}" var="two">
 
-						<option id="default2" value="0">선택</option>
+							<option id="do${two.doNum}" value="${two.doNum}">${two.optionName}</option>
+						
+						</c:forEach>
 						
 						<%-- <c:forEach items="${twodo}" var="two">
 
@@ -474,8 +503,14 @@ productDisplay &nbsp;&nbsp;
 				  	<label for="option2">3차 옵션</label>
 
 				    <select name="optionDetailNo3" class="formControl" id="option3">
+				    
+				    	<option id="default3" value="0">선택</option>
+				    
+				    	<c:forEach items="${threedo}" var="three">
 
-						<option id="default3" value="0">선택</option>
+							<option id="do${three.doNum}" value="${three.doNum}">${three.optionName}</option>
+						
+						</c:forEach>
 						
 						<%-- <c:forEach items="${threedo}" var="three">
 
@@ -555,8 +590,9 @@ productDisplay &nbsp;&nbsp;
     });
 
     var count = 0;
+    var count2 = 0;
 
-	$(function(){
+	$(document).ready(function(){
 		if($('#h1').val() == ''){
 			$('#op1').hide();
 			$('#op2').hide();
@@ -567,6 +603,7 @@ productDisplay &nbsp;&nbsp;
 		    $('#detailOptionOne').hide();
 		    $('#detailOptionTwo').hide();
 		    $('#detailOptionThree').hide();
+		    count = 0;
 		}else if($('#h2').val() == ''){
 			$('#op2').hide();
 		    $('#op3').hide();
@@ -574,13 +611,12 @@ productDisplay &nbsp;&nbsp;
 		    $('#dop3').hide();
 		    $('#detailOptionTwo').hide();
 		    $('#detailOptionThree').hide();
-		    count++;
+		    count = 1;
 		}else if($('#h3').val() == ''){
 			$('#op3').hide();
 			$('#dop3').hide();
 			$('#detailOptionThree').hide();
-			count++;
-			count++;
+			count = 2;
 		}else if($('#h3').val() != ''){
 			$('#op1').show();
 			$('#op2').show();
@@ -588,51 +624,15 @@ productDisplay &nbsp;&nbsp;
 			$('#dop1').show();
 			$('#dop2').show();
 			$('#dop3').show();
-		}
-	    $("#plus").click(function(){
-		    count++;
-		    if(count == 1){
-		      $('#op1').show();
-		      $('#dop1').show();
-		    }else if(count == 2){
-		      $('#op2').show();
-		      $('#dop2').show();
-		    }else if(count == 3){
-		      $('#op3').show();
-		      $('#dop3').show();
-		    }else if(count == 4){
-		      count--;
-		    }
-	    })
-	});
-
-	$("#minus").on("click" , function(){
-	    count--;    
-	    if(count == 2){	
-	      $('#op3').hide();
-	      $('#dop3').hide();
-	      $('#o3').val('');
-	      $('#do3').val('');
-	    }else if(count == 1){
-	      $('#op2').hide();
-	      $('#dop2').hide();
-	      $('#o2').val('');
-	      $('#do2').val('');
-	    }else if(count == 0){
-	      $('#op1').hide();
-	      $('#dop1').hide();
-	      $('#o1').val('');
-	      $('#do1').val('');
-	    }else if(count == -1){
-	        count++;
-	    }        
-	});
+			count = 3;
+		}})
+	
 	
 	// 상품 상세 옵션 저장
 	
 	$(".btn").click(function(){
 		var dis = $(this).val();
-		var id = "#do" + dis;
+		var id = "#doText" + dis;
 		var id2 = "";
 		var id3 = "";
 		
@@ -661,7 +661,7 @@ productDisplay &nbsp;&nbsp;
 				
 				success : function(data) {
 					$("#o" + dis).append('<option id="' + data.doNum + '" value="' + data.doNum + '">' + data.optionName + '</option>')
-					$("#do" + dis).val('');
+					$("#doText" + dis).val('');
 					$(id2).append('<tr><td>' + data.optionName + '</td><td><input type="hidden" name="no" value="' + data.doNum + '"/><button type="button" class="deleteDetailOption" style="width:100%;">삭제</button></td>');
 					$(id3).append('<option id="do' + data.doNum +  '"value="' + data.doNum + '">' + data.optionName + '</option>');
 					
@@ -815,6 +815,8 @@ productDisplay &nbsp;&nbsp;
 					}
 					
 					$("#option2").html(htmls);
+					$("#option3").html('<option id="default3" value="0">선택</option>');
+					$("#leftCnt").val("");
 	
 				} 
 				
@@ -919,6 +921,131 @@ productDisplay &nbsp;&nbsp;
 				} 
 				
 		});
+		
+	})
+	
+	// 추가 버튼 disabled 활성/비활성화
+	
+	$(".detailOptionSelect").change(function(){
+		
+		if($(this).val() != 0){
+			if(count2 < 3) {
+			count2++;;
+			}
+			console.log(count2);
+		} else if($(this).val() == 0) {
+			if(count2 > 0) {
+			count2--;
+			}
+			console.log(count2);
+		}
+	
+		
+		if(count == count2) {
+			$('#insertOption').removeAttr('disabled');
+		} else if(count != count2) {
+			$('#insertOption').attr('disabled', 'disabled');
+		}
+		
+	})
+	
+	// 카테고리@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	
+	// 대분류 카테고리명 클릭하는 경우
+	$('.depthOne').on("click", function(){
+		
+		var currentCategoryNum = $(this).attr("data-type");	
+				
+		$("#DepthThreeSpace").html('');
+		
+		$.ajax({
+			url : "<%=request.getContextPath()%>/selectCategory",
+				type : "post",
+	
+				data : {
+					categoryNum : currentCategoryNum
+				},
+				
+				success : function(data) {
+					
+					if(data != null) {
+						
+					
+					var htmls = '<input type="hidden" id="depthOneCurrentCategoryNum" value="' +  currentCategoryNum + '"/>';
+					
+					for(var i = 0 ; i < data.length ; i++) {
+						var category = data[i];
+						htmls += '<div id="categoryName' + category.categoryNum  + '"><h4><a href="#" class="depthTwo" data-type="' + category.categoryNum + '">' + category.categoryName + '</a></h4></div>';
+					}
+					
+					
+					$("#DepthTwoSpace").html(htmls);
+					
+					}
+					
+					if(data == null) {
+						
+						$("#DepthTwoSpace").html('');
+					}
+	
+				} 
+				
+		});
+		
+		
+		
+
+	})
+	
+	// 중분류 카테고리명 클릭하는 경우
+	$(document).on("click", ".depthTwo", function(){
+		
+		var currentCategoryNum = $(this).attr("data-type");
+
+		
+		$.ajax({
+			url : "<%=request.getContextPath()%>/selectCategory",
+				type : "post",
+	
+				data : {
+					categoryNum : currentCategoryNum
+				},
+				
+				success : function(data) {
+					
+					if(data != null) {
+					
+					var htmls = '<input type="hidden" id="depthTwoCurrentCategoryNum" value="' +  currentCategoryNum + '"/>';
+					
+					for(var i = 0 ; i < data.length ; i++) {
+						var category = data[i];
+						htmls += '<div id="categoryName' + category.categoryNum  + '"><h4><a href="#" class="depthThree" data-type="' + category.categoryNum + '">' + category.categoryName + '</a></h4></div>';
+					}
+					
+					
+					$("#DepthThreeSpace").html(htmls);
+					}
+					
+					if(data == null) {
+						$("#DepthThreeSpace").html('');
+					}
+	
+				} 
+				
+		});
+		
+	})
+	
+	// 소분류 카테고리명 클릭하는 경우
+	$(document).on("click", ".depthThree", function(){
+		
+		var currentCategoryNum = $(this).attr("data-type");
+		
+		var currentCategoryName = $(this).html();
+		
+		$('#categoryNameView').val(currentCategoryName);
+		
+		$('input[name="categoryNum"]').val(currentCategoryNum);
 		
 	})
 	

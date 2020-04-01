@@ -6,20 +6,20 @@ public class VirtualAccountVO {
 	
 	
 	private String vaNum;
-	private int orderNum;
+	private int payNum;
 	private int bankCode;
 	private int payPrice;
 	private String respCode;
 	private Date depositDate;
 	public VirtualAccountVO() {}
 	
-	
+
 	
 
-	public VirtualAccountVO(String vaNum, int orderNum, int bankCode, int payPrice, String respCode, Date depositDate) {
+	public VirtualAccountVO(String vaNum, int payNum, int bankCode, int payPrice, String respCode, Date depositDate) {
 		super();
 		this.vaNum = vaNum;
-		this.orderNum = orderNum;
+		this.payNum = payNum;
 		this.bankCode = bankCode;
 		this.payPrice = payPrice;
 		this.respCode = respCode;
@@ -51,12 +51,12 @@ public class VirtualAccountVO {
 		this.vaNum = vaNum;
 	}
 
-	public int getOrderNum() {
-		return orderNum;
+	public int getPayNum() {
+		return payNum;
 	}
 
-	public void setOrderNum(int orderNum) {
-		this.orderNum = orderNum;
+	public void setPayNum(int payNum) {
+		this.payNum = payNum;
 	}
 
 	public int getBankCode() {
@@ -83,11 +83,15 @@ public class VirtualAccountVO {
 		this.depositDate = depositDate;
 	}
 
+
+
+
 	@Override
 	public String toString() {
-		return "VirtualAccountVO [vaNum=" + vaNum + ", orderNum=" + orderNum + ", bankCode=" + bankCode + ", payPrice="
-				+ payPrice + ", depositDate=" + depositDate + "]";
+		return "VirtualAccountVO [vaNum=" + vaNum + ", payNum=" + payNum + ", bankCode=" + bankCode + ", payPrice="
+				+ payPrice + ", respCode=" + respCode + ", depositDate=" + depositDate + "]";
 	}
+
 	
 
 }

@@ -9,12 +9,15 @@ public class PayingCardVO {
 	private String memberPhone;
 	private String memberAddress;
 	private String memberPost;
+	private int payNum;
 	
 	public PayingCardVO() {
 		super();
 	}
+	
+
 	public PayingCardVO(String productName, int payPrice, String memberEmail, String memberName, String memberPhone,
-			String memberAddress, String memberPost) {
+			String memberAddress, String memberPost, int payNum) {
 		super();
 		this.productName = productName;
 		this.payPrice = payPrice;
@@ -23,6 +26,14 @@ public class PayingCardVO {
 		this.memberPhone = memberPhone;
 		this.memberAddress = memberAddress;
 		this.memberPost = memberPost;
+		this.payNum = payNum;
+	}
+
+	public int getPayNum() {
+		return payNum;
+	}
+	public void setPayNum(int payNum) {
+		this.payNum = payNum;
 	}
 	public String getProductName() {
 		return productName;

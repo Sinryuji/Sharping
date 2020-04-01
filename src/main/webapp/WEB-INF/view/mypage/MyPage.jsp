@@ -6,6 +6,10 @@
 <head>
 <meta charset="UTF-8">
 <title>MyPage</title>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	crossorigin="anonymous">
+</script>
 <style>
 td{
 		border: 2px solid hotpink;
@@ -36,6 +40,29 @@ td{
 	<h1>ProductQa</h1>
 	<h1>ChangeProduct</h1>
 	<h1>ReturnProduct</h1>
+	<form action="myPage">
+		<input type="date" name="firstDate" id="firstDate">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;
+		<input type="date" name="secondDate" id="secondDate">
+		<input type="submit" value="검색">
+	</form>
+	<form action="myPage">
+		<input type="text" name="keywordO" placeholder="키워드를 입력하세요." value="${keywordO}" />
+		<input type="submit" value="검색">
+	</form>
+	<form action="myPage" name="sort" id="sort">
+		<select name="state" id="state">
+			<option value="전체 주문 상태">전체 주문 상태</option>
+			<option value="입금 대기">입금 대기</option>
+			<option value="결제 완료">결제 완료</option>
+			<option value="배송 준비중">배송 준비중</option>
+			<option value="배송 중">배송 중</option>
+			<option value="배송 완료">배송 완료</option>
+			<option value="구매 확정">구매 확정</option>
+			<option value="주문 취소">주문 취소</option>
+			<option value="반품 완료">반품 완료</option>
+			<option value="교환 완료">교환 완료</option>
+		</select>
+	</form>
 	<table>
 		<colgroup>
 			<col style="width: auto;" />
@@ -52,51 +79,92 @@ td{
 			</tr>
 		</thead>
 		<tbody>
+		<c:if test="${empty ordersJsonArray}">
+		<tr>
+			<td>해당하는 상품이 없습니다.</td>
+		</tr>
+		</c:if>
+		<c:if test="${!empty ordersJsonArray}">
 			<c:forEach var="order" items="${ordersJsonArray}" varStatus="status">
 				
 					<c:forEach var="orderList" items="${order.orderLists}" varStatus="status2">
 					<tr>
-					<c:if test="${status2.index == 0 }">
-					<td rowspan="${order.orderListsSize}">
+					<c:if test="${order.payNum != order.prePayNum || status.index == 0}">
+					<td rowspan="${order.payNumCount}">
 						${order.orderData}<br>
 						결제 금액 : ${order.payPrice}<br>
-						주문번호 : ${order.orderNum}
+						결제번호 : ${order.payNum}
 					</td>
 					</c:if>
 						<td>
 							상품 썸네일 : ${orderList.productThumb}<br>
 							상품명 : ${orderList.productName}<br>
 							주문 옵션 : ${orderList.optionName}<br>
-							주문 번호 : ${orderList.olNum}<br>
+							주문 번호 : ${order.orderNum}<br>
 						</td>
 						<td>
 							${orderList.storeName}
 						</td>
 						<td>
-							${order.state}
+							${order.state}<br>
+							<c:if test="${order.state == '입금 대기'}">
+							<form action="orderCancle" name="cancleInfo" id="cancleInfo" method="post">
+							<input type="hidden" name="orderNum" value="${order.orderNum}">
+							<input type="submit" value="주문 취소">
+							</form>				
+							</c:if>
+							<c:if test="${order.state == '배송 중'}">
+							<button type="button" class="deliveryTracking" value="${order.orderNum}">배송 조회</button>
+							</c:if>
 						</td>
 						</tr>
 					</c:forEach>
 
-					<%-- <td><input type="checkbox" class="select" id="chk${status.index}" data-productNum="${list.productNum}"></td>
-							<td><span style="float:left"><img src="upload/${list.productThumb}" style="width:50px;">&nbsp;&nbsp;</span>
-								<span style="float:left"><c:out value="${list.productName}"/><br>
-								<c:out value="상품번호 : ${list.productNum}"/>&nbsp;&nbsp;</span></td>
-							<td><c:out value="${list.productPrice}"/></td>
-							<td><c:out value="${list.deliveryPrice}"/></td>
-							<td><c:out value="?"/></td>
-							<td><c:out value="매출총액 : ?"/></td>
-							<td><label class="switch">
-								  <input type="hidden" id="dis${status.index}" value="${status.index}" >
-								  <input type="checkbox" class="display" id="chk${status.index}" ${list.productDisplay == "TRUE" ? "checked" : ""}>
-								  <span class="slider round"></span>
-								</label>
-							</td>
-							<td><input type="hidden" id="productNum${status.index}" value="${list.productNum}">
-							<button class="updateProduct" value="${status.index}">수정</button>&nbsp;<button class="deleteProduct" value="${status.index}">삭제</button></td> --%>
-				
 			</c:forEach>
+		</c:if>
 		</tbody>
 	</table>
+<script>
+
+$('#state').change(function(){
+	var frmData = document.sort;
+	frmData.action = "<%=request.getContextPath()%>/myPage";
+	frmData.submit();
+});
+
+$(document).ready(function(){
+	var state = "<%=request.getParameter("state")%>";
+	if(state == "null") {
+		$('#state').val("전체 주문 상태").prop("selected", true);
+	}else {
+	$('#state').val(state).prop("selected", true);
+	}
+})
+
+$('.deliveryTracking').click(function(){
+	
+	var popTitle = "popupOpener"
+		window.open("",popTitle, "width=800, height=500");
+	
+	var f = document.createElement("form");
+	
+	f.name="deliveryTracking";
+	f.action="<%=request.getContextPath()%>/deliveryTracking";
+	f.method="post";
+	f.target=popTitle;
+	
+	var elem = document.createElement("input");
+	
+	elem.setAttribute("type", "hidden");
+	elem.setAttribute("name", "orderNum");
+	elem.setAttribute("value", $(this).val());
+	
+	f.appendChild(elem);
+	
+	document.body.appendChild(f);
+	
+	f.submit();
+})
+</script>
 </body>
 </html>

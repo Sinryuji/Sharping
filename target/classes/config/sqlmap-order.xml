@@ -5,16 +5,35 @@
 <mapper namespace="orderDAO">
 	
 	<insert id="insertVirtualAccount" parameterType="virtualAccountVO">
-		INSERT INTO VIRTUALACCOUNT VALUES(#{vaNum},#{orderNum},#{bankCode},#{payPrice},#{respCode},sysdate)
+		INSERT INTO VIRTUALACCOUNT VALUES(#{vaNum},#{payNum},#{bankCode},#{payPrice},#{respCode},sysdate)
 	
 	</insert>
 	
 	<select id="selectOrder" resultType="orderVO">
-		SELECT * FROM ORDERR WHERE "orderNum" = #{orderNum}
+		SELECT * FROM ORDERR WHERE "orderNum" = #{orderNum}  
+	</select>
+	
+	<select id="selectOrderSearch" resultType="orderVO" parameterType="orderVO">
+		SELECT * FROM ORDERR O, ORDERLIST OL, OPTIONN OP, PRODUCT P WHERE O."id" = #{id} AND O."orderNum" = OL."orderNum" AND OL."optionNum" = OP."optionNum" AND OP."productNum" = P."productNum"
+		<if test="keywordO != null and keywordO != '' ">
+			AND P."productName" like '%'||#{keywordO}||'%' ORDER BY "orderDate" ASC
+		</if>  
+	</select>
+	
+	<select id="selectOrderSort" resultType="orderVO" parameterType="orderVO">
+		SELECT * FROM ORDERR WHERE "id" = #{id} AND "state" = #{state} ORDER BY "orderDate" ASC
+	</select>
+	
+	<select id="selectOrderDate" resultType="orderVO" parameterType="orderVO">
+		SELECT * FROM ORDERR WHERE "id" = #{id} AND "orderDate" &gt; #{firstDate} AND "orderDate" &lt; #{secondDate} ORDER BY "orderDate" ASC
+	</select>
+	
+	<select id="selectPayNumCount" resultType="int" parameterType="int">
+		SELECT COUNT(*) FROM ORDERR WHERE "payNum" = #{payNum}
 	</select>
 	
 	<select id="selectOrderById" resultType="orderVO">
-		SELECT * FROM ORDERR WHERE "id" = #{id}
+		SELECT * FROM ORDERR WHERE "id" = #{id} ORDER BY "orderDate" ASC
 	</select>
 	
 	<select id="selectOrderListByOrderNum" resultType="orderListVO">
@@ -22,28 +41,28 @@
 	</select>
 	
 	<select id="selectByVirtualAccount" resultType="payBankVO">
-		SELECT * FROM VIRTUALACCOUNT WHERE "orderNum" = #{orderNum}
+		SELECT * FROM VIRTUALACCOUNT WHERE "payNum" = #{payNum}
 	</select>
 	
 	<insert id="insertPayBank" parameterType="payBankVO">
-		INSERT INTO PAYBANK VALUES(#{orderNum},'','',#{bankCode},#{vaNum})
+		INSERT INTO PAYBANK VALUES(#{payNum},'','',#{bankCode},#{vaNum})
 		
 	</insert>
 	
 	<select id="selectPayBank" resultType="payBankVO">
-		SELECT * FROM PAYBANK WHERE "orderNum" = #{orderNum}
+		SELECT * FROM PAYBANK WHERE "payNum" = #{payNum}
 	</select>
 	
 	<update id="updateRespCode" parameterType="payMoneyVO" >
 		UPDATE VIRTUALACCOUNT SET "respCode" = 'YES' WHERE "vaNum" = #{vaNum} and "bankCode" = #{bankCode} and "payPrice" = #{payPrice}
 	</update>
 	
-	<update id="updatepayDate" parameterType="int">
-		UPDATE PAYBANK SET "payDate" = sysdate
+	<update id="updatepayDate" parameterType="String">
+		UPDATE PAYBANK SET "payDate" = SYSDATE WHERE "vaNum" = #{vaNum}
 	</update>
 	
 	<update id="updateState" parameterType="int">
-		UPDATE ORDERR SET "state" = '결제 완료'
+		UPDATE ORDERR SET "state" = '결제 완료' WHERE "payNum" = #{payNum}
 	</update>
 	
 	<select id="selectByBankVO" resultType="bankVO">
@@ -52,15 +71,15 @@
 	
 	
 	<insert id="insertOrder" parameterType="orderVO">
-		INSERT INTO ORDERR VALUES (ORDER_SEQ.NEXTVAL, SYSDATE, #{state}, #{payCase}, #{payPrice}, #{trackingNum}, #{toName}, #{toPhone}, #{toPost}, #{toAddress}, #{id}, #{deliveryMessage})
+		INSERT INTO ORDERR VALUES (ORDER_SEQ.NEXTVAL, SYSDATE, #{state}, #{payCase}, #{payPrice}, #{trackingNum}, #{toName}, #{toPhone}, #{toPost}, #{toAddress}, #{id}, #{deliveryMessage}, #{payNum}, #{trackingCode})
 	</insert>
 
 	<insert id="insertPayCard" parameterType="orderVO">
-		INSERT INTO PAYCARD VALUES (#{orderNum}, #{impId})
+		INSERT INTO PAYCARD VALUES (#{payNum}, #{impId})
 	</insert>
 	
 	<select id="selectLatelyOrderNum" resultType="orderVO" parameterType="String">
-		SELECT * FROM ORDERR WHERE "orderDate" = (SELECT MAX("orderDate") FROM ORDERR WHERE "id" = #{id})
+		SELECT * FROM ORDERR WHERE "orderNum" = (SELECT MAX("orderNum") FROM ORDERR WHERE "id" = #{id})
 	</select>
 	
 	<insert id="insertOrderList" parameterType="orderListVO">
@@ -78,5 +97,20 @@
 	<select id="selectProductNumByOptionNum" resultType="int" parameterType="int">
 		SELECT "productNum" FROM OPTIONN WHERE "optionNum" = #{optionNum}
 	</select>
-
+	
+	<select id="selectOrderListByOlNum" resultType="orderListVO">
+		SELECT * FROM ORDERLIST WHERE "olNum" = #{olNum}
+	</select>
+	
+	<update id="updateOrderByOrderNum" parameterType="int">
+		UPDATE ORDERR SET "state" = '주문 취소' WHERE "orderNum" = #{orderNum}
+	</update>
+	
+	<update id="updatePayPriceVirtualAccount" parameterType="virtualAccountVO">
+		UPDATE VIRTUALACCOUNT SET "payPrice" = #{payPrice} WHERE "vaNum" = #{vaNum} 
+	</update>
+	
+	<select id="selectOrderByPayNum" resultType="orderVO">
+		SELECT * FROM ORDERR WHERE "payNum" = #{payNum} AND "state" NOT LIKE '주문 취소'
+	</select>
 </mapper>

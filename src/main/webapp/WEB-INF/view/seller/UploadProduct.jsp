@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -105,13 +106,37 @@ p {
 </script>
 </head>
 <body>
-<h1>SellerPage</h1>
+<a href="<c:url value='/sellerPage'/>">[판매자 페이지]</a><br>
 상품 업로드 <br><br>
+
+<div
+		style="border-right: 2px solid black; float: left; width: 33%; height: 400px; text-align: center">
+		대분류<br>
+		<br>
+		<div id="DepthOneSpace">
+			<c:forEach var="category" items="${cetegorys}" varStatus="status">
+				<div id="categoryName${category.categoryNum}"><h4><a href="#" class="depthOne" data-type="${category.categoryNum}">${category.categoryName}</a></h4></div>
+			</c:forEach>
+		</div>
+	</div>
+	<div
+		style="border-right: 2px solid black; float: left; width: 33%; height: 400px; text-align: center">
+		중분류<br>
+		<br>
+		<div id="DepthTwoSpace"></div>
+	</div>
+	<div style="float: left; width: 33%; height: 400px; text-align: center">
+		소분류<br>
+		<br>
+		<div id="DepthThreeSpace"></div>
+	</div>
+
 <form action="uploadCompleteProduct" method="post" enctype="multipart/form-data">
 판매자 : <input type="text" name="id" value="${authInfo.id}" readonly><br><br>
 
 카테고리 분류<br><br>
-<input type="number" name="categoryNum"><br><br>
+<input type="text" id="categoryNameView">
+<input type="hidden" name="categoryNum"><br><br>
 
 상품명  <input type="text" name="productName"><br><br>
 
@@ -249,6 +274,107 @@ productDisplay &nbsp;&nbsp;
 	        count++;
 	    }        
 	});
+	
+	
+	// 카테고리@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
+	
+	// 대분류 카테고리명 클릭하는 경우
+	$('.depthOne').on("click", function(){
+		
+		var currentCategoryNum = $(this).attr("data-type");	
+				
+		$("#DepthThreeSpace").html('');
+		
+		$.ajax({
+			url : "<%=request.getContextPath()%>/selectCategory",
+				type : "post",
+	
+				data : {
+					categoryNum : currentCategoryNum
+				},
+				
+				success : function(data) {
+					
+					if(data != null) {
+						
+					
+					var htmls = '<input type="hidden" id="depthOneCurrentCategoryNum" value="' +  currentCategoryNum + '"/>';
+					
+					for(var i = 0 ; i < data.length ; i++) {
+						var category = data[i];
+						htmls += '<div id="categoryName' + category.categoryNum  + '"><h4><a href="#" class="depthTwo" data-type="' + category.categoryNum + '">' + category.categoryName + '</a></h4></div>';
+					}
+					
+					
+					$("#DepthTwoSpace").html(htmls);
+					
+					}
+					
+					if(data == null) {
+						
+						$("#DepthTwoSpace").html('');
+					}
+	
+				} 
+				
+		});
+		
+		
+		
+
+	})
+	
+	// 중분류 카테고리명 클릭하는 경우
+	$(document).on("click", ".depthTwo", function(){
+		
+		var currentCategoryNum = $(this).attr("data-type");
+
+		
+		$.ajax({
+			url : "<%=request.getContextPath()%>/selectCategory",
+				type : "post",
+	
+				data : {
+					categoryNum : currentCategoryNum
+				},
+				
+				success : function(data) {
+					
+					if(data != null) {
+					
+					var htmls = '<input type="hidden" id="depthTwoCurrentCategoryNum" value="' +  currentCategoryNum + '"/>';
+					
+					for(var i = 0 ; i < data.length ; i++) {
+						var category = data[i];
+						htmls += '<div id="categoryName' + category.categoryNum  + '"><h4><a href="#" class="depthThree" data-type="' + category.categoryNum + '">' + category.categoryName + '</a></h4></div>';
+					}
+					
+					
+					$("#DepthThreeSpace").html(htmls);
+					}
+					
+					if(data == null) {
+						$("#DepthThreeSpace").html('');
+					}
+	
+				} 
+				
+		});
+		
+	})
+	
+	// 소분류 카테고리명 클릭하는 경우
+	$(document).on("click", ".depthThree", function(){
+		
+		var currentCategoryNum = $(this).attr("data-type");
+		
+		var currentCategoryName = $(this).html();
+		
+		$('#categoryNameView').val(currentCategoryName);
+		
+		$('input[name="categoryNum"]').val(currentCategoryNum);
+		
+	})
 
 </script>
 </body>

@@ -1,5 +1,8 @@
 package controller;
 
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
@@ -8,7 +11,6 @@ import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -19,17 +21,28 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import exception.AlreadyExistingIdException;
 import service.AdminService;
 import service.MemberService;
+import service.ProductService;
 import vo.AdminVO;
+import vo.CategoryVO;
 import vo.MemberVO;
 import vo.NoticeVO;
+import vo.ProductVO;
 import vo.SellerVO;
-
 
 @Controller
 public class AdminController {
 
 	private AdminService adminService;
 	private MemberService memberService;
+	private ProductService productService;
+
+	public ProductService getProductService() {
+		return productService;
+	}
+
+	public void setProductService(ProductService productService) {
+		this.productService = productService;
+	}
 
 	public MemberService getMemberService() {
 		return memberService;
@@ -84,8 +97,131 @@ public class AdminController {
 
 	// 카테고리관리
 	@RequestMapping("/admin/categoryManage")
-	public String categoryManage() {
-		return "admin/CategoryManage";
+	public ModelAndView categoryManage() {
+
+		ModelAndView mv = new ModelAndView();
+
+		List<CategoryVO> categorys = adminService.selectCategoryByCategoryDepth(1);
+
+
+		mv.setViewName("admin/CategoryManage");
+
+		mv.addObject("cetegorys", categorys);
+
+		return mv;
+	}
+
+	// 카테고리 선택
+	@RequestMapping("/admin/selectCategory")
+	@ResponseBody
+	public List<CategoryVO> selectCategory(int categoryNum) {
+		
+		System.out.println("@@@@@@@@@@@@@@@@");
+		
+		System.out.println(categoryNum);
+
+		List<CategoryVO> categorys = adminService.selectCategoryByPcNum(categoryNum);
+		
+		System.out.println(categorys);
+
+		return categorys;
+	}
+
+	// 대분류 카테고리 추가
+	@RequestMapping("/admin/insertCategoryDepthOne")
+	@ResponseBody
+	public CategoryVO insertCategoryDepthOne(String categoryName) {
+
+		adminService.insertCategoryDepthOne(categoryName);
+
+		int maxNum = adminService.selectMaxCategonryNum();
+
+		System.out.println(maxNum);
+
+		CategoryVO category = adminService.selectCategoryByCategoryNum(maxNum);
+
+		return category;
+
+	}
+
+	// 중분류 카테고리 추가
+	@RequestMapping("/admin/insertCategoryDepthTwo")
+	@ResponseBody
+	public CategoryVO insertCategoryDepthTwo(CategoryVO categoryVO) {
+
+		adminService.insertCategoryDepthTwo(categoryVO);
+
+		int maxNum = adminService.selectMaxCategonryNum();
+
+		System.out.println(maxNum);
+
+		CategoryVO category = adminService.selectCategoryByCategoryNum(maxNum);
+
+		return category;
+
+	}
+
+	// 중분류 카테고리 추가
+	@RequestMapping("/admin/insertCategoryDepthThree")
+	@ResponseBody
+	public CategoryVO insertCategoryDepthThree(CategoryVO categoryVO) {
+
+		adminService.insertCategoryDepthThree(categoryVO);
+
+		int maxNum = adminService.selectMaxCategonryNum();
+
+		System.out.println(maxNum);
+
+		CategoryVO category = adminService.selectCategoryByCategoryNum(maxNum);
+
+		return category;
+
+	}
+	
+	// 카테고리 수정
+	@RequestMapping("/admin/updateCategory")
+	@ResponseBody
+	public CategoryVO updateCategory(CategoryVO categoryVO) {
+
+		adminService.updateCategory(categoryVO);
+
+		CategoryVO category = adminService.selectCategoryByCategoryNum(categoryVO.getCategoryNum());
+
+		return category;
+
+	}
+	
+	// 카테고리 삭제
+	@RequestMapping("/admin/deleteCategory")
+	@ResponseBody
+	public Map<String, Object> deleteCategory(int categoryNum) {
+		
+		CategoryVO returnCategory = adminService.selectCategoryByCategoryNum(categoryNum);
+		
+		List<CategoryVO> categorys = adminService.selectCategoryByPcNum(categoryNum);
+		
+		int[] categoryNums = new int[categorys.size()];
+		
+		adminService.deleteCategory(categoryNum);
+		
+		for(int i = 0 ; i < categorys.size() ; i++) {
+			categoryNums[i] = categorys.get(i).getCategoryNum();
+			adminService.deleteCategory(categorys.get(i).getCategoryNum());
+		}
+		
+		List<ProductVO> products = productService.selectProductByCategoryNum(categoryNums);
+		
+		for(int i = 0 ; i < products.size() ; i++) {
+			productService.updateProductByCategoryNumZero(products.get(i).getProductNum());
+		}
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("category", returnCategory);
+		map.put("categorys", categorys);
+		
+		return map;
+		
 	}
 
 	// 일반회원목록리스트
@@ -178,46 +314,45 @@ public class AdminController {
 		adminService.deleteMemberById(memberVO);
 		return "admin/MemberManage";
 	}
-	
+
 	// 판매회원삭제하기
 	@RequestMapping(value = "/admin/deleteSeller")
 	public String deleteSeller(SellerVO sellerVO) throws Exception {
 		adminService.deleteSellerById(sellerVO);
 		return "admin/MemberManage";
 	}
-	
+
 	// 공지사항관리
 	@RequestMapping(value = "/admin/noticeManage", method = RequestMethod.GET)
 	public String getnoticeList(Model model) throws Exception {
 		NoticeVO noticeVO = new NoticeVO();
 
 		model.addAttribute("noticeList", adminService.getNoticeList(noticeVO));
-		
+
 		return "admin/NoticeManage";
 	}
-	
+
 	// 공지사항 열람
 	@RequestMapping("/admin/noticeContent")
 	public ModelAndView noticeView(int noticeNum) throws Exception {
 		NoticeVO noticeVO = adminService.selectNoticeByNoticeNum(noticeNum);
-		
-		
+
 		ModelAndView mv = new ModelAndView();
 
-			mv.setViewName("admin/NoticeContent");
-			mv.addObject("notice", noticeVO);
+		mv.setViewName("admin/NoticeContent");
+		mv.addObject("notice", noticeVO);
 
 		return mv;
 	}
-	
-	//공지사항 삭제
+
+	// 공지사항 삭제
 	@RequestMapping(value = "/admin/deleteNotice")
 	public String deleteNotice(int noticeNum) throws Exception {
 		adminService.deleteNoticeByNoticeNum(noticeNum);
 		return "admin/NoticeManage";
 	}
-	
-	//공지사항 수정
+
+	// 공지사항 수정
 //	@RequestMapping(value = "/admin/updateNotice", method = RequestMethod.GET)
 //	public String updateNotice(@RequestParam("noticeNum") int noticeNum,
 //								@RequestParam(value = "mode", required=false) String mode, Model model) throws Exception {
@@ -227,31 +362,28 @@ public class AdminController {
 //		model.addAttribute("noticeVO", new NoticeVO());
 //		return "admin/WriteNotice";
 //	}
-	
-	//공지사항 등록화면
+
+	// 공지사항 등록화면
 	@RequestMapping(value = "/admin/writeNotice")
-	public String writeNotice() throws Exception{
+	public String writeNotice() throws Exception {
 		return "/admin/WriteNotice";
 	}
-	
-	//공지사항 새글작성
+
+	// 공지사항 새글작성
 	@RequestMapping(value = "/admin/insertNotice")
 	public ModelAndView insertNotice(NoticeVO noticeVO, HttpSession session) throws Exception {
 		AdminVO adminVO = (AdminVO) session.getAttribute("adminVO");
-        ModelAndView mv = new ModelAndView("redirect:/admin/noticeManage");
-        adminService.insertNotice(noticeVO);
-        return mv;
-	}
-	
-	//공지사항 새 글 저장
-	@RequestMapping(value = "/admin/saveNotice", method=RequestMethod.POST)
-	public String saveNotice(@ModelAttribute("NoticeVO") NoticeVO noticeVO,	
-							RedirectAttributes rttr) throws Exception {
-
-			adminService.insertNotice(noticeVO);
-			return "redirect:/admin/noticeManage";
+		ModelAndView mv = new ModelAndView("redirect:/admin/noticeManage");
+		adminService.insertNotice(noticeVO);
+		return mv;
 	}
 
-	
+	// 공지사항 새 글 저장
+	@RequestMapping(value = "/admin/saveNotice", method = RequestMethod.POST)
+	public String saveNotice(@ModelAttribute("NoticeVO") NoticeVO noticeVO, RedirectAttributes rttr) throws Exception {
+
+		adminService.insertNotice(noticeVO);
+		return "redirect:/admin/noticeManage";
+	}
+
 }
-
