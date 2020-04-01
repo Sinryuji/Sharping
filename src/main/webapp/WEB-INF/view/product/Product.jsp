@@ -50,7 +50,7 @@
 <span>배송비 : ${product.deliveryPrice}</span><br>
 
 
-<form action="orderPage">
+<form action="orderPage" id="orderPage">
 <input type="hidden" name="productNum" id="productNum" value="${product.productNum}">
 
 <c:if test="${maxOptionLevel == 1}">
@@ -118,9 +118,34 @@
 수량:<input type="number" name="cnt" id="cnt" value="1" min="1">
 결제금액:<input type="number" name="payPrice" id="payPrice" value="${product.productPrice }" readonly>
 <input type="hidden" name="deliveryPrice" id="deliveryPrice" value="${product.deliveryPrice}">
-<input type="submit" value="주문"><br>
+<input type="button" class="orderBtn" value="주문"><br>
 <button type="button"  class="basketBtn">담기</button>
 </form>
+
+<script>
+$('.orderBtn').click(function(){
+	
+	
+	if('<%=session.getAttribute("authInfo")%>' != 'null'){
+		$('#orderPage').submit();
+	}else {
+		var result = confirm('비회원으로 주문하시겠습니까?'); 
+		if(result) { //yes 
+			$('#orderPage').submit();
+		} else {
+			//로그인 페이지 전환
+			window.location.href='<%=request.getContextPath()%>/login';
+		}
+	}
+	
+	
+	
+
+	
+})
+
+
+</script>
 <script>
 $('#cnt').change(function(){
 	$('#payPrice').val(${product.productPrice} * $('#cnt').val());

@@ -24,6 +24,13 @@ public class BankVO {
 	public void setBankName(String bankName) {
 		BankName = bankName;
 	}
+
+	@Override
+	public String toString() {
+		return "BankVO [bankCode=" + bankCode + ", BankName=" + BankName + "]";
+	}
+	
+	
 	
 	
 

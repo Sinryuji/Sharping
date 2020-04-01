@@ -1,6 +1,5 @@
 package controller;
 
-
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -23,7 +22,6 @@ import vo.AdminVO;
 import vo.MemberVO;
 import vo.NoticeVO;
 import vo.SellerVO;
-
 
 @Controller
 public class AdminController {
@@ -178,46 +176,45 @@ public class AdminController {
 		adminService.deleteMemberById(memberVO);
 		return "admin/MemberManage";
 	}
-	
+
 	// 판매회원삭제하기
 	@RequestMapping(value = "/admin/deleteSeller")
 	public String deleteSeller(SellerVO sellerVO) throws Exception {
 		adminService.deleteSellerById(sellerVO);
 		return "admin/MemberManage";
 	}
-	
+
 	// 공지사항관리
 	@RequestMapping(value = "/admin/noticeManage", method = RequestMethod.GET)
 	public String getnoticeList(Model model) throws Exception {
 		NoticeVO noticeVO = new NoticeVO();
 
 		model.addAttribute("noticeList", adminService.getNoticeList(noticeVO));
-		
+
 		return "admin/NoticeManage";
 	}
-	
+
 	// 공지사항 열람
 	@RequestMapping("/admin/noticeContent")
 	public ModelAndView noticeView(int noticeNum) throws Exception {
 		NoticeVO noticeVO = adminService.selectNoticeByNoticeNum(noticeNum);
-		
-		
+
 		ModelAndView mv = new ModelAndView();
 
-			mv.setViewName("admin/NoticeContent");
-			mv.addObject("notice", noticeVO);
+		mv.setViewName("admin/NoticeContent");
+		mv.addObject("notice", noticeVO);
 
 		return mv;
 	}
-	
-	//공지사항 삭제
+
+	// 공지사항 삭제
 	@RequestMapping(value = "/admin/deleteNotice")
 	public String deleteNotice(int noticeNum) throws Exception {
 		adminService.deleteNoticeByNoticeNum(noticeNum);
 		return "admin/NoticeManage";
 	}
-	
-	//공지사항 수정
+
+	// 공지사항 수정
 //	@RequestMapping(value = "/admin/updateNotice", method = RequestMethod.GET)
 //	public String updateNotice(@RequestParam("noticeNum") int noticeNum,
 //								@RequestParam(value = "mode", required=false) String mode, Model model) throws Exception {
@@ -227,31 +224,28 @@ public class AdminController {
 //		model.addAttribute("noticeVO", new NoticeVO());
 //		return "admin/WriteNotice";
 //	}
-	
-	//공지사항 등록화면
+
+	// 공지사항 등록화면
 	@RequestMapping(value = "/admin/writeNotice")
-	public String writeNotice() throws Exception{
+	public String writeNotice() throws Exception {
 		return "/admin/WriteNotice";
 	}
-	
-	//공지사항 새글작성
+
+	// 공지사항 새글작성
 	@RequestMapping(value = "/admin/insertNotice")
 	public ModelAndView insertNotice(NoticeVO noticeVO, HttpSession session) throws Exception {
 		AdminVO adminVO = (AdminVO) session.getAttribute("adminVO");
-        ModelAndView mv = new ModelAndView("redirect:/admin/noticeManage");
-        adminService.insertNotice(noticeVO);
-        return mv;
-	}
-	
-	//공지사항 새 글 저장
-	@RequestMapping(value = "/admin/saveNotice", method=RequestMethod.POST)
-	public String saveNotice(@ModelAttribute("NoticeVO") NoticeVO noticeVO,	
-							RedirectAttributes rttr) throws Exception {
-
-			adminService.insertNotice(noticeVO);
-			return "redirect:/admin/noticeManage";
+		ModelAndView mv = new ModelAndView("redirect:/admin/noticeManage");
+		adminService.insertNotice(noticeVO);
+		return mv;
 	}
 
-	
+	// 공지사항 새 글 저장
+	@RequestMapping(value = "/admin/saveNotice", method = RequestMethod.POST)
+	public String saveNotice(@ModelAttribute("NoticeVO") NoticeVO noticeVO, RedirectAttributes rttr) throws Exception {
+
+		adminService.insertNotice(noticeVO);
+		return "redirect:/admin/noticeManage";
+	}
+
 }
-

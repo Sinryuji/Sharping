@@ -55,6 +55,10 @@
 		SELECT * FROM ORDERR WHERE "orderDate" = (SELECT MAX("orderDate") FROM ORDERR WHERE "id" = #{id})
 	</select>
 	
+	<select id="selectTonameOrderNum" resultType="orderVO" parameterType="String">
+		SELECT * FROM ORDERR WHERE "orderDate" = (SELECT MAX("orderDate") FROM ORDERR WHERE "toName" = #{toName})
+	</select>
+	
 	<insert id="insertOrderList" parameterType="orderListVO">
 		INSERT INTO ORDERLIST VALUES (ORDERLIST_SEQ.NEXTVAL, #{productName}, #{productThumb}, #{optionOneNum}, #{optionTwoNum}, #{optionThreeNum}, #{productPrice}, #{cnt}, #{orderNum}, #{optionNum})
 	</insert>
@@ -70,5 +74,55 @@
 	<select id="selectProductNumByOptionNum" resultType="int" parameterType="int">
 		SELECT "productNum" FROM OPTIONN WHERE "optionNum" = #{optionNum}
 	</select>
+	
+	<insert id="insertGuest" parameterType="guestVO">
+		INSERT INTO GUEST VALUES(#{orderNum},#{guestName},#{guestPhone},#{guestPassword})
+	
+	</insert>
+	
+	<select id="selectOrderByGuest" resultType="guestVO" parameterType="guestVO">
+		SELECT * FROM GUEST WHERE "guestName" = #{guestName} and "guestPhone" = #{guestPhone} and "guestPassword" = #{guestPassword}
+	</select>
+	
+	<select id="selectOrderListByorderNum" parameterType="hashmap" resultType="orderListVO">
+		SELECT * FROM ORDERLIST l, ORDERR o	 where l."orderNum" = o."orderNum" and
+		<foreach collection="array" item="orderNum" index="index" open="(" close=")" separator="OR">
+			l."orderNum" = #{orderNum}
+		</foreach>
+		ORDER BY o."payCase" ASC
+	</select>
+	
+	<select id="selectVirtualAccountVO" parameterType="hashmap" resultType="virtualAccountVO">
+		SELECT * FROM VIRTUALACCOUNT 
+		<foreach collection="array" item="orderNum" open="WHERE" separator="OR">
+			"orderNum" = #{orderNum}
+		</foreach>
+		
+	</select>
+	
+	<select id="selectOrderByorderNums" parameterType="hashmap" resultType="OrderVO">
+			SELECT * FROM ORDERR 
+		<foreach collection="array" item="orderNum" open="WHERE" separator="OR">
+			"orderNum" = #{orderNum}
+		</foreach>
+		ORDER BY "payCase" ASC
+	</select>
+	<select id="selectPayCardByOrderNum" parameterType="Integer" resultType="Integer">
+		SELECT * FROM ORDERR WHERE "payCase" = '카드' and
+		<foreach collection="array" item="orderNum" open="(" close=")" separator="or">
+			"orderNum" = #{orderNum}
+		</foreach>
+	</select>
+	<select id="selectPayBankByOrderNum" parameterType="Integer" resultType="Integer">
+		SELECT * FROM ORDERR WHERE "payCase" = '무통장 입금' and
+		<foreach collection="array" item="orderNum" open="(" close=")" separator="or">
+			"orderNum" = #{orderNum}
+		</foreach>
+	</select>
+	<select id="selectBankName" parameterType="int" resultType="bankVO">
+		SELECT * FROM BANK WHERE "bankCode" = #{bankCode}
+	</select>
+	
+	
 
 </mapper>

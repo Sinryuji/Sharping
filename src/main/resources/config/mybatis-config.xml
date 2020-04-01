@@ -32,5 +32,6 @@
 		<typeAlias alias="orderListVO" type="vo.OrderListVO"></typeAlias>
 		<typeAlias alias="sellerListVO" type="vo.SellerListVO"></typeAlias>
 		<typeAlias alias="noticeVO" type="vo.NoticeVO"></typeAlias>
+		<typeAlias alias="guestVO" type="vo.GuestVO"></typeAlias>
 	</typeAliases>
 </configuration> 
