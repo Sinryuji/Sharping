@@ -10,6 +10,8 @@ import vo.BasketListVO;
 import vo.BasketVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
+import vo.OrderProductVO;
+import vo.OrderVO;
 import vo.ProductVO;
 import vo.SearchVO;
 import vo.SellerVO;
@@ -228,6 +230,15 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public DetailOptionVO selectDetailOptionByDoNum(int doNum) {
 		return productDAO.selectDetailOptionByDoNum(doNum);
+		
+	}
+	public List<OrderProductVO> selectOrderBySellerId(String id) {
+		return productDAO.selectOrderBySellerId(id);
+	}
+	
+	@Override
+	public OrderVO selectDeliveryInfoById(String id) {
+		return productDAO.selectDeliveryInfoById(id);
 	}
 	
 	@Override

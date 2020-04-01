@@ -241,7 +241,8 @@ public class MemberController {
 				AuthInfo authInfo = memberService.login(loginVO.getId(), loginVO.getPassword());
 
 				session.setAttribute("authInfo", authInfo);
-				return "login/LoginResult";
+//				 return "login/LoginResult";
+				return "MainPage";
 			}
 		} catch (IdPasswordNotMatchingException e) {
 			return "login/Login";
@@ -755,7 +756,7 @@ public class MemberController {
 	public String deliveryTracker() {
 		return "mypage/DeliveryTracker";
 	}
-	
+
 	// 마이페이지 배송 조회
 	@RequestMapping(value = "deliveryTracking")
 	public ModelAndView deliveryTracking(int orderNum) {
@@ -774,5 +775,6 @@ public class MemberController {
 		
 		return mv;
 	}
+
 
 }

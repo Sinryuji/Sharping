@@ -34,7 +34,10 @@ import vo.BasketListVO;
 import vo.BasketVO;
 import vo.CategoryVO;
 import vo.DetailOptionVO;
+import vo.MemberVO;
 import vo.OptionVO;
+import vo.OrderProductVO;
+import vo.OrderVO;
 import vo.ProductVO;
 import vo.SearchVO;
 import vo.SellerVO;
@@ -69,7 +72,6 @@ public class ProductController {
 	public void setAdminService(AdminService adminService) {
 		this.adminService = adminService;
 	}
-
 	public ProductService getProductService() {
 		return productService;
 	}
@@ -100,7 +102,9 @@ public class ProductController {
 		UUID uid = UUID.randomUUID();
 		MultipartFile mf = mtfRequest.getFile("productImage");
 		MultipartFile mft = mtfRequest.getFile("productThumb");
+		System.out.println("\n\nㅎㅇ\n\n");
 		String fileName = mf.getOriginalFilename();
+		System.out.println("\n\nㅎㅇ\n\n");
 		String saveName = uid.toString() + "_" + fileName;
 		File target = new File(uploadPath, saveName);
 		String thumFileName = mft.getOriginalFilename();
@@ -148,7 +152,11 @@ public class ProductController {
 			productVO.setOrigin(mtfRequest.getParameter("origin"));
 		}
 
-		productVO.setDeliveryPrice(Integer.parseInt(mtfRequest.getParameter("deliveryPrice")));
+		if (Integer.parseInt(mtfRequest.getParameter("deliveryPrice")) == 0) {
+			productVO.setDeliveryPrice(0);
+		} else {
+			productVO.setDeliveryPrice(Integer.parseInt(mtfRequest.getParameter("deliveryPrice")));
+		}
 		productVO.setOptionOneName(mtfRequest.getParameter("optionOneName"));
 		productVO.setOptionTwoName(mtfRequest.getParameter("optionTwoName"));
 		productVO.setOptionThreeName(mtfRequest.getParameter("optionThreeName"));
@@ -179,7 +187,6 @@ public class ProductController {
 				e.printStackTrace();
 			}
 		}
-
 		return "seller/UploadResult";
 	}
 
@@ -277,10 +284,7 @@ public class ProductController {
 		ProductVO productVO = new ProductVO();
 
 		productVO.setProductNum(productNum);
-		System.out.println(productNum);
 		productVO.setProductDisplay(productDisplay);
-		System.out.println(productDisplay);
-		System.out.println(productVO);
 		productService.updateProductDisplayByProductNum(productVO);
 
 		return "complete";
@@ -318,13 +322,66 @@ public class ProductController {
 
 	// 주문 관리 탭
 	@RequestMapping("/orderManage")
-	public ModelAndView orderManage() {
+	public ModelAndView orderManage(HttpServletRequest req, String id) {
+
+		HttpSession session = req.getSession();
+
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+
+		id = authInfo.getId();
+
+		List<OrderProductVO> orderList = productService.selectOrderBySellerId(id);
+
 		ModelAndView mv = new ModelAndView();
 
 		mv.setViewName("seller/OrderManage");
 
-		System.out.println(mv.toString());
+		mv.addObject("orderList", orderList);
+
 		return mv;
+	}
+
+	// 구매자 정보 조회
+	@RequestMapping("/buyerInfo")
+	public ModelAndView buyerInfo(String id) {
+
+		MemberVO memberVO = memberService.searchMemberById(id);
+
+		ModelAndView mv = new ModelAndView();
+
+		mv.setViewName("seller/BuyerInfoDetail");
+
+		mv.addObject("member", memberVO);
+
+		return mv;
+	}
+
+	// 배송 정보 조회
+	@RequestMapping(value = "/selectDeliveryInfoById")
+	@ResponseBody
+	public Map<String, Object> selectDeliveryInfoById(@RequestParam String id) {
+
+		OrderVO order = new OrderVO();
+
+		order = productService.selectDeliveryInfoById(id);
+
+		ModelAndView mv = new ModelAndView();
+
+		mv.setViewName("seller/DeliveryInfo");
+
+		mv.addObject("order", order);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		map.put("order", order);
+
+		return map;
+	}
+
+	// 배송정보
+	@RequestMapping("/deliveryInfo")
+	public String deliveryInfo() {
+		return "seller/DeliveryInfo";
 	}
 
 	// 장바구니 담기
@@ -502,7 +559,6 @@ public class ProductController {
 		search.setLowPrice(lowPrice);
 		search.setProductDate(productDate);
 		search.setCategoryNum(categoryNum);
-		
 
 		model.addAttribute("productList", productService.getProductList(search));
 		model.addAttribute("keyword", keyword);
@@ -637,7 +693,11 @@ public class ProductController {
 				productVO.setOrigin(mtfRequest.getParameter("origin"));
 			}
 
-			productVO.setDeliveryPrice(Integer.parseInt(mtfRequest.getParameter("deliveryPrice")));
+			if (mtfRequest.getParameter("deliveryPrice") == null) {
+				productVO.setDeliveryPrice(0);
+			} else {
+				productVO.setDeliveryPrice(Integer.parseInt(mtfRequest.getParameter("deliveryPrice")));
+			}
 			productVO.setOptionOneName(mtfRequest.getParameter("optionOneName"));
 			productVO.setOptionTwoName(mtfRequest.getParameter("optionTwoName"));
 			productVO.setOptionThreeName(mtfRequest.getParameter("optionThreeName"));
@@ -860,6 +920,30 @@ public class ProductController {
 		Map<String, Object> map = new HashMap<String, Object>();
 
 		List<OptionVO> list = productService.selectOptionByOptionOneNum(optionVO);
+
+		List<DetailOptionVO> list2 = new ArrayList<DetailOptionVO>();
+
+		for (int i = 0; i < list.size(); i++) {
+			int doNum = list.get(i).getOptionTwoNum();
+			list2.add(productService.selectDetailOptionByDoNum(doNum));
+		}
+
+		map.put("list", list2);
+
+		return map;
+
+	}
+
+	// 2차 상세 옵션 고름
+	@RequestMapping(value = "selectOptionTwo")
+	@ResponseBody
+	public Map<String, Object> selectOptionTwo(OptionVO optionVO) {
+
+		System.out.println(optionVO);
+
+		Map<String, Object> map = new HashMap<String, Object>();
+
+		List<OptionVO> list = productService.selectOptionByOptionOneNum(optionVO);
 		
 		System.out.println(list);
 
@@ -890,35 +974,5 @@ public class ProductController {
 
 	}
 
-	// 2차 상세 옵션 고름
-	@RequestMapping(value = "selectOptionTwo")
-	@ResponseBody
-	public Map<String, Object> selectOptionTwo(OptionVO optionVO) {
-
-		System.out.println(optionVO);
-
-		Map<String, Object> map = new HashMap<String, Object>();
-
-		List<OptionVO> list = productService.selectOptionByOptionTwoNum(optionVO);
-
-		List<DetailOptionVO> list2 = new ArrayList<DetailOptionVO>();
-		
-		int a = 0;
-		int b = 0;
-
-		for (int i = 0; i < list.size(); i++) {
-			System.out.println(list.get(i));
-			if(list.get(i).getOptionThreeNum() != a || list.get(i).getOptionTwoNum() != b) {
-				a = list.get(i).getOptionThreeNum();
-				b = list.get(i).getOptionTwoNum();
-			list2.add(productService.selectDetailOptionByOptionTwoNum(list.get(i)));
-			}
-		}
-
-		map.put("list", list2);
-
-		return map;
-
-	}
 
 }

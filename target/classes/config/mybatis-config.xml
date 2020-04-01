@@ -33,6 +33,7 @@
 		<typeAlias alias="sellerListVO" type="vo.SellerListVO"></typeAlias>
 		<typeAlias alias="noticeVO" type="vo.NoticeVO"></typeAlias>
 		<typeAlias alias="categoryVO" type="vo.CategoryVO"></typeAlias>
+		<typeAlias alias="orderProductVO" type="vo.OrderProductVO"></typeAlias>
 	</typeAliases>
 	
 </configuration> 

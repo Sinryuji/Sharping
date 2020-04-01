@@ -8,6 +8,8 @@ import vo.BasketListVO;
 import vo.BasketVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
+import vo.OrderProductVO;
+import vo.OrderVO;
 import vo.ProductVO;
 import vo.SearchVO;
 import vo.SellerVO;
@@ -227,6 +229,14 @@ public class ProductDAOImpl implements ProductDAO{
 	@Override
 	public int updateProductByCategoryNumZero(int productNum) {
 		return sqlSessionTemplate.update("productDAO.updateProductByCategoryZero", productNum);
+	}
+	public List<OrderProductVO> selectOrderBySellerId(String id) {
+		return sqlSessionTemplate.selectList("productDAO.selectOrderBySellerId", id);
+	}
+	
+	@Override
+	public OrderVO selectDeliveryInfoById(String id) {
+		return sqlSessionTemplate.selectOne("productDAO.selectDeliveryInfoById", id);
 	}
 
 }

@@ -47,6 +47,7 @@
 </script>
 </head>
 <body>
+<h1 style="text-align:center;"><a href="<c:url value='/main'/>"> 메인 </a></h1><br><br>
 	<form action="orderPageByBasket">
 		<table>
 		<c:choose>

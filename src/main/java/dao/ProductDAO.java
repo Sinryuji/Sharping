@@ -6,6 +6,8 @@ import vo.BasketListVO;
 import vo.BasketVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
+import vo.OrderProductVO;
+import vo.OrderVO;
 import vo.ProductVO;
 import vo.SearchVO;
 
@@ -103,4 +105,8 @@ public interface ProductDAO {
 	// 상품들 카테고리 번호 수정하기
 	public abstract int updateProductByCategoryNumZero (int productNum);
 	
+	
+	public abstract List<OrderProductVO> selectOrderBySellerId(String id);
+	
+	public abstract OrderVO selectDeliveryInfoById(String id);
 }
