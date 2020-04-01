@@ -103,13 +103,12 @@ p {
 
 			<h2>공지사항</h2>
 
-			<form name="form" id="form" role="form" method="post"
-				action="${pageContext.request.contextPath}/admin/insertNotice">
+			<form role="form" method="post" autocomplete="off" action="${pageContext.request.contextPath}/admin/updateNotice">
 
 
 				<div class="mb-3">
 					<label for="noticeSubject">제목</label> 
-					<input type="text" class="form-control" name="noticeSubject" id="noticeSubject" placeholder="제목을 입력해 주세요" />
+					<input type="text" class="form-control" name="noticeSubject" id="noticeSubject" value="${updateNotice.noticeSubject}" />
 				</div>
 
 				<div class="mb-3">
@@ -119,57 +118,62 @@ p {
 
 				<div class="mb-3">
 					<label for="noticeText">내용</label>
-					<textarea class="form-control" rows="5" name="noticeText" id="noticeText" placeholder="내용을 입력해 주세요" /></textarea>
+					<textarea class="form-control" rows="5" name="noticeText" id="noticeText" >${updateNotice.noticeText}</textarea>
 				</div>
 				
 				<div class="mb-3">
 					<label for="noticePost" class="switch">진열여부
-					<input type="checkbox" class="form-control" name="noticePost" id="noticePost"/>
+					<input type="checkbox" class="form-control" name="noticePost" id="noticePost" ${updateNotice.noticePost == "TRUE" ? "checked" : "FALSE"}/>
 					<span class="slider round"></span>
 					</label>
+					<p id="no">미진열</p><p id="yes" style="display:none;">진열</p>
 				</div>
-			</form>
 
-			<div>
-				<button type="button" class="btn btn-sm btn-primary" id="btnSave">저장</button>
+
+				<button type="submit" class="btn btn-sm btn-primary" id="btnUpdate">수정</button>
 				<button type="button" class="btn btn-sm btn-primary" id="btnCanc">취소</button>
-			</div>
+				
+				<input type="hidden" value="${updateNotice.noticeNum}" name="noticeNum">
+			
+			</form>
 		</div>
 	</article>
 	
 	
 	<script>
-	$(document).on('click', '#btnSave', function() {
-		
-		if(noticeSubject.value==""){
-            alert("제목을 입력해주세요.");
-            noticeSubject.focus();
-            return false;
-        }else if(noticeText.value==""){
-            alert("내용을 입력해주세요.");
-            noticeText.focus();
-            return false;
-        }else{
-            alert("글이 등록됩니다!");
-        }
-		
-		$("#form").submit();
+	
+	
+	
+	$(function(){
+		if(document.getElementById("noticePost").checked == true){
+			$("#no").attr('style' , 'display:none;');
+			document.getElementById("noticePost").value = 'TRUE';
+		} else {
+			$("#yes").attr('style' , 'display:none;');
+			document.getElementById("noticePost").value = 'FALSE';
+		}					
 	});
 
-	$(document).on('click','#btnCanc',function() {
+	$("#noticePost").click(function(){
+			if (document.getElementById("noticePost").checked == true) {
+				document.getElementById("noticePost").value = 'TRUE';
+			} else {
+				document.getElementById("noticePost").value = 'FALSE';
+			}
+		});
+    
+    // 취소 버튼 클릭
+	$(document).on('click','#btnCanc',function(e) {
+		window.close();
 		location.href = "${pageContext.request.contextPath}/admin/noticeManage";
 	});
 	
-	$("#noticePost").click(function(){
-		if (document.getElementById("noticePost").checked == true) {
-			document.getElementById("noticePost").value = 'TRUE';
-		} else {
-			document.getElementById("noticePost").value = 'FALSE';
-		}
+	$(document).on('click','#btnUpdate',function(e) {
+		window.close();
 	});
+    
 	
-	
-</script>
+	</script>
 	
 	
 

@@ -1455,7 +1455,7 @@ p.demo_store a {
 	{
 	font-weight: 400;
 	line-height: 1;
-	content: "";
+	content: "��";
 	color: #a00;
 	font-family: WooCommerce;
 	speak: none;
@@ -1614,7 +1614,7 @@ p.demo_store a {
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 	margin-right: .618em;
-	content: "";
+	content: "��";
 	text-decoration: none
 }
 
@@ -1683,7 +1683,7 @@ p.demo_store a {
 	line-height: 1;
 	-webkit-font-smoothing: antialiased;
 	margin-left: .618em;
-	content: "";
+	content: "��";
 	text-decoration: none
 }
 

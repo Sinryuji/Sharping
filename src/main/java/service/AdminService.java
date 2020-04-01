@@ -74,4 +74,7 @@ public interface AdminService {
 	
 	//카테고리 삭제
 	public abstract int deleteCategory(int categoryNum);
+	//공지사항 진열여부
+	public abstract int updateNoticePostByNoticeNum(NoticeVO noticeVO) throws Exception;
+		
 }

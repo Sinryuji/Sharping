@@ -100,6 +100,7 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.getNoticeList(noticeVO);
 	}
 	
+	
 	@Override
 	public NoticeVO selectNoticeByNoticeNum(int noticeNum) throws Exception {
 		return adminDAO.selectNoticeByNoticeNum(noticeNum);
@@ -164,4 +165,10 @@ public class AdminServiceImpl implements AdminService {
 	public int deleteCategory(int categoryNum) {
 		return adminDAO.deleteCategory(categoryNum);
 	}
+	
+	public int updateNoticePostByNoticeNum(NoticeVO noticeVO) throws Exception {
+		return adminDAO.updateNoticePostByNoticeNum(noticeVO);
+	}
+	
+		
 }

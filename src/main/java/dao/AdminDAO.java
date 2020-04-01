@@ -30,7 +30,7 @@ public interface AdminDAO {
 	
 	// 공지사항 리스트
 	public abstract List<NoticeVO> getNoticeList(NoticeVO noticeVO) throws Exception;
-	
+
 	//공지사항 번호로 검색
 	public abstract NoticeVO selectNoticeByNoticeNum(int noticeNum) throws Exception;
 	
@@ -69,4 +69,7 @@ public interface AdminDAO {
 	
 	//카테고리 삭제
 	public abstract int deleteCategory(int categoryNum);
+	//공지사항 진열여부
+	public abstract int updateNoticePostByNoticeNum(NoticeVO noticeVO) throws Exception;
+	
 }

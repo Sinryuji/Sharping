@@ -33,30 +33,29 @@
 		</if>
 	</select>
 	
-	<select id="deleteMemberById" parameterType="memberVO">
+	<delete id="deleteMemberById" parameterType="memberVO">
 		DELETE FROM MEMBER WHERE "id"=#{id}              
-	</select>
+	</delete>
 	
 	<select id="deleteSellerById" parameterType="sellerVO">
 		DELETE FROM SELLER WHERE "id"=#{id}              
 	</select>
 	
-	<select id="selectNoticeByNoticeNum" resultType="noticeVO" parameterType="int">
+	<select id="selectNoticeByNoticeNum" resultType="noticeVO" >
 		SELECT * FROM NOTICE WHERE "noticeNum"=#{noticeNum}
 	</select>
 	
 	<select id="getNoticeList" resultType="noticeVO">
-		SELECT "noticeNum", "adminId", "noticeSubject", "noticeDate", "noticePost" FROM NOTICE              
+		SELECT * FROM NOTICE         
 	</select>
 	
-	<select id="deleteNoticeByNoticeNum" parameterType="noticeVO">
+	<delete id="deleteNoticeByNoticeNum" parameterType="noticeVO">
 		DELETE FROM NOTICE WHERE "noticeNum"=#{noticeNum}              
-	</select>
+	</delete>
 
-	<select id="insertNotice" parameterType="noticeVO">
-		INSERT INTO NOTICE ("noticeNum", "adminId", "noticeSubject", "noticeText", "noticeDate", "noticePost") 
-		values (NOTICE_SEQ.nextval, #{adminId}, #{noticeSubject}, #{noticeText}, SYSDATE, #{noticePost})
-	</select>
+	<insert id="insertNotice" parameterType="noticeVO">
+		INSERT INTO NOTICE VALUES (NOTICE_SEQ.nextval, #{adminId}, #{noticeSubject}, #{noticeText}, SYSDATE, #{noticePost})
+	</insert>
 	
 	<select id="updateNoticeByNoticeNum" parameterType="String">
 		UPDATE NOTICE SET "noticeSubject"=#{noticeSubject}, "noticeText"=#{noticeText}
@@ -98,4 +97,12 @@
 		DELETE FROM CATEGORY WHERE "categoryNum" = #{categoryNum}
 	</delete>
 	
+	<update id="updateNoticeByNoticeNum" parameterType="noticeVO">
+		UPDATE NOTICE SET "noticeSubject"=#{noticeSubject}, "noticeText"=#{noticeText}, "noticePost"=#{noticePost} WHERE "noticeNum"=#{noticeNum}
+	</update>
+	
+	 <update id="updateNoticePostByNoticeNum" parameterType="noticeVO">
+      	UPDATE NOTICE SET "noticePost" = #{noticePost} WHERE "noticeNum" = #{noticeNum}
+    </update>
+    
 </mapper>

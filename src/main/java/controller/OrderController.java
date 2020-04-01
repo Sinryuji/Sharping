@@ -92,9 +92,12 @@ public class OrderController {
 			List<BankVO> bankVO = orderService.selectBankCodeList();
 
 			int optionNum = productService.selectOptionNum(optionVO);
+		OptionVO option = productService.selectOptionByOptionNum(optionNum);
 
-			OptionVO option = productService.selectOptionByOptionNum(optionNum);
 
+
+
+		mv.setViewName("order/OrderPage");
 
 			mv.setViewName("order/OrderPage");
 			ProductVO product = productService.selectProduct(option.getProductNum());
@@ -745,6 +748,7 @@ public class OrderController {
 			mv.setViewName("order/OrderResult");
 			return mv;
 		}
+
 	}
 
 	// 장바구니에서 누른 주문페이지의 카드 결제 팝업 창

@@ -58,6 +58,7 @@ public class AdminDAOImpl implements AdminDAO {
 	public List<NoticeVO> getNoticeList(NoticeVO noticeVO) throws Exception {
 		return sqlSessionTemplate.selectList("adminDAO.getNoticeList", noticeVO);
 	}
+	
 
 	@Override
 	public NoticeVO selectNoticeByNoticeNum(int noticeNum) {
@@ -123,4 +124,10 @@ public class AdminDAOImpl implements AdminDAO {
 	public int deleteCategory(int categoryNum) {
 		return sqlSessionTemplate.delete("adminDAO.deleteCategory", categoryNum);
 	}
+	
+	public int updateNoticePostByNoticeNum(NoticeVO noticeVO) throws Exception {
+		return sqlSessionTemplate.update("adminDAO.updateNoticePostByNoticeNum", noticeVO);
+	}
+	
+	
 }

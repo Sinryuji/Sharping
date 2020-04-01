@@ -1,7 +1,6 @@
 package vo;
 
 public class CategoryVO {
-
 	private int categoryNum;
 	private String categoryName;
 	private int categoryDepth;

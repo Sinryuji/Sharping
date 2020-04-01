@@ -34,6 +34,10 @@ $(".submit").click(function(){
 		alert("비밀번호 재입력을 입력해주세요.");
 		$("#adminPasswordCheck").focus();
 	}
+	else{
+		alert("새 관리자가 등록되었습니다!")
+		window.close();
+	}
   });
   
 $(".adminIdCheck").click(function(){
