@@ -1,13 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
-<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>    
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <title>Login</title>
+<<<<<<< HEAD
 <script>
   src="https://code.jquery.com/jquery-2.1.4.min.js"
 </script>
@@ -203,13 +204,25 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 			<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/searchIdChangePw'" value="ID/PW찾기">
 		</div>
 	<br><br><hr color="gray" width="60%" size="2px" noshade><br>
-	<div class="span"><b>비회원 주문 조회</b></div>
 	<div class="gst">
-		<br>		
-		<input type="text" autocomplete="off" class="pad2" name="" value="" placeholder="주문자명"/>&nbsp;&nbsp;
-		<input type="text" autocomplete="off" class="pad2" name="" value="" placeholder="휴대폰 번호"/>&nbsp;&nbsp;
-		<input type="text" autocomplete="off" class="pad2" name="" value="" placeholder="주문 비밀번호"/>&nbsp;&nbsp;<button class="t" onclick="">조회하기</button>	
+	<div class="span">
+		<b>비회원 주문 조회</b>
+		<form action="selectGuest">
+		<p>
+			<input type="text" name="guestName" value="${guestName }"style="color: gray" onfocus="this.value=''" />&nbsp;&nbsp; 
+			<input type="text" name="guestPhone" value="${guestPhone }"	style="color: gray" onfocus="this.value=''" />&nbsp;&nbsp; 
+			<input type="text" name="guestPassword" value="${guestPassword }" style="color: gray" onfocus="this.value=''" />&nbsp;&nbsp;
+			<input type="submit" name="selectGuest" value="조회하기"/>
+		</p>
+		</form>
 	</div>
 	</div>
+	
+	</div>
+<script>
+	$('#selectProduct').click(function(){
+		window.location.href='<%=request.getContextPath()%>/selectGuest';
+		});
+</script>
 </body>
 </html>

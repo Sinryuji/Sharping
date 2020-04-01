@@ -65,7 +65,7 @@
 		UPDATE ORDERR SET "state" = '결제 완료' WHERE "payNum" = #{payNum}
 	</update>
 	
-	<select id="selectByBankVO" resultType="bankVO">
+	<select id="selectBankCodeList" resultType="bankVO">
 		SELECT * FROM BANK
 	</select>
 	
@@ -80,6 +80,10 @@
 	
 	<select id="selectLatelyOrderNum" resultType="orderVO" parameterType="String">
 		SELECT * FROM ORDERR WHERE "orderNum" = (SELECT MAX("orderNum") FROM ORDERR WHERE "id" = #{id})
+	</select>
+	
+	<select id="selectTonameOrderNum" resultType="orderVO" parameterType="String">
+		SELECT * FROM ORDERR WHERE "orderDate" = (SELECT MAX("orderDate") FROM ORDERR WHERE "toName" = #{toName})
 	</select>
 	
 	<insert id="insertOrderList" parameterType="orderListVO">
@@ -113,4 +117,55 @@
 	<select id="selectOrderByPayNum" resultType="orderVO">
 		SELECT * FROM ORDERR WHERE "payNum" = #{payNum} AND "state" NOT LIKE '주문 취소'
 	</select>
+	
+	<insert id="insertGuest" parameterType="guestVO">
+		INSERT INTO GUEST VALUES(#{orderNum},#{guestName},#{guestPhone},#{guestPassword})
+	
+	</insert>
+	
+	<select id="selectOrderByGuest" resultType="guestVO" parameterType="guestVO">
+		SELECT * FROM GUEST WHERE "guestName" = #{guestName} and "guestPhone" = #{guestPhone} and "guestPassword" = #{guestPassword}
+	</select>
+	
+	<select id="selectOrderListByorderNum" parameterType="hashmap" resultType="orderListVO">
+		SELECT * FROM ORDERLIST l, ORDERR o	 where l."orderNum" = o."orderNum" and
+		<foreach collection="array" item="orderNum" index="index" open="(" close=")" separator="OR">
+			l."orderNum" = #{orderNum}
+		</foreach>
+		ORDER BY o."payCase" ASC
+	</select>
+	
+	<select id="selectVirtualAccountVO" parameterType="hashmap" resultType="virtualAccountVO">
+		SELECT * FROM VIRTUALACCOUNT 
+		<foreach collection="array" item="orderNum" open="WHERE" separator="OR">
+			"orderNum" = #{orderNum}
+		</foreach>
+		
+	</select>
+	
+	<select id="selectOrderByorderNums" parameterType="hashmap" resultType="OrderVO">
+			SELECT * FROM ORDERR 
+		<foreach collection="array" item="orderNum" open="WHERE" separator="OR">
+			"orderNum" = #{orderNum}
+		</foreach>
+		ORDER BY "payCase" ASC
+	</select>
+	<select id="selectPayCardByOrderNum" parameterType="Integer" resultType="Integer">
+		SELECT * FROM ORDERR WHERE "payCase" = '카드' and
+		<foreach collection="array" item="orderNum" open="(" close=")" separator="or">
+			"orderNum" = #{orderNum}
+		</foreach>
+	</select>
+	<select id="selectPayBankByOrderNum" parameterType="Integer" resultType="Integer">
+		SELECT * FROM ORDERR WHERE "payCase" = '무통장 입금' and
+		<foreach collection="array" item="orderNum" open="(" close=")" separator="or">
+			"orderNum" = #{orderNum}
+		</foreach>
+	</select>
+	<select id="selectBankName" parameterType="int" resultType="bankVO">
+		SELECT * FROM BANK WHERE "bankCode" = #{bankCode}
+	</select>
+	
+	
+
 </mapper>

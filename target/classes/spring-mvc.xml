@@ -42,5 +42,6 @@
 
 	<!-- 일반 파일 업로드 경로 -->
 	<mvc:resources mapping="/upload/**" location="file:///D:/dev/upload" />
+	<mvc:resources mapping="/resources/**" location="/resources/" />
 	
 </beans>

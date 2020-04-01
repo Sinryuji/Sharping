@@ -3,7 +3,7 @@ package service;
 import java.util.List;
 
 import vo.BankVO;
-
+import vo.GuestVO;
 import vo.OrderListVO;
 import vo.OrderVO;
 import vo.PayBankVO;
@@ -21,6 +21,8 @@ public interface OrderService {
 	
 	//주문번호 셀렉트 
 	public abstract OrderVO selectOrderByorderNum(int orderNum);
+	
+	public abstract List<OrderVO> selectOrderByorderNums(int[] orderNum);
 	
 	//은행코드 셀렉트
 	public abstract int selectBankCode(int bankCode);
@@ -43,14 +45,14 @@ public interface OrderService {
 	//주문 상태 변경
 	public abstract void updateStateByOrder(int payNum);
 	
-	//뱅크코드 리스트
-	public abstract List<BankVO>selectBankCodeList();
 
 	public abstract int insertPayCard(OrderVO orderVO);
 	
 //	public abstract OrderVO selectLatelyOrderNum(String id);
 	
 	public abstract OrderVO selectLatelyOrderNum(String id);
+	
+	public abstract OrderVO selectTonameOrderNum(String toName);
 	
 	public abstract int insertOrderList(OrderListVO orderListVO);
 	
@@ -79,4 +81,22 @@ public interface OrderService {
 	public abstract int updatePayPriceVirtualAccount(VirtualAccountVO virtualAccountVO);
 	
 	public abstract List<OrderVO> selectOrderByPayNum(int payNum);
+	
+	public abstract void insertGuest(GuestVO guestVO);
+	
+	public abstract List<GuestVO> selectOrderByGuest(GuestVO guestVO);
+	
+	public abstract List<OrderListVO> selectOrderListByorderNum(int[] orderNums);
+	
+	public abstract List<VirtualAccountVO> selectVirtualAccountVO(int[] orderNum);
+	
+	public abstract List<Integer> selectPayBankByOrderNum(int[] orderNums);
+	
+	public abstract List<Integer> selectPayCardByOrderNum(int[] orderNums);
+	
+	public abstract List<BankVO> selectBankCodeList();
+	
+	public abstract BankVO selectBankName(int bankCode);
+	
+
 }

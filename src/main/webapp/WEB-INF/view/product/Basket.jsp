@@ -7,132 +7,120 @@
 <head>
 <meta charset="UTF-8">
 <title>Basket</title>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/woocommerce-layout.css' type='text/css' media='all'/>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/woocommerce-smallscreen.css' type='text/css' media='only screen and (max-width: 768px)'/>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/woocommerce.css' type='text/css' media='all'/>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font-awesome.min.css' type='text/css' media='all'/>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/style.css' type='text/css' media='all'/>
+<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700' type='text/css' media='all'/>
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/easy-responsive-shortcodes.css' type='text/css' media='all'/>
 <script
 	src="http://ajax.googleapis.com/ajax/libs/jquery/1.6.4/jquery.min.js"
 	type="text/javascript"></script>
-
-<script type="text/javascript">
-<%-- function checkBoxBtn(){
-	var index = $(this).attr('name')
-	alert(index);
-	var checkStr = '#checkedProduct' + index;
-	$.ajax({
-		url : "<%=request.getContextPath()%>/checkBoxBtn",
-		data : {
-			basketNum : $(checkStr).val()
-		},
-		type :"post",
-		success : function(data){
-			
-			$('#totalPrice').val(data.totalPrice);
-			$('#totalDeliveryPrice').val(data.totalDeliveryPrice)
-		}
-	});
-} --%>
-/* 삭제 ajax */
-<%-- $('.deleteBasket').click(function(){
-	var basketNum = $(this).val();
-	
-	$.ajax({
-		url : "<%=request.getContextPath()%>/deleteBasket",
-		data : {
-			basketNum : $(basketNum).val()
-		},
-		type :"post",
-		success : function(){
-			
-		}
-	});
-}); --%>
-</script>
 </head>
-<body>
-<h1 style="text-align:center;"><a href="<c:url value='/main'/>"> 메인 </a></h1><br><br>
+<body class="archive post-type-archive post-type-archive-product woocommerce woocommerce-page">
+<div id="page">
+	<div class="container">
+		<header id="masthead" class="site-header">
+		<div class="site-branding">
+			<h1 class="site-title"><a href="<c:url value='/main'/>" rel="home">#ing</a></h1>
+		</div>
+		</header>
+		</div>
+		</div>
 	<form action="orderPageByBasket">
-		<table>
-		<c:choose>
-			<c:when test="${empty basketList }">
-					<tr><td>장바구니에 담긴 상품이 없어</td>
-			</c:when>
-			<c:when test="${!empty basketList}">
-			<tr>
-				<th><a href="<%=request.getContextPath()%>/store?storeName=${storeNames}" title="storeNames">${storeNames}</a></th>
-				<th>상품이미지</th>
-				<th>상품명</th>
-				<th>수량</th>
-				<th>상품가격</th>
-				<th>배송비</th>
-			</tr>
-			<c:forEach var="basket" items="${basketList}" varStatus="status">
-				<tr>
-					<!--체크박스  -->
-					<td><input type="checkbox" name="basketNums"class="checkboxs" id="checkedProduct${status.index}"value="${basket.basketNum}" checked />
-					<!--상품이미지  -->
-					<td><a href="#"> ${basket.productThumb}</a></td>
-					<!--상풍명  -->
-					<td><c:out value="${basket.productName}"/></td>
-					<td><!--상품수량  -->
-						<!-- <button type="button" class="plus">+</button>  -->
-						<input type="number" class="cnt" id="${status.index}" name="cnt${status.index }" min="1" max="${basket.stock}"	value="${basket.cnt}" />
-						<input type="hidden" name="cnt" id="cnt" value="${basket.cnt}"/>
-						<input type="hidden" name="payPrice" id="payPrice" value="${basket.productPrice*basket.cnt}"/>
-						<!-- <button type="button" class="minus">-</button> -->
-					</td>
-					<!-- 상품가격 -->
-					<td><input type="number" id="price${status.index}"	value="${basket.productPrice*basket.cnt}" /> 
-						<input type="hidden" id="pricee${status.index}" value="${basket.productPrice}"></td>
-					<!--배송비  -->
-					
-					<td>${basket.deliveryPrice}</td>
-					
-					 <td><!--삭제버튼  -->
-						<%-- <button class="deleteBasket" value="${basket.basketNum}">X</button> --%>
-						<%-- <input type="hidden" value="${basket.basketNum}"> --%>
-						<a href="<%=request.getContextPath()%>/deleteBasket?basketNum=${basket.basketNum}">X</a>
-						<%-- <input type="hidden" id="hiddenCnt${status.index }" value = ""> --%>
-						<input type="hidden" id="hiddenOn${status.index }" value = "${basket.optionNum}">
- 					</td> 
-				</tr>
-			</c:forEach>
-			</c:when>
+		<table class="basketTable">
+			<c:choose>
+				<c:when test="${empty basketList }">
+					<tr>
+						<td>장바구니에 담긴 상품이 없어</td>
+				</c:when>
+				<c:when test="${!empty basketList}">
+					<tr>
+						<th><a
+							href="<%=request.getContextPath()%>/store?storeName=${storeNames}"
+							title="storeNames">${storeNames}</a></th>
+						<th>상품이미지</th>
+						<th>상품명</th>
+						<th>수량</th>
+						<th>상품가격</th>
+						<th>배송비</th>
+					</tr>
+					<c:forEach var="basket" items="${basketList}" varStatus="status">
+						<tr>
+							<!--체크박스  -->
+							<td><input type="checkbox" name="basketNums"
+								class="checkboxs" id="checkedProduct${status.index}"
+								value="${basket.basketNum}" checked /> <!--상품이미지  -->
+							<td><a href="#"> ${basket.productThumb}</a></td>
+							<!--상풍명  -->
+							<td><c:out value="${basket.productName}" /></td>
+							<td>
+								<!--상품수량  --> <!-- <button type="button" class="plus">+</button>  -->
+								<input type="number" class="cnt" id="${status.index}"
+								name="cnt${status.index }" min="1" max="${basket.stock}"
+								value="${basket.cnt}" /> <input type="hidden" name="cnt"
+								id="cnt" value="${basket.cnt}" /> <input type="hidden"
+								name="payPrice" id="payPrice"
+								value="${basket.productPrice*basket.cnt}" /> <!-- <button type="button" class="minus">-</button> -->
+							</td>
+							<!-- 상품가격 -->
+							<td><input type="number" id="price${status.index}"
+								value="${basket.productPrice*basket.cnt}" /> <input
+								type="hidden" id="pricee${status.index}"
+								value="${basket.productPrice}">원</td>
+							<!--배송비  -->
+
+							<td>${basket.deliveryPrice}원</td>
+
+							<td>
+								<!--삭제버튼  --> <%-- <button class="deleteBasket" value="${basket.basketNum}">X</button> --%>
+								<%-- <input type="hidden" value="${basket.basketNum}"> --%> <a
+								href="<%=request.getContextPath()%>/deleteBasket?basketNum=${basket.basketNum}">X</a>
+								<%-- <input type="hidden" id="hiddenCnt${status.index }" value = ""> --%>
+								<input type="hidden" id="hiddenOn${status.index }"
+								value="${basket.optionNum}">
+							</td>
+						</tr>
+					</c:forEach>
+				</c:when>
 			</c:choose>
 		</table>
 		<%-- ${(basketinfo.productPrice*basketinfo.cnt)+basketinfo.deliveryPrice} --%>
 		<table>
-		<c:choose>
-			<c:when test="${totalPrice == 0}">
-			</c:when>
-			<c:when test="${totalPrice != 0}">
-			<tr>
-				<th>주문합계금액</th>
-				<th>배송비</th>
-			</tr>
-			<tr>
+			<c:choose>
+				<c:when test="${totalPrice == 0}">
+				</c:when>
+				<c:when test="${totalPrice != 0}">
+					<tr>
+						<th>주문합계금액</th>
+						<th>배송비</th>
+					</tr>
+					<tr>
 
-				<td><input type="number" id="totalPrice" name="totalPrice" value="${totalPrice}" readonly/></td>
-				<td><input type="number" id="totalDeliveryPrice" name="totalDeliveryPrice" value="${totalDeliveryPrice}" readonly/></td>
-			</tr>
-			<p  id="optionsInfo">
-			<c:forEach var="optionNum" items="${optionNums}" varStatus="status">
-			
-			<input type="hidden" name="optionNums" value="${optionNum }" readonly/>
-			
-			</c:forEach>
-			</p>
-			
-		
-			
-			</c:when>
-		</c:choose>
+						<td><input type="number" id="totalPrice" name="totalPrice"
+							value="${totalPrice}" readonly /></td>
+						<td><input type="number" id="totalDeliveryPrice"
+							name="totalDeliveryPrice" value="${totalDeliveryPrice}" readonly /></td>
+					</tr>
+					<p id="optionsInfo">
+						<c:forEach var="optionNum" items="${optionNums}"
+							varStatus="status">
+
+							<input type="hidden" name="optionNums" value="${optionNum }"
+								readonly />
+
+						</c:forEach>
+					</p>
+
+
+
+				</c:when>
+			</c:choose>
 		</table>
-
-		<input type="submit"  value="주문">
+		<input type="submit" class="button" value="주문">
 	</form>
-	
-	 		
 
-	<h1>OrderPage</h1>
-	
 	<script>
 	 $('.cnt').change(function(){
 		
@@ -194,60 +182,34 @@ for(var i = 0 ; i < total ; i++) {
 $.ajax({
 
 	url : "<%=request.getContextPath()%>/checkBoxBtn",
-				traditional : true,
-				async : false,
-				data : {
-					basketNums : checkboxs
-				},
-				type : "post",
-				success : function(data) {
-					var list = [];
-					list = data.optionNums;
-					var str = "";
-					if(data.optionNums != null) {
-					for(var i = 0 ; i < list.length ; i++){
-						str += '<input type="text" name="optionNums" value="' + list[i] + '"/>'
-					}
-					}
-					
-					if(data.optionNums == null) {
-						str = "";
-					}
-					$("#optionsInfo").html(str);
-					$("#totalPrice").val(data.totalPrice);
-					$('#totalDeliveryPrice').val(data.totalDeliveryPrice);
-					
-				}
-			})
-		});
-	 
-//주문버튼 누를때 	 
-<%-- 	 $('.orderPage').click(function(){
+										traditional : true,
+										async : false,
+										data : {
+											basketNums : checkboxs
+										},
+										type : "post",
+										success : function(data) {
+											var list = [];
+											list = data.optionNums;
+											var str = "";
+											if (data.optionNums != null) {
+												for (var i = 0; i < list.length; i++) {
+													str += '<input type="hidden" name="optionNums" value="' + list[i] + '"/>'
+												}
+											}
 
-		 var checkboxs = [];
-		 	var index = $(this).attr('name')
-		 	var checkStr = '#checkedProduct';
-		 	if($(checkStr).is(":checked") == true) {
-		 		checkboxs.push($(checkStr).val());
-		 	};
-		 
+											if (data.optionNums == null) {
+												str = "";
+											}
+											$("#optionsInfo").html(str);
+											$("#totalPrice").val(
+													data.totalPrice);
+											$('#totalDeliveryPrice').val(
+													data.totalDeliveryPrice);
 
-		 $.ajax({
-
-		 	url : "<%=request.getContextPath()%>/orderPage",
-		 				traditional : true,
-		 				async : false,
-		 				data : {
-		 					basketNums : checkboxs
-		 				},
-		 				type : "post",
-		 				success : function() {
-
-		 				}
-		 			})
-		 		}); --%>
-	 
-	 </script>
-	 
+										}
+									})
+						});
+	</script>
 </body>
 </html>

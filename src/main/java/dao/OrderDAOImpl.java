@@ -5,6 +5,7 @@ import java.util.List;
 import org.mybatis.spring.SqlSessionTemplate;
 
 import vo.BankVO;
+import vo.GuestVO;
 import vo.OrderListVO;
 import vo.OrderVO;
 import vo.PayBankVO;
@@ -71,7 +72,7 @@ public class OrderDAOImpl implements OrderDAO{
 
 	@Override
 	public List<BankVO> selectBankCodeList() {
-		return sqlSessionTemplate.selectList("orderDAO.selectByBankVO");
+		return sqlSessionTemplate.selectList("orderDAO.selectBankCodeList");
 	}
 
 	@Override
@@ -82,6 +83,11 @@ public class OrderDAOImpl implements OrderDAO{
 	@Override
 	public OrderVO selectLatelyOrderNum(String id) {
 		return sqlSessionTemplate.selectOne("orderDAO.selectLatelyOrderNum", id);
+	}
+	
+	@Override
+	public OrderVO selectTonameOrderNum(String toName) {
+		return sqlSessionTemplate.selectOne("orderDAO.selectTonameOrderNum", toName);
 	}
 	
 	@Override
@@ -153,5 +159,49 @@ public class OrderDAOImpl implements OrderDAO{
 	public List<OrderVO> selectOrderByPayNum(int payNum) {
 		return sqlSessionTemplate.selectList("orderDAO.selectOrderByPayNum", payNum);
 	}
+
+	@Override
+	public void insertGuest(GuestVO guestvo) {
+				sqlSessionTemplate.insert("orderDAO.insertGuest", guestvo);
+		
+	}
+
+	@Override
+	public List<GuestVO> selectOrderByGuest(GuestVO guestVO) {
+		return sqlSessionTemplate.selectList("orderDAO.selectOrderByGuest",guestVO);
+	}
+
+	@Override
+	public List<OrderListVO> selectOrderListByorderNum(int[] orderNum) {
+		return sqlSessionTemplate.selectList("orderDAO.selectOrderListByorderNum",orderNum);
+	}
+
+	@Override
+	public List<VirtualAccountVO> selectVirtualAccountVO(int[] orderNum) {
+		return sqlSessionTemplate.selectList("orderDAO.selectVirtualAccountVO",orderNum);
+	}
+
+	@Override
+	public List<OrderVO> selectOrderByorderNums(int[] orderNum) {
+		return sqlSessionTemplate.selectList("orderDAO.selectOrderByorderNums",orderNum);
+	}
+
+	@Override
+	public List<Integer> selectPayBankByOrderNum(int[] orderNums) {
+		return sqlSessionTemplate.selectList("orderDAO.selectPayBankByOrderNum",orderNums);
+	}
+
+	@Override
+	public List<Integer> selectPayCardByOrderNum(int[] orderNums) {
+		return sqlSessionTemplate.selectList("orderDAO.selectPayCardByOrderNum",orderNums);
+	}
+
+	@Override
+	public BankVO selectBankName(int bankCode) {
+		return sqlSessionTemplate.selectOne("orderDAO.selectBankName",bankCode);
+	}
+
+
+
 
 }

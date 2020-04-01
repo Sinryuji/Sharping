@@ -8,7 +8,7 @@ import dao.OrderDAO;
 import java.util.List;
 
 import vo.BankVO;
-
+import vo.GuestVO;
 import vo.OrderListVO;
 import vo.OrderVO;
 import vo.PayBankVO;
@@ -80,10 +80,7 @@ public class OrderServiceImpl implements OrderService{
 		
 	}
 
-	@Override
-	public List<BankVO> selectBankCodeList() {
-		return orderDAO.selectBankCodeList();
-	}
+
 
 	@Override
 	public int insertPayCard(OrderVO orderVO) {
@@ -93,6 +90,11 @@ public class OrderServiceImpl implements OrderService{
 	@Override
 	public OrderVO selectLatelyOrderNum(String id) {
 		return orderDAO.selectLatelyOrderNum(id);
+	}
+	
+	@Override
+	public OrderVO selectTonameOrderNum(String toName) {
+		return orderDAO.selectTonameOrderNum(toName);
 	}
 	
 	@Override
@@ -164,4 +166,54 @@ public class OrderServiceImpl implements OrderService{
 	public List<OrderVO> selectOrderByPayNum(int payNum) {
 		return orderDAO.selectOrderByPayNum(payNum);
 	}
+	public void insertGuest(GuestVO guestVO) {
+				orderDAO.insertGuest(guestVO);
+		
+	}
+
+	@Override
+	public  List<GuestVO> selectOrderByGuest(GuestVO guestVO) {
+		return orderDAO.selectOrderByGuest(guestVO);
+	}
+
+	@Override
+	public List<OrderListVO> selectOrderListByorderNum(int[] orderNum) {
+		return orderDAO.selectOrderListByorderNum(orderNum);
+	}
+
+	@Override
+	public List<VirtualAccountVO> selectVirtualAccountVO(int[] orderNum) {
+		return orderDAO.selectVirtualAccountVO(orderNum);
+	}
+
+	@Override
+	public List<OrderVO> selectOrderByorderNums(int[] orderNum) {
+		return orderDAO.selectOrderByorderNums(orderNum);
+	}
+
+	@Override
+	public List<Integer> selectPayBankByOrderNum(int[] orderNums) {
+		return orderDAO.selectPayBankByOrderNum(orderNums);
+	}
+
+	@Override
+	public List<Integer> selectPayCardByOrderNum(int[] orderNums) {
+		return orderDAO.selectPayCardByOrderNum(orderNums);
+	}
+
+	@Override
+	public List<BankVO> selectBankCodeList() {
+		return orderDAO.selectBankCodeList();
+	}
+
+	@Override
+	public BankVO selectBankName(int bankCode) {
+		return orderDAO.selectBankName(bankCode);
+	}
+
+
+
+
+
+
 }
