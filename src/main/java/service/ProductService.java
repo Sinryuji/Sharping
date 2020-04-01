@@ -7,6 +7,8 @@ import vo.BasketListVO;
 import vo.BasketVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
+import vo.OrderProductVO;
+import vo.OrderVO;
 import vo.ProductVO;
 import vo.SearchVO;
 
@@ -88,6 +90,9 @@ public interface ProductService {
 	public abstract int updateProductDisplayByProductNum (ProductVO productVO);
 	
 	public abstract int deleteSelectProductByProductNum (ProductVO productVO);
-
+	
+	public abstract List<OrderProductVO> selectOrderBySellerId(String id);
+	
+	public abstract OrderVO selectDeliveryInfoById(String id);
 
 }

@@ -10,6 +10,8 @@ import vo.BasketListVO;
 import vo.BasketVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
+import vo.OrderProductVO;
+import vo.OrderVO;
 import vo.ProductVO;
 import vo.SearchVO;
 import vo.SellerVO;
@@ -219,6 +221,15 @@ public class ProductServiceImpl implements ProductService {
 	public int deleteSelectProductByProductNum(ProductVO productVO) {
 		return productDAO.deleteSelectProductByProductNum(productVO);
 	}
-
+	
+	@Override
+	public List<OrderProductVO> selectOrderBySellerId(String id) {
+		return productDAO.selectOrderBySellerId(id);
+	}
+	
+	@Override
+	public OrderVO selectDeliveryInfoById(String id) {
+		return productDAO.selectDeliveryInfoById(id);
+	}
 	
 }

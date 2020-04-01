@@ -6,6 +6,8 @@ import vo.BasketListVO;
 import vo.BasketVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
+import vo.OrderProductVO;
+import vo.OrderVO;
 import vo.ProductVO;
 import vo.SearchVO;
 
@@ -92,6 +94,9 @@ public interface ProductDAO {
 	public abstract List<OptionVO> selectOptionByOptionNumList(int[] optionNums);
 	
 	public abstract List<ProductVO> selectProducts(int[] productNums);
-
+	
+	public abstract List<OrderProductVO> selectOrderBySellerId(String id);
+	
+	public abstract OrderVO selectDeliveryInfoById(String id);
 
 }

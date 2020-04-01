@@ -154,8 +154,9 @@ overflow:hidden;
 </script>
 </head>
 <body>
-<h1>SellerPage</h1>
-상품 업로드 <br><br>
+<h1 style="text-align:center;"><a href="<c:url value='/main'/>"> 메인 </a></h1><br><br>
+
+상품 업데이트 <br><br>
 <form action="updateProductResult" method="post" enctype="multipart/form-data">
 판매자 : <input type="text" name="id" value="${authInfo.id}" readonly><br><br>
 

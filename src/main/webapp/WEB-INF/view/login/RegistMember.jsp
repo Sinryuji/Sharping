@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>    
 <%@ taglib prefix="form" uri = "http://www.springframework.org/tags/form" %>
 <!DOCTYPE html>
 <html>
@@ -23,20 +24,138 @@
 			$(document).click();
 		}
 	</script>
+	
+	<style>
+		table{
+		    border-collapse: collapse;
+		    line-height: 1.5;
+			width:600px;
+			margin:auto;
+			margin-top:160px;
+		}
+		table thead th {
+		    padding: 10px;
+		    font-weight: bold;
+		    vertical-align: top;
+		    color: #369;
+		    border-bottom: 3px solid #036;
+		}
+		table tbody th {
+		    width: 150px;
+		    padding: 10px;
+		    font-weight: bold;
+		    vertical-align: top;
+		    border-bottom: 1px solid #ccc;
+		    background: #f3f6f7;
+		}
+		table td {
+		    width: 350px;
+		    padding: 10px;
+		    vertical-align: top;
+		    border-bottom: 1px solid #ccc;
+		}
+		
+		.td1{
+			background: silver;
+			text-align:center;
+			vertical-align:middle;
+		}
+		
+		.td2{
+			text-align:left;
+		}
+		
+		.submit{
+			margin-left:900px;;
+		}
+		
+		#mm {
+    		text-align: center;
+ 			margin: 0 950px;
+    	}
+    	
+		a{
+   	  		text-decoration:none;
+   	  		color:black;
+   	  	}
+   	  	
+   	  	h1{
+   	  		display:inline;
+   	  	}    	
+		
+	</style>
+	
 </head>
 <body>
-<form action="registCompleteMember" method="post"> 
-이름 : <input type="text" name="name" id="name" required><br><br>
-아이디 : <input type="text" id="id" name="id" required/>&nbsp&nbsp&nbsp<button class="idCheck" type="button">중복확인</button><br><br>
-비밀번호 : <input type="password" name="password" id="pw" required/><span id="pwChk1"></span><br><br>
-비밀번호 재입력 : <input type="password" name="passwordCheck" id="pwc" required/><span id="pwChk2"></span>
-<span id="yes">O</span><br><br>
-휴대폰번호 : <input type="text" name="phone" id="ph" required/><br><br>
-이메일 : <input type="text" name="email" id="email" required/><br><br>
-우편번호:<input type="text" name="post" id="post" readonly /> &nbsp;
-주소:<input type="text" name="address" id="address" readonly /> &nbsp;
-상세주소:<input type="text" name="addressEtc" id="adressEtc"> &nbsp; <input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /> <br> 
-<input type="submit" class="submit" disabled="disabled" value="회원가입하기"><br><br>
+	<div id="mm">
+		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
+	</div>
+<form action="registCompleteMember" method="post">
+		<table>
+	      <colgroup>
+	         <col style="width:30%;" />
+	         <col style="width:auto;" />
+	      </colgroup>
+	      <thead>
+	         <tr>
+	            <th>항목</th>
+	            <th>내용</th>
+	         </tr>
+	      </thead>
+	      <tbody>
+	      	<tr>
+				<td class="td1">이름</td>
+				<td class="td2">
+					<input type="text" name="name" id="name" required>
+				</td>
+	        </tr>
+	        <tr>
+				<td class="td1">아이디</td>
+				<td class="td2">
+					<input type="text" id="id" name="id" required/>&nbsp&nbsp&nbsp
+					<button class="idCheck" type="button">중복확인</button>
+				</td>
+	        </tr>
+	        <tr>
+				<td class="td1">비밀번호</td>
+				<td class="td2">
+					<input type="password" name="password" id="pw" required/>
+					<span id="pwChk1"></span>
+				</td>
+	        </tr>
+	        <tr>
+				<td class="td1">비밀번호 재입력</td>
+				<td class="td2">
+					<input type="password" name="passwordCheck" id="pwc" required/>
+					<span id="pwChk2"></span>
+					<span id="yes">O</span>
+				</td>
+	        </tr>
+	        <tr>
+				<td class="td1">휴대폰 번호</td>
+				<td class="td2">
+					<input type="text" name="phone" id="ph" required/>
+				</td>
+	        </tr>
+	        <tr>
+				<td class="td1">이메일</td>
+				<td class="td2">
+					<input type="email" name="email" id="email" required/>
+				</td>
+	        </tr>
+	        <tr>
+				<td class="td1">주소</td>
+				<td class="td2">
+					<input type="text" name="post" id="post" readonly required/>&nbsp;
+					<input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /><br>
+					<input type="text" name="address" id="address" readonly required/>&nbsp;
+					<input type="text" name="addressEtc" id="adressEtc" placeholder="상세주소를 입력해주세요." required>
+				</td>
+	        </tr>
+	      </tbody>
+	   </table>
+	<br><br><input type="submit" class="submit" value="회원가입하기">
+	&nbsp;&nbsp;<input type="button" value="취소" onclick="location.href = '<c:url value='/main'/>'">		   
 </form>
 <script> 
 
@@ -87,49 +206,6 @@ $(function(){
         }
     });
 });
-
-
-/* $(".submit").click(function(){
-
-	 	if($("#name").val() == ""){
-		   alert("이름을 입력해주세요.");
-		   $("#name").focus();
-	   	}else if($("#id").val() == ""){
-			alert("아이디를 입력해주세요.");
-			$("#id").focus();
-		}else if($("#pw").val() == ""){
-			alert("비밀번호를 입력해주세요.");
-			$("#pw").focus();
-		}else if($("#pwc").val() == ""){
-			alert("비밀번호 재입력을 입력해주세요.");
-			$("#pwc").focus();
-		}else if($("#ph").val() == ""){
-			alert("휴대폰 번호를 입력해주세요.");
-			$("#ph").focus();
-		}else if($("#email").val() == ""){
-			alert("이메일을 입력해주세요.");
-			$("#email").focus();
-		}else if($("#post").val() == ""){
-			alert("주소 찾기를 통해 주소를 선택 해주세요.");
-			$("#address").focus(); 
-		}else if($("#adressEtc").val() == ""){
-			alert("상세주소를 입력해주세요.");
-			$("#adressEtc").focus(); 
-		}			
-	  }); */
-	  
-	  
-$('input').change(function(){
-	 if($("#name").val() != "" && 
-			 $("#id").val() != "" && 
-			 $("#pw").val() != "" && 
-			 $("#ph").val() != "" && 
-			 $("#email").val() != "" 
-			 && $("#post").val() != "" 
-			 && $("#adressEtc").val() != ""){
-		 $(".submit").removeAttr("disabled");
-	 }
- });
 	  
 
 $(".idCheck").click(function(){

@@ -234,5 +234,20 @@
    <delete id="deleteSelectProductByProductNum" parameterType="productVO">
  		DELETE FROM PRODUCT WHERE "productNum" = #{productNum}
  	</delete>
-
+ 	
+ 	<select id="selectOrderBySellerId" parameterType="String" resultType="orderProductVO">
+ 		SELECT * 
+		FROM ORDERR O, ORDERLIST OL, OPTIONN OP, PRODUCT P 
+		WHERE P."id" = #{id} 
+		AND O."orderNum" = OL."orderNum" 
+		AND OL."optionNum" = OP."optionNum" 
+		AND OP."productNum" = P."productNum"
+ 	</select>
+ 	
+ 	<select id="selectDeliveryInfoById" parameterType="String" resultType="orderVO">
+ 		SELECT DISTINCT "toName" , "toPhone" , "toPost" , "toAddress" , "trackingNum"
+		FROM ORDERR
+		WHERE "id" = #{id}
+ 	</select>
+ 	
 </mapper>

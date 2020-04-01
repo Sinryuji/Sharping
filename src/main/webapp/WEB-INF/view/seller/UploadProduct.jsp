@@ -1,79 +1,196 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>UploadProduct</title>
-<style>
-	.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-  vertical-align:middle;
-}
+   <meta charset="UTF-8">
+   <title>상품관리</title>
+   <script src="https://code.jquery.com/jquery-2.2.4.min.js"
+      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+      crossorigin="anonymous"></script>
+   <style>
+      
+	    table{
+		    border-collapse: collapse;
+		    line-height: 1.5;
+			width:800px;
+			margin:auto;
+		}
+		table thead th {
+		    padding: 10px;
+		    font-weight: bold;
+		    vertical-align: top;
+		    color: #369;
+		    border-bottom: 3px solid #036;
+		}
+		table tbody th {
+		    width: 150px;
+		    padding: 10px;
+		    font-weight: bold;
+		    vertical-align: top;
+		    border-bottom: 1px solid #ccc;
+		    background: #f3f6f7;
+		}
+		table td {
+		    width: 350px;
+		    padding: 10px;
+		    vertical-align: top;
+		    border-bottom: 1px solid #ccc;
+		}
+		
+		.td1{
+			background: silver;
+			text-align:center;
+			vertical-align:middle;
+		}
+		
+		.td2{
+			text-align:left;
+		}
+		
+		.detail{
+			border:2px solid black;
+		}
+		
+		.detail textarea{
+			border:0;
+			min-width:600px;
+			min-height:200px;
+			resize:none;
+			overflow:hidden;
+		}
+		
+		.detail textarea:focus{
+		     outline: none; 
+		}
+		
+		.cnt{
+			text-align:right;
+		}
 
-/* Hide default HTML checkbox */
-.switch input {display:none;}
-
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
-p {
-	margin:0px;
-	display:inline-block;
-	font-size:15px;
-	font-weight:bold;
-}
+		.switch {
+		  position: relative;
+		  display: inline-block;
+		  width: 60px;
+		  height: 34px;
+		  vertical-align:middle;
+		}
+		
+		/* Hide default HTML checkbox */
+		.switch input {display:none;}
+		
+		/* The slider */
+		.slider {
+		  position: absolute;
+		  cursor: pointer;
+		  top: 0;
+		  left: 0;
+		  right: 0;
+		  bottom: 0;
+		  background-color: #ccc;
+		  -webkit-transition: .4s;
+		  transition: .4s;
+		}
+		
+		.slider:before {
+		  position: absolute;
+		  content: "";
+		  height: 26px;
+		  width: 26px;
+		  left: 4px;
+		  bottom: 4px;
+		  background-color: white;
+		  -webkit-transition: .4s;
+		  transition: .4s;
+		}
+		
+		input:checked + .slider {
+		  background-color: #2196F3;
+		}
+		
+		input:focus + .slider {
+		  box-shadow: 0 0 1px #2196F3;
+		}
+		
+		input:checked + .slider:before {
+		  -webkit-transform: translateX(26px);
+		  -ms-transform: translateX(26px);
+		  transform: translateX(26px);
+		}
+		
+		/* Rounded sliders */
+		.slider.round {
+		  border-radius: 34px;
+		}
+		
+		.slider.round:before {
+		  border-radius: 50%;
+		}
+		
+		p {
+			margin:0px;
+			display:inline-block;
+			font-size:15px;
+			font-weight:bold;
+		}
+		
+		.optiondetail-scroll {
+		
+		background:#ffffff;
+		
+		border:2px solid #eeeeee;
+		
+		height:300px;
+		
+		display:none;
+		
+		position:absolute;
+		
+		z-index:1000;
+		
+		padding-top:15px;
+		
+		overflow-y:scroll;
+		
+		overflow-x:hidden;
+		
+		}
+		
+		
+		
+		.optiondetail {
+		
+		background:#ffffff;
+		
+		border:2px solid #eeeeee;
+		
+		display:none;
+		
+		position:absolute;
+		
+		z-index:1000;
+		
+		padding-top:15px;
+		
+		overflow:hidden;
+		
+		}
+		
+		#mm {
+    		text-align: center;
+ 			margin: 0 950px;
+    	}
+    	
+    	a{
+   	  		text-decoration:none;
+   	  		color:black;
+   	  	}
+      
 </style>
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-<script>	
+<script>
+		
 	$(function() {
 	      $('#area').keyup(function (e){
 	          var content = $(this).val();
@@ -92,109 +209,160 @@ p {
 			}
 			var area = $(this).val();
 		});
-		
+	});
+	
+	$(document).ready(function() {
 		var check = $("input[type='checkbox']");
-
+	
 		check.click(function() {
 			$("p").toggle();
-			chk();
 		});
-	});
+	});	
 
-		
 </script>
 </head>
 <body>
-<h1>SellerPage</h1>
-상품 업로드 <br><br>
-<form action="uploadCompleteProduct" method="post" enctype="multipart/form-data">
-판매자 : <input type="text" name="id" value="${authInfo.id}" readonly><br><br>
-
-카테고리 분류<br><br>
-<input type="number" name="categoryNum"><br><br>
-
-상품명  <input type="text" name="productName"><br><br>
-
-상품수량  <input type="number" name="stock" step="1"><br><br>
-
-상품가격  <input type="number" name="productPrice" step="10"><br><br>
-
-상품 이미지<br><br>
-<input type="file" name="productImage" id="img"><br><br>
-<div class="select_img"><img src=""></div>
-
-<script>
-  $("#img").change(function(){
-   if(this.files && this.files[0]) {
-    var reader = new FileReader;
-    reader.onload = function(data) {
-     $(".select_img img").attr("src", data.target.result).width(500);        
-    }
-    reader.readAsDataURL(this.files[0]);
-   }
-  });
-</script>
-productThumb <br><br>
-<input type="file" name="productThumb" id="thumbImg"><br><br>
-<div class="select_thumbImg"><img src=""></div>
-
-<script>
-  $("#thumbImg").change(function(){
-   if(this.files && this.files[0]) {
-    var reader = new FileReader;
-    reader.onload = function(data) {
-     $(".select_thumbImg img").attr("src", data.target.result).width(250);        
-    }
-    reader.readAsDataURL(this.files[0]);
-   }
-  });
-</script>
-
-상품 설명<br><br>
-<div>
-<textarea name="productText" id="area"></textarea><br>
-<span id="counter">0</span><span> / 500</span>
-</div>
-
-productDisplay &nbsp;&nbsp;
-<label class="switch">
-  <input type="checkbox" name="productDisplay" id="dis">
-  <span class="slider round"></span>
-</label>
-<p>미진열</p><p style="display:none;">진열</p><br><br>
-
-상품소재  <input type="text" name="productMeterial"><br><br>
-
-제조사  <input type="text" name="manufacturer"><br><br>
-
-제조일자  <input type="date" name="mfDate" id="mfDate"><br><br>
-<input type="hidden" name="hidden" id="hidden" value="n">
-
-원산지  <input type="text" name="origin"><br><br>
-
-배송비  <input type="number" name="deliveryPrice" step="100"><br><br>
-
-<br>옵션설정  <br><br>
-
-<input type="button" id="plus" value="옵션 추가">&nbsp;&nbsp;<input type="button" id="minus" value="옵션 삭제" ><br><br>
-<div id="optionBox">
-  <span id="op1">
-    1차 옵션명  <input type="text" name="optionOneName" id="o1">&nbsp;&nbsp;
-  </span>
-  <span id="op2">
-    2차 옵션명  <input type="text" name="optionTwoName" id="o2">&nbsp;&nbsp;
-  </span>
-  <span id="op3">
-    3차 옵션명  <input type="text" name="optionThreeName" id="o3">&nbsp;&nbsp;
-  </span>  
-</div>
-
-<br><br><input type="submit" value="저장">&nbsp;&nbsp;
-<input type="reset" value="초기화"><br><br><br>
-</form>
-<script>
-    
-    $("#mfDate").change(function(){
+	<div id="mm">
+		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
+	</div>
+	<form action="uploadCompleteProduct" method="post" enctype="multipart/form-data">
+	   <table>
+	      <colgroup>
+	         <col style="width:20%;" />
+	         <col style="width:auto;" />
+	      </colgroup>
+	      <thead>
+	         <tr>
+	            <th>항목</th>
+	            <th>내용</th>
+	         </tr>
+	      </thead>
+	      <tbody>
+	      	<tr>
+				<td class="td1">판매자</td>
+				<td class="td2"><input type="text" name="id" value="${authInfo.id}" readonly></td>
+	        </tr>
+	        <tr>
+				<td class="td1">카테고리</td>
+				<td class="td2"><input type="number" name="categoryNum"></td>
+	        </tr>
+	        <tr>
+				<td class="td1">상품명</td>
+				<td class="td2"><input type="text" name="productName"></td>
+	        </tr>
+	        <tr>
+				<td class="td1">상품수량</td>
+				<td class="td2"><input type="number" name="stock" step="1"></td>
+	        </tr>
+	        <tr>
+				<td class="td1">상품가격</td>
+				<td class="td2"><input type="number" name="productPrice" step="10"></td>
+	        </tr>
+	        <tr>
+				<td class="td1">상품 이미지</td>
+				<td class="td2">
+					<div class="select_img"><img src=""></div>
+					<input type="file" name="productImage" id="img" >
+				</td>
+	        </tr>
+	        <tr>
+				<td class="td1">상품 썸네일 이미지</td>
+				<td class="td2">
+					<div class="select_thumbImg"><img src=""></div>
+					<input type="file" name="productThumb" id="thumbImg">
+				</td>
+	        </tr>
+	        <tr>
+				<td class="td1">상품 설명</td>
+				<td class="td2">
+					<div class="detail">
+						<textarea name="productText" id="area" style="height:200px;"></textarea>
+						<div style="text-align:right; margin-right:10px;"><span id="counter">0</span><span> / 500</span></div>
+					</div>
+				</td>
+	        </tr>
+	        <tr>
+				<td class="td1">상품 진열 여부</td>
+				<td class="td2">
+					<label class="switch">
+					  <input type="checkbox" name="productDisplay" id="dis">
+					  <span class="slider round"></span>
+					</label>
+					<p>미진열</p><p style="display:none;">진열</p>
+				</td>
+	        </tr>
+	        <tr>
+				<td class="td1">상품 소재</td>
+				<td class="td2"><input type="text" name="productMeterial"></td>
+	        </tr>
+	        <tr>
+				<td class="td1">제조사</td>
+				<td class="td2"><input type="text" name="manufacturer"></td>
+	        </tr>
+	        <tr>
+				<td class="td1">제조일자</td>
+				<td class="td2">
+					<input type="date" name="mfDate" id="mfDate"><br><br>
+					<input type="hidden" name="hidden" id="hidden" value="n">	
+				</td>
+	        </tr>
+	        <tr>
+				<td class="td1">원산지</td>
+				<td class="td2"><input type="text" name="origin"></td>
+	        </tr>
+	        <tr>
+				<td class="td1">배송비</td>
+				<td class="td2"><input type="number" name="deliveryPrice" step="100"></td>
+	        </tr>
+	        <tr>
+				<td class="td1">옵션설정</td>
+				<td class="td2">
+					<input type="button" id="plus" value="옵션 추가">&nbsp;&nbsp;<input type="button" id="minus" value="옵션 삭제" ><br><br>
+					<div id="optionBox">
+					  <span id="op1">
+					    1차 옵션명  <input type="text" name="optionOneName" id="o1">&nbsp;&nbsp;
+					  </span>
+					  <span id="op2">
+					    2차 옵션명  <input type="text" name="optionTwoName" id="o2">&nbsp;&nbsp;
+					  </span>
+					  <span id="op3">
+					    3차 옵션명  <input type="text" name="optionThreeName" id="o3">&nbsp;&nbsp;
+					  </span>  
+					</div>
+				</td>
+	        </tr>
+	      </tbody>
+	   </table>
+	   <div align="center">
+	      <br><br><input type="submit" class="btn" value="저장"><br><br><br>
+	   </div>
+   </form>
+   <script>
+   
+   $("#img").change(function(){
+	   if(this.files && this.files[0]) {
+	    var reader = new FileReader;
+	    reader.onload = function(data) {
+	     $(".select_img img").attr("src", data.target.result).width(500);        
+	    }
+	    reader.readAsDataURL(this.files[0]);
+	   }
+	  });
+   
+   
+   
+   $("#thumbImg").change(function(){
+	   if(this.files && this.files[0]) {
+	    var reader = new FileReader;
+	    reader.onload = function(data) {
+	     $(".select_thumbImg img").attr("src", data.target.result).width(250);        
+	    }
+	    reader.readAsDataURL(this.files[0]);
+	   }
+	  });   
+   
+   
+   $("#mfDate").change(function(){
 		document.getElementById("hidden").value = 'notNull' 
 	});
 
@@ -207,11 +375,11 @@ productDisplay &nbsp;&nbsp;
 		});
 	
 	$("#one").click(function(){
-        const str = '<select name="option1"><option value="1"></option><select>';
-        $("#option").html(str);
-    });
+       const str = '<select name="option1"><option value="1"></option><select>';
+       $("#option").html(str);
+   });
 
-    var count = 0;
+   var count = 0;
 
 	$(function(){
 	    $('#op1').hide();
@@ -250,6 +418,6 @@ productDisplay &nbsp;&nbsp;
 	    }        
 	});
 
-</script>
+   </script>
 </body>
 </html>

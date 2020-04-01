@@ -8,6 +8,7 @@
 <title>MyPage</title>
 </head>
 <body>
+<h1 style="text-align:center;"><a href="<c:url value='/main'/>"> 메인 </a></h1><br>
 <h1>WishList</h1>
 <h1>InfoChange</h1>
 <h1>SellerChange</h1>
