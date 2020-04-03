@@ -152,7 +152,7 @@ public class ProductController {
 			productVO.setOrigin(mtfRequest.getParameter("origin"));
 		}
 
-		if (Integer.parseInt(mtfRequest.getParameter("deliveryPrice")) == 0) {
+		if (mtfRequest.getParameter("deliveryPrice").equals("")) {
 			productVO.setDeliveryPrice(0);
 		} else {
 			productVO.setDeliveryPrice(Integer.parseInt(mtfRequest.getParameter("deliveryPrice")));
@@ -168,6 +168,13 @@ public class ProductController {
 		} else {
 			productVO.setMfDate(Date.valueOf(d));
 			productService.uploadProduct(productVO);
+		}
+		
+		if(mtfRequest.getParameter("optionOneName").equals("") && mtfRequest.getParameter("optionTwoName").equals("") && mtfRequest.getParameter("optionThreeName").equals("")) {
+			System.out.println("우아아아아아아아아아아아아아아아아아앙!");
+			int latelyProductNum = productService.selectLatelyProductNum(mtfRequest.getParameter("id"));
+			ProductVO latelyProduct = productService.selectProduct(latelyProductNum);
+			productService.insertOption(new OptionVO(latelyProduct.getProductNum(), latelyProduct.getStock(), 0, 0, 0));
 		}
 
 		int THUMB_WIDTH = 300;
@@ -322,21 +329,32 @@ public class ProductController {
 
 	// 주문 관리 탭
 	@RequestMapping("/orderManage")
-	public ModelAndView orderManage(HttpServletRequest req, String id) {
+	public ModelAndView orderManage(HttpServletRequest req, String id, @RequestParam(required=false) String search, @RequestParam(required=false) String dSearch) {
 
 		HttpSession session = req.getSession();
 
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 
 		id = authInfo.getId();
+		
+		OrderProductVO orderProduct = new OrderProductVO();
+		
+		orderProduct.setId(id);
+		orderProduct.setSearch(search);
+		orderProduct.setState(dSearch);
+		
 
-		List<OrderProductVO> orderList = productService.selectOrderBySellerId(id);
+		List<OrderProductVO> orderList = productService.selectOrderBySellerId(orderProduct);
 
 		ModelAndView mv = new ModelAndView();
 
 		mv.setViewName("seller/OrderManage");
 
 		mv.addObject("orderList", orderList);
+		
+		mv.addObject("currentState", dSearch);
+		
+		mv.addObject("search", search);
 
 		return mv;
 	}
@@ -387,12 +405,16 @@ public class ProductController {
 	// 장바구니 담기
 	@ResponseBody
 	@RequestMapping("/basketInsert")
-	public int addBasket(OptionVO optionVO, HttpServletRequest req, @RequestParam int cnt) {
+	public int addBasket( OptionVO optionVO, HttpServletRequest req, @RequestParam int cnt) {
 		ModelAndView mv = new ModelAndView();
 		int result = 0;
 		HttpSession session = req.getSession();
 		AuthInfo authinfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		System.out.println(optionVO);
+		
 		int optionNum = productService.selectOptionNum(optionVO);
+		
 
 		System.out.println(optionNum);
 		BasketVO basketVO = new BasketVO();
@@ -418,7 +440,7 @@ public class ProductController {
 		System.out.println(authinfo.getId() + "들어가?");
 		List<BasketListVO> basketList = productService.selectBasketList(authinfo.getId());
 		int productCnt = basketList.size();
-		System.out.println(basketList.toString() + "머야머야");
+		System.out.println(basketList + "머야머야");
 
 //		JSONObject TotalstoreNameJson = new JSONObject(); 			
 //		JSONArray storeNameListJsonArray = new JSONArray();
@@ -438,7 +460,7 @@ public class ProductController {
 			a += b;
 			c += d;
 		}
-		System.out.println(basketList.toString() + "머지머지");
+		System.out.println(basketList + "머지머지");
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("product/Basket");
 		mv.addObject("basketList", basketList);

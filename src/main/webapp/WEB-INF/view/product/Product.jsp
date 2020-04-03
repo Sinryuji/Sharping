@@ -180,10 +180,8 @@ $('#cnt').change(function(){
 					alert("로그인하세요");
 					window.location.href='<%=request.getContextPath()%>/login';
 				}
-			},
-			error : function(){
-				alert("옵션을 선택하세요");
 			}
+			
 		});
 	});
 </script>

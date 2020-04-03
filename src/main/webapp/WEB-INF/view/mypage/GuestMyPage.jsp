@@ -16,8 +16,6 @@
 	<h1>비회원 쇼핑내역</h1>
 	<table>
 			<c:if test="${!empty orderListBankJson }">
-				<c:forEach var="orderListBankJson" items="${orderListBankJson}"
-					varStatus="status">
 					<tr>
 						<th><h1>무통장 입금주문</h1></th>
 					</tr>
@@ -25,17 +23,15 @@
 						<th>입금은행</th>
 						<th>계좌번호</th>
 						<th>입금기간</th>
-						<td></td>
 						<th>입금하실 금액</th>
 					</tr>
+				<c:forEach var="orderListBankJson" items="${orderListBankJson}"
+					varStatus="status">
 					<tr>
 						<td>${orderListBankJson.bankName }</td>
 						<td>${orderListBankJson.vaNum }</td>
 						<td></td>
 						<td>${orderListBankJson.payPrice }</td>
-					</tr>
-					<tr>
-						<th>진행중 주문</th>
 					</tr>
 					<tr>
 						<th>주문일</th>
@@ -44,30 +40,41 @@
 					</tr>
 					<tr>
 						<td>${orderListBankJson.orderDate}</td>
-						<td>${orderListBankJson.productName}/${orderListBankJson.optionOneNum}/${orderListBankJson.optionTwoNum }/${orderListBankJson.optionThreeNum }</td>
+						<td>${orderListBankJson.productName}/${orderListBankJson.optionOneName}.${orderListBankJson.optionTwoName}.${orderListBankJson.optionThreeName}/${orderListBankJson.orderNum}</td>
 						<td>${orderListBankJson.state}</td>
-						<td><input type="button" name="cancle" class="cancle" id="cancleProduct${status.index }" value="주문취소" /></td>
+						<c:if test="${orderListBankJson.state == '입금 대기'}">
+						<td>
+						<form action="orderCancle" name="cancleInfo" method="post">
+						<input type="hidden" name="orderNum" value="${orderListBankJson.orderNum}">
+						<input type="submit" name="cancle" class="cancle" id="cancleProduct${status.index}" value="주문 취소">
+						</form>
+						</td>
+						</c:if>
 					</tr>
 				</c:forEach>
 			</c:if>
 			<c:if test="${!empty orderListCardJson }">
-			<c:forEach var="orderListCardJson" items="${orderListCardJson }" varStatus="status">
 					<tr>
-						<th><h1>카드주문</h1></th>
-
-					<tr>
-						<th>진행중 주문</th>
-					</tr>
+						<th><h1>카드주문</h1>
+					</th>
 					<tr>
 						<th>주문일</th>
 						<th>상품명/선택옵션/주문번호</th>
 						<th>주문상태</th>
 					</tr>
+			<c:forEach var="orderListCardJson" items="${orderListCardJson }" varStatus="status">
 					<tr>
 						<td>${orderListCardJson.orderDate}</td>
-						<td>${orderListCardJson.productName}/${orderListCardJson.optionOneNum}/${orderListCardJson.optionTwoNum }/${orderListCardJson.optionThreeNum }</td>
+						<td>${orderListCardJson.productName}/${orderListCardJson.optionOneName}.${orderListCardJson.optionTwoName}.${orderListCardJson.optionThreeName}/${orderListCardJson.orderNum}</td>
 						<td>${orderListCardJson.state}</td>
-						<td><input type="button" name="cancle" class="cancle" id="cancleProduct${status.index }" value="주문취소" /><td>
+						<c:if test="${orderListCardJson.state == '입금 대기'}">
+						<td>
+						<form action="orderCancle" name="cancleInfo" method="post">
+						<input type="hidden" name="orderNum" value="${orderListCardJson.orderNum}">
+						<input type="submit" name="cancle" class="cancle" id="cancleProduct${status.index}" value="주문 취소">
+						</form>
+						</td>
+						</c:if>
 					</tr>
 			</c:forEach>
 			</c:if>

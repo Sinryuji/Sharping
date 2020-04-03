@@ -50,7 +50,7 @@ history.go(-1);
 		<h1>OrderResult</h1>
 		<h1>DeliveryAddress</h1>
 		상품 이미지 : ${product.productImage}<br> 상품명 : ${product.productName}<br>
-		개수 : ${cnt}<br> 가격 : ${payPrice}<br> 판매자 :
+		개수 : ${cnt}<br> 상품가격 : ${product.productPrice}<br> 판매자 :
 		${seller.storeName}<br> 배송비 : ${product.deliveryPrice}<br>
 		최종 결제 금액 : ${payPrice}<br>
 		<c:if test="${member.id == '비회원'}">
@@ -66,13 +66,14 @@ history.go(-1);
 			<br>
 			<h3>배송주소록,배송정보</h3>
 			<h4>배송지 정보 입력</h4>
-			<label><input type="radio" id="new" name="deliveryCheck"
-				value=""> 배송지 입력</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-<p id="deliveryInfo">
+			<label>배송지 입력</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<p id="deliveryInfo">
 				이름 : <input type="text" id="toName" name="toName" value=""><br>
 				주소 : <input type="text" id="toPost" name="toPost" value="" readonly>&nbsp;<input
 					type="text" id="toAddress" name="toAddress" value=""
-					style="width: 300px" readonly> &nbsp; <input type="button"
+					style="width: 300px" readonly> &nbsp; 
+				상세주소:<input type="text" name="toAddressEtc" id="toAdressEtc">  &nbsp; 
+					<input type="button"
 					onClick="openDaumZipAddress();" value="주소 찾기" /><br> 연락처 : <input
 					type="text" id="toPhone" name="toPhone" value=""><br>
 				배송 메시지 : <input type="text" id="deliveryMessage"
@@ -119,19 +120,23 @@ history.go(-1);
 			type="text" id="productName" name="productName"
 			value="${product.productName}"> <input type="text"
 			id="productThumb" name="productThumb" value="${product.productThumb}">
+		<c:if test="${!empty option}">
 		<input type="text" id="optionOneNum" name="optionOneNum"
 			value="${option.optionOneNum}"> <input type="text"
 			id="optionTwoNum" name="optionTwoNum" value="${option.optionTwoNum}">
 		<input type="text" id="optionThreeNum" name="optionThreeNum"
-			value="${option.optionThreeNum}"> <input type="text"
-			id="productPrice" name="productPrice" value="${payPrice}"> <input
-			type="text" id="cnt" name="cnt" value="${cnt}"> <input
+			value="${option.optionThreeNum}"> 
+			<input
 			type="text" id="optionNum" name="optionNum"
 			value="${option.optionNum}">
+		</c:if>
+		<input type="text"
+			id="productPrice" name="productPrice" value="${product.productPrice}"> <input
+			type="text" id="cnt" name="cnt" value="${cnt}"> 
 		<%-- <input type="text" id="optionNum" name="optionNum" value="${basketSelect.optionNum}">
 <input type="text" name="${status.index}"class="checkboxs" id="checkedProduct${status.index}"value="${basket.basketNum}" checked /> --%>
 		<p id="payBankInfo">
-			입금 은행 <select name="bankCode">
+			입금 은행 <select name="bankCode" required>
 				<option value="none">은행을 선택해 주세요</option>
 				<c:forEach var="bankCode" items="${bankInfo}" varStatus="status">
 					<option value="${bankCode.bankCode}">${bankCode.bankName}</option>
@@ -139,11 +144,30 @@ history.go(-1);
 			</select>
 		</p>
 		<h3>결제하기 버튼</h3>
-		<input type="submit" id="payment" value="결제하기">
+		<input type="button" id="payment" value="결제하기">
 	</form>
 	<script>
 var defaultInfo;
 var newInfo;
+
+$(document).on("click", "#payment", function(){
+	if($("select[name=bankCode]").val() == "none") {
+		alert("입금 할 은행을 선택 해 주세요!")
+	}
+	else if($('#toName').val() == '' ) {
+		alert("받으실 분의 이름을 입력 해 주세요!")
+	}
+	else if($('#toPost').val() == '') {
+		alert("주소를 선택해 주십시오!")
+	}
+	else if($('#toPhone').val() == '') {
+		alert("받으실 분의 연락처를 입력 해 주세요!")
+	}
+	else {
+		$('#orderForm').submit();
+	}
+});
+
 $('input[name=deliveryCheck]').click(function(){
 	if($('#default').is(':checked') == true) {
 		defaultInfo = $('#deliveryInfo').html();

@@ -16,8 +16,15 @@
 	<select id="selectOrderSearch" resultType="orderVO" parameterType="orderVO">
 		SELECT * FROM ORDERR O, ORDERLIST OL, OPTIONN OP, PRODUCT P WHERE O."id" = #{id} AND O."orderNum" = OL."orderNum" AND OL."optionNum" = OP."optionNum" AND OP."productNum" = P."productNum"
 		<if test="keywordO != null and keywordO != '' ">
-			AND P."productName" like '%'||#{keywordO}||'%' ORDER BY "orderDate" ASC
+			AND OL."productName" like '%'||#{keywordO}||'%'
 		</if>  
+		<if test="state != null and state != '' and state != '전체 주문 상태' ">
+			AND O."state" = #{state}
+		</if>
+		<if test="firstDate != null and secondDate != null ">
+			AND O."orderDate" &gt; #{firstDate} AND O."orderDate" &lt; #{secondDate}
+		</if>
+		ORDER BY "orderDate" ASC
 	</select>
 	
 	<select id="selectOrderSort" resultType="orderVO" parameterType="orderVO">
@@ -137,8 +144,8 @@
 	
 	<select id="selectVirtualAccountVO" parameterType="hashmap" resultType="virtualAccountVO">
 		SELECT * FROM VIRTUALACCOUNT 
-		<foreach collection="array" item="orderNum" open="WHERE" separator="OR">
-			"orderNum" = #{orderNum}
+		<foreach collection="array" item="payNum" open="WHERE" separator="OR">
+			"payNum" = #{payNum}
 		</foreach>
 		
 	</select>
@@ -150,22 +157,29 @@
 		</foreach>
 		ORDER BY "payCase" ASC
 	</select>
-	<select id="selectPayCardByOrderNum" parameterType="Integer" resultType="Integer">
+	<select id="selectPayCardByPayNum" parameterType="Integer" resultType="Integer">
 		SELECT * FROM ORDERR WHERE "payCase" = '카드' and
-		<foreach collection="array" item="orderNum" open="(" close=")" separator="or">
-			"orderNum" = #{orderNum}
+		<foreach collection="array" item="payNum" open="(" close=")" separator="or">
+			"payNum" = #{payNum}
 		</foreach>
 	</select>
-	<select id="selectPayBankByOrderNum" parameterType="Integer" resultType="Integer">
+	<select id="selectPayBankByPayNum" parameterType="Integer" resultType="Integer">
 		SELECT * FROM ORDERR WHERE "payCase" = '무통장 입금' and
-		<foreach collection="array" item="orderNum" open="(" close=")" separator="or">
-			"orderNum" = #{orderNum}
+		<foreach collection="array" item="payNum" open="(" close=")" separator="or">
+			"payNum" = #{payNum}
 		</foreach>
 	</select>
 	<select id="selectBankName" parameterType="int" resultType="bankVO">
 		SELECT * FROM BANK WHERE "bankCode" = #{bankCode}
 	</select>
 	
+	<delete id="deleteVirtualAccount" parameterType="String">
+		DELETE FROM VIRTUALACCOUNT WHERE "vaNum" = #{vaNum}
+	</delete>
+	
+	<update id="updateOrderState" parameterType="orderVO">
+		UPDATE ORDERR SET "state" = #{state}, "trackingCode" = #{trackingCode}, "trackingNum" = #{trackingNum} WHERE "orderNum" = #{orderNum}
+	</update>
 	
 
 </mapper>

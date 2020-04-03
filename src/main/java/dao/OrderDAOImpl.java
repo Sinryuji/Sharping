@@ -41,8 +41,8 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 
 	@Override //가상계좌 셀렉트
-	public PayBankVO selectByVirtualAccount(int orderNum) {
-		return sqlSessionTemplate.selectOne("orderDAO.selectByVirtualAccount",orderNum);
+	public PayBankVO selectByVirtualAccount(int payNum) {
+		return sqlSessionTemplate.selectOne("orderDAO.selectByVirtualAccount", payNum);
 	}
 
 	@Override //무통장 인설트
@@ -187,21 +187,29 @@ public class OrderDAOImpl implements OrderDAO{
 	}
 
 	@Override
-	public List<Integer> selectPayBankByOrderNum(int[] orderNums) {
-		return sqlSessionTemplate.selectList("orderDAO.selectPayBankByOrderNum",orderNums);
+	public List<Integer> selectPayBankByPayNum(int[] payNums) {
+		return sqlSessionTemplate.selectList("orderDAO.selectPayBankByPayNum",payNums);
 	}
 
 	@Override
-	public List<Integer> selectPayCardByOrderNum(int[] orderNums) {
-		return sqlSessionTemplate.selectList("orderDAO.selectPayCardByOrderNum",orderNums);
+	public List<Integer> selectPayCardByPayNum(int[] payNums) {
+		return sqlSessionTemplate.selectList("orderDAO.selectPayCardByPayNum",payNums);
 	}
 
 	@Override
 	public BankVO selectBankName(int bankCode) {
 		return sqlSessionTemplate.selectOne("orderDAO.selectBankName",bankCode);
 	}
+	
+	@Override
+	public int deleteVirtualAccount(String vaNum) {
+		return sqlSessionTemplate.delete("orderDAO.deleteVirtualAccount", vaNum);
+	}
 
-
+	@Override
+	public int updateOrderState(OrderVO orderVO) {
+		return sqlSessionTemplate.update("orderDAO.updateOrderState", orderVO);
+	}
 
 
 }

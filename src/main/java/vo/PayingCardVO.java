@@ -78,5 +78,14 @@ public class PayingCardVO {
 		this.memberPost = memberPost;
 	}
 
+
+	@Override
+	public String toString() {
+		return "PayingCardVO [productName=" + productName + ", payPrice=" + payPrice + ", memberEmail=" + memberEmail
+				+ ", memberName=" + memberName + ", memberPhone=" + memberPhone + ", memberAddress=" + memberAddress
+				+ ", memberPost=" + memberPost + ", payNum=" + payNum + "]";
+	}
+
+	
 }
 

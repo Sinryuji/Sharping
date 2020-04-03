@@ -28,12 +28,13 @@
 		</header>
 		</div>
 		</div>
-	<form action="orderPageByBasket">
+	<form id="orderPageByBasket" action="orderPageByBasket">
 		<table class="basketTable">
 			<c:choose>
 				<c:when test="${empty basketList }">
 					<tr>
 						<td>장바구니에 담긴 상품이 없어</td>
+					</tr>
 				</c:when>
 				<c:when test="${!empty basketList}">
 					<tr>
@@ -118,10 +119,22 @@
 				</c:when>
 			</c:choose>
 		</table>
-		<input type="submit" class="button" value="주문">
+		<input type="button" id="order" class="button" value="주문">
 	</form>
 
 	<script>
+	
+	$('#order').click(function(){
+		var basketList = "${basketList}";
+		
+		if(basketList == "[]") {
+			alert("장바구니에 담긴 상품이 없습니다!")
+		}
+		else {
+			$('#orderPageByBasket').submit();
+		}
+	})
+	
 	 $('.cnt').change(function(){
 		
 		 var index = $(this).attr('id') 

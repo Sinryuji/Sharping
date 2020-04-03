@@ -2,6 +2,14 @@ select * from member;
 
 select * from seller;
 
+insert into member values ('guest', '$2a$10$5qX86iTy90SpDRiSPgO7ve19uW90NQl.PQEvLFiIFwvmVkkZfKIMW', 'guest', '0', 'guest@guest.com', sysdate, 1, 'guest', 'guest', 'guest');
+
+insert into seller values ('guest', 'guest', 'guest', 'guest', 1, 1234, '1234');
+
+insert into product values (0, 'guest', 'guest', 0, 'guest', 'guest', 'FALSE', 0, 0, sysdate, 'guest', 'guest', 'guest', sysdate, 'guest', 0, 'guest', 'guest', 'guest');
+
+insert into optionn values (0, 0, 0, 0, 0, 0);
+
 insert into member values ('test', '$2a$10$5qX86iTy90SpDRiSPgO7ve19uW90NQl.PQEvLFiIFwvmVkkZfKIMW', 'tester', '01033543929', 'nobil2474@naver.com', sysdate, 1);
 
 insert into seller values ('test', 'test', 'test', 'test', 1, '14687', '경기 부천시 안곡로 105 명성홈타운 202호', 1234, '1234');

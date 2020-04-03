@@ -208,9 +208,9 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 		<b>비회원 주문 조회</b>
 		<form action="selectGuest">
 		<p>
-			<input type="text" name="guestName" value="${guestName }"style="color: gray" onfocus="this.value=''" />&nbsp;&nbsp; 
-			<input type="text" name="guestPhone" value="${guestPhone }"	style="color: gray" onfocus="this.value=''" />&nbsp;&nbsp; 
-			<input type="text" name="guestPassword" value="${guestPassword }" style="color: gray" onfocus="this.value=''" />&nbsp;&nbsp;
+			이름 : <input type="text" name="guestName" value="${guestName }"style="color: gray" onfocus="this.value=''" />&nbsp;&nbsp; 
+			연락처 : <input type="text" name="guestPhone" value="${guestPhone }"	style="color: gray" onfocus="this.value=''" />&nbsp;&nbsp; 
+			비밀번호 : <input type="text" name="guestPassword" value="${guestPassword }" style="color: gray" onfocus="this.value=''" />&nbsp;&nbsp;
 			<input type="submit" name="selectGuest" value="조회하기"/>
 		</p>
 		</form>

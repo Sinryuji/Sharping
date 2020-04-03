@@ -26,6 +26,17 @@ public class OptionVO {
 		this.optionTwoNum = optionTwoNum;
 		this.optionThreeNum = optionThreeNum;
 	}
+	
+	public OptionVO(int productNum, int stock, int optionOneNum, int optionTwoNum, int optionThreeNum) {
+
+		super();
+		this.productNum = productNum;
+		this.stock = stock;
+		this.optionOneNum = optionOneNum;
+		this.optionTwoNum = optionTwoNum;
+		this.optionThreeNum = optionThreeNum;
+	}
+
 
 
 	public int getOptionNum() {

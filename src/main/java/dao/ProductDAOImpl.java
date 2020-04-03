@@ -8,11 +8,11 @@ import vo.BasketListVO;
 import vo.BasketVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
+import vo.OrderListVO;
 import vo.OrderProductVO;
 import vo.OrderVO;
 import vo.ProductVO;
 import vo.SearchVO;
-import vo.SellerVO;
 
 public class ProductDAOImpl implements ProductDAO{
 
@@ -230,8 +230,8 @@ public class ProductDAOImpl implements ProductDAO{
 	public int updateProductByCategoryNumZero(int productNum) {
 		return sqlSessionTemplate.update("productDAO.updateProductByCategoryZero", productNum);
 	}
-	public List<OrderProductVO> selectOrderBySellerId(String id) {
-		return sqlSessionTemplate.selectList("productDAO.selectOrderBySellerId", id);
+	public List<OrderProductVO> selectOrderBySellerId(OrderProductVO orderProductVO) {
+		return sqlSessionTemplate.selectList("productDAO.selectOrderBySellerId", orderProductVO);
 	}
 	
 	@Override
@@ -239,4 +239,10 @@ public class ProductDAOImpl implements ProductDAO{
 		return sqlSessionTemplate.selectOne("productDAO.selectDeliveryInfoById", id);
 	}
 
+	@Override
+	public int selectLatelyProductNum(String id) {
+		return sqlSessionTemplate.selectOne("productDAO.selectLatelyProductNum", id);
+	}
+	
+	
 }

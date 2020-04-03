@@ -103,7 +103,7 @@
 	<select id="selectBasketByOptionNum" parameterType="hashmap" resultType="basketListVO">
 		select * from (select b."basketNum", p."productPrice",p."deliveryPrice" , m."id", p."productName",p."productThumb",
 		o."productNum",b."cnt" ,o."stock",b."optionNum" from OPTIONN o, PRODUCT p, BASKET b, MEMBER m
-		where p."productNum" = o."productNum" and b."optionNum" = o."optionNum")
+		where p."productNum" = o."productNum" and b."optionNum" = o."optionNum" and m."id" = b."id")
 		<foreach collection="array" item="basketNum" open="WHERE" separator="OR">
 			"basketNum" = #{basketNum}
 		</foreach>
@@ -120,7 +120,7 @@
 		m."id", o."productNum",o."stock",b."cnt" from OPTIONN
 		o, PRODUCT p, BASKET b, MEMBER m, SELLER s
 		where p."productNum" = o."productNum" and p."id" = s."id"
-		and b."optionNum" = o."optionNum"
+		and b."optionNum" = o."optionNum" and b."id" = m."id"
 		and b."id" = #{id}
 	</select>
 
@@ -259,19 +259,29 @@
  		UPDATE PRODUCT SET "categoryNum" = 0 WHERE "productNum" = #{productNum}
  	</update>
 
- 	<select id="selectOrderBySellerId" parameterType="String" resultType="orderProductVO">
+ 	<select id="selectOrderBySellerId" parameterType="orderProductVO" resultType="orderProductVO">
  		SELECT * 
 		FROM ORDERR O, ORDERLIST OL, OPTIONN OP, PRODUCT P 
 		WHERE P."id" = #{id} 
 		AND O."orderNum" = OL."orderNum" 
 		AND OL."optionNum" = OP."optionNum" 
 		AND OP."productNum" = P."productNum"
+		<if test=" state != null and state != '' ">
+			AND O."state" = #{state}
+		</if>	
+		<if test=" search != null and search != '' ">
+			AND OL."productName" like '%'||#{search}||'%'	
+		</if>
  	</select>
  	
  	<select id="selectDeliveryInfoById" parameterType="String" resultType="orderVO">
  		SELECT DISTINCT "toName" , "toPhone" , "toPost" , "toAddress" , "trackingNum"
 		FROM ORDERR
 		WHERE "id" = #{id}
+ 	</select>
+ 	
+ 	<select id="selectLatelyProductNum" parameterType="String" resultType="int">
+ 		SELECT MAX("productNum") FROM PRODUCT WHERE "id" = #{id}
  	</select>
  	
 </mapper>

@@ -179,7 +179,7 @@ overflow:hidden;
 		<div id="DepthThreeSpace"></div>
 	</div>
 
-<form action="updateProductResult" method="post" enctype="multipart/form-data">
+<form action="updateProductResult" method="post" enctype="multipart/form-data" id="updateProductResult">
 판매자 : <input type="text" name="id" value="${authInfo.id}" readonly><br><br>
 
 카테고리 분류<br><br>
@@ -556,10 +556,36 @@ productDisplay &nbsp;&nbsp;
 </div> --%>
 
 <input type="hidden" id="productNum" name="productNum" value="${product.productNum }">
-<br><br><input type="submit" value="저장">&nbsp;&nbsp;
+<br><br><input type="button" id="save" value="저장">&nbsp;&nbsp;
 <input type="reset" value="초기화"><br><br><br>
 </form>
 <script>
+
+$(document).on("click", "#save", function(){
+	if($("#categoryNameView").val() == "") {
+		alert("상품을 등록할 카테고리를 선택해 주세요!")
+	}
+	else if($('input[name=productName]').val() == '' ) {
+		alert("상품명을 입력해주세요!")
+	}
+	else if($('input[name=stock]').val() == '') {
+		alert("상품 수량을 입력해주세요!")
+	}
+	else if($('input[name=productPrice]').val() == '') {
+		alert("상품 가격을 입력해주세요!")
+	}
+	else if($('input[name=productImage]').val() == '') {
+		alert("상품 이미지를 등록해주세요!")
+	}
+	else if($('input[name=productThumb]').val() == '') {
+		alert("상품 썸네일 이미지를 등록해주세요!")
+	}
+	else if($('input[name=productText]').val() == '') {
+		alert("상품 설명을 입력해주세요!")
+	}
+	else {
+		$('#updateProductResult').submit();
+	}})
     
     $("#mfDate").change(function(){
 		document.getElementById("hidden").value = 'notNull' 

@@ -522,6 +522,7 @@ public class MemberController {
 
 	// 마이 페이지
 	@RequestMapping(value = "/myPage")
+	@ResponseBody
 	public ModelAndView myPage(HttpServletRequest req, @RequestParam(required=false) String keywordO, @RequestParam(required=false) String state, @RequestParam(required=false) Date firstDate, @RequestParam(required=false) Date secondDate) {
 		ModelAndView mv = new ModelAndView();
 
@@ -538,6 +539,38 @@ public class MemberController {
 			orders = orderService.selectOrderById(authInfo.getId());
 		
 		}
+		else {
+			order = new OrderVO();
+
+			order.setId(authInfo.getId());
+			
+			if(keywordO != null) {
+			
+			order.setKeywordO(keywordO);
+			
+			}
+			
+			if(state != null) {
+			
+			order.setState(state);
+			
+			}
+			
+			if(firstDate != null && secondDate != null) {
+			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+			long firstTimestampLong = firstDate.getTime();
+			long secondTimestampLong = secondDate.getTime();
+			
+			Timestamp firstTimestamp = Timestamp.valueOf(sdf.format(firstTimestampLong));
+			Timestamp secondTimestamp = Timestamp.valueOf(sdf.format(secondTimestampLong));
+			order.setFirstDate(firstTimestamp);
+			order.setSecondDate(secondTimestamp);
+			
+			}
+			
+			order.setId(authInfo.getId());
+			orders = orderService.selectOrderSearch(order);
+		}
 		
 		if(keywordO != null && state == null && firstDate == null && secondDate == null) {
 			
@@ -547,6 +580,7 @@ public class MemberController {
 			order.setId(authInfo.getId());
 			order.setKeywordO(keywordO);
 			orders = orderService.selectOrderSearch(order);
+			
 			
 		}
 			
@@ -587,6 +621,7 @@ public class MemberController {
 			
 		}
 			
+	
 		
 
 		JSONArray ordersJsonArray = new JSONArray();
@@ -595,12 +630,20 @@ public class MemberController {
 			JSONArray orderListsJsonArray = new JSONArray();
 			JSONObject orderJson = new JSONObject();
 			orderJson.put("orderNum", orders.get(i).getOrderNum());
-			orderJson.put("payPrice", orders.get(i).getPayPrice());
 			orderJson.put("orderData", orders.get(i).getOrderDate());
 			orderJson.put("state", orders.get(i).getState());
 			orderJson.put("payNum", orders.get(i).getPayNum());
-			System.out.println( orders.get(i).getPayNum());
-			orderJson.put("payNumCount", orderService.selectPayNumConut(orders.get(i).getPayNum()));
+			int currentPayNum = orders.get(i).getPayNum();
+			int payNumCount = 0;
+			int payPrice = 0;
+			for(int j = 0 ; j < orders.size() ; j++) {
+				if(orders.get(j).getPayNum() == currentPayNum) {
+					payNumCount++;
+					payPrice += orders.get(j).getPayPrice();
+				}
+			}
+			orderJson.put("payPrice", payPrice);
+			orderJson.put("payNumCount", payNumCount);
 			if(i != 0) {
 			orderJson.put("prePayNum", orders.get(i-1).getPayNum());
 			}
@@ -654,6 +697,8 @@ public class MemberController {
 		mv.addObject("ordersJsonArray", ordersJsonArray);
 		
 		mv.addObject("state", state);
+		
+		mv.addObject("keywordO", keywordO);
 
 		return mv;
 	}

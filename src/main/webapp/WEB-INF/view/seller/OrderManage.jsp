@@ -57,21 +57,21 @@
 </head>
 <body>
 	<h1 style="text-align:center;"><a href="<c:url value='/main'/>"> 메인 </a></h1><br><br>
-	<form action="" id="searchOrder">
+	<form action="orderManage" id="searchOrder" name="searchOrder">
 		<select class="dSearch" name="dSearch" id="dSearch" class="s" >
 			<option value="">-----선택-----</option>
-			<option value="입금 대기" ${param.sortType == "입금 대기" ? "selected" : "" } >입금 대기</option>
-			<option value="결제 완료" ${param.sortType == "결제 완료" ? "selected" : "" } >결제 완료</option>
-			<option value="배송 준비중" ${param.sortType == "배송 준비중" ? "selected" : "" } >배송 준비중</option>
-			<option value="배송 중" ${param.sortType == "배송 중" ? "selected" : "" } >배송 중</option>
-			<option value="배송 완료" ${param.sortType == "배송 완료" ? "selected" : "" } >배송 완료</option>
-			<option value="구매 확정" ${param.sortType == "구매 확정" ? "selected" : "" } >구매 확정</option>
-			<option value="주문 취소" ${param.sortType == "주문 취소" ? "selected" : "" } >주문 취소</option>
-			<option value="반품 완료" ${param.sortType == "반품 완료" ? "selected" : "" } >반품 완료</option>
-			<option value="교환 완료" ${param.sortType == "교환 완료" ? "selected" : "" } >교환 완료</option>
+			<option value="입금 대기" ${currentState == "입금 대기" ? "selected" : "" } >입금 대기</option>
+			<option value="결제 완료" ${currentState == "결제 완료" ? "selected" : "" } >결제 완료</option>
+			<option value="배송 준비중" ${currentState == "배송 준비중" ? "selected" : "" } >배송 준비중</option>
+			<option value="배송 중" ${currentState == "배송 중" ? "selected" : "" } >배송 중</option>
+			<option value="배송 완료" ${currentState == "배송 완료" ? "selected" : "" } >배송 완료</option>
+			<option value="구매 확정" ${currentState == "구매 확정" ? "selected" : "" } >구매 확정</option>
+			<option value="주문 취소" ${currentState == "주문 취소" ? "selected" : "" } >주문 취소</option>
+			<option value="반품 완료" ${currentState == "반품 완료" ? "selected" : "" } >반품 완료</option>
+			<option value="교환 완료" ${currentState == "교환 완료" ? "selected" : "" } >교환 완료</option>
 		</select>
 		<div id="searchBox" style="display:inline">
-			<input type="text" name="search" id="search" class="s" placeholder="키워드를 입력하세요."/>
+			<input type="text" name="search" id="search" class="s" placeholder="키워드를 입력하세요." value="${search}"/>
 			<input type="submit" value="검색" style="height:30px;">
 		</div>
 	</form>
@@ -120,7 +120,7 @@
                      <td><c:out value="${list.payPrice}"/></td>
                      <td><c:out value="${list.payCase}"/></td>
                      <td><button type="button" class="delivery" data-id="${list.id}">배송정보열람</button></td>
-                     <td><c:out value="${list.state}"/></td>
+                     <td><a href="#" class="changeState" data-state="${list.state}" data-orderNum="${list.orderNum}"><c:out value="${list.state}"/></a></td>
                   </tr>
                </c:forEach>
             </c:when>
@@ -128,6 +128,52 @@
       </tbody>
    </table>
    <script>
+   
+   	// 주문 상태 변경하기
+   	
+   	$('.changeState').click(function(){
+   		var orderNum = $(this).attr("data-orderNum");
+   		var state = $(this).attr("data-state");
+   		
+   		var popTitle = "popupOpener"
+   		var popup = window.open("",popTitle, "width=800, height=500");
+   			
+   		var f = document.createElement("form");
+		
+		f.action="<%=request.getContextPath()%>/updateOrderState";
+		f.method="post";
+		f.target=popTitle;
+		
+		var elem = document.createElement("input");
+		
+		elem.setAttribute("type", "hidden");
+		elem.setAttribute("name", "orderNum");
+		elem.setAttribute("value", orderNum);
+		
+		var elem2 = document.createElement("input");
+		
+		elem2.setAttribute("type", "hidden");
+		elem2.setAttribute("name", "state");
+		elem2.setAttribute("value", state);
+		
+		f.appendChild(elem);
+		f.appendChild(elem2);
+		
+		document.body.appendChild(f);
+		
+		f.submit();
+		
+		var timer = setInterval(function(){
+	        if(popup.closed) {
+				clearInterval(timer);
+				window.location.reload();
+				
+		
+	        } 
+	    },300)
+	
+   	})
+   
    
      $("#allSelect").click(function(){
         if($("#allSelect").is(":checked")){
@@ -164,6 +210,10 @@
      var popup = window.open("buyerInfo" + "?id=" + id , "회원상세정보",
                  "width = 500, height = 310, resizable = no, , left = 700, top = 200");
 	}
+     
+    $('#dSearch').change(function(){
+    	
+    })
      
    </script>
 </body>

@@ -28,7 +28,7 @@ public interface OrderService {
 	public abstract int selectBankCode(int bankCode);
 	
 	//가상계좌 셀렉트
-	public abstract PayBankVO selectVirtualAccountByorderNum(int orderNum);
+	public abstract PayBankVO selectVirtualAccountByPayNum(int payNum);
 	
 	//무통장 입금테이블 인설트
 	public abstract int insertPayBank(PayBankVO payBankVO);
@@ -90,13 +90,18 @@ public interface OrderService {
 	
 	public abstract List<VirtualAccountVO> selectVirtualAccountVO(int[] orderNum);
 	
-	public abstract List<Integer> selectPayBankByOrderNum(int[] orderNums);
+	public abstract List<Integer> selectPayBankByPayNum(int[] payNums);
 	
-	public abstract List<Integer> selectPayCardByOrderNum(int[] orderNums);
+	public abstract List<Integer> selectPayCardByPayNum(int[] payNums);
 	
 	public abstract List<BankVO> selectBankCodeList();
 	
 	public abstract BankVO selectBankName(int bankCode);
 	
+	// 가상계좌 삭제
+	public abstract int deleteVirtualAccount(String vaNum);
+	
+	// 판매자 페이지에서 주문 상태 제어하기
+	public abstract int updateOrderState(OrderVO orderVO);
 
 }

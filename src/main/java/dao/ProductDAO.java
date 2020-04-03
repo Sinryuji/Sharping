@@ -6,6 +6,7 @@ import vo.BasketListVO;
 import vo.BasketVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
+import vo.OrderListVO;
 import vo.OrderProductVO;
 import vo.OrderVO;
 import vo.ProductVO;
@@ -106,7 +107,10 @@ public interface ProductDAO {
 	public abstract int updateProductByCategoryNumZero (int productNum);
 	
 	
-	public abstract List<OrderProductVO> selectOrderBySellerId(String id);
+	public abstract List<OrderProductVO> selectOrderBySellerId(OrderProductVO orderProductVO);
 	
 	public abstract OrderVO selectDeliveryInfoById(String id);
+	
+	// 가장 최근 등록한 상품의 프로덕트넘 봅아오기
+	public abstract int selectLatelyProductNum(String id);
 }

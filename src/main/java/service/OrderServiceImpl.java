@@ -49,8 +49,8 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override //가상계좌 셀렉트
-	public PayBankVO selectVirtualAccountByorderNum(int orderNum) {
-		return orderDAO.selectByVirtualAccount(orderNum);
+	public PayBankVO selectVirtualAccountByPayNum(int payNum) {
+		return orderDAO.selectByVirtualAccount(payNum);
 	}
 
 	@Override //무통장 입금테이블 인설트
@@ -192,13 +192,13 @@ public class OrderServiceImpl implements OrderService{
 	}
 
 	@Override
-	public List<Integer> selectPayBankByOrderNum(int[] orderNums) {
-		return orderDAO.selectPayBankByOrderNum(orderNums);
+	public List<Integer> selectPayBankByPayNum(int[] payNums) {
+		return orderDAO.selectPayBankByPayNum(payNums);
 	}
 
 	@Override
-	public List<Integer> selectPayCardByOrderNum(int[] orderNums) {
-		return orderDAO.selectPayCardByOrderNum(orderNums);
+	public List<Integer> selectPayCardByPayNum(int[] payNums) {
+		return orderDAO.selectPayCardByPayNum(payNums);
 	}
 
 	@Override
@@ -211,9 +211,15 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.selectBankName(bankCode);
 	}
 
+	@Override
+	public int deleteVirtualAccount(String vaNum) {
+		return orderDAO.deleteVirtualAccount(vaNum);
+	}
 
-
-
+	@Override
+	public int updateOrderState(OrderVO orderVO) {
+		return orderDAO.updateOrderState(orderVO);
+	}
 
 
 }

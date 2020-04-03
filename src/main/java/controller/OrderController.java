@@ -1,5 +1,6 @@
 package controller;
 
+import java.sql.SQLException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -16,10 +17,10 @@ import org.json.simple.parser.ParseException;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.google.gson.Gson;
-import com.google.gson.JsonArray;
 
 import service.MemberService;
 import service.OrderService;
@@ -32,10 +33,8 @@ import vo.MemberVO;
 import vo.OptionVO;
 import vo.OrderListVO;
 import vo.OrderVO;
-
 import vo.PayBankVO;
 import vo.PayMoneyVO;
-
 import vo.PayingCardVO;
 import vo.ProductVO;
 import vo.SellerVO;
@@ -75,8 +74,8 @@ public class OrderController {
 	// 주문 페이지
 	@RequestMapping("/orderPage")
 
-	public ModelAndView orderPage(HttpServletRequest req, OptionVO optionVO, @RequestParam int cnt,
-			@RequestParam int payPrice, @RequestParam(required = false) int[] basketNums, int deliveryPrice) {
+	public ModelAndView orderPage(HttpServletRequest req, @RequestParam(required = false)OptionVO optionVO, @RequestParam int cnt,
+			@RequestParam int payPrice, @RequestParam(required = false) int[] basketNums, int deliveryPrice, int productNum) throws SQLException {
 
 		ModelAndView mv = new ModelAndView();
 		int result = 0;
@@ -86,31 +85,39 @@ public class OrderController {
 		if (session != null && session.getAttribute("authInfo") != null) {
 			AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 
-
-			payPrice += deliveryPrice;
-
 			List<BankVO> bankVO = orderService.selectBankCodeList();
 
-			int optionNum = productService.selectOptionNum(optionVO);
-		OptionVO option = productService.selectOptionByOptionNum(optionNum);
+			OptionVO option = null;
+			
+			int optionNum = 0;
+			
+			if(optionVO != null) {
+			
+			optionNum = productService.selectOptionNum(optionVO);
+			
+			option = productService.selectOptionByOptionNum(optionNum);
 
-
+			} 
 
 
 		mv.setViewName("order/OrderPage");
 
 			mv.setViewName("order/OrderPage");
-			ProductVO product = productService.selectProduct(option.getProductNum());
+			ProductVO product = productService.selectProduct(productNum);
 
 			MemberVO member = memberService.searchMemberById(authInfo.getId());
 
 			SellerVO seller = memberService.searchSellerById(product.getId());
 
 			mv.setViewName("order/OrderPage");
-
+			
+			if(option != null) {
+			
 			mv.addObject("optionNum", optionNum);
 
 			mv.addObject("option", option);
+			
+			}
 
 			mv.addObject("product", product);
 
@@ -132,13 +139,21 @@ public class OrderController {
 			// 비회원 주문
 		} else {
 			// 비회원 정보 생성 \or 비회원 임시id 발급
-			payPrice += deliveryPrice;
 
 			List<BankVO> bankVO = orderService.selectBankCodeList();
 
-			int optionNum = productService.selectOptionNum(optionVO);
+			OptionVO option = null;
+			
+			int optionNum = 0;
+			
+			if(optionVO != null) {
+			
+			optionNum = productService.selectOptionNum(optionVO);
+			
+			option = productService.selectOptionByOptionNum(optionNum);
 
-			OptionVO option = productService.selectOptionByOptionNum(optionNum);
+			}
+
 
 			ProductVO product = productService.selectProduct(option.getProductNum());
 
@@ -152,9 +167,13 @@ public class OrderController {
 
 			mv.setViewName("order/OrderPage");
 
-			mv.addObject("optionNum", optionNum);
+			if(option != null) {
+				
+				mv.addObject("optionNum", optionNum);
 
-			mv.addObject("option", option);
+				mv.addObject("option", option);
+				
+			}
 
 			mv.addObject("product", product);
 
@@ -181,7 +200,7 @@ public class OrderController {
 			@RequestParam int cnt, @RequestParam int totalPrice, @RequestParam(required = false) int[] basketNums,
 			@RequestParam int payPrice, @RequestParam int totalDeliveryPrice) {
 
-		System.out.println("어서오소");
+		System.out.println("어서오소@@@@@@@@@" + optionNums[0] + "@@@@@@@@@@@" + optionNums[1]);
 		ModelAndView mv = new ModelAndView();
 
 		HttpSession session = req.getSession();
@@ -190,6 +209,8 @@ public class OrderController {
 		List<BankVO> bankVO = orderService.selectBankCodeList();
 		List<BasketListVO> basketSelect = productService.selectBasket(basketNums);
 		List<OptionVO> option = productService.selectOptionByOptionNumList(optionNums);
+		
+		System.out.println("어서오소@@@@@@@@@" + option);
 
 		int options = option.size();
 		int[] productNum = new int[options];
@@ -253,16 +274,18 @@ public class OrderController {
 
 		for (int i = 0; i < basketSelect.size(); i++) {
 			JSONObject orderListJson = new JSONObject();
+			OptionVO optionVO = productService.selectOptionByOptionNum(basketSelect.get(i).getOptionNum());
 			orderListJson.put("productName", basketSelect.get(i).getProductName());
 			orderListJson.put("productThumb", basketSelect.get(i).getProductThumb());
-			orderListJson.put("optionOneNum", option.get(i).getOptionOneNum());
-			orderListJson.put("optionTwoNum", option.get(i).getOptionTwoNum());
-			orderListJson.put("optionThreeNum", option.get(i).getOptionThreeNum());
+			orderListJson.put("optionOneNum", optionVO.getOptionOneNum());
+			orderListJson.put("optionTwoNum", optionVO.getOptionTwoNum());
+			orderListJson.put("optionThreeNum", optionVO.getOptionThreeNum());
 			orderListJson.put("productPrice", basketSelect.get(i).getProductPrice());
 			orderListJson.put("cnt", basketSelect.get(i).getCnt());
-			orderListJson.put("optionNum", option.get(i).getOptionNum());
+			orderListJson.put("optionNum", optionVO.getOptionNum());
 			orderListJson.put("productNum", basketSelect.get(i).getProductNum());
 			orderListJson.put("deliveryPrice", basketSelect.get(i).getDeliveryPrice());
+			orderListJson.put("basketNum", basketSelect.get(i).getBasketNum());
 			orderListJsonArray.add(orderListJson);
 			a += (basketSelect.get(i).getProductPrice() * basketSelect.get(i).getCnt())
 					+ basketSelect.get(i).getDeliveryPrice();
@@ -282,7 +305,7 @@ public class OrderController {
 
 	// 상품 페이지에서 들어간 주문 페이지의 무통장 입금 주문 완료 버튼
 	@RequestMapping("/orderResult")
-	public ModelAndView orderResult(HttpServletRequest req, OrderVO orderVO, OrderListVO orderListVO,
+	public ModelAndView orderResult(HttpServletRequest req, OrderVO orderVO,  OrderListVO orderListVO,
 			@RequestParam int bankCode, GuestVO guestVO, MemberVO memberVO) {
 		HttpSession session = req.getSession();
 		if (session != null && session.getAttribute("authInfo") != null) {
@@ -304,6 +327,10 @@ public class OrderController {
 			}
 
 			orderVO.setToAddress(result);
+			
+			int payNum = new Random().nextInt(900000) + 100000;
+			
+			orderVO.setPayNum(payNum);
 
 			// 주문 인설트하고
 			orderService.insertOrder(orderVO);
@@ -315,6 +342,7 @@ public class OrderController {
 			orderVO.setOrderNum(order.getOrderNum());
 			// 오더리스트에 주문번호 셋하고
 			orderListVO.setOrderNum(order.getOrderNum());
+			System.out.println(orderListVO);
 			// 오더리스트 인설트 성공여부 받아오고
 			int insertOrderResult = orderService.insertOrderList(orderListVO);
 			// 오더리스트에 해당 옵션상품번호 받아오고
@@ -349,7 +377,7 @@ public class OrderController {
 			orderService.insertByvirtualAccount(virtualAccountVO);
 //			무통장 입금이 가상계좌랑 주문번호 셀렉트 해와서 
 			PayBankVO payBankVO = new PayBankVO();
-			payBankVO = orderService.selectVirtualAccountByorderNum(orderVO.getOrderNum());
+			payBankVO = orderService.selectVirtualAccountByPayNum(orderVO.getPayNum());
 //			payBankVO.setOrderNum(payBankVO.getOrderNum());
 //			payBankVO.setBankCode(payBankVO.getBankCode());
 //			payBankVO.setVaNum(payBankVO.getVaNum());
@@ -376,6 +404,7 @@ public class OrderController {
 			orderVO.setState("입금 대기");
 			orderVO.setPayCase("무통장 입금");
 			orderVO.setTrackingNum("");
+			orderVO.setTrackingCode("");
 
 			String address = orderVO.getToAddress();
 			String addressEtc = orderVO.getToAddressEtc();
@@ -389,9 +418,15 @@ public class OrderController {
 			}
 
 			orderVO.setToAddress(result);
-			orderVO.setId("");
+			orderVO.setId("guest");
 			System.out.println(orderVO.toString());
 			// 주문 인설트하고
+			int payNum = new Random().nextInt(900000) + 100000;
+			
+			orderVO.setPayNum(payNum);
+			
+			
+			
 			orderService.insertOrder(orderVO);
 
 			OrderVO order = new OrderVO();
@@ -439,7 +474,7 @@ public class OrderController {
 			orderService.insertByvirtualAccount(virtualAccountVO);
 //				무통장 입금이 가상계좌랑 주문번호 셀렉트 해와서 
 			PayBankVO payBankVO = new PayBankVO();
-			payBankVO = orderService.selectVirtualAccountByorderNum(orderVO.getOrderNum());
+			payBankVO = orderService.selectVirtualAccountByPayNum(orderVO.getPayNum());
 //				payBankVO.setOrderNum(payBankVO.getOrderNum());
 //				payBankVO.setBankCode(payBankVO.getBankCode());
 //				payBankVO.setVaNum(payBankVO.getVaNum());
@@ -516,8 +551,11 @@ public class OrderController {
 		for (int i = 0; i < orderListJsonListt.size(); i++) {
 			OrderListVO orderListVO = new OrderListVO();
 			orderListVO = gson.fromJson(orderListJsonListt.get(i).toString(), OrderListVO.class);
+			System.out.println(orderListVO);
 			OptionVO option = productService.selectOptionByOptionNum(orderListVO.getOptionNum());
+			System.out.println(option);
 			ProductVO product = productService.selectProduct(option.getProductNum());
+			System.out.println(product);
 			
 			int orderPrice = orderListVO.getCnt() * orderListVO.getProductPrice() + product.getDeliveryPrice();
 			// 주문 인설트하고
@@ -538,6 +576,9 @@ public class OrderController {
 				orderService.decrementStockOption(orderListVO);
 				orderService.decrementStockProduct(orderListVO);
 			}
+			
+			BasketListVO basket = gson.fromJson(orderListJsonListt.get(i).toString(), BasketListVO.class);
+			productService.deleteBasket(basket.getBasketNum());
 		}
 
 //		//오더리스트에 주문번호 셋하고
@@ -577,7 +618,7 @@ public class OrderController {
 //		무통장 입금이 가상계좌랑 주문번호 셀렉트 해와서 
 		PayBankVO payBankVO = new PayBankVO();
 		System.out.println("orerVO : " + orderVO);
-		payBankVO = orderService.selectVirtualAccountByorderNum(orderVO.getPayNum());
+		payBankVO = orderService.selectVirtualAccountByPayNum(orderVO.getPayNum());
 //		payBankVO.setOrderNum(payBankVO.getOrderNum());
 //		payBankVO.setBankCode(payBankVO.getBankCode());
 //		payBankVO.setVaNum(payBankVO.getVaNum());
@@ -602,9 +643,11 @@ public class OrderController {
 
 		ModelAndView mv = new ModelAndView();
 		List<BankVO> bankVO = orderService.selectBankCodeList();
+		PayBankVO payBank = orderService.selectVirtualAccountByPayNum(payNum);
 		mv.setViewName("order/InsertMoney");
 		mv.addObject("bankInfo", bankVO);
 		mv.addObject("payNum", payNum);
+		mv.addObject("payBank", payBank);
 		return mv;
 	}
 
@@ -628,7 +671,7 @@ public class OrderController {
 		} else {
 		}
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("order/InsertMoney");
+		mv.setViewName("MainPage");
 		return mv;
 	}
 
@@ -671,6 +714,12 @@ public class OrderController {
 			orderVO.setPayCase("카드");
 			orderVO.setTrackingNum("");
 			orderVO.setTrackingCode("");
+			
+			
+			int payNum = new Random().nextInt(900000) + 100000;
+			
+			orderVO.setPayNum(payNum);
+			
 			orderService.insertOrder(orderVO);
 
 			OrderVO order = new OrderVO();
@@ -680,6 +729,7 @@ public class OrderController {
 			orderVO.setOrderNum(order.getOrderNum());
 
 			orderListVO.setOrderNum(order.getOrderNum());
+			
 
 			int insertPayCardResult = orderService.insertPayCard(orderVO);
 
@@ -689,13 +739,12 @@ public class OrderController {
 
 			orderListVO.setProductNum(productNum);
 
-			if (insertPayCardResult > 0) {
+			if (insertPayCardResult > 0 && insertOrderResult > 0) {
 				orderService.decrementStockProduct(orderListVO);
-			}
-
-			if (insertOrderResult > 0) {
 				orderService.decrementStockOption(orderListVO);
 			}
+			
+			mv.setViewName("order/OrderResult");
 
 
 			return mv;
@@ -704,6 +753,7 @@ public class OrderController {
 			orderVO.setState("결제 완료");
 			orderVO.setPayCase("카드");
 			orderVO.setTrackingNum("");
+			orderVO.setTrackingCode("");
 
 			String address = orderVO.getToAddress();
 			String addressEtc = orderVO.getToAddressEtc();
@@ -717,8 +767,9 @@ public class OrderController {
 			}
 
 			orderVO.setToAddress(result);
-			orderVO.setId("");
-			System.out.println(orderVO.toString());
+			orderVO.setId("guest");
+			int payNum = new Random().nextInt(900000) + 100000;
+			orderVO.setPayNum(payNum);
 			// 주문 인설트하고
 			orderService.insertOrder(orderVO);
 
@@ -733,17 +784,21 @@ public class OrderController {
 			int insertOrderResult = orderService.insertOrderList(orderListVO);
 			// 오더리스트에 해당 옵션상품번호 받아오고
 			int productNum = orderService.selectProductNumByOptionNum(orderListVO.getOptionNum());
+			
+			int insertPayCardResult = orderService.insertPayCard(orderVO);
 			// 인설트 성공하고 0보다 크면 스탁량 -
-			if (insertOrderResult > 0) {
-				orderService.decrementStockOption(orderListVO);
+			if (insertPayCardResult > 0 && insertOrderResult > 0) {
 				orderService.decrementStockProduct(orderListVO);
+				orderService.decrementStockOption(orderListVO);
 			}
 			// 주문번호 셀렉트
 			orderVO = orderService.selectOrderByorderNum(order.getOrderNum());
 			// 비회원 인설트
 			System.out.println(guestVO.toString());
 			guestVO.setOrderNum(order.getOrderNum());
+			System.out.println(guestVO.toString());
 			orderService.insertGuest(guestVO);
+			
 
 			mv.setViewName("order/OrderResult");
 			return mv;
@@ -769,6 +824,8 @@ public class OrderController {
 		}
 
 		orderVO.setToAddress(result);
+		
+		System.out.println("@@@페잉카드@@@" + payingCardVO);
 
 		mv.setViewName("order/PayingCardByBasket");
 		mv.addObject("payingCard", payingCardVO);
@@ -793,7 +850,6 @@ public class OrderController {
 			e.printStackTrace();
 		}
 
-		orderVO.setPayPrice(payPrice);
 
 		orderVO.setState("결제 완료");
 		orderVO.setPayCase("카드");
@@ -823,6 +879,8 @@ public class OrderController {
 			int orderPrice = orderListVO.getCnt() * orderListVO.getProductPrice() + product.getDeliveryPrice();
 			
 			orderVO.setPayNum(payNum);
+			
+			orderVO.setPayPrice(orderPrice);
 			
 			orderService.insertOrder(orderVO);
 			
@@ -872,11 +930,14 @@ public class OrderController {
 		return mv;
 	}
 	
-	// 주문 취소 안료
+	// 주문 취소 완료
 	@RequestMapping(value = "/orderCancleComplete")
-	public ModelAndView orderCancleComplete(int orderNum) {
+	public ModelAndView orderCancleComplete(int orderNum, HttpServletRequest req) {
 		ModelAndView mv = new ModelAndView();
 		
+		HttpSession session = req.getSession();
+		
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 		
 		List<OrderListVO> orderList = orderService.selectOrderListByOrderNum(orderNum);
 		OptionVO option = productService.selectOptionByOptionNum(orderList.get(0).getOptionNum());
@@ -902,7 +963,6 @@ public class OrderController {
 		virtualAccount.setPayPrice(payPrice);
 		
 		orderService.updatePayPriceVirtualAccount(virtualAccount);
-
 		
 		mv.setViewName("order/OrderCancleComplete");
 		mv.addObject("result", result);
@@ -910,6 +970,7 @@ public class OrderController {
 		mv.addObject("product", product);
 		mv.addObject("order", order);
 		mv.addObject("seller", seller);
+		mv.addObject("authInfo", authInfo);
 		
 		return mv;
 	}
@@ -923,6 +984,7 @@ public class OrderController {
 		guest.setGuestPassword(guestPassword);
 		guest.setGuestPhone(guestPhone);
 		List<GuestVO> guestVO = orderService.selectOrderByGuest(guest);
+		System.out.println(guestVO);
 		int orderNum = guestVO.size();
 		int[] orderNums = new int[orderNum];
 		for (int i = 0; i < orderNum; i++) {
@@ -930,10 +992,15 @@ public class OrderController {
 			System.out.println(orderNums[i]);
 		}
 		List<OrderListVO> orderList = orderService.selectOrderListByorderNum(orderNums);
-		List<VirtualAccountVO> virt = orderService.selectVirtualAccountVO(orderNums);
 		List<OrderVO> order = orderService.selectOrderByorderNums(orderNums);
-		List<Integer> payBank = orderService.selectPayBankByOrderNum(orderNums);
-		List<Integer> payCard = orderService.selectPayCardByOrderNum(orderNums);
+		int[] payNums = new int[order.size()];
+		for(int i = 0 ; i < order.size() ; i++) {
+			payNums[i] = order.get(i).getPayNum();
+			System.out.println("페이넘@@@@@@@@@@" + payNums[i]);
+		}
+		List<VirtualAccountVO> virt = orderService.selectVirtualAccountVO(payNums);
+		List<Integer> payBank = orderService.selectPayBankByPayNum(payNums);
+		List<Integer> payCard = orderService.selectPayCardByPayNum(payNums);
 		ModelAndView mv = new ModelAndView();
 		JSONArray orderListBankJson = new JSONArray();
 		JSONArray orderListCardJson = new JSONArray();
@@ -959,12 +1026,17 @@ public class OrderController {
 			orderJsonbank.put("optionOneNum", orderList.get(i).getOptionOneNum());
 			orderJsonbank.put("optionTwoNum", orderList.get(i).getOptionTwoNum());
 			orderJsonbank.put("optionThreeNum", orderList.get(i).getOptionThreeNum());
+			orderJsonbank.put("optionOneName", productService.selectDetailOptionByDoNum(orderList.get(i).getOptionOneNum()).getOptionName());
+			orderJsonbank.put("optionTwoName", productService.selectDetailOptionByDoNum(orderList.get(i).getOptionTwoNum()).getOptionName());
+			orderJsonbank.put("optionThreeName", productService.selectDetailOptionByDoNum(orderList.get(i).getOptionThreeNum()).getOptionName());
 			orderJsonbank.put("orderNum", order.get(i).getOrderNum());
 			orderJsonbank.put("state", order.get(i).getState());
 			orderJsonbank.put("payCase", order.get(i).getPayCase());
 			orderListBankJson.add(orderJsonbank);
 			a++;
 		}
+		
+		
 		for (int i = a; i < payCard.size() + a; i++) {
 			JSONObject orderJsonCard = new JSONObject();
 			orderJsonCard.put("payPrice", order.get(i).getPayPrice());
@@ -973,6 +1045,9 @@ public class OrderController {
 			orderJsonCard.put("optionOneNum", orderList.get(i).getOptionOneNum());
 			orderJsonCard.put("optionTwoNum", orderList.get(i).getOptionTwoNum());
 			orderJsonCard.put("optionThreeNum", orderList.get(i).getOptionThreeNum());
+			orderJsonCard.put("optionOneName", productService.selectDetailOptionByDoNum(orderList.get(i).getOptionOneNum()).getOptionName());
+			orderJsonCard.put("optionTwoName", productService.selectDetailOptionByDoNum(orderList.get(i).getOptionTwoNum()).getOptionName());
+			orderJsonCard.put("optionThreeName", productService.selectDetailOptionByDoNum(orderList.get(i).getOptionThreeNum()).getOptionName());
 			orderJsonCard.put("orderNum", order.get(i).getOrderNum());
 			orderJsonCard.put("state", order.get(i).getState());
 			orderJsonCard.put("payCase", order.get(i).getPayCase());
@@ -986,5 +1061,49 @@ public class OrderController {
 		return mv;
 
 	}
+	
+	// 판매자 페이지에서 주문 상태 창
+	@RequestMapping(value = "/updateOrderState")
+	@ResponseBody
+	public ModelAndView updateOrderState(OrderVO orderVO) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("seller/ChangeState");
+		
+		mv.addObject("order", orderVO);
+		
+		return mv;
+		
+	}
+	
+	// 주문 상태 제어
+	@RequestMapping(value = "/changeStateComlete")
+	@ResponseBody
+	public ModelAndView changeStateComlete(OrderVO orderVO) {
+		
+		
+		ModelAndView mv = new ModelAndView();
+		
+		if(orderVO.getState().equals("결제 완료")) {
+			orderVO.setTrackingCode("");
+			orderVO.setTrackingNum("");
+			orderVO.setState("배송 준비중");
+		}
+		
+		else if(orderVO.getState().equals("배송 준비중")) {
+			orderVO.setState("배송 중");
+		}
+		
+		orderService.updateOrderState(orderVO);
+		
+		OrderVO returnOrder = orderService.selectOrderByorderNum(orderVO.getOrderNum());
+		
+		mv.setViewName("seller/ChangeState");
+		mv.addObject("order", returnOrder);
+		
+		return mv;
+	}
+ 	
 
 }

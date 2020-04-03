@@ -10,11 +10,11 @@ import vo.BasketListVO;
 import vo.BasketVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
+import vo.OrderListVO;
 import vo.OrderProductVO;
 import vo.OrderVO;
 import vo.ProductVO;
 import vo.SearchVO;
-import vo.SellerVO;
 
 @Service
 public class ProductServiceImpl implements ProductService {
@@ -232,8 +232,8 @@ public class ProductServiceImpl implements ProductService {
 		return productDAO.selectDetailOptionByDoNum(doNum);
 		
 	}
-	public List<OrderProductVO> selectOrderBySellerId(String id) {
-		return productDAO.selectOrderBySellerId(id);
+	public List<OrderProductVO> selectOrderBySellerId(OrderProductVO orderProductVO) {
+		return productDAO.selectOrderBySellerId(orderProductVO);
 	}
 	
 	@Override
@@ -249,5 +249,10 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public int updateProductByCategoryNumZero(int productNum) {
 		return productDAO.updateProductByCategoryNumZero(productNum);
+	}
+	
+	@Override
+	public int selectLatelyProductNum(String id) {
+		return productDAO.selectLatelyProductNum(id);
 	}
 }

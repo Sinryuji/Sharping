@@ -55,6 +55,7 @@ IMP.request_pay({
 <input type="hidden" id="impId" name="impId" value="">
 <input type="hidden" id="productName" name="productName" value="${orderList.productName}">
 <input type="hidden" id="productThumb" name="productThumb" value="${orderList.productThumb}">
+<input type="hidden" id="productPrice" name="productPrice" value="${orderList.productPrice}">
 <input type="hidden" id="optionOneNum" name="optionOneNum" value="${orderList.optionOneNum}">
 <input type="hidden" id="optionTwoNum" name="optionTwoNum" value="${orderList.optionTwoNum}">
 <input type="hidden" id="optionThreeNum" name="optionThreeNum" value="${orderList.optionThreeNum}">
@@ -62,6 +63,9 @@ IMP.request_pay({
 <input type="hidden" id="cnt" name="cnt" value="${orderList.cnt}">
 <input type="hidden" id="optionNum" name="optionNum" value="${orderList.optionNum}">
 <input type="hidden" name="orderListJsonArray" value='${orderListJsonArray}'/>
+<input type="hidden" id="guestName" name="guestName" value="${guest.guestName}">
+<input type="hidden" id="guestPhone" name="guestPhone" value="${guest.guestPhone}">
+<input type="hidden" id="guestPasswrd" name="guestPassword" value="${guest.guestPassword}">
 </form>
 </body>
 </html>

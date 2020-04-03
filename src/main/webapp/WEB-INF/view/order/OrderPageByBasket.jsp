@@ -80,24 +80,12 @@
 					</tr>
 					<input type="hidden" id="payPrice${stats.index}" name="payPrice"
 						value="${totalPrice}">
-					<input type="hidden" id="memberEmail${stats.index}"
-						name="memberEmail" value="${member.email}">
-					<input type="hidden" id="memberName${stats.index}"
-						name="memberName" value="${member.name}">
-					<input type="hidden" id="memberPhone${stats.index}"
-						name="memberPhone" value="${member.phone}">
-					<input type="hidden" id="memberAddress${stats.index}"
-						name="memberAddress"
-						value="${member.address} ${member.addressEtc}">
-					<input type="hidden" id="memberPost${stats.index}"
-						name="memberPost" value="${member.post}">
-					<input type="hidden" id="id${stats.index}" name="id"
-						value="${member.id}">
 					<!--일단 주석 orderList에 들어갈 정보  -->
 					<input type="hidden" id="productName${stats.index}"
 						name="productName" value="${product.productName}">
 					<input type="hidden" id="productThumb${stats.index}"
 						name="productThumb" value="${product.productThumb}">
+					<c:if test="${!empty option}">
 					<input type="hidden" id="optionOneNum${stats.index}"
 						name="optionOneNum" value="${option[status.index].optionOneNum}">
 					<input type="hidden" id="optionTwoNum${stats.index}"
@@ -105,12 +93,13 @@
 					<input type="hidden" id="optionThreeNum${stats.index}"
 						name="optionThreeNum"
 						value="${option[status.index].optionThreeNum}">
+					<input type="hidden" id="optionNum${stats.index}" name="optionNum"
+						value="${option[status.index].optionNum}">
+					</c:if>
 					<input type="hidden" id="productPrice${stats.index}"
 						name="productPrice" value="${product.productPrice}">
 					<input type="hidden" id="cnt${stats.index}" name="cnt"
 						value="${cnt}">
-					<input type="hidden" id="optionNum${stats.index}" name="optionNum"
-						value="${option[status.index].optionNum}">
 				</c:forEach>
 		</table>
 
@@ -133,10 +122,10 @@
 			</tr>
 			<tr>
 				<th>
-					<p id="deliveryInfo">
 						이름<br> 주소<br> 연락처<br> 배송메세지<br>
 				</th>
 				<td>
+				<p id="deliveryInfo">
 					<div class="">
 						<span><input type="text" id="toName" name="toName"
 							value="${member.name}" readonly></span><br>
@@ -163,7 +152,7 @@
 				<td>
 					<div class="main-navigation">
 						<ul>
-							<ins><input type="radio" name="payingSelect" class="payingSelect" id="payBank" checked>무통장 입금
+						<ins><input type="radio" name="payingSelect" class="payingSelect" id="payBank" checked>무통장 입금
 
 							
 							<input type="radio" name="payingSelect"	class="payingSelect" id="payCard">신용카드 결제
@@ -174,6 +163,7 @@
 			</tr>
 			<tr>
 			<th id="payBankInfo">
+			입금 은행 <select name="bankCode"> <option value="none">은행을 선택해 주세요</option> <c:forEach var="bankCode" items="${bankInfo}" varStatus="status"><option value="${bankCode.bankCode}">${bankCode.bankName}</option></c:forEach></select>
 			</th>
 			
 			</tr>
@@ -181,8 +171,20 @@
 		</table>
 		<input type="hidden" name="orderJson" value='${orderJson}' /> <input
 			type="hidden" name="orderListJsonArray" value='${orderListJsonArray}' />
-		<input type="submit" class="button" value="결제하기">
-
+		<input type="button" id="payment" class="button" value="결제하기">
+	<input type="hidden" id="memberEmail${stats.index}"
+						name="memberEmail" value="${member.email}">
+					<input type="hidden" id="memberName${stats.index}"
+						name="memberName" value="${member.name}">
+					<input type="hidden" id="memberPhone${stats.index}"
+						name="memberPhone" value="${member.phone}">
+					<input type="hidden" id="memberAddress${stats.index}"
+						name="memberAddress"
+						value="${member.address} ${member.addressEtc}">
+					<input type="hidden" id="memberPost${stats.index}"
+						name="memberPost" value="${member.post}">
+					<input type="hidden" id="id${stats.index}" name="id"
+						value="${member.id}">
 	</form>
 	<script>
 
@@ -196,6 +198,24 @@
 
 var defaultInfo;
 var newInfo;
+
+$(document).on("click", "#payment", function(){
+	if($("select[name=bankCode]").val() == "none") {
+		alert("입금 할 은행을 선택 해 주세요!")
+	}
+	else if($('#toName').val() == '' ) {
+		alert("받으실 분의 이름을 입력 해 주세요!")
+	}
+	else if($('#toPost').val() == '') {
+		alert("주소를 선택해 주십시오!")
+	}
+	else if($('#toPhone').val() == '') {
+		alert("받으실 분의 연락처를 입력 해 주세요!")
+	}
+	else {
+		$('#orderForm').submit();
+	}
+
 $('input[name=deliveryCheck]').click(function(){
 	if($('#default').is(':checked') == true) {
 		defaultInfo = $('#deliveryInfo').html();

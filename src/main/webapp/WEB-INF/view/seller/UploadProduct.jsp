@@ -250,7 +250,7 @@
 	<div id="mm">
 		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
 	</div>
-	<form action="uploadCompleteProduct" method="post" enctype="multipart/form-data">
+	<form action="uploadCompleteProduct" method="post" enctype="multipart/form-data" id="uploadCompleteProduct">
 	   <table>
 	      <colgroup>
 	         <col style="width:20%;" />
@@ -270,7 +270,7 @@
 	        <tr>
 				<td class="td1">카테고리</td>
 				<td class="td2"><input type="text" id="categoryNameView">
-				<input type="hidden" name="categoryNum"></td>
+				<input type="text" name="categoryNum"></td>
 	        </tr>
 	        <tr>
 				<td class="td1">상품명</td>
@@ -360,10 +360,36 @@
 	      </tbody>
 	   </table>
 	   <div align="center">
-	      <br><br><input type="submit" class="btn" value="저장"><br><br><br>
+	      <br><br><input type="button" id="save" class="btn" value="저장"><br><br><br>
 	   </div>
    </form>
    <script>
+   
+   $(document).on("click", "#save", function(){
+		if($("#categoryNameView").val() == "") {
+			alert("상품을 등록할 카테고리를 선택해 주세요!")
+		}
+		else if($('input[name=productName]').val() == '' ) {
+			alert("상품명을 입력해주세요!")
+		}
+		else if($('input[name=stock]').val() == '') {
+			alert("상품 수량을 입력해주세요!")
+		}
+		else if($('input[name=productPrice]').val() == '') {
+			alert("상품 가격을 입력해주세요!")
+		}
+		else if($('input[name=productImage]').val() == '') {
+			alert("상품 이미지를 등록해주세요!")
+		}
+		else if($('input[name=productThumb]').val() == '') {
+			alert("상품 썸네일 이미지를 등록해주세요!")
+		}
+		else if($('input[name=productText]').val() == '') {
+			alert("상품 설명을 입력해주세요!")
+		}
+		else {
+			$('#uploadCompleteProduct').submit();
+		}})
    
    $("#img").change(function(){
 	   if(this.files && this.files[0]) {
