@@ -5,7 +5,14 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width" initial-scale="1">
+
 <title>MemberManage</title>
+
+<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+
+<link rel="stylesheet"
+	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
 
 <link rel='stylesheet'
 	href='${pageContext.request.contextPath}/resources/css/woocommerce-layout.css'
@@ -20,7 +27,7 @@
 	href='${pageContext.request.contextPath}/resources/css/font-awesome.min.css'
 	type='text/css' media='all' />
 <link rel='stylesheet'
-	href='${pageContext.request.contextPath}/resources/css/style.css'
+	href='${pageContext.request.contextPath}/resources/css/styleSB.css'
 	type='text/css' media='all' />
 <link rel='stylesheet'
 	href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700'
@@ -29,14 +36,38 @@
 	href='${pageContext.request.contextPath}/resources/css/easy-responsive-shortcodes.css'
 	type='text/css' media='all' />
 
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script type="text/javascript">
+	function registerAdmin() {
+		// window.name = "부모창 이름";            
+		window.name = "AdminPage";
+
+		// window.open("자식창 이름", "불러올 자식 창의 닉네임", "팝업창 옵션");
+		window
+				.open("registerAdmin", "새관리자등록",
+						"width = 500, height = 320, resizable = no, scrollbars = no, status = no");
+	}
+</script>
+
 
 <style>
 
- body {
+html {
+	height: 100%;
+}
+
+body {
+	background-image: url('${pageContext.request.contextPath}/resources/images/신세경1.jpg');
+	background-size: cover;
 	font-family: '맑은 고딕', verdana;
 	padding: 0;
 	margin: 0;
+	height: 100%;
+}
+
+.wrap {
+	min-height: 100%;
+	position: relative;
+	padding-bottom: 190px; /* footer height */
 }
 
 ul {
@@ -51,32 +82,23 @@ div#root {
 	margin: 0 auto;
 }
 
-header#header {
-	font-size: 60px;
-	padding: 20px 0;
-	text-shadow: black 0.2em 0.2em 0.2em;
-	color: white;
+.navbar-nav {
+    width: 100%;
+    text-align: center;
 }
 
-header#header h1 a {
-	color: #000;
-	font-weight: bold;
+.navbar-nav > li {
+    float: none;
+    display: inline-block;
 }
 
-nav#nav {
-	padding: 10px;
-	text-align: right;
-}
-
-nav#nav ul li a {
-	display: inline-block;
-	margin-bottom: 10px;
-}
+.navbar-nav > li.navbar-right {
+    float: right !important;
+} 
 
 section#container {
 	padding: 20px 0;
 	border-top: 2px solid #eee;
-	border-bottom: 2px solid #eee;
 }
 
 section#container::after {
@@ -101,11 +123,12 @@ aside ul li {
 }
 
 footer#footer {
-	background: #999999; /* f9f9f9 */
-	position: relative;
+	background: #e7e7e7;
+	position: absolute;
 	left: 0;
+	right: 0;
 	bottom: 0;
-	width: 100%;
+	height:190px;
 	padding: 7px 0;
 	text-align: center;
 }
@@ -113,11 +136,14 @@ footer#footer {
 footer#footer div {
 	display: inline-block;
 	margin-right: 10px;
-}     
+}
+
+.big_tab {
+	height: 50px;
+}
 
 .big_tab ul {
-	overflow: auto;
-	margin-left: 300px;
+	margin: auto;
 	width: 100%;
 }
 
@@ -129,6 +155,7 @@ footer#footer div {
 	border: 1px solid #ccc;
 	text-align: center;
 	line-height: 40px;
+	margin-right: 10px;
 }
 
 .big_tab ul li.activeClass {
@@ -137,8 +164,7 @@ footer#footer div {
 }
 
 .tab-contents form {
-	width: 600px;
-	float: right;
+	float: left;
 	padding-top: 10px;
 	padding-bottom: 10px;
 }
@@ -151,160 +177,180 @@ footer#footer div {
 		display: none;
 	}
 }
+	
+	input#btnSearch {
+	    width: 90px;
+	    height: 30px;
+	    font-family: 'Roboto', sans-serif;
+	    font-size: 14px;
+	    text-transform: uppercase;
+	    letter-spacing: 2.5px;
+	    font-weight: 500;
+	    color: white;
+	    background-color: #6B66FF;
+	    border: none;
+	    border-radius: 35px;
+	    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	    transition: all 0.3s ease 0s;
+	    cursor: pointer;
+	    outline: none;
+	    opacity: 0.8;
+	}
+	
+	input#btnSearch:hover {
+        background-color: #FFB2F5;
+        box-shadow: 0px 15px 20px hotpink;
+        color: #fff;
+        transform: translateY(-7px);
+	}
+
+
 </style>
 </head>
 <body>
 
-	<header id="header">
-		<div id="beaderBox">
-			<%@ include file="../include/AdminHeader.jsp"%>
-		</div>
-	</header>
-
-	<nav id="nav">
+<div class="wrap">
+	<nav class="navbar navbar-default">
 		<div id="navBox">
 			<%@ include file="../include/AdminNav.jsp"%>
 		</div>
 	</nav>
 
 	<article>
-	<section id="container">
-		<aside>
-			<%@ include file="../include/AdminAside.jsp"%>
-		</aside>
-		<div id="containerBox"><h4>회원 관리</h4>
-		
-	<div class="tabmenu" >
-		<div class="big_tab">
-			<ul>
-				<li><a id="t1" href="#tab01">구매회원</a></li>
-				<li><a id="t2" href="#tab02">판매회원</a></li>
-			</ul>
-		</div>
-	</div>
-	
-	<div id="tab01" class="tab-contents">
-		<form action="memberList">
-			<input type="text" name="keywordM" placeholder="키워드를 입력하세요." value="${keywordM}" />
-			<input type="submit" value="검색">
-		</form>
+		<section id="container">
+			<aside>
+				<%@ include file="../include/AdminAside.jsp"%>
+			</aside>
 
-		<div class="container">
-			<div class="tableInfo">
-				<table class="infoMember">
-					<thead>
-						<tr>
-							<th>아이디</th>
-							<th>이메일주소</th>
-							<th>가입날짜</th>
-							<th>회원등급</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:choose>
-							<c:when test="${empty memberList }">
-								<tr>
-									<td colspan="5" align="center"><b>검색결과가 없습니다.</b></td>
-								</tr>
-							</c:when>
-							<c:when test="${!empty memberList}">
-								<c:forEach var="list" items="${memberList}">
-									<tr>									
-										<td><a href="javascript:void(0);" onClick="javascript:infoDetailView('<c:out value="${list.id}"/>')"   >
-										<c:out value="${list.id}" />
-										</a></td>
-										
-										<td><a href="javascript:void(0);" onClick="javascript:infoDetailView('<c:out value="${list.id}"/>')"> 
-										 <c:out value="${list.email}" />
-										</a></td>
-										<td><c:out value="${list.regDate}" /></td>
-										<td><c:if test="${list.memberGrade == 1}">
-												<c:out value="일반회원" />
-											</c:if> <c:if test="${list.memberGrade == 2}">
-												<c:out value="보통회원" />
-											</c:if> <c:if test="${list.memberGrade == 3}">
-												<c:out value="VIP회원" />
-											</c:if></td>
-									</tr>
-								</c:forEach>
-							</c:when>
-						</c:choose>
-					</tbody>
-				</table>
+			<div id="containerBox">
+				<h4>회원 관리</h4>
 			</div>
-		</div>
-	</div>
-	<div id="tab02" class="tab-contents">
 
-		<form action="sellerList">
-			<input type="text" name="keywordM" placeholder="키워드를 입력하세요." value="${keywordM}" /> 
-			<input type="submit" value="검색">
-		</form>
+			<div class="tabmenu">
+				<div class="big_tab">
+					<ul>
+						<li><a id="t1" href="#tab01">구매회원</a></li>
+						<li><a id="t2" href="#tab02">판매회원</a></li>
+					</ul>
+				</div>
 
-		<div class="container">
-			<div class="table-responsive">
-				<table class="table table-striped table-sm">
-					<colgroup>
-						<col style="width: 5%;" />
-						<col style="width: auto;" />
-						<col style="width: 15%;" />
-						<col style="width: 10%;" />
-						<col style="width: 10%;" />
-					</colgroup>
-					<thead>
-						<tr>
-							<th>아이디</th>
-							<th>이메일주소</th>
-							<th>가입날짜</th>
-							<th>회원등급</th>
-						</tr>
-					</thead>
-					<tbody>
-						<c:choose>
-							<c:when test="${empty sellerList }">
+				<div id="tab01" class="tab-contents">
+					<form action="memberList">
+						<input type="text" name="keywordM" placeholder="키워드를 입력하세요."
+							value="${keywordM}" /> <input type="submit" id="btnSearch" value="검색">
+					</form>
+
+					<div class="tableInfo">
+						<table class="infoMember">
+							<thead>
 								<tr>
-									<td colspan="5" align="center"><b>검색결과가 없습니다.</b></td>
+									<th>아이디</th>
+									<th>이메일주소</th>
+									<th>가입날짜</th>
+									<th>회원등급</th>
 								</tr>
-							</c:when>
-							<c:when test="${!empty sellerList}">
-								<c:forEach var="list" items="${sellerList}">
-									<tr>
-										<td><a href="javascript:void(0);" onClick="javascript:infoDetailView('<c:out value="${list.id}"/>')"> 
-											<c:out value="${list.id}" />
-										</a></td>
-										<td><a href="javascript:void(0);" onClick="javascript:infoDetailView('<c:out value="${list.id}"/>')"> 
-										 <c:out value="${list.email}" />
-										</a></td>
-										<td><c:out value="${list.regDate}" /></td>
-										<td><c:if test="${list.sellerGrade == 1}">
-												<c:out value="일반회원" />
-											</c:if> <c:if test="${list.sellerGrade == 2}">
-												<c:out value="보통회원" />
-											</c:if> <c:if test="${list.sellerGrade == 3}">
-												<c:out value="VIP회원" />
-											</c:if></td>
-									</tr>
-								</c:forEach>
-							</c:when>
-						</c:choose>
-					</tbody>
-				</table>
+							</thead>
+							<tbody>
+								<c:choose>
+									<c:when test="${empty memberList }">
+										<tr>
+											<td colspan="5" align="center"><b>검색결과가 없습니다.</b></td>
+										</tr>
+									</c:when>
+									<c:when test="${!empty memberList}">
+										<c:forEach var="list" items="${memberList}">
+											<tr>
+												<td><a href="javascript:void(0);"
+													onClick="javascript:infoDetailView('<c:out value="${list.id}"/>')">
+														<c:out value="${list.id}" />
+												</a></td>
+
+												<td><a href="javascript:void(0);"
+													onClick="javascript:infoDetailView('<c:out value="${list.id}"/>')">
+														<c:out value="${list.email}" />
+												</a></td>
+												<td><c:out value="${list.regDate}" /></td>
+												<td><c:if test="${list.memberGrade == 1}">
+														<c:out value="일반회원" />
+													</c:if> <c:if test="${list.memberGrade == 2}">
+														<c:out value="보통회원" />
+													</c:if> <c:if test="${list.memberGrade == 3}">
+														<c:out value="VIP회원" />
+													</c:if></td>
+											</tr>
+										</c:forEach>
+									</c:when>
+								</c:choose>
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div id="tab02" class="tab-contents">
+					<form action="sellerList">
+						<input type="text" name="keywordM" placeholder="키워드를 입력하세요."
+							value="${keywordM}" /> <input type="submit" id="btnSearch" value="검색">
+					</form>
+
+					<div class="tableInfo">
+						<table class="infoSeller">
+							<thead>
+								<tr>
+									<th>아이디</th>
+									<th>이메일주소</th>
+									<th>가입날짜</th>
+									<th>회원등급</th>
+								</tr>
+							</thead>
+							<tbody>
+								<c:choose>
+									<c:when test="${empty sellerList }">
+										<tr>
+											<td colspan="5" align="center"><b>검색결과가 없습니다.</b></td>
+										</tr>
+									</c:when>
+									<c:when test="${!empty sellerList}">
+										<c:forEach var="list" items="${sellerList}">
+											<tr>
+												<td><a href="javascript:void(0);"
+													onClick="javascript:infoDetailView('<c:out value="${list.id}"/>')">
+														<c:out value="${list.id}" />
+												</a></td>
+												<td><a href="javascript:void(0);"
+													onClick="javascript:infoDetailView('<c:out value="${list.id}"/>')">
+														<c:out value="${list.email}" />
+												</a></td>
+												<td><c:out value="${list.regDate}" /></td>
+												<td><c:if test="${list.sellerGrade == 1}">
+														<c:out value="일반회원" />
+													</c:if> <c:if test="${list.sellerGrade == 2}">
+														<c:out value="보통회원" />
+													</c:if> <c:if test="${list.sellerGrade == 3}">
+														<c:out value="VIP회원" />
+													</c:if></td>
+											</tr>
+										</c:forEach>
+									</c:when>
+								</c:choose>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
 			</div>
-		</div>
-	</div>
-	</div>
-	</section>
+		</section>
 	</article>
 
 	<footer id="footer">
 		<div id=footerBox>
-			<%@ include file="../include/AdminFooter.jsp"%>
+			<%@ include file="../include/Footer.jsp"%>
 		</div>
 	</footer>
 
 
-	
 
+
+</div>
 
 	<script>
 		$('.big_tab li').first().addClass("activeClass");
@@ -322,7 +368,7 @@ footer#footer div {
 					$(".tab-contents").hide();
 					$(link).show();
 				});
-
+		
 		$("select#tabmenu").on(
 				"change",
 				function() {
@@ -333,41 +379,53 @@ footer#footer div {
 					$(".tab-contents").hide();
 					$(select_link).show();
 					console.log(select_link);
-				});
+		});
+
 		
-		$( document ).ready(function(){
-			var url = $(location).attr('href');
-			if(url.match("sellerList")) {
-				url += "#tab02";
-				$("#t2").trigger("click");
-			}
-		})
 		
- 		function infoDetailView(id){   
-		            window.name = "MemberManage";   
-		        var popup = window.open("infoDetail" + "?id=" + id , "회원상세정보",
-		                    "width = 450, height = 320, resizable = no, scrollbars = no, status = no");
-		        
-		    	var timer = setInterval(function(){
-		        if(popup.closed) {
+		function infoDetailView(id) {
+			window.name = "MemberManage";
+			var popup = window
+					.open("infoDetail" + "?id=" + id, "회원상세정보",
+							"width = 450, height = 320, resizable = no, scrollbars = no, status = no");
+
+			var timer = setInterval(function() {
+				if (popup.closed) {
 					clearInterval(timer);
 					window.location.reload();
-					
-			
-		        } 
-		    },300)
+
+				}
+			}, 300)
 		}
-		
-    	var url = $(location).attr('href');
-		if(url.match("#tab02")) {
+
+		var url = $(location).attr('href');
+		if (url.match("#tab02")) {
 			$("#t2").trigger("click");
 		}
-
-
+		
+		$(document).ready( function() {
+			var url = $(location).attr('href');
+			if (url.match("sellerList")) {
+				url += "#tab02";
+				console.log($("#t2").val());
+				$("#t2").trigger("click");
+				console.log("이동");
+			}
+		});
 		
 	</script>
 
 
 
+<%-- 	<script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script> --%>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/masonry.pkgd.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/plugins.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/asset/js/bootstrap.js"></script>
+	
+	
 </body>
 </html>

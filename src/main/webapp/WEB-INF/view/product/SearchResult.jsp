@@ -10,136 +10,243 @@
 <meta name="viewport" content="width=device-width" initial-scale="1">
 <!-- jquery -->
 <script src="//code.jquery.com/jquery.min.js"></script>
- 
+<link rel="stylesheet"
+	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
+
 <title>SearchResult</title>
 
-<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/woocommerce-layout.css' type='text/css' media='all'/>
-<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/woocommerce-smallscreen.css' type='text/css' media='only screen and (max-width: 768px)'/>
-<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/woocommerce.css' type='text/css' media='all'/>
-<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font-awesome.min.css' type='text/css' media='all'/>
-<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/style.css' type='text/css' media='all'/>
-<link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700' type='text/css' media='all'/>
-<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/easy-responsive-shortcodes.css' type='text/css' media='all'/>
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/woocommerce-layout.css'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/woocommerce-smallscreen.css'
+	type='text/css' media='only screen and (max-width: 768px)' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/woocommerce.css'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/font-awesome.min.css'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/styleSB.css'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/easy-responsive-shortcodes.css'
+	type='text/css' media='all' />
+
 <style>
+html {
+	height: 100%;
+}
 
 body {
-/* 	background-image: url('https://image-cdn.hypb.st/https%3A%2F%2Fkr.hypebeast.com%2Ffiles%2F2019%2F07%2Fpeaceminusone-nike-air-force-1.jpg?quality=95&w=1170&cbr=1&q=90&fit=max');
-	opacity: 0.5; */
-	background-size: cover;
+/*    	background-image:url('https://paulhueman.co.kr:443/bbs/data/file/banner/2009714319_4Qzoxjug_20544c1b6b40a4acc5de0a9c3bde79bbdb7d68db.jpg');
+ */ 	background-size: cover;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+	font-family: '맑은 고딕', verdana;
 }
 
-
-.jumbotron {
-	background-color: transparent;
-	background-size: cover;
-	text-shadow: black 0.2em 0.2em 0.2em;
-	color: white;
+.wrap {
+	min-height: 100%;
+	position: relative;
+	padding-bottom: 190px; /* footer height */
 }
 
+.navbar-nav {
+	width: 100%;
+	text-align: center;
+}
+
+.navbar-nav>li {
+	float: none;
+	display: inline-block;
+}
+
+.navbar-nav>li.navbar-right {
+	float: right !important;
+}
+
+section#container {
+	padding: 20px 0;
+	border-top: 2px solid #eee;
+}
+
+section#container::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+#containerBox {
+	margin-left: 300px;
+	width: 500px;
+	margin-bottom: 10px;
+	border:3px solid #ccc;
+	border-radius:50px;
+	color:#666;
+	text-align: center;
+	padding: 10px;
+}
 
 aside {
-	border: 0;
+	float: left;
 	margin: 0 0 0 30px;
 	width: 230px;
-	float: left;
+	border:3px solid #ccc;
+	border-radius:50px;
+	color:#666;
+	text-align: center;
+	padding: 10px;
+	position: fixed;
+}
+
+select {
+	border:1px solid #ccc;
+	border-radius:50px;
+	color:#666;
+	text-align: center;
+	padding: 6px;
+}
+
+aside h3 {
+	text-align: center;
+	margin-bottom: 20px;
 }
 
 .s100 {
-
 	margin-bottom: 10px;
 }
 
-section {
-	margin: 0 0 0 0;
+.containerTable {
+	width:100%;
 }
+
+footer#footer {
+	background: #e7e7e7;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height:190px;
+	padding: 7px 0;
+	text-align: center;
+}
+
+footer#footer div {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+#btnMainSer, #btnSearch {
+    width: 90px;
+    height: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: white;
+    background-color: #6B66FF;
+    border: none;
+    border-radius: 35px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    opacity: 0.8;
+}
+
+#btnMainSer:hover, #btnSearch:hover {
+     background-color: #FFB2F5;
+     box-shadow: 0px 15px 20px hotpink;
+     color: #fff;
+     transform: translateY(-7px);
+}
+
 </style>
 </head>
+
 <body>
 
+	<div class="wrap">
 
-	<div class="container">
-		<div class="jumbotron">
-			<h1 class="text-center">
-				<a href="<c:url value='/main'/>"> #ing </a>
-			</h1>
-		</div>
-	</div>
+		<nav class="navbar navbar-default">
+			<div id="navBox">
+				<%@ include file="../include/Nav.jsp"%>
+			</div>
+		</nav>
 
-	<div class="container">
-		<form class="search" action="productList">
-			<h4>
-				메인검색 <input type="text" name="keyword" placeholder="키워드를 입력하세요."
-					value="${keyword}" /> <input type="submit" value="검색">
-			</h4>
-		</form>
-	</div>
-
-
-
-		<aside class="filter">
-					<h3>카테고리필터</h3>
-					<div class="s100">
-						<select class="form-sortType" name="sortType" id="sortType">
-							<option value="productDate"
-								${param.sortType == "productDate" ? "selected" : "" }>신규등록순</option>
-							<option value="highPrice"
-								${param.sortType == "highPrice" ? "selected" : "" }>높은가격순</option>
-							<option value="lowPrice"
-								${param.sortType == "lowPrice" ? "selected" : "" }>낮은가격순</option>
-						</select>
-					</div>
-					
-					<div class="s100">
-						<input type="checkbox" id="checkDelivery" name="checkDelivery"
-							value="" ${param.checkDelivery == "on" ? "checked" : ""}>무료배송
-					</div>
-
-					<div class="s100">
-						<input type="text" class="form-price" name="minPrice"
-							id="minPrice" placeholder="최소금액" value="${minPrice}">
-							<div style="width:200px;">
-								<p class="text-center">~</p>
-							</div>
-						<input type="text" class="form-price" name="maxPrice"
-							id="maxPrice" placeholder="최대금액" value="${maxPrice}">
-					</div>
-
-					<div class="s100">
-						<select class="form-searchType" name="searchType" id="searchType">
-							<option value="productNum"
-								${param.searchType == "productNum" ? "selected" : "" }>상품번호</option>
-							<option value="productName"
-								${param.searchType == "productName" ? "selected" : "" }>상품명</option>
-							<option value="id" ${param.searchType == "id" ? "selected" : "" }>판매자</option>
-						</select>
-					</div>
-
-					<div class="s100">
-						<input type="text" class="form-search" name="keyword2"
-							id="keyword2" placeholder="키워드를 입력하세요." value="${keyword2}">
-						<input type="hidden" class="form-search" name="keyword"
-							id="keyword" value="${keyword}">
-					</div>
-					
-					<div>
-						<button class="btn btn-sm btn-primary" type="button"
-							id="btnSearch">검색</button>
-					</div>
-
-		</aside>
+		<section id="container">
 		
-		<section>
-			<article>
-				<div class="container">
-					<div class="table-responsive">
-						<table class="table table-striped table-sm">
-							<colgroup>
-								<col style="width: 5%;" />
-								<col style="width: auto;" />
-								<col style="width: 15%;" />
-								<col style="width: 10%;" />
-								<col style="width: 10%;" />
-							</colgroup>
+			<aside>
+				<h3>카테고리필터</h3>
+				<div class="s100">
+					<select class="form-sortType" name="sortType" id="sortType">
+						<option value="productDate"
+							${param.sortType == "productDate" ? "selected" : "" }>신규등록순</option>
+						<option value="highPrice"
+							${param.sortType == "highPrice" ? "selected" : "" }>높은가격순</option>
+						<option value="lowPrice"
+							${param.sortType == "lowPrice" ? "selected" : "" }>낮은가격순</option>
+					</select>
+				</div>
+
+				<div class="s100">
+					<input type="checkbox" id="checkDelivery" name="checkDelivery"
+						value="" ${param.checkDelivery == "on" ? "checked" : ""}>무료배송
+				</div>
+
+				<div class="s100">
+					<input type="text" name="minPrice" id="minPrice"
+						placeholder="최소금액" value="${minPrice}">
+					<div style="width: 200px;">
+						<p class="text-center">~</p>
+					</div>
+					<input type="text" name="maxPrice" id="maxPrice"
+						placeholder="최대금액" value="${maxPrice}">
+				</div>
+
+				<div class="s100">
+					<select class="form-searchType" name="searchType" id="searchType">
+						<option value="productNum"
+							${param.searchType == "productNum" ? "selected" : "" }>상품번호</option>
+						<option value="productName"
+							${param.searchType == "productName" ? "selected" : "" }>상품명</option>
+						<option value="id" ${param.searchType == "id" ? "selected" : "" }>판매자</option>
+					</select>
+				</div>
+
+				<div class="s100">
+					<input type="text" name="keyword2"
+						id="keyword2" placeholder="키워드를 입력하세요." value="${keyword2}">
+					<input type="hidden" class="form-search" name="keyword"
+						id="keyword" value="${keyword}">
+				</div>
+
+				<div>
+					<button class="btnSearch" type="button" id="btnSearch">검색</button>
+				</div>
+			</aside>
+			
+			<div id="containerBox">
+				<form action="productList">
+					<h4>
+						메인검색 <input type="text" name="keyword" placeholder="키워드를 입력하세요."
+							value="${keyword}" /> <input type="submit" id="btnMainSer"
+							value="검색">
+					</h4>
+				</form>
+			</div>
+			
+
+				<div class="containerTable">
+					<div class="table">
+						<table class="listSearch">
 							<thead>
 								<tr>
 									<th>상품번호</th>
@@ -162,8 +269,7 @@ section {
 											<tr>
 												<td><c:out value="${list.productNum}" /></td>
 												<td><c:out value="${list.productThumb}" /></td>
-												<td><a href="#"
-													onClick="productView(<c:out value="${list.productNum}"/>)">
+												<td><a href="#" onClick="productView(<c:out value="${list.productNum}"/>)">
 														<c:out value="${list.productName}" />
 												</a></td>
 												<td><c:out value="${list.productPrice}" /></td>
@@ -181,8 +287,18 @@ section {
 						</table>
 					</div>
 				</div>
-			</article>
 		</section>
+
+
+
+		<footer id="footer">
+			<div id=footerBox>
+				<%@ include file="../include/Footer.jsp"%>
+			</div>
+		</footer>
+
+
+	</div>
 
 	<script>
 	
@@ -211,5 +327,12 @@ function productView(productNum){
  
 </script>
 
+	<script
+		src="${pageContext.request.contextPath}/resources/js/masonry.pkgd.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/plugins.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/asset/js/bootstrap.js"></script>
 </body>
 </html>

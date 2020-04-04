@@ -30,7 +30,8 @@ https://t1.daumcdn.net/cfile/tistory/9949D53359EE5E4C37
 https://t1.daumcdn.net/cfile/tistory/991781435CBD4B8F1E
 https://postfiles.pstatic.net/MjAxODA2MDlfMTI2/MDAxNTI4NTI0NjA5MDA3.fyZB4lcA_K26ZwS66yz0dMlQc0uwb4u0zFu4e14b78sg.Fd_4kRAsC3F6GEtewr4PvWSG79GzH9nUk-kpxfDiCSMg.JPEG.amykims/29.jpg?type=w966
 https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-602838.jpg!d
-
+https://t1.daumcdn.net/cfile/tistory/994E094C5B6CFE3C19
+https://t1.daumcdn.net/cfile/tistory/1574BE2F4C67FF6E69
  */
 	body{
    	  	background-image:url('https://images.pexels.com/photos/1470589/pexels-photo-1470589.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
@@ -218,10 +219,6 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 	</div>
 	
 	</div>
-<script>
-	$('#selectProduct').click(function(){
-		window.location.href='<%=request.getContextPath()%>/selectGuest';
-		});
-</script>
+
 </body>
 </html>

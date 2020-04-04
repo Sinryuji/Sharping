@@ -4,46 +4,238 @@
 <!DOCTYPE html>
 <html>
 <head>
+
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width" initial-scale="1">
+<title>CategoryManage</title>
+
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
+
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
+
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/woocommerce-layout.css'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/woocommerce-smallscreen.css'
+	type='text/css' media='only screen and (max-width: 768px)' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/woocommerce.css'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/font-awesome.min.css'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/styleSB.css'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/easy-responsive-shortcodes.css'
+	type='text/css' media='all' />
+
+<script type="text/javascript">
+	function registerAdmin() {
+		// window.name = "부모창 이름";            
+		window.name = "AdminPage";
+
+		// window.open("자식창 이름", "불러올 자식 창의 닉네임", "팝업창 옵션");
+		window
+				.open("registerAdmin", "새관리자등록",
+						"width = 500, height = 320, resizable = no, scrollbars = no, status = no");
+	}
+</script>
+
 <style>
-#mm {
-	text-align: center;
+
+html {
+	height: 100%;
+}
+
+body {
+
+	background-image: url('${pageContext.request.contextPath}/resources/images/신세경1.jpg');	
+	background-size: cover;
+	font-family: '맑은 고딕', verdana;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
+
+.wrap {
+	min-height: 100%;
+	position: relative;
+	padding-bottom: 190px; /* footer height */
+}
+
+ul {
+	padding: 0;
+	margin: 0;
+	list-style: none;
+	 
+}
+
+div#root {
+	width: 90%;
 	margin: 0 auto;
+}
+
+.navbar-nav {
+    width: 100%;
+    text-align: center;
+}
+
+.navbar-nav > li {
+    float: none;
+    display: inline-block;
+}
+
+.navbar-nav > li.navbar-right {
+    float: right !important;
+} 
+
+section#container {
+	padding: 20px 0;
+	border-top: 2px solid #eee;
+}
+
+section#container::after {
+	content: "";
+	display: block;
+	clear: both;
+}
+
+div#containerBox {
+	text-align:left;
+	float: right;
+	width: calc(100% - 200px - 20px);
+}
+
+.s1, .s2 {
+	border-right: 2px solid black; 
+	float: left; 
+	width: 25%; 
+	height: auto;
+	text-align: center;
+}
+
+.s3{
+	 float: left;
+	 width: 25%;
+	 height: auto;
+	 text-align: center;
+}
+
+#DepthOneSpace h4, #DepthTwoSpace h4, #DepthThreeSpace h4, #DepthOneNameStr {
+	text-align: center;
+}
+
+
+aside {
+	float: left;
+	width: 200px;
+}
+
+aside ul li {
+	text-align: center;
+	margin-bottom: 10px;
+}
+
+footer#footer {
+	background: #e7e7e7;
+	position: absolute;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	height:190px;
+	padding: 7px 0;
+	text-align: center;
+}
+
+footer#footer div {
+	display: inline-block;
+	margin-right: 10px;
+}
+
+#btnCate, #updateCategoryComplete, #updateCategoryCancle,
+.updateCategory, .deleteCategory, .depthTwoPlus, .depthThreePlus,
+.insertDepthOne, .insertDepthTwo, .insertDepthThree {
+    width: 90px;
+    height: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 14px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: white;
+    background-color: #6B66FF;
+    border: none;
+    border-radius: 35px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    opacity: 0.8;
+}
+
+#btnCate:hover {
+    background-color: #FFB2F5;
+    box-shadow: 0px 15px 20px hotpink;
+    color: #fff;
+    transform: translateY(-7px);
 }
 </style>
 
-<meta charset="UTF-8">
-<title>CategoryManage</title>
-<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 </head>
 <body>
-	<div id="mm">
-		<h1><a href="<c:url value='/admin'/>">
-			관리자메인
-		</a></h1>
-	</div>
 
+	<div class="wrap">
+		<nav class="navbar navbar-default">
+			<div id="navBox">
+				<%@ include file="../include/AdminNav.jsp"%>
+			</div>
+		</nav>
 
-	<div
-		style="border-right: 2px solid black; float: left; width: 33%; height: 400px; text-align: center">
-		대분류<br>
-		<br>
-		<div id="DepthOneSpace">
-			<c:forEach var="category" items="${cetegorys}" varStatus="status">
-				<div id="categoryName${category.categoryNum}"><h4><a href="#" class="depthOne" data-type="${category.categoryNum}">${category.categoryName}</a></h4></div>
-			</c:forEach>
-			<button type="button" class="depthOnePlus">추가</button>
-		</div>
-	</div>
-	<div
-		style="border-right: 2px solid black; float: left; width: 33%; height: 400px; text-align: center">
-		중분류<br>
-		<br>
-		<div id="DepthTwoSpace"></div>
-	</div>
-	<div style="float: left; width: 33%; height: 400px; text-align: center">
-		소분류<br>
-		<br>
-		<div id="DepthThreeSpace"></div>
+		<section id="container">
+			<aside>
+				<%@ include file="../include/AdminAside.jsp"%>
+			</aside>
+			<div id="containerBox"><h4>카테고리 관리</h4></div>
+
+			<div class="s1">
+				대분류<br> <br>
+				<div id="DepthOneSpace">
+					<c:forEach var="category" items="${cetegorys}" varStatus="status">
+						<div id="categoryName${category.categoryNum}">
+							<h4>
+								<a href="#" class="depthOne" data-type="${category.categoryNum}">${category.categoryName}</a>
+							</h4>
+						</div>
+					</c:forEach>
+					<button type="button" class="depthOnePlus" id="btnCate">추가</button>
+				</div>
+			</div>
+			
+			<div class="s2">
+				중분류<br> <br>
+				<div id="DepthTwoSpace"></div>
+			</div>
+			
+			<div class="s3">
+				소분류<br> <br>
+				<div id="DepthThreeSpace"></div>
+			</div>
+
+		</section>
+
+		<footer id="footer">
+			<div id=footerBox>
+				<%@ include file="../include/Footer.jsp"%>
+			</div>
+		</footer>
+
 	</div>
 
 	<script>
@@ -72,7 +264,7 @@
 	// 대분류 카테고리명 클릭하는 경우
 	
 	
-	$('.depthOne').on("click", function(){
+	$(document).on("click", '.depthOne', function(){
 		
 		var currentCategoryNum = $(this).attr("data-type");
 		
@@ -130,7 +322,7 @@
 					
 					
 					
-					htmls += '<button type="button" class="depthTwoPlus">추가</button>';
+					htmls += '<button type="button" class="depthTwoPlus" >추가</button>';
 					
 					$("#DepthTwoSpace").html(htmls);
 					
@@ -296,7 +488,7 @@
 	$(document).on("click", ".depthOnePlus", function(){
 
 		if(count1 == 0) {
-		$('#DepthOneSpace').append('<div id="DepthOneNameStr"><br><input type="text" id="DepthOneName" />&nbsp;<button type="button" class="insertDepthOne">저장</button></div>');
+		$('#DepthOneSpace').append('<div id="DepthOneNameStr"><br><input type="text" id="DepthOneName" />&nbsp;<button type="button" class="insertDepthOne" >저장</button></div>');
 		count1++;
 		
 		}
@@ -314,7 +506,7 @@
 		
 		if(count2 == 0) {
 		
-		$('#DepthTwoSpace').append('<div id="DepthTwoNameStr"><br><input type="text" id="DepthTwoName" />&nbsp;<button type="button" class="insertDepthTwo" value="">저장</button></div>');
+		$('#DepthTwoSpace').append('<div id="DepthTwoNameStr"><br><input type="text" id="DepthTwoName" />&nbsp;<button type="button" class="insertDepthTwo"  value="">저장</button></div>');
 		
 		count2++;
 		}
@@ -332,7 +524,7 @@
 		
 		if(count3 == 0) {
 		
-		$('#DepthThreeSpace').append('<div id="DepthThreeNameStr"><br><input type="text" id="DepthThreeName" />&nbsp;<button type="button" class="insertDepthThree">저장</button></div>');
+		$('#DepthThreeSpace').append('<div id="DepthThreeNameStr"><br><input type="text" id="DepthThreeName" />&nbsp;<button type="button" class="insertDepthThree" >저장</button></div>');
 		
 		count3++;
 		}
@@ -367,6 +559,8 @@
 					$(".depthOnePlus").before(htmls);
 					
 					$(str).trigger("click");
+					
+					count1--;
 				} 
 				
 		});
@@ -397,6 +591,8 @@
 					$(".depthTwoPlus").before(htmls);
 					
 					$(str).trigger("click");
+					
+					count2--;
 	
 				} 
 				
@@ -428,6 +624,8 @@
 					$(".depthThreePlus").before(htmls);
 					
 					$(str).trigger("click");
+					
+					count3--;
 	
 				} 
 				
@@ -472,29 +670,35 @@
 					
 					var classStr = '';
 					
-					if(data.cetegoryDepth == 1) {
+					if(data.categoryDepth == 1) {
 						classStr = 'depthOne';
 					}
 					
-					if(data.cetegoryDepth == 2) {
+					if(data.categoryDepth == 2) {
 						classStr = 'depthTwo';
 					}
 					
-					if(data.cetegoryDepth == 3) {
+					if(data.categoryDepth == 3) {
 						classStr = 'depthThree';
 					}
 					
 			/* 		var categoryHtmlRestore = '<div id="categoryName' + categoryNumTemp  + '">' + categoryHtmlTemp + '</div>'; */
 					var str = '#categoryName' + categoryNumTemp;
+			
+					console.log(classStr + "asdf");
 					
 					$(str).html('');
-					$(str).html('<h4><a href="#" class="' + classStr + '" data-type="' + data.categoryNum + '">' + data.categoryName + '</a></h4>');
+					$(str).html('<div id="categoryName' + data.categoryNum  + '"><h4><a href="#" class="' + classStr + '" data-type="' + data.categoryNum + '">' + data.categoryName + '</a><span class="UpdateDelete">&nbsp;<button type="button" class="updateCategory" value="' + currentCategoryNum + '">수정</button>&nbsp;<button type="button" class="deleteCategory" value="' + currentCategoryNum + '">삭제</button></span></h4></div>');
 					
 					/* $('#DepthThreeNameStr').remove();
 					
 					var htmls = '<h4><a href="#" class="depthThree" data-type="' + data.categoryNum + '">' + data.categoryName + '</a></h4>';
 					
 					$(".depthThreePlus").before(htmls); */
+					
+					count7 = 0;
+					count8 = 0;
+					count9 = 0;
 	
 				} 
 				
@@ -522,43 +726,52 @@
 			
 			$.ajax({
 				url : "<%=request.getContextPath()%>/admin/deleteCategory",
-					type : "post",
-		
-					data : {
-						categoryNum : $(this).val()
-					},
-					
-					success : function(data) {
-						
-						var str = '#categoryName' + data.category.categoryNum;
-						
-						$(str).remove();
-						
-						for(var i = 0 ; i < data.categorys.length ; i++) {
-							
-							var category = data.categorys[i];
-							
-							str = '#categoryName' + category.categoryNum;
-							
-							$(str).remove();
-						}
-						
-		
-					} 
-					
-			});
-			
-		}
-		
-		if(deleteConfirm == false) {
-			
-			alert("카테고리 삭제를 취소 하였습니다!");
-			
-		}
-		
-	})
+											type : "post",
+
+											data : {
+												categoryNum : $(this).val()
+											},
+
+											success : function(data) {
+
+												var str = '#categoryName'
+														+ data.category.categoryNum;
+
+												$(str).remove();
+
+												for (var i = 0; i < data.categorys.length; i++) {
+
+													var category = data.categorys[i];
+
+													str = '#categoryName'
+															+ category.categoryNum;
+
+													$(str).remove();
+												}
+
+											}
+
+										});
+
+							}
+
+							if (deleteConfirm == false) {
+
+								alert("카테고리 삭제를 취소 하였습니다!");
+
+							}
+
+						})
+	</script>
 	
-	
-</script>
+	<script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
+	<script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/masonry.pkgd.min.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/plugins.js"></script>
+	<script
+		src="${pageContext.request.contextPath}/resources/js/scripts.js"></script>
+	<script src="${pageContext.request.contextPath}/asset/js/bootstrap.js"></script>	
 </body>
 </html>
