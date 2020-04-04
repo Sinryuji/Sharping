@@ -72,6 +72,11 @@
 								</div>
 								<div class="sumthing">
 									<h3 class="옵션석택 스타일 찾아"> 옵션 선택</h3>
+									<c:if test="${maxOptionLevel == 0}">
+										<input type="hidden" name="optionOneNum" value="0">
+										<input type="hidden" name="optionTwoNum" value="0">
+										<input type="hidden" name="optionThreeNum" value="0">
+									</c:if>
 									<c:if test="${maxOptionLevel == 1}">
 										<select name="optionOneNum">
 										<option value="none">=== ${product.optionOneName} ===</option>

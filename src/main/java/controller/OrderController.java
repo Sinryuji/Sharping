@@ -28,6 +28,7 @@ import service.ProductService;
 import vo.AuthInfo;
 import vo.BankVO;
 import vo.BasketListVO;
+import vo.DetailOptionVO;
 import vo.GuestVO;
 import vo.MemberVO;
 import vo.OptionVO;
@@ -74,7 +75,7 @@ public class OrderController {
 	// 주문 페이지
 	@RequestMapping("/orderPage")
 
-	public ModelAndView orderPage(HttpServletRequest req, @RequestParam(required = false)OptionVO optionVO, @RequestParam int cnt,
+	public ModelAndView orderPage(HttpServletRequest req, OptionVO optionVO, @RequestParam int cnt,
 			@RequestParam int payPrice, @RequestParam(required = false) int[] basketNums, int deliveryPrice, int productNum) throws SQLException {
 
 		ModelAndView mv = new ModelAndView();
@@ -91,11 +92,17 @@ public class OrderController {
 			
 			int optionNum = 0;
 			
+			System.out.println("asdf  " + optionVO);
+			
 			if(optionVO != null) {
+				
+			
 			
 			optionNum = productService.selectOptionNum(optionVO);
 			
 			option = productService.selectOptionByOptionNum(optionNum);
+			
+			System.out.println("asdf  " + option);
 
 			} 
 
@@ -108,7 +115,7 @@ public class OrderController {
 			MemberVO member = memberService.searchMemberById(authInfo.getId());
 
 			SellerVO seller = memberService.searchSellerById(product.getId());
-
+			
 			mv.setViewName("order/OrderPage");
 			
 			if(option != null) {
@@ -164,6 +171,12 @@ public class OrderController {
 			GuestVO guest = new GuestVO();
 
 			SellerVO seller = memberService.searchSellerById(product.getId());
+			
+			DetailOptionVO DetailOptionOne = productService.selectDetailOptionByDoNum(option.getOptionOneNum());
+			
+			DetailOptionVO DetailOptionTwo = productService.selectDetailOptionByDoNum(option.getOptionTwoNum());
+			
+			DetailOptionVO DetailOptionThree = productService.selectDetailOptionByDoNum(option.getOptionTwoNum());
 
 			mv.setViewName("order/OrderPage");
 
@@ -189,6 +202,12 @@ public class OrderController {
 			mv.addObject("guest", guest);
 
 			mv.addObject("bankInfo", bankVO);
+			
+			mv.addObject("DetailOptionOne", DetailOptionOne);
+			
+			mv.addObject("DetailOptionTwo", DetailOptionTwo);
+			
+			mv.addObject("DetailOptionThree", DetailOptionThree);
 			mv.setViewName("order/OrderPage");
 			return mv;
 		}

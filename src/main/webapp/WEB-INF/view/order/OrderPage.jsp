@@ -306,10 +306,10 @@ history.go(-1);
 			<tr>
 				<td>
 				<div class="img">
-					<img src="upload/${product.productImage}" width="50" height="50">
+					<img src="opload/${product.productThumb}" width="50" height="50">
 				</div>
 				<div class="proInfo">
-					<b>[${option.optionOneNum} - ${option.optionTwoNum} - ${option.optionThreeNum}]${product.productName}</b>
+					<b>${product.productName}</b>
 				</div>
 				</td>
 				<td class="t1_td">${seller.storeName}</td>
@@ -505,7 +505,7 @@ history.go(-1);
 					<td class="right">결제 수단</td>
 					<td rowspan="2" id="rowspan">
 						<b><span class="s1">${payPrice}</span></b><span class="s2">원</span><br><br>
-						<input type="submit" class="t" id="payment" value="결제하기">
+						<input type="button" class="t" id="payment" value="결제하기">
 					</td>
 				</tr>
 				<tr>
@@ -542,9 +542,9 @@ history.go(-1);
 		<input type="hidden" id="optionOneNum" name="optionOneNum" value="${option.optionOneNum}"> 
 		<input type="hidden" id="optionTwoNum" name="optionTwoNum" value="${option.optionTwoNum}">
 		<input type="hidden" id="optionThreeNum" name="optionThreeNum" value="${option.optionThreeNum}"> 
+		<input type="hidden" id="optionNum" name="optionNum" value="${option.optionNum}">
 		<input type="hidden" id="productPrice" name="productPrice" value="${payPrice}"> 
 		<input type="hidden" id="cnt" name="cnt" value="${cnt}"> 
-		<input type="hidden" id="optionNum" name="optionNum" value="${option.optionNum}">
 	</form>
 	<script>
 var defaultInfo;
