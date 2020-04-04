@@ -53,7 +53,7 @@
 	</update>
 	
 	<update id="updateMemberInfoById" parameterType="changeMemberVO">
-		UPDATE MEMBER SET "phone" = #{newPhone} , "email" = #{newEmail} "post" = #{newPost}, "address" = #{newAddress} "addressEtc" = #{newAddressEtc} WHERE "id" = #{id}
+		UPDATE MEMBER SET "phone" = #{newPhone} , "email" = #{newEmail} , "post" = #{newPost}, "address" = #{newAddress} , "addressEtc" = #{newAddressEtc} WHERE "id" = #{id}
 	</update>
 	
 	<delete id="deleteMemberByIdPw" parameterType="deleteVO">
@@ -63,7 +63,7 @@
 	<update id="updateSellerInfoById" parameterType="changeMemberVO">
 		UPDATE SELLER SET 
 		"storeName" = #{newStoreName} ,	"storeAddress" = #{newStoreAddress} , 
-		"storeText" = #{newStoreText} ,	"bankCode" = #{newBankCode} , "bankAcount" = #{newBankAccount} WHERE "id" = #{id}
+		"storeText" = #{newStoreText} ,	"bankCode" = #{newBankCode} , "bankAccount" = #{newBankAccount} WHERE "id" = #{id}
 	</update>
 	
 	<select id="selectDeliveryAddressById" resultType="deliveryAddressVO">

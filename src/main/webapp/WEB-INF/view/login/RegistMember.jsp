@@ -81,7 +81,112 @@
    	  	
    	  	h1{
    	  		display:inline;
-   	  	}    	
+   	  	}
+   	  	
+   	  	.b {
+		    width: 90px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 14px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.b:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		.idCheck {
+		    width: 90px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 14px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.idCheck:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		/* value에 문자열이 5~6글자 정도인 버튼 */
+		.a {
+		    width: 130px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 14px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.a:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		.submit {
+		    width: 130px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 14px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.submit:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}    	
 		
 	</style>
 	
@@ -147,15 +252,15 @@
 				<td class="td1">주소</td>
 				<td class="td2">
 					<input type="text" name="post" id="post" readonly required/>&nbsp;
-					<input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /><br>
+					<input type="button" class="a" onClick="openDaumZipAddress();" value = "주소 찾기" /><br>
 					<input type="text" name="address" id="address" readonly required/>&nbsp;
 					<input type="text" name="addressEtc" id="adressEtc" placeholder="상세주소를 입력해주세요." required>
 				</td>
 	        </tr>
 	      </tbody>
 	   </table>
-	<br><br><input type="submit" class="submit" value="회원가입하기">
-	&nbsp;&nbsp;<input type="button" value="취소" onclick="location.href = '<c:url value='/main'/>'">		   
+	<br><br><input type="submit" class="submit" class="a" value="회원가입">
+	&nbsp;&nbsp;<input type="button" value="취소" class="b" onclick="location.href = '<c:url value='/main'/>'">		   
 </form>
 <script> 
 

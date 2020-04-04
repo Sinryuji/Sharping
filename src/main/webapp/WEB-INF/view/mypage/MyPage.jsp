@@ -40,29 +40,37 @@ td{
 	<h1>ProductQa</h1>
 	<h1>ChangeProduct</h1>
 	<h1>ReturnProduct</h1>
-	<form action="myPage">
+	<form action="myPage" id="submitInfo" onsubmit="return false">
 		<input type="date" name="firstDate" id="firstDate">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;
+		<input type="hidden">
 		<input type="date" name="secondDate" id="secondDate">
-		<input type="submit" value="검색">
-	</form>
-	<form action="myPage">
-		<input type="text" name="keywordO" placeholder="키워드를 입력하세요." value="${keywordO}" />
-		<input type="submit" value="검색">
-	</form>
-	<form action="myPage" name="sort" id="sort">
+		<!-- <input type="submit" value="검색"> -->
+	<!-- </form>
+	<form action="myPage"> -->
+		<input type="text" id="keywordO" name="keywordO" placeholder="키워드를 입력하세요." value="${keywordO}" />
+		<!-- <input type="submit" value="검색"> -->
+	<!-- </form>
+	<form action="myPage" name="sort" id="sort"> -->
 		<select name="state" id="state">
-			<option value="전체 주문 상태">전체 주문 상태</option>
-			<option value="입금 대기">입금 대기</option>
-			<option value="결제 완료">결제 완료</option>
-			<option value="배송 준비중">배송 준비중</option>
-			<option value="배송 중">배송 중</option>
-			<option value="배송 완료">배송 완료</option>
-			<option value="구매 확정">구매 확정</option>
-			<option value="주문 취소">주문 취소</option>
-			<option value="반품 완료">반품 완료</option>
-			<option value="교환 완료">교환 완료</option>
+			<option value="전체 주문 상태" ${state == "전체 주문 상태" ? "selected" : "" }>전체 주문 상태</option>
+			<option value="입금 대기" ${state == "입금 대기" ? "selected" : "" }>입금 대기</option>
+			<option value="결제 완료" ${state == "결제 완료" ? "selected" : "" }>결제 완료</option>
+			<option value="배송 준비중" ${state == "배송 준비중" ? "selected" : "" }>배송 준비중</option>
+			<option value="배송 중" ${state == "배송 중" ? "selected" : "" }>배송 중</option>
+			<option value="배송 완료" ${state == "배송 완료" ? "selected" : "" }>배송 완료</option>
+			<option value="구매 확정" ${state == "구매 확정" ? "selected" : "" }>구매 확정</option>
+			<option value="주문 취소" ${state == "주문 취소" ? "selected" : "" }>주문 취소</option>
+			<option value="반품 완료" ${state == "반품 완료" ? "selected" : "" }>반품 완료</option>
+			<option value="교환 완료" ${state == "교환 완료" ? "selected" : "" }>교환 완료</option>
 		</select>
+		<input type="button" id="submit" value="검색">
 	</form>
+	<div id="hiddenSubmitInfo">
+		<form id="hiddenSubmit" action="myPage">
+			<input type="hidden" id="hiddenState" name="state">
+			<input type="hidden" id="hiddenKeywordO" name="keywordO">
+		</form>
+	</div>
 	<table>
 		<colgroup>
 			<col style="width: auto;" />
@@ -108,7 +116,11 @@ td{
 						<td>
 							${order.state}<br>
 							<c:if test="${order.state == '입금 대기'}">
-							<form action="orderCancle" name="cancleInfo" id="cancleInfo" method="post">
+							<form action="insertMoney">
+							<input type="hidden" name="payNum" value="${order.payNum}">
+							<input type="submit" value="입금">
+							</form>
+							<form action="orderCancle" name="cancleInfo" method="post">
 							<input type="hidden" name="orderNum" value="${order.orderNum}">
 							<input type="submit" value="주문 취소">
 							</form>				
@@ -126,19 +138,61 @@ td{
 	</table>
 <script>
 
-$('#state').change(function(){
+<%-- $('#state').change(function(){
 	var frmData = document.sort;
 	frmData.action = "<%=request.getContextPath()%>/myPage";
 	frmData.submit();
-});
+}); --%>
 
-$(document).ready(function(){
+<%-- $(document).ready(function(){
 	var state = "<%=request.getParameter("state")%>";
 	if(state == "null") {
 		$('#state').val("전체 주문 상태").prop("selected", true);
 	}else {
 	$('#state').val(state).prop("selected", true);
 	}
+}) --%>
+
+$(document).ready(function() {
+    $("#keywordO").keydown(function(key) {
+        if (key.keyCode == 13) {
+        	if($('#firstDate').val() == "" && $('#secondDate').val() == "") {
+        		var f = $('#hiddenSubmit');
+  
+        		f.submit();
+        	}
+        	
+        	else{
+        		var f = $('#submitInfo');
+        		f.removeAttr("onsubmit");
+        		f.submit();
+        	}
+        }
+    });
+});
+
+
+$('#submit').click(function(){
+	
+	if($('#firstDate').val() == "" && $('#secondDate').val() == "") {
+		var f = $('#hiddenSubmit');
+		f.submit();
+	}
+	
+	else{
+		var f = $('#submitInfo');
+		f.removeAttr("onsubmit");
+		f.submit();
+	}
+	
+})
+
+$('#state').change(function(){
+	$('#hiddenState').val($(this).val());
+})
+
+$('#keywordO').change(function(){
+	$('#hiddenKeywordO').val($(this).val());
 })
 
 $('.deliveryTracking').click(function(){

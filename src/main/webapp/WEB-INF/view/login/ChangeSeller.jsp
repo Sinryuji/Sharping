@@ -67,9 +67,189 @@ function phoneCheck() {
 			}).open();
 		}
 	</script> -->
+	
+	<style>
+		table{
+		    border-collapse: collapse;
+		    line-height: 1.5;
+			width:600px;
+			margin:auto;
+			margin-top:90px;
+		}
+		table thead th {
+		    padding: 10px;
+		    font-weight: bold;
+		    vertical-align: top;
+		    color: #369;
+		    border-bottom: 3px solid #036;
+		}
+		table tbody th {
+		    width: 150px;
+		    padding: 10px;
+		    font-weight: bold;
+		    vertical-align: top;
+		    border-bottom: 1px solid #ccc;
+		    background: #f3f6f7;
+		}
+		table td {
+		    width: 350px;
+		    padding: 10px;
+		    vertical-align: top;
+		    border-bottom: 1px solid #ccc;
+		}
+		
+		.td1{
+			background: silver;
+			text-align:center;
+			vertical-align:middle;
+		}
+		
+		.td2{
+			text-align:left;
+		}
+		
+		.submit{
+			margin-left:900px;;
+		}
+		
+		#mm {
+    		text-align: center;
+ 			margin: 0 950px;
+    	}
+    	
+		a{
+   	  		text-decoration:none;
+   	  		color:black;
+   	  	}
+   	  	
+   	  	h1{
+   	  		display:inline;
+   	  	}
+   	  	
+   	  	.b {
+		    width: 90px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 14px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.b:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		.submit {
+		    width: 130px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 14px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.submit:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+	</style>
+	
 </head>
 <body>
-<form action="changeSellerComplete">
+	<div id="mm">
+		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
+	</div>
+	<form action="changeSellerComplete">
+		<table>
+			<colgroup>
+	        	<col style="width:30%;" />
+	        	<col style="width:auto;" />
+	      	</colgroup>
+	    	<thead>
+	        	<tr>
+	            	<th>항목</th>
+	            	<th>내용</th>
+	        	</tr>
+	    	</thead>
+	    	<tbody>
+	    		<tr>
+	    			<td class="td1">아이디</td>
+	    			<td class="td2">
+	    				<input type="text" name="id" value="${authInfo.id}" readonly>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td class="td1">휴대폰 인증</td>
+	    			<td class="td2">
+	    				<input type="text" name="phone" id="phone" placeholder="휴대폰 번호" />
+						<button type="button" class="b" onclick="sendSms();">전송</button><br><br> 
+						<input type="text" name="confirmNumber" id="confirmNumber" placeholder="인증번호"/>
+						<button type="button" class="b" onclick="phoneCheck();">인증</button>
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td class="td1">스토어 이름</td>
+	    			<td class="td2">
+	    				<input type="text" name="storeName" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td class="td1">스토어 주소</td>
+	    			<td class="td2">
+	    				<input type="text" name="storeAddress" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td class="td1">스토어 소개글</td>
+	    			<td class="td2">
+	    				<input type="text" name="storeText" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td class="td1">계좌번호</td>
+	    			<td class="td2">
+	    				<input type="text" name="bankAccount" />
+	    			</td>
+	    		</tr>
+	    		<tr>
+	    			<td class="td1">은행코드</td>
+	    			<td class="td2">
+	    				<input type="number" name="bankCode" />
+	    			</td>
+	    		</tr>
+	    	</tbody>
+		</table>
+		<br>
+		<input type="submit" class="submit" id="changeSeller" value="전환하기" disabled="true">
+	</form>
+
+<%-- <form action="changeSellerComplete">
 아이디:<input type="text" name="id" value="${authInfo.id}" readonly>
 <h4>휴대폰 인증</h4>
 휴대폰번호:<input type="text" name="phone" id="phone" />
@@ -86,6 +266,6 @@ function phoneCheck() {
 계좌번호:<input type="text" name="bankAccount" /><br> 
 은행코드:<input type="number" name="bankCode" /><br> 
 <input type="submit" id="changeSeller" value="전환하기" disabled="true">
-</form>
+</form> --%>
 </body>
 </html>

@@ -189,77 +189,19 @@
    	  	
    	  	.cate{ 
 			float: left; 
-			width: 33%; 
+			width: 14%; 
 			height: 300px; 
 			text-align: center; 
-			background-color: rgba( 140, 140, 140, 0.2);
+			background-color: rgba( 140, 140, 140, 0.3);
+		}
+		
+		#large{
+			margin-left:545px;
 		}
 		
 		#medium{
 			border-right: 2px solid black;
 			border-left: 2px solid black;
-		}
-		
-		.depthOne{
-			border-bottom:1px solid black;
-		}
-		
-		.depthTwo{
-			border-bottom:1px solid black;
-		}
-		
-		.depthThree{
-			border-bottom:1px solid black;
-		}
-		
-		.td2 #categoryNameView{
-			background: white;
-			color: black;
-			border: 0;
-			outline: 0;
-		}
-		
-		.select_img{
-			border: 1px solid black;
-			height: 500px;
-			width: 500px;
-		}
-		
-		.select_thumbImg{
-			border: 1px solid black;
-			height:250px;
-			width: 250px;
-		}
-		
-		.detail div{
-			text-align: right;
-			margin-right: 10px;
-		}
-		
-		.btn {
-		    width: 90px;
-		    height: 40px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 16px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 35px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		}
-
-		.btn:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
 		}
       
 </style>
@@ -303,6 +245,25 @@
 		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
 	</div>
 	<br>
+	<div class="cate" id="large">
+		대분류<br>
+		<br>
+		<div id="DepthOneSpace">
+			<c:forEach var="category" items="${cetegorys}" varStatus="status">
+				<div id="categoryName${category.categoryNum}"><h4><a href="#" class="depthOne" data-type="${category.categoryNum}">${category.categoryName}</a></h4></div>
+			</c:forEach>
+		</div>
+	</div>
+	<div class="cate" id="medium">
+		중분류<br>
+		<br>
+		<div id="DepthTwoSpace"></div>
+	</div>
+	<div class="cate">
+		소분류<br>
+		<br>
+		<div id="DepthThreeSpace"></div>
+	</div>
 	<form action="uploadCompleteProduct" method="post" enctype="multipart/form-data">
 	   <table>
 	      <colgroup>
@@ -317,36 +278,12 @@
 	      </thead>
 	      <tbody>
 	      	<tr>
-	      		<td class="td1">카테고리 분류</td>
-	      		<td class="td2">
-	      			<div class="cate" id="large">
-						대분류<br>
-						<br>
-						<div id="DepthOneSpace">
-							<c:forEach var="category" items="${cetegorys}" varStatus="status">
-								<div class="bCate" id="categoryName${category.categoryNum}"><h4><a href="#" class="depthOne" data-type="${category.categoryNum}">${category.categoryName}</a></h4></div>
-							</c:forEach>
-						</div>
-					</div>
-					<div class="cate" id="medium">
-						중분류<br>
-						<br>
-						<div id="DepthTwoSpace"></div>
-					</div>
-					<div class="cate">
-						소분류<br>
-						<br>
-						<div id="DepthThreeSpace"></div>
-					</div>
-	      		</td>
-	      	</tr>
-	      	<tr>
 				<td class="td1">판매자</td>
 				<td class="td2"><input type="text" name="id" value="${authInfo.id}" readonly></td>
 	        </tr>
 	        <tr>
 				<td class="td1">카테고리</td>
-				<td class="td2"><input type="text" id="categoryNameView" readonly>
+				<td class="td2"><input type="text" id="categoryNameView">
 				<input type="hidden" name="categoryNum"></td>
 	        </tr>
 	        <tr>
@@ -364,14 +301,14 @@
 	        <tr>
 				<td class="td1">상품 이미지</td>
 				<td class="td2">
-					<div class="select_img"><img src=""></div><br>
+					<div class="select_img"><img src=""></div>
 					<input type="file" name="productImage" id="img" >
 				</td>
 	        </tr>
 	        <tr>
 				<td class="td1">상품 썸네일 이미지</td>
 				<td class="td2">
-					<div class="select_thumbImg"><img src=""></div><br>
+					<div class="select_thumbImg"><img src=""></div>
 					<input type="file" name="productThumb" id="thumbImg">
 				</td>
 	        </tr>
@@ -380,9 +317,7 @@
 				<td class="td2">
 					<div class="detail">
 						<textarea name="productText" id="area" style="height:200px;"></textarea>
-						<div>
-							<span id="counter">0</span><span> / 500</span>
-						</div>
+						<div style="text-align:right; margin-right:10px;"><span id="counter">0</span><span> / 500</span></div>
 					</div>
 				</td>
 	        </tr>
@@ -407,7 +342,7 @@
 	        <tr>
 				<td class="td1">제조일자</td>
 				<td class="td2">
-					<input type="date" name="mfDate" id="mfDate">
+					<input type="date" name="mfDate" id="mfDate"><br><br>
 					<input type="hidden" name="hidden" id="hidden" value="n">	
 				</td>
 	        </tr>
@@ -422,16 +357,16 @@
 	        <tr>
 				<td class="td1">옵션설정</td>
 				<td class="td2">
-					<input type="button" id="plus" value="옵션 추가">&nbsp;&nbsp;<input type="button" id="minus" value="옵션 삭제" >
+					<input type="button" id="plus" value="옵션 추가">&nbsp;&nbsp;<input type="button" id="minus" value="옵션 삭제" ><br><br>
 					<div id="optionBox">
 					  <span id="op1">
-					    <br>1차 옵션명  <input type="text" name="optionOneName" id="o1"><br>
+					    1차 옵션명  <input type="text" name="optionOneName" id="o1">&nbsp;&nbsp;
 					  </span>
 					  <span id="op2">
-					    2차 옵션명  <input type="text" name="optionTwoName" id="o2"><br>
+					    2차 옵션명  <input type="text" name="optionTwoName" id="o2">&nbsp;&nbsp;
 					  </span>
 					  <span id="op3">
-					    3차 옵션명  <input type="text" name="optionThreeName" id="o3">
+					    3차 옵션명  <input type="text" name="optionThreeName" id="o3">&nbsp;&nbsp;
 					  </span>  
 					</div>
 				</td>

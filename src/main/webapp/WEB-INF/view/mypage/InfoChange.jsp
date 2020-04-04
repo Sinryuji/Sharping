@@ -7,7 +7,7 @@
 <meta charset="UTF-8">
 <title>InfoChange</title>
 <style>
-	#mm {
+		#mm {
     		 text-align: center;
  			 margin: 0 950px;
     	}
@@ -28,14 +28,14 @@
    	  	
    	   .t {
 		    width: 200px;
-		    height: 100px;
+		    height: 150px;
 		    font-family: 'Roboto', sans-serif;
 		    font-size: 18px;
 		    text-transform: uppercase;
 		    letter-spacing: 2.5px;
 		    font-weight: 500;
 		    color: white;
-		    background-color: darkgray;
+		    background-color: #6B66FF;
 		    border: none;
 		    border-radius: 35px;
 		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
@@ -46,8 +46,8 @@
 		}
 
 		.t:hover {
-	  		background-color: #b2e619;
-	  		box-shadow: 0px 15px 20px #b2e619;
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
 	  		color: #fff;
 	  		transform: translateY(-7px);
 		}
@@ -64,7 +64,7 @@
 		
 		.in{
 			position: absolute;
-			left:39.7%;
+			left:41%;
 			top:35%;
 		}
 </style>
@@ -75,8 +75,9 @@
 	</div><br><br>
 	<div class="reg">
 		<div class="in">
-			<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/infoChangeMember'" value="구매자 회원 &#10;정보 수정">
-			<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/infoChangeSeller'" value="판매자 회원 &#10;정보 수정">
+			<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/infoChangeMember'" value="구매자">
+			&nbsp;&nbsp;
+			<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/infoChangeSeller'" value="판매자">
 		</div>
 	</div>
 </body>

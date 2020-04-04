@@ -5,111 +5,30 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width" initial-scale="1">
 <title>MainPage</title>
 
-<link rel="stylesheet" href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
-<script src="//code.jquery.com/jquery.min.js"></script>
-
     <style>
-    	
-    	html {
-			height: 100%;
-		}
+    	#mm {
+    	     text-align: center;
+ 			 margin: 0 950px;
+    	}
     	
     	body{
-   	  		background-image:url('https://paulhueman.co.kr:443/bbs/data/file/banner/2009714319_4Qzoxjug_20544c1b6b40a4acc5de0a9c3bde79bbdb7d68db.jpg');
-   	  		background-size: cover;
-   	  		padding:0;
-   	  		margin:0;
-   	  		height:100%;
+   	  		background-image:url('https://images.pexels.com/photos/1470589/pexels-photo-1470589.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+   	  		overflow:hidden;
    	  	}
    	  	
-   	  	.wrap {
-			min-height: 100%;
-			position: relative;
-			padding-bottom: 150px; /* footer height */
-		}
-   	  	
-   	  	header#header {
-/* 			font-size: 30px;
-			border: 0; */
-			/* padding: 20px 0; */
-			height: 50px;
-			text-shadow: black 0.2em 0.2em 0.2em;
-			color: white;
-		}
-	
-		header#header h1 a {
-			color: #000;
-			font-weight: bold;
-			display:inline;
-		}
-		
-		nav#nav {
-			padding: 10px;
-			text-align: right;
-		}
-		
-		nav#nav ul li a {
-		
-			display: inline-block;
-			margin-bottom: 10px;
-		}
-		
-		section#container {
-			/* padding: 20px 0;
-			border-top: 2px solid #eee;
-			border-bottom: 2px solid #eee; */
-			margin: 0 auto;
-		}
-		
-		section#container::after {
-			content: "";
-			display: block;
-			clear: both;
-		}
-		
-		aside {
-			float: left;
-			width: 200px;
-		}
-		
-		div#containerBox {
-			float: right;
-			width: calc(100% - 200px - 20px);
-		}
-		
-		aside ul li {
-			text-align: center;
-			margin-bottom: 10px;
-		}
-		
-		footer#footer {
-			background: #e7e7e7; /* f9f9f9 */
-			position: absolute;
-			left: 0;
-			bottom: 0;
-			height:150px;
-			width: 100%;
-			padding: 7px 0;
-			text-align: center;
-		}
-		
-		footer#footer div {
-			display: inline-block;
-			margin-right: 10px;
-		}
-		
    	  	a{
    	  		text-decoration:none;
    	  		color:black;
-   	  		border:0;
-   	  		outline:0;
    	  	}
    	  	
    	  	div{
 			display:inline;
+   	  	}
+   	  	
+   	  	h1{
+   	  		display:inline;
    	  	}
    	  	
    	  	.sDiv{
@@ -147,7 +66,7 @@
       	
       	.searchBox{
       		margin-top: 70px;
-      		margin-left: 40px;
+      		margin-left: 70px;
       	}
       	
       	#who{
@@ -155,30 +74,26 @@
       	}
       	
       	.mainCategory{
-      		margin-left:900px;
+      		margin-left:920px;
       		width:300px;
       		background: transparent;
       	}
       	
       	.mainCategoryScroll {
 			display:none;
-			width: 100%;
-			margin-top: 10px;
 		}
 		
 		.mainCategoryButton button {
 			/* padding: 5px; */
-			margin-top: 10px;
    			width: 7%;
    			background: transparent;
+			border:0;
 			outline: 0; 
-			border: 0;
-			padding: 0;
 		}
 		
 		.cate{ 
 			float: left; 
-			width: 20%; 
+			width: 25%; 
 			height: 400px; 
 			text-align: center; 
 			background:white;
@@ -186,50 +101,68 @@
 		}
 		
 		#large{
-			margin-left:392px;
+			margin-left:270px;
 		}
 		
 		#medium{
 			border-right: 2px solid black;
 			border-left: 2px solid black;
 		}
-		
   	  	
    	  	
     </style>
-
+    
+    
+<script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 </head>
 <body>
 
-<div class="wrap">
-
-	<!-- <nav class="navbar navbar-default"> -->
-	<nav class="navbar">
-		<div id="navBox">
-			<%@ include file="./include/Nav.jsp"%>
+	<c:if test="${empty authInfo}">
+		<div style="float:left">
+			<b><a href="<c:url value='/login'/>">&nbsp;로그인&nbsp;</a></b>
+			<b><a href="<c:url value='/regist'/>">&nbsp;회원 가입&nbsp;</a></b>
 		</div>
-	</nav>
+	</c:if>
 	
-	<header id="header">
-		<div id="headerBox">
-			<%@ include file="./include/Header.jsp"%>
-		</div>
-	</header>
+	<c:if test="${!empty authInfo}">
+		<div style="float:left">
+			<b id="who">[${authInfo.name}]</b><b>님 환영합니다.</b>
+			<b><a href="<c:url value='/logout'/>">&nbsp;로그아웃&nbsp;</a></b>
+			<b><a href="<c:url value='/infoChange'/>">&nbsp;회원정보 수정&nbsp;</a></b>
+		</div>	
+	
+		<div style="float:right">
+			<b><a href="<c:url value='/myPage'/>">&nbsp;마이페이지&nbsp;</a></b>
+			
+			<b><a href="<c:url value='/basket'/>">&nbsp;장바구니&nbsp;</a></b>
+	
+			<c:if test="${authInfo.sellerCheck == 'false' }">
+				<b><a href="<c:url value='/changeSeller'/>">&nbsp;판매하기&nbsp;</a></b>
+			</c:if>
+			
+			<c:if test="${authInfo.sellerCheck == 'true' }">
+				<b><a href="<c:url value='/sellerPage'/>">&nbsp;판매자 페이지&nbsp;</a></b>
+			</c:if>
+		</div>	
+	</c:if>
+	
+    <div id="mm">
+		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
+	</div>
 	
 	<div class="sDiv">
 		<form action="productList" class="searchBox">
 			<input type="text" autocomplete="off" name="keyword" id="search" placeholder="키워드를 입력하세요."/>
-			<input type="image" src="${pageContext.request.contextPath}/resources/images/search.png" value="검색" id="btn">
+			<input type="image" src="upload/\upload\img\search.png" value="검색" id="btn">
 		</form>
 	</div>
+
 	<%-- <br><br><br><h1><a href="<c:url value='/deliveryTracker'/>" > DeliveryTracker </a></h1> --%>
-	
-	
-	<section id="container">
-		<div class="mainCategory">
+	<br><br>
+	<div class="mainCategory">
 		<div class="mainCategoryButton">
 			<button type="button" id="mainCategoryView" class="mainCategoryView">
-				<img src="${pageContext.request.contextPath}/resources/images/cate.png" style="width:60px; height:50px;">
+				<img src="upload/\upload\img\cate.png" style="width:60px; height:50px;">
 			</button>
 		</div>
 		<div class="mainCategoryScroll">
@@ -254,25 +187,13 @@
 			</div>
 		</div>
 	</div>
-	</section>
-	
-
-	
-<%-- 	<footer id="footer">
-		<div id=footerBox>
-			<%@ include file="./include/Footer.jsp"%>
-		</div>
-	</footer> --%>
-
-
-</div>
 
 <script>
 
 	// 카테고리@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
-	
+		
 	// 대분류 카테고리명 클릭하는 경우
-	$(document).on("click", '.depthOne', function(){
+	$('.depthOne').on("click", function(){
 		
 		var currentCategoryNum = $(this).attr("data-type");	
 				
@@ -393,13 +314,12 @@
 	$(document).on("click", "#mainCategoryView", function(){
 		
 		$('.mainCategoryScroll').slideToggle("slow");
+		
 	})
 	
 	
-</script>
 
-
-
-<script src="${pageContext.request.contextPath}/asset/js/bootstrap.js"></script>
+	
+</script>	
 </body>
 </html>

@@ -36,7 +36,7 @@
 		    letter-spacing: 2.5px;
 		    font-weight: 500;
 		    color: white;
-		    background-color: darkgray;
+		    background-color: #6B66FF;
 		    border: none;
 		    border-radius: 35px;
 		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
@@ -47,8 +47,8 @@
 		}
 
 		.t:hover {
-	  		background-color: #b2e619;
-	  		box-shadow: 0px 15px 20px #b2e619;
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
 	  		color: #fff;
 	  		transform: translateY(-7px);
 		}
