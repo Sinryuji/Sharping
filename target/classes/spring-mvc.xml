@@ -43,4 +43,5 @@
 	<!-- 일반 파일 업로드 경로 -->
 	<mvc:resources mapping="/opload/**" location="file:///D:/dev/opload" />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
+	<mvc:resources mapping="/asset/**" location="/asset/" />
 </beans>

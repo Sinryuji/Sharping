@@ -228,7 +228,7 @@ public class ProductDAOImpl implements ProductDAO{
 	
 	@Override
 	public int updateProductByCategoryNumZero(int productNum) {
-		return sqlSessionTemplate.update("productDAO.updateProductByCategoryZero", productNum);
+		return sqlSessionTemplate.update("productDAO.updateProductByCategoryNumZero", productNum);
 	}
 	public List<OrderProductVO> selectOrderBySellerId(OrderProductVO orderProductVO) {
 		return sqlSessionTemplate.selectList("productDAO.selectOrderBySellerId", orderProductVO);

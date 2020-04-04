@@ -5,7 +5,10 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width" initial-scale="1">
 <title>AdminPage</title>
+
+<link rel="stylesheet" href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
 
 <link rel='stylesheet'
 	href='${pageContext.request.contextPath}/resources/css/woocommerce-layout.css'
@@ -20,7 +23,7 @@
 	href='${pageContext.request.contextPath}/resources/css/font-awesome.min.css'
 	type='text/css' media='all' />
 <link rel='stylesheet'
-	href='${pageContext.request.contextPath}/resources/css/style.css'
+	href='${pageContext.request.contextPath}/resources/css/styleSB.css'
 	type='text/css' media='all' />
 <link rel='stylesheet'
 	href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700'
@@ -43,10 +46,23 @@
 
 <style>
 
+html {
+	height: 100%;
+}
+
 body {
+	background-image: url('${pageContext.request.contextPath}/resources/images/신세경1.jpg');
+	background-size: cover;
 	font-family: '맑은 고딕', verdana;
 	padding: 0;
 	margin: 0;
+	height: 100%;
+}
+
+.wrap {
+	min-height: 100%;
+	position: relative;
+	padding-bottom: 190px; /* footer height */
 }
 
 ul {
@@ -61,32 +77,28 @@ div#root {
 	margin: 0 auto;
 }
 
-header#header {
-	font-size: 60px;
-	padding: 20px 0;
-	text-shadow: black 0.2em 0.2em 0.2em;
-	color: white;
+.navbar-nav {
+    width: 100%;
+    text-align: center;
+    height:100%;
 }
 
-header#header h1 a {
-	color: #000;
-	font-weight: bold;
+.navbar-nav > li {
+    float: none;
+    display: inline-block;
 }
 
-nav#nav {
-	padding: 10px;
-	text-align: right;
+.navbar-nav > li.navbar-right {
+    float: right !important;
+} 
+
+.site-title {
+	font-size: 50px;
 }
 
-nav#nav ul li a {
-	display: inline-block;
-	margin-bottom: 10px;
-}
-
- section#container {
+section#container {
 	padding: 20px 0;
 	border-top: 2px solid #eee;
-	border-bottom: 2px solid #eee;
 }
 
 section#container::after {
@@ -101,7 +113,8 @@ aside {
 }
 
 div#containerBox {
-	float: right;
+	height: 500px;
+ 	float: right;
 	width: calc(100% - 200px - 20px);
 }
 
@@ -111,11 +124,12 @@ aside ul li {
 }
 
 footer#footer {
-	background: #999999; /* f9f9f9 */
+	background: #e7e7e7;
 	position: absolute;
 	left: 0;
+	right: 0;
 	bottom: 0;
-	width: 100%;
+	height:190px;
 	padding: 7px 0;
 	text-align: center;
 }
@@ -124,36 +138,33 @@ footer#footer div {
 	display: inline-block;
 	margin-right: 10px;
 }
+
 </style>
 </head>
 <body>
 
-	<header id="header">
-		<div id="beaderBox">
-			<%@ include file="../include/AdminHeader.jsp"%>
-		</div>
-	</header>
-
-
-	<nav id="nav">
+<div class="wrap">	
+	<nav class="navbar navbar-default">
 		<div id="navBox">
 			<%@ include file="../include/AdminNav.jsp"%>
 		</div>
 	</nav>
+	
 
 	<section id="container">
 		<aside>
 			<%@ include file="../include/AdminAside.jsp"%>
 		</aside>
-		<div id="containerBox">전상배</div>
+		<div id="containerBox"></div>
 	</section>
 
 	<footer id="footer">
 		<div id=footerBox>
-			<%@ include file="../include/AdminFooter.jsp"%>
+			<%@ include file="../include/Footer.jsp"%>
 		</div>
 	</footer>
-
+	
+</div>
 
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
@@ -161,5 +172,6 @@ footer#footer div {
 <script src="${pageContext.request.contextPath}/resources/js/masonry.pkgd.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/plugins.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/scripts.js"></script>
+<script src="${pageContext.request.contextPath}/asset/js/bootstrap.js"></script>
 </body>
 </html>

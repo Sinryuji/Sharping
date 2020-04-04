@@ -46,16 +46,20 @@
 			display:inline;
 		}
 		
-		nav#nav {
-			padding: 10px;
-			text-align: right;
+		.navbar-nav {
+  		  width: 100%;
+  		  text-align: center;
+		    height:100%;
+		}
+
+		.navbar-nav > li {
+		    float: none;
+		    display: inline-block;
 		}
 		
-		nav#nav ul li a {
-		
-			display: inline-block;
-			margin-bottom: 10px;
-		}
+		.navbar-nav > li.navbar-right {
+		    float: right !important;
+		} 
 		
 		section#container {
 			/* padding: 20px 0;
@@ -209,13 +213,6 @@
 			<%@ include file="./include/Nav.jsp"%>
 		</div>
 	</nav>
-	
-	<header id="header">
-		<div id="headerBox">
-			<%@ include file="./include/Header.jsp"%>
-		</div>
-	</header>
-	
 	<div class="sDiv">
 		<form action="productList" class="searchBox">
 			<input type="text" autocomplete="off" name="keyword" id="search" placeholder="키워드를 입력하세요."/>

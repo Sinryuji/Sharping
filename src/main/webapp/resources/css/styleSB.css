@@ -69,7 +69,7 @@ table {
 }
 caption,th,td {
 	font-weight:normal;
-	text-align:left;
+	text-align:center;
 }
 blockquote:before,blockquote:after,q:before,q:after {
 	content:"";
@@ -468,7 +468,7 @@ textarea {
 }
 /*--------------------------------------------------------------6.0 Header--------------------------------------------------------------*/
 html {
-	padding: 100px;
+	padding: 0px;
 }
 .site-header {
 	padding-top:2em;
@@ -2302,7 +2302,7 @@ button,
 input,
 select,
 textarea {
-	color: #888888;
+	color: #000000;
 }
 h1, h2, h3, h4, h5, h6 {
 	color: #222222;
