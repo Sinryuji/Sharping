@@ -7,6 +7,6 @@
 
 <div class="container">
 		<h1 class="text-center">		
-			<a href="<c:url value='/admin'/>"> #ing_Admin </a>
+			<a href="<c:url value='/main'/>"> #ing </a>
 		</h1>
 </div>

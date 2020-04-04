@@ -161,7 +161,8 @@ section {
 										<c:forEach var="list" items="${productList}">
 											<tr>
 												<td><c:out value="${list.productNum}" /></td>
-												<td><c:out value="${list.productThumb}" /></td>
+												<%-- <td><c:out value="${list.productThumb}" /></td> --%>
+												<td><img src="opload/${list.productThumb}" style="width:50px;"></td>
 												<td><a href="#"
 													onClick="productView(<c:out value="${list.productNum}"/>)">
 														<c:out value="${list.productName}" />

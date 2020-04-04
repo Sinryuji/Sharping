@@ -85,7 +85,7 @@ public class MemberController {
 		List<CategoryVO> categorys = adminService.selectCategoryByCategoryDepth(1);
 		
 		mv.setViewName("MainPage");
-		mv.addObject("cetegorys", categorys);
+		mv.addObject("categorys", categorys);
 		
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + categorys);
 		

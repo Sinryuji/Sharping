@@ -50,13 +50,13 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 		height: 450px;
 		margin-top: 150px;
 		margin-left: 600px;
-		background: white;
-		background-color: rgba( 255, 255, 255, 0.6 );
+		background: pink;
+		background-color: rgba( 255, 217, 250, 0.5 );
 	}
 	
 	.two{
 		text-align: center;
-		margin-right:100px;
+		margin-right:20px;
 	}
 	
 	.gst{
@@ -66,8 +66,9 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 	
 	.span{
 		text-align: center;
-		margin-right: 430px;
-		font-size: 20px
+		margin-right: 100px;
+		font-size: 20px;
+		color: #A566FF;
 	}
 	
 	a{
@@ -78,7 +79,7 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 	.loginBox{
 		text-align: center;
  		margin-top: 50px;
- 		margin-left: 50px;
+ 		margin-left: 120px;
 		height:150px;
 	}
 		
@@ -95,6 +96,10 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 		vertical-align: middle;
 	}
 	
+	.in2{
+		margin-right: 40px;
+	}
+	
 	.btn {
 	  width: 110px;
 	  height: 80px;
@@ -104,7 +109,7 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 	  letter-spacing: 2.5px;
 	  font-weight: 500;
 	  color: white;
-	  background-color: black;
+	  background-color: #6B66FF;
 	  border: none;
 	  border-radius: 35px;
 	  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
@@ -115,8 +120,8 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 	}
 
 	.btn:hover {
-	  background-color: #b2e619;
-	  box-shadow: 0px 15px 20px #b2e619;
+	  background-color: #FFB2F5;
+	  box-shadow: 0px 15px 20px hotpink;
 	  color: #fff;
 	  transform: translateY(-7px);
 	}
@@ -130,7 +135,7 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 	  letter-spacing: 2.5px;
 	  font-weight: 500;
 	  color: white;
-	  background-color: black;
+	  background-color: #6B66FF;
 	  border: none;
 	  border-radius: 35px;
 	  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
@@ -141,8 +146,8 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 	}
 
 	.t:hover {
-	  background-color: #b2e619;
-	  box-shadow: 0px 15px 20px #b2e619;
+	  background-color: #FFB2F5;
+	  box-shadow: 0px 15px 20px hotpink;
 	  color: #fff;
 	  transform: translateY(-7px);
 	}
@@ -157,7 +162,7 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 	    text-align: left;
 	    outline: none;
 	    width: 250px;
-	    background: black;
+	    background: #D1B2FF;
 	    opacity: 0.8;
 	}
 	
@@ -171,7 +176,7 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 	    text-align: left;
 	    outline: none;
 	    width: 150px;
-	    background: white;
+	    background: #D1B2FF;
 	     /* background: transparent; */
 	}
 	
@@ -193,7 +198,8 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 					<input type="text" autocomplete="off" class="pad" name="id" value="" placeholder="ID"/><br><br>
 					<input type="text" autocomplete="off" class="pad" name="password" value="" placeholder="Password"/>
 				</div>
-				&nbsp;&nbsp;<div class="in">
+				&nbsp;&nbsp;
+				<div class="in">
 					<input type="submit" class="btn" id="login" value="LOGIN">
 				</div><br><br>
 			</form>
@@ -206,22 +212,17 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 	<div class="gst">
 	<div class="span">
 		<b>비회원 주문 조회</b>
+	</div>		<br>
 		<form action="selectGuest">
-		<p>
-			이름 : <input type="text" name="guestName" value="${guestName }"style="color: gray" onfocus="this.value=''" />&nbsp;&nbsp; 
-			연락처 : <input type="text" name="guestPhone" value="${guestPhone }"	style="color: gray" onfocus="this.value=''" />&nbsp;&nbsp; 
-			비밀번호 : <input type="text" name="guestPassword" value="${guestPassword }" style="color: gray" onfocus="this.value=''" />&nbsp;&nbsp;
-			<input type="submit" name="selectGuest" value="조회하기"/>
-		</p>
+			<div class="in2">
+				<input type="text" class="pad2" name="guestName" value="${guestName }" placeholder="비회원 이름" onfocus="this.value=''" /> 
+				<input type="text" class="pad2" name="guestPhone" value="${guestPhone }" placeholder="비회원 전화번호" onfocus="this.value=''" /> 
+				<input type="text" class="pad2" name="guestPassword" value="${guestPassword }" placeholder="비회원 비밀번호" onfocus="this.value=''" />&nbsp;&nbsp;
+				<input type="submit" class="t" name="selectGuest" value="조회하기"/>
+			</div>
 		</form>
-	</div>
 	</div>
 	
 	</div>
-<script>
-	$('#selectProduct').click(function(){
-		window.location.href='<%=request.getContextPath()%>/selectGuest';
-		});
-</script>
 </body>
 </html>

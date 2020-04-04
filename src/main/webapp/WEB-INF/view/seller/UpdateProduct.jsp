@@ -7,118 +7,245 @@
 <meta charset="UTF-8">
 <title>UploadProduct</title>
 <style>
-	.switch {
-  position: relative;
-  display: inline-block;
-  width: 60px;
-  height: 34px;
-  vertical-align:middle;
-}
 
-/* Hide default HTML checkbox */
-.switch input {display:none;}
+		table{
+		    border-collapse: collapse;
+		    line-height: 1.5;
+			width:800px;
+			margin:auto;
+		}
+		table thead th {
+		    padding: 10px;
+		    font-weight: bold;
+		    vertical-align: top;
+		    color: #369;
+		    border-bottom: 3px solid #036;
+		}
+		table tbody th {
+		    width: 150px;
+		    padding: 10px;
+		    font-weight: bold;
+		    vertical-align: top;
+		    border-bottom: 1px solid #ccc;
+		    background: #f3f6f7;
+		}
+		table td {
+		    width: 350px;
+		    padding: 10px;
+		    vertical-align: top;
+		    border-bottom: 1px solid #ccc;
+		}
+		
+		.td1{
+			background: silver;
+			text-align:center;
+			vertical-align:middle;
+		}
+		
+		.td2{
+			text-align:left;
+		}
+		
+		.detail{
+			border:2px solid black;
+		}
+		
+		.detail textarea{
+			border:0;
+			min-width:600px;
+			min-height:200px;
+			resize:none;
+			overflow:hidden;
+		}
+		
+		.detail textarea:focus{
+		     outline: none; 
+		}
+		
+		.cnt{
+			text-align:right;
+		}
 
-/* The slider */
-.slider {
-  position: absolute;
-  cursor: pointer;
-  top: 0;
-  left: 0;
-  right: 0;
-  bottom: 0;
-  background-color: #ccc;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
+		.switch {
+		  position: relative;
+		  display: inline-block;
+		  width: 60px;
+		  height: 34px;
+		  vertical-align:middle;
+		}
+		
+		/* Hide default HTML checkbox */
+		.switch input {display:none;}
+		
+		/* The slider */
+		.slider {
+		  position: absolute;
+		  cursor: pointer;
+		  top: 0;
+		  left: 0;
+		  right: 0;
+		  bottom: 0;
+		  background-color: #ccc;
+		  -webkit-transition: .4s;
+		  transition: .4s;
+		}
+		
+		.slider:before {
+		  position: absolute;
+		  content: "";
+		  height: 26px;
+		  width: 26px;
+		  left: 4px;
+		  bottom: 4px;
+		  background-color: white;
+		  -webkit-transition: .4s;
+		  transition: .4s;
+		}
+		
+		input:checked + .slider {
+		  background-color: #2196F3;
+		}
+		
+		input:focus + .slider {
+		  box-shadow: 0 0 1px #2196F3;
+		}
+		
+		input:checked + .slider:before {
+		  -webkit-transform: translateX(26px);
+		  -ms-transform: translateX(26px);
+		  transform: translateX(26px);
+		}
+		
+		/* Rounded sliders */
+		.slider.round {
+		  border-radius: 34px;
+		}
+		
+		.slider.round:before {
+		  border-radius: 50%;
+		}
+		
+		p {
+			margin:0px;
+			display:inline-block;
+			font-size:15px;
+			font-weight:bold;
+		}
+		
+		.optiondetail-scroll {		
+			background:#ffffff;		
+			border:2px solid #eeeeee;		
+			height:300px;		
+			display:none;		
+			position:absolute;		
+			z-index:1000;		
+			padding-top:15px;		
+			overflow-y:scroll;		
+			overflow-x:hidden;
+		}		
+		
+		.optiondetail {
+			background:#ffffff;
+			border:2px solid #eeeeee;
+			display:none;
+			position:absolute;
+			left: 1128px;
+			float: right;
+			z-index:1000;
+			padding-top:15px;
+			overflow:hidden;
+		}
 
-.slider:before {
-  position: absolute;
-  content: "";
-  height: 26px;
-  width: 26px;
-  left: 4px;
-  bottom: 4px;
-  background-color: white;
-  -webkit-transition: .4s;
-  transition: .4s;
-}
-
-input:checked + .slider {
-  background-color: #2196F3;
-}
-
-input:focus + .slider {
-  box-shadow: 0 0 1px #2196F3;
-}
-
-input:checked + .slider:before {
-  -webkit-transform: translateX(26px);
-  -ms-transform: translateX(26px);
-  transform: translateX(26px);
-}
-
-/* Rounded sliders */
-.slider.round {
-  border-radius: 34px;
-}
-
-.slider.round:before {
-  border-radius: 50%;
-}
-
-p {
-	margin:0px;
-	display:inline-block;
-	font-size:15px;
-	font-weight:bold;
-}
-
-.optiondetail-scroll {
-
-background:#ffffff;
-
-border:2px solid #eeeeee;
-
-height:300px;
-
-display:none;
-
-position:absolute;
-
-z-index:1000;
-
-padding-top:15px;
-
-overflow-y:scroll;
-
-overflow-x:hidden;
-
-}
-
-
-
-.optiondetail {
-
-background:#ffffff;
-
-border:2px solid #eeeeee;
-
-display:none;
-
-position:absolute;
-
-z-index:1000;
-
-padding-top:15px;
-
-overflow:hidden;
-
-}
-
-
-
-
-
+		#mm {
+    		text-align: center;
+ 			margin: 0 910px;
+    	}
+    	
+    	a{
+   	  		text-decoration:none;
+   	  		color:black;
+   	  	}
+   	  	
+   	  	.cate{ 
+			float: left; 
+			width: 33%; 
+			height: 300px; 
+			text-align: center; 
+			background-color: rgba( 140, 140, 140, 0.3);
+		}
+		
+		#medium{
+			border-right: 2px solid black;
+			border-left: 2px solid black;
+		}
+		
+		.depthOne{
+			border-bottom:1px solid black;
+		}
+		
+		.depthTwo{
+			border-bottom:1px solid black;
+		}
+		
+		.depthThree{
+			border-bottom:1px solid black;
+		}
+		
+		.td2 #categoryNameView{
+			background: white;
+			color: black;
+			border: 0;
+			outline: 0;
+		}
+		
+		.select_img{
+			border: 1px solid black;
+			height: 500px;
+			width: 500px;
+		}
+		
+		.select_thumbImg{
+			border: 1px solid black;
+			height:250px;
+			width: 250px;
+		}
+		
+		.select_img img{
+			height: 500px;
+			width: 500px;
+		}
+		
+		.select_thumbImg img{
+			height:250px;
+			width: 250px;
+		}
+		
+		.detail div{
+			text-align: right;
+			margin-right: 10px;
+		}
+		
+		.last{
+			width: 150px;
+			margin-left:900px;
+		}
+		
+		.detailOptionSelect{
+			width: 200px;
+			height: 30px;
+			margin-bottom: 5px;
+		}
+		
+		#stock{
+			width: 195px;
+			height: 22px;
+			margin-left: 3px;
+		}
+		
+		#opMng{
+			float: right;
+		}
+		
 }
 </style>
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
@@ -153,396 +280,333 @@ overflow:hidden;
 		
 </script>
 </head>
+
 <body>
-<h1>SellerPage</h1>
-상품 업로드 <br><br>
-
-<div
-		style="border-right: 2px solid black; float: left; width: 33%; height: 400px; text-align: center">
-		대분류<br>
-		<br>
-		<div id="DepthOneSpace">
-			<c:forEach var="category" items="${cetegorys}" varStatus="status">
-				<div id="categoryName${category.categoryNum}"><h4><a href="#" class="depthOne" data-type="${category.categoryNum}">${category.categoryName}</a></h4></div>
-			</c:forEach>
+	<b>
+		<a href="<c:url value='/sellerPage'/>">판매자 페이지</a>
+	</b>
+	<div id="mm">
+		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
+	</div>
+	<form action="updateProductResult" method="post" enctype="multipart/form-data">
+		<table>
+			<colgroup>
+		         <col style="width:20%;" />
+		         <col style="width:auto;" />
+		      </colgroup>
+		      <thead>
+		         <tr>
+		            <th>항목</th>
+		            <th>내용</th>
+		         </tr>
+		      </thead>
+		      <tbody>
+		      	<tr>
+		      		<td class="td1">카테고리 분류</td>
+		      		<td class="td2">
+		      			<div class="cate" id="large">
+							대분류<br>
+							<br>
+							<div id="DepthOneSpace">
+								<c:forEach var="category" items="${cetegorys}" varStatus="status">
+									<div id="categoryName${category.categoryNum}"><h4><a href="#" class="depthOne" data-type="${category.categoryNum}">${category.categoryName}</a></h4></div>
+								</c:forEach>
+							</div>
+						</div>
+						<div class="cate" id="medium">
+							중분류<br>
+							<br>
+							<div id="DepthTwoSpace"></div>
+						</div>
+						<div class="cate">
+							소분류<br>
+							<br>
+							<div id="DepthThreeSpace"></div>
+						</div>
+		      		</td>
+		      	</tr>
+		      	<tr>
+		      		<td class="td1">판매자</td>
+		      		<td class="td2"><input type="text" name="id" value="${authInfo.id}" readonly></td>
+		      	</tr>
+		      	<tr>
+		      		<td class="td1">카테고리</td>
+		      		<td class="td2">
+		      			<input type="text" id="categoryNameView" value="${category.categoryName}">
+						<input type="hidden" name="categoryNum" value="${category.categoryNum}">
+		      		</td>
+		      	</tr>
+		      	<tr>
+		      		<td class="td1">상품명</td>
+		      		<td class="td2"><input type="text" name="productName" value="${product.productName }"></td>
+		      	</tr>
+		      	<tr>
+		      		<td class="td1">상품수량</td>
+		      		<td class="td2"><input type="number" name="stock" step="1" value="${product.stock }"></td>
+		      	</tr>
+		      	<tr>
+		      		<td class="td1">상품가격</td>
+		      		<td class="td2"><input type="number" name="productPrice" step="10" value="${product.productPrice }"></td>
+		      	</tr>
+		      	<tr>
+		      		<td class="td1">상품 이미지</td>
+		      		<td class="td2">
+		      			<div class="select_img">
+							<img src="opload/${product.productImage}">
+							<input type="hidden" name="oriProductImage" value="${product.productImage}">
+						</div><br>
+						<input type="file" name="productImage" id="img">
+		      		</td>
+		      	</tr><tr>
+		      		<td class="td1">상품 썸네일 이미지</td>
+		      		<td class="td2">
+						<div class="select_thumbImg">
+							<img src="opload/${product.productThumb}">
+							<input type="hidden" name="oriProductThumb" value="${product.productThumb }" >
+						</div><br>
+						<input type="file" name="productThumb" id="thumbImg">
+		      		</td>
+		      	</tr>
+		      	<tr>
+		      		<td class="td1">상품 설명</td>
+		      		<td class="td2">
+		      			<div class="detail">
+							<textarea name="productText" id="area" >${product.productText }</textarea>
+							<div>
+								<span id="counter">0</span><span> / 500</span>
+							</div>
+						</div>
+		      		</td>
+		      	</tr>
+		      	<tr>
+		      		<td class="td1">상품 진열 여부</td>
+		      		<td class="td2">
+		      			<label class="switch">
+						  <input type="checkbox" name="productDisplay" id="dis" ${product.productDisplay == "TRUE" ? "checked" : ""}>
+						  <span class="slider round"></span>
+						</label>
+						<p id="no">미진열</p><p id="yes">진열</p>
+		      		</td>
+		      	</tr>
+		      	<tr>
+		      		<td class="td1">상품 소재</td>
+		      		<td class="td2"><input type="text" name="productMeterial" value="${product.productMeterial }"></td>
+		      	</tr>
+		      	<tr>
+		      		<td class="td1">제조사</td>
+		      		<td class="td2"><input type="text" name="manufacturer" value="${product.manufacturer }"></td>
+		      	</tr>
+		      	<tr>
+		      		<td class="td1">제조 일자</td>
+		      		<td class="td2">
+		      			<input type="date" name="mfDate" id="mfDate" value="${product.mfDate }">
+						<input type="hidden" name="hidden" id="hidden" value="n">
+		      		</td>
+		      	</tr>
+		      	<tr>
+		      		<td class="td1">원산지</td>
+		      		<td class="td2"><input type="text" name="origin"  value="${product.origin }"></td>
+		      	</tr>
+		      	<tr>
+		      		<td class="td1">배송비</td>
+		      		<td class="td2"><input type="number" name="deliveryPrice" step="100" value="${product.deliveryPrice }"></td>
+		      	</tr>
+		      	<tr>
+		      		<td class="td1">옵션 설정</td>
+		      		<td class="td2">
+		      			<div id="detailOptionBox1">
+							<span id="dop1">
+						  		1차 상세 옵션 <input type="text" name="optionOneDetail" id="doText1">&nbsp;&nbsp;<button type="button" id="do1_btn" class="btn" value="1">저장</button>&nbsp;&nbsp;<button type="button" id="do2_bt2" class="btn2" value="1">관리</button>
+						 	</span>
+						 </div>
+						 <div class="optiondetail-scroll">
+						 	<button type="button" class="dopclose" style="width:100%;">닫기</button>
+									  	<table class="table table-hover member_table" style="width:400px;">
+									  		<colgroup>
+										        <col style="width:auto;" />
+										    	<col style="width:30%;" />
+										    </colgroup>
+											<thead>
+												<tr>
+													<th>상세옵션명</th>
+													<th>관리</th>
+												</tr>
+											</thead>
+											<tbody id="onetbody">
+												<c:forEach items="${onedo}" var="one" varStatus="status">
+												<tr id="one${status.index}">
+												<%-- <form action="${pageContext.request.contextPath}/detailOption" method="post"> --%>
+													<td>${one.optionName}</td>
+													<td><%-- input type="hidden" name="itemNo" value="${itemVo.no}" /> --%>
+												<input type="hidden" name="no" id="oneDoNum${status.index}" value="${one.doNum}" /><button type="button" value="${status.index}" class="deleteDetailOption" style="width:100%;">삭제</button></td>
+												<!-- </form> -->						
+												</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+						 </div>
+						<div id="detailOptionBox2">
+							<span id="dop2">
+						  		2차 상세 옵션 <input type="text" name="optionTwoDetail" id="doText2">&nbsp;&nbsp;<button type="button" id="do2_btn" class="btn" value="2">저장</button>&nbsp;&nbsp;<button type="button" id="do2_btn2" class="btn2" value="2">관리</button>
+							</span>
+						</div>
+						<div class="optiondetail-scroll">
+						 	<button type="button" class="dopclose" style="width:100%;">닫기</button>
+									  	<table class="table table-hover member_table" style="width:400px;">
+									  		<colgroup>
+										        <col style="width:auto;" />
+										    	<col style="width:30%;" />
+										    </colgroup>
+											<thead>
+												<tr>
+													<th>상세옵션명</th>
+													<th>관리</th>
+												</tr>
+											</thead>
+											<tbody id="twotbody">
+												<c:forEach items="${twodo}" var="two" varStatus="status">
+												<tr id="two${status.index}">
+												<%-- <form action="${pageContext.request.contextPath}/detailOption" method="post"> --%>
+													<td>${two.optionName}</td>
+													<td><%-- input type="hidden" name="itemNo" value="${itemVo.no}" /> --%>
+												<input type="hidden" name="no" id="twoDoNum${status.index}" value="${two.doNum}" /><button type="button" value="${status.index}" class="deleteDetailOption" style="width:100%;">삭제</button></td>
+												<!-- </form> -->
+												</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+						 </div>
+						<div id="detailOptionBox3">
+							<span id="dop3">
+						  		3차 상세 옵션 <input type="text" name="optionThreeDetail" id="doText3">&nbsp;&nbsp;<button type="button" id="do3_btn" class="btn" value="3">저장</button>&nbsp;&nbsp;<button type="button" id="do3_btn3" class="btn2" value="3">관리</button>
+							</span>
+						</div>
+						<div class="optiondetail-scroll">
+						 	<button type="button" class="dopclose" style="width:100%;">닫기</button>
+									  	<table class="table table-hover member_table" style="width:400px;">
+									  		<colgroup>
+										        <col style="width:auto;" />
+										    	<col style="width:30%;" />
+										    </colgroup>
+											<thead>
+												<tr>
+													<th>상세옵션명</th>
+													<th>관리</th>
+												</tr>
+											</thead>
+											<tbody id="threetbody">
+												<c:forEach items="${threedo}" var="three" varStatus="status">
+												<tr id="three${status.index}">
+												<%-- <form action="${pageContext.request.contextPath}/detailOption" method="post"> --%>
+													<td>${three.optionName}</td>
+													<td><%-- input type="hidden" name="itemNo" value="${itemVo.no}" /> --%>
+												<input type="hidden" name="no" id="threeDoNum${status.index}" value="${three.doNum}" /><button type="button" value="${status.index}" class="deleteDetailOption" style="width:100%;">삭제</button></td>
+												<!-- </form> -->
+												</tr>
+												</c:forEach>
+											</tbody>
+										</table>
+						 </div><br>
+						<div id="optionBox">
+							<input type="hidden" id="h1" name="optionOneName" value="${product.optionOneName}">
+							<input type="hidden" id="h2" name="optionTwoName" value="${product.optionTwoName}">
+							<input type="hidden" id="h3" name="topnThreeName" value="${product.optionThreeName}">
+							  <span id="op1">
+							    1차 옵션&nbsp;&nbsp;<select name="optionOneName" class="detailOptionSelect" id="o1" >
+							    	<option id="title1" value="0">${product.optionOneName}</option>
+							    	<c:forEach var="one" items="${onedo}" varStatus="status">
+							    	<option id="${one.doNum}" value="${one.doNum}">${one.optionName}</option>
+							    	</c:forEach>
+							    </select>
+							  </span>
+							  <br>
+							  <span id="op2">
+							    2차 옵션&nbsp;&nbsp;<select name="optionTwoName" class="detailOptionSelect" id="o2" >
+							    	<option id="title2" value="0">${product.optionTwoName}</option>
+							    	<c:forEach var="two" items="${twodo}" varStatus="status">
+							    	<option id="${two.doNum}" value="${two.doNum}">${two.optionName}</option>
+							    	</c:forEach>
+							    </select>
+							  </span>
+							  <br>
+							  <span id="op3">
+							    3차 옵션&nbsp;&nbsp;<select name="optionThreeName" class="detailOptionSelect" id="o3" >
+							    	<option id="title3" value="0">${product.optionThreeName}</option>
+							    	<c:forEach var="three" items="${threedo}" varStatus="status">
+							    	<option id="${three.doNum}" value="${three.doNum}">${three.optionName}</option>
+							    	</c:forEach>
+							    </select>
+							  </span>
+							  <br> 
+							  &nbsp;&nbsp;수량&nbsp;　 <input id="stock" name="stock" type="number">
+							  <button type="button" id="insertOption" name="insertOption" value="" disabled="disabled">추가</button>&nbsp;&nbsp;&nbsp;
+							  <div>
+							  <span>
+							  	<button type="button" id="opMng" class="btn2" value="">옵션 관리</button>
+							  </span>
+							  <br>
+							  </div>
+							  <div class="col-sm-12 mb-2 optiondetail" >
+							  	<button type="button" class="dopclose" style="width:100%;">닫기</button>
+								<input type="hidden" name="itemNo" value="${itemVo.no}" />
+								<input type="hidden" name="no" value="-1" id="option_delete_no" />						
+								<div class="form-group row m-2">						
+									<div class="col-sm-12">
+										<h5>옵션관리</h5>
+									</div>
+									<div class="col-sm-4 mb-2" id="detailOptionOne">
+										<label for="option1">1차 옵션</label>
+										<select name="optionDetailNo1" class="formControl" id="option1">
+											<option id="default1" value="0">선택</option>
+												<c:forEach items="${onedo}" var="one">
+													<option id="do${one.doNum}" value="${one.doNum}">${one.optionName}</option>
+												</c:forEach>
+										</select>
+									</div>
+									<div class="col-sm-4 mb-2" id="detailOptionTwo">
+										<label for="option2">2차 옵션</label>
+										<select name="optionDetailNo2" class="formControl" id="option2">
+											<option id="default2" value="0">선택</option>
+										    	<c:forEach items="${twodo}" var="two">
+													<option id="do${two.doNum}" value="${two.doNum}">${two.optionName}</option>
+												</c:forEach>
+												<%-- <c:forEach items="${twodo}" var="two">
+													<option id="do${two.doNum}" value="${two.doNum}">${two.optionName}</option>
+												</c:forEach> --%>
+										</select>
+									</div>
+									<div class="col-sm-4 mb-2" id="detailOptionThree">
+										<label for="option2">3차 옵션</label>
+										<select name="optionDetailNo3" class="formControl" id="option3">
+										    <option id="default3" value="0">선택</option>
+										    	<c:forEach items="${threedo}" var="three">
+													<option id="do${three.doNum}" value="${three.doNum}">${three.optionName}</option>
+												</c:forEach>
+												<%-- <c:forEach items="${threedo}" var="three">
+													<option id="do${three.doNum}" value="${three.doNum}">${three.optionName}</option>
+												</c:forEach> --%>
+										</select>
+									</div>
+									<div class="col-sm-4 mb-2">
+										<label>수량</label>
+										<input class="form-control" id="leftCnt" type="text" disabled />
+									</div>
+									<div class="col-sm-12 mb-2">
+										<button type="button" class="deleteOption" style="width:100%;">삭제</button>
+									</div>
+								</div>
+							</div>									
+						</div>
+		      		</td>
+		      	</tr>
+		      </tbody>
+		</table>
+		<div class="last">
+			<input type="hidden" id="productNum" name="productNum" value="${product.productNum }">
+			<br><br><input type="submit" value="저장">&nbsp;&nbsp;
+			<input type="reset" value="초기화"><br><br><br>
 		</div>
-	</div>
-	<div
-		style="border-right: 2px solid black; float: left; width: 33%; height: 400px; text-align: center">
-		중분류<br>
-		<br>
-		<div id="DepthTwoSpace"></div>
-	</div>
-	<div style="float: left; width: 33%; height: 400px; text-align: center">
-		소분류<br>
-		<br>
-		<div id="DepthThreeSpace"></div>
-	</div>
-
-<form action="updateProductResult" method="post" enctype="multipart/form-data" id="updateProductResult">
-판매자 : <input type="text" name="id" value="${authInfo.id}" readonly><br><br>
-
-카테고리 분류<br><br>
-<input type="text" id="categoryNameView" value="${category.categoryName}">
-<input type="hidden" name="categoryNum" value="${category.categoryNum}"><br><br>
-
-상품명  <input type="text" name="productName" value="${product.productName }"><br><br>
-
-상품수량  <input type="number" name="stock" step="1" value="${product.stock }"><br><br>
-
-상품가격  <input type="number" name="productPrice" step="10" value="${product.productPrice }"><br><br>
-
-상품 이미지<br><br>
-<input type="file" name="productImage" id="img"><br><br>
-<div class="select_img">
-	<img src="upload/${product.productImage}" style="width:500px;">
-	<input type="hidden" name="oriProductImage" value="${product.productImage}">
-</div>
-
-<script>
-  $("#img").change(function(){
-   if(this.files && this.files[0]) {
-    var reader = new FileReader;
-    reader.onload = function(data) {
-     $(".select_img img").attr("src", data.target.result).width(500);        
-    }
-    reader.readAsDataURL(this.files[0]);
-   }
-  });
-</script>
-
-productThumb <br><br>
-<input type="file" name="productThumb" id="thumbImg"><br><br>
-<div class="select_thumbImg">
-	<img src="upload/${product.productThumb}" style="width:250px;">
-	<input type="hidden" name="oriProductThumb" value="${product.productThumb }" >
-</div>
-
-<script>
-  $("#thumbImg").change(function(){
-   if(this.files && this.files[0]) {
-    var reader = new FileReader;
-    reader.onload = function(data) {
-     $(".select_thumbImg img").attr("src", data.target.result).width(250);        
-    }
-    reader.readAsDataURL(this.files[0]);
-   }
-  });
-</script>
-
-상품 설명<br><br>
-<div>
-<textarea name="productText" id="area" >${product.productText }</textarea><br>
-<span id="counter">0</span><span> / 500</span>
-</div>
-
-productDisplay &nbsp;&nbsp;
-<label class="switch">
-  <input type="checkbox" name="productDisplay" id="dis" ${product.productDisplay == "TRUE" ? "checked" : ""}>
-  <span class="slider round"></span>
-</label>
-<p id="no">미진열</p><p id="yes">진열</p><br><br>
-
-상품소재  <input type="text" name="productMeterial" value="${product.productMeterial }"><br><br>
-
-제조사  <input type="text" name="manufacturer" value="${product.manufacturer }"><br><br>
-
-제조일자  <input type="date" name="mfDate" id="mfDate" value="${product.mfDate }"><br><br>
-<input type="hidden" name="hidden" id="hidden" value="n">
-
-원산지  <input type="text" name="origin"  value="${product.origin }"><br><br>
-
-배송비  <input type="number" name="deliveryPrice" step="100" value="${product.deliveryPrice }"><br><br>
-
-<br>옵션설정  <br><br>
-
-<div id="detailOptionBox1">
-	<span id="dop1">
-  		1차 상세 옵션 <input type="text" name="optionOneDetail" id="doText1">&nbsp;&nbsp;<button type="button" id="do1_btn" class="btn" value="1">저장</button>&nbsp;&nbsp;<button type="button" id="do2_bt2" class="btn2" value="1">관리</button>
- 	</span>
- </div>
- <div class="optiondetail-scroll">
- 	<button type="button" class="dopclose" style="width:100%;">닫기</button>
-
-			  	<table class="table table-hover member_table">
-
-					<thead>
-
-						<tr>
-
-							<th>상세옵션명</th>
-
-							<th>관리</th>
-
-						</tr>
-
-					</thead>
-
-					<tbody id="onetbody">
-
-						<c:forEach items="${onedo}" var="one" varStatus="status">
-
-						<tr id="one${status.index}">
-
-						<%-- <form action="${pageContext.request.contextPath}/detailOption" method="post"> --%>
-
-
-							<td>${one.optionName}</td>
-
-							<td><%-- input type="hidden" name="itemNo" value="${itemVo.no}" /> --%>
-
-						<input type="hidden" name="no" id="oneDoNum${status.index}" value="${one.doNum}" /><button type="button" value="${status.index}" class="deleteDetailOption" style="width:100%;">삭제</button></td>
-
-						<!-- </form> -->
-
-						</tr>
-
-						</c:forEach>
-
-					</tbody>
-
-				</table>
- </div>
-<div id="detailOptionBox2">
-	<span id="dop2">
-  		2차 상세 옵션 <input type="text" name="optionTwoDetail" id="doText2">&nbsp;&nbsp;<button type="button" id="do2_btn" class="btn" value="2">저장</button>&nbsp;&nbsp;<button type="button" id="do2_btn2" class="btn2" value="2">관리</button>
-	</span>
-</div>
-<div class="optiondetail-scroll">
- 	<button type="button" class="dopclose" style="width:100%;">닫기</button>
-
-			  	<table class="table table-hover member_table">
-
-					<thead>
-
-						<tr>
-
-							<th>상세옵션명</th>
-
-							<th>관리</th>
-
-						</tr>
-
-					</thead>
-
-					<tbody id="twotbody">
-
-						<c:forEach items="${twodo}" var="two" varStatus="status">
-
-						<tr id="two${status.index}">
-
-						<%-- <form action="${pageContext.request.contextPath}/detailOption" method="post"> --%>
-
-
-							<td>${two.optionName}</td>
-
-							<td><%-- input type="hidden" name="itemNo" value="${itemVo.no}" /> --%>
-
-						<input type="hidden" name="no" id="twoDoNum${status.index}" value="${two.doNum}" /><button type="button" value="${status.index}" class="deleteDetailOption" style="width:100%;">삭제</button></td>
-
-						<!-- </form> -->
-
-						</tr>
-
-						</c:forEach>
-
-					</tbody>
-
-				</table>
- </div>
-<div id="detailOptionBox3">
-	<span id="dop3">
-  		3차 상세 옵션 <input type="text" name="optionThreeDetail" id="doText3">&nbsp;&nbsp;<button type="button" id="do3_btn" class="btn" value="3">저장</button>&nbsp;&nbsp;<button type="button" id="do3_btn3" class="btn2" value="3">관리</button>
-	</span>
-</div>
-<div class="optiondetail-scroll">
- 	<button type="button" class="dopclose" style="width:100%;">닫기</button>
-
-			  	<table class="table table-hover member_table">
-
-					<thead>
-
-						<tr>
-
-							<th>상세옵션명</th>
-
-							<th>관리</th>
-
-						</tr>
-
-					</thead>
-
-					<tbody id="threetbody">
-
-						<c:forEach items="${threedo}" var="three" varStatus="status">
-
-						<tr id="three${status.index}">
-
-						<%-- <form action="${pageContext.request.contextPath}/detailOption" method="post"> --%>
-
-
-							<td>${three.optionName}</td>
-
-							<td><%-- input type="hidden" name="itemNo" value="${itemVo.no}" /> --%>
-
-						<input type="hidden" name="no" id="threeDoNum${status.index}" value="${three.doNum}" /><button type="button" value="${status.index}" class="deleteDetailOption" style="width:100%;">삭제</button></td>
-
-						<!-- </form> -->
-
-						</tr>
-
-						</c:forEach>
-
-					</tbody>
-
-				</table>
- </div><br>
-
-<div id="optionBox">
-<input type="hidden" id="h1" name="optionOneName" value="${product.optionOneName}">
-<input type="hidden" id="h2" name="optionTwoName" value="${product.optionTwoName}">
-<input type="hidden" id="h3" name="topnThreeName" value="${product.optionThreeName}">
-  <span id="op1">
-    1차 옵션&nbsp;&nbsp;<select name="optionOneName" class="detailOptionSelect" id="o1" >
-    	<option id="title1" value="0">${product.optionOneName}</option>
-    	<c:forEach var="one" items="${onedo}" varStatus="status">
-    	<option id="${one.doNum}" value="${one.doNum}">${one.optionName}</option>
-    	</c:forEach>
-    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span>
-  <span id="op2">
-    2차 옵션&nbsp;&nbsp;<select name="optionTwoName" class="detailOptionSelect" id="o2" >
-    	<option id="title2" value="0">${product.optionTwoName}</option>
-    	<c:forEach var="two" items="${twodo}" varStatus="status">
-    	<option id="${two.doNum}" value="${two.doNum}">${two.optionName}</option>
-    	</c:forEach>
-    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span>
-  <span id="op3">
-    3차 옵션&nbsp;&nbsp;<select name="optionThreeName" class="detailOptionSelect" id="o3" >
-    	<option id="title3" value="0">${product.optionThreeName}</option>
-    	<c:forEach var="three" items="${threedo}" varStatus="status">
-    	<option id="${three.doNum}" value="${three.doNum}">${three.optionName}</option>
-    	</c:forEach>
-    </select>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-  </span> 
-  수량: <input id="stock" name="stock" type="number">
-  <button type="button" id="insertOption" name="insertOption" value="" disabled="disabled">추가</button>&nbsp;&nbsp;&nbsp;
-  <div>
-  <span>
-  <button type="button" class="btn2" value="">옵션 관리</button>
-  </span>
-  </div>
-  <div class="col-sm-12 mb-2 optiondetail">
-
-			  	<button type="button" class="dopclose" style="width:100%;">닫기</button>
-
-			  	
-
-			  	
-
-		
-
-			<input type="hidden" name="itemNo" value="${itemVo.no}" />
-
-			<input type="hidden" name="no" value="-1" id="option_delete_no" />
-
-			  	<div class="form-group row m-2">
-
-				  <div class="col-sm-12">
-
-				  	<h5>옵션관리</h5>
-
-				  </div>
-				  
-
-				  <div class="col-sm-4 mb-2" id="detailOptionOne">
-
-				  	<label for="option1">1차 옵션</label>
-
-				    <select name="optionDetailNo1" class="formControl" id="option1">
-
-						<option id="default1" value="0">선택</option>
-
-						<c:forEach items="${onedo}" var="one">
-
-							<option id="do${one.doNum}" value="${one.doNum}">${one.optionName}</option>
-
-						</c:forEach>
-
-					</select>
-
-				  </div>
-
-				  <div class="col-sm-4 mb-2" id="detailOptionTwo">
-
-				  	<label for="option2">2차 옵션</label>
-
-				    <select name="optionDetailNo2" class="formControl" id="option2">
-				    
-				    	<option id="default2" value="0">선택</option>
-				    
-				    	<c:forEach items="${twodo}" var="two">
-
-							<option id="do${two.doNum}" value="${two.doNum}">${two.optionName}</option>
-						
-						</c:forEach>
-						
-						<%-- <c:forEach items="${twodo}" var="two">
-
-							<option id="do${two.doNum}" value="${two.doNum}">${two.optionName}</option>
-
-						</c:forEach> --%>
-
-					</select>
-
-				  </div>
-				  
-				  <div class="col-sm-4 mb-2" id="detailOptionThree">
-
-				  	<label for="option2">3차 옵션</label>
-
-				    <select name="optionDetailNo3" class="formControl" id="option3">
-				    
-				    	<option id="default3" value="0">선택</option>
-				    
-				    	<c:forEach items="${threedo}" var="three">
-
-							<option id="do${three.doNum}" value="${three.doNum}">${three.optionName}</option>
-						
-						</c:forEach>
-						
-						<%-- <c:forEach items="${threedo}" var="three">
-
-							<option id="do${three.doNum}" value="${three.doNum}">${three.optionName}</option>
-
-						</c:forEach> --%>
-
-					</select>
-
-				  </div>
-
-				  <div class="col-sm-4 mb-2">
-
-				  	<label>수량</label>
-
-				    <input class="form-control" id="leftCnt" type="text" disabled />
-
-				  </div>
-
-				  <div class="col-sm-12 mb-2">
-
-				    <button type="button" class="deleteOption" style="width:100%;">삭제</button>
-
-				  </div>
-
-			  </div>
-
-			  
-
-			 </div>
-</div>
-
+	</form>
 <%-- <div id="optionBox">
   <span id="op1">
     1차 옵션&nbsp;&nbsp;<input type="text" name="optionOneName" id="o1" value="${product.optionOneName }">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
@@ -555,10 +619,7 @@ productDisplay &nbsp;&nbsp;
   </span>  
 </div> --%>
 
-<input type="hidden" id="productNum" name="productNum" value="${product.productNum }">
-<br><br><input type="button" id="save" value="저장">&nbsp;&nbsp;
-<input type="reset" value="초기화"><br><br><br>
-</form>
+
 <script>
 
 $(document).on("click", "#save", function(){
@@ -586,6 +647,26 @@ $(document).on("click", "#save", function(){
 	else {
 		$('#updateProductResult').submit();
 	}})
+
+	$("#img").change(function(){
+	   if(this.files && this.files[0]) {
+	    var reader = new FileReader;
+	    reader.onload = function(data) {
+	     $(".select_img img").attr("src", data.target.result).width(500);        
+	    }
+	    reader.readAsDataURL(this.files[0]);
+	   }
+	  });
+	
+	  $("#thumbImg").change(function(){
+		   if(this.files && this.files[0]) {
+		    var reader = new FileReader;
+		    reader.onload = function(data) {
+		     $(".select_thumbImg img").attr("src", data.target.result).width(250);        
+		    }
+		    reader.readAsDataURL(this.files[0]);
+		   }
+		  });	
     
     $("#mfDate").change(function(){
 		document.getElementById("hidden").value = 'notNull' 

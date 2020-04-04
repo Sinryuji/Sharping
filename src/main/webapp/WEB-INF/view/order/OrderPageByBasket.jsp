@@ -215,6 +215,8 @@ $(document).on("click", "#payment", function(){
 	else {
 		$('#orderForm').submit();
 	}
+	
+})
 
 $('input[name=deliveryCheck]').click(function(){
 	if($('#default').is(':checked') == true) {
@@ -259,6 +261,7 @@ $('#myDeliveryAddress').click(function(){
 				$("#orderForm").attr("action", "payingCardByBasket");
 			}
 		})
+		
 	</script>
 	<script src='${pageContext.request.contextPath}/resources/js/jquery.js'></script>
 	<script

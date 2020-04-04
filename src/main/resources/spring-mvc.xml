@@ -33,14 +33,14 @@
 
 	<!-- 업로드 패스 설정 --> 
 	<bean class="java.lang.String" id="uploadPath">
-		<constructor-arg value="D:\dev\upload\" />
+		<constructor-arg value="D:\dev\opload\" />
 	</bean>
 	
 	<bean class="java.lang.String" id="ThumUploadPath">
-		<constructor-arg value="D:\dev\upload\thum\" />
+		<constructor-arg value="D:\dev\opload\thum\" />
 	</bean>
 
 	<!-- 일반 파일 업로드 경로 -->
-	<mvc:resources mapping="/upload/**" location="file:///D:/dev/upload" />
+	<mvc:resources mapping="/opload/**" location="file:///D:/dev/opload" />
 	<mvc:resources mapping="/resources/**" location="/resources/" />
 </beans>

@@ -104,6 +104,110 @@
    	  		text-decoration:none;
    	  		color:black;
    	  	}
+   	  	
+   	  	.updateProduct {
+		    width: 60px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 12px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.updateProduct:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		.deleteProduct {
+		    width: 60px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 12px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.deleteProduct:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		#selDelete {
+		    width: 60px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 12px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		#selDelete:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		.a {
+		    width: 100px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 12px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.a:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
       
 </style>
 </head>
@@ -112,7 +216,7 @@
 		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
 	</div>
 	<div id="upload">
-   		<input type="button" onclick="location.href='${pageContext.request.contextPath}/uploadProduct'" value="신규등록">
+   		<input type="button" class="a" onclick="location.href='${pageContext.request.contextPath}/uploadProduct'" value="신규등록">
 	</div>
    <table>
       <colgroup>
@@ -145,7 +249,7 @@
                <c:forEach var="list" items="${productList}" varStatus="status">
                   <tr>
                      <td><input type="checkbox" class="select" id="chk${status.index}" data-productNum="${list.productNum}"></td>
-                     <td><span style="float:left"><img src="upload/${list.productThumb}" style="width:50px;">&nbsp;&nbsp;</span>
+                     <td><span style="float:left"><img src="opload/${list.productThumb}" style="width:50px;">&nbsp;&nbsp;</span>
                         <span style="float:left"><c:out value="${list.productName}"/><br>
                         <c:out value="상품번호 : ${list.productNum}"/>&nbsp;&nbsp;</span></td>
                      <td><c:out value="${list.productPrice}"/></td>

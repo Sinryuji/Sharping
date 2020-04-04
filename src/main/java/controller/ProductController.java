@@ -93,8 +93,8 @@ public class ProductController {
 //	public String uploadCompleteProduct(@Valid ProductVO productVO , MultipartFile file) {
 	public String uploadCompleteProduct(MultipartHttpServletRequest mtfRequest) {
 		ProductVO productVO = new ProductVO();
-		String uploadPath = "d:\\dev\\upload\\";
-		String ThumUploadPath = "d:\\dev\\upload\\thum";
+		String uploadPath = "d:\\dev\\opload\\";
+		String ThumUploadPath = "d:\\dev\\opload\\thum";
 		File dir = new File(uploadPath);
 		if (!dir.exists()) {
 			dir.mkdir();
@@ -123,7 +123,7 @@ public class ProductController {
 		productVO.setProductName(mtfRequest.getParameter("productName"));
 		productVO.setStock(Integer.parseInt(mtfRequest.getParameter("stock")));
 		productVO.setProductPrice(Integer.parseInt(mtfRequest.getParameter("productPrice")));
-		productVO.setProductImage(File.separator + "upload" + File.separator + saveName);
+		productVO.setProductImage(File.separator + "opload" + File.separator + saveName);
 		productVO.setProductText(mtfRequest.getParameter("productText"));
 
 		if (mtfRequest.getParameter("productDisplay") == null) {
@@ -132,7 +132,7 @@ public class ProductController {
 			productVO.setProductDisplay(mtfRequest.getParameter("productDisplay"));
 		}
 
-		productVO.setProductThumb(File.separator + "upload" + File.separator + "thum" + File.separator + thumbFileName);
+		productVO.setProductThumb(File.separator + "opload" + File.separator + "thum" + File.separator + thumbFileName);
 
 		if (mtfRequest.getParameter("productMeterial") == null) {
 			productVO.setProductMeterial("-");
@@ -965,7 +965,7 @@ public class ProductController {
 
 		Map<String, Object> map = new HashMap<String, Object>();
 
-		List<OptionVO> list = productService.selectOptionByOptionOneNum(optionVO);
+		List<OptionVO> list = productService.selectOptionByOptionTwoNum(optionVO);
 		
 		System.out.println(list);
 
@@ -978,7 +978,7 @@ public class ProductController {
 			System.out.println(list.get(i));
 			if(list.get(i).getOptionTwoNum() != a) {
 				a = list.get(i).getOptionTwoNum();
-			list2.add(productService.selectDetailOptionByOptionOneNum(list.get(i)));
+			list2.add(productService.selectDetailOptionByOptionTwoNum(list.get(i)));
 			}
 //			if(i > 0) {
 //			for(int j = 0 ; j <list2.size() ; j++) {

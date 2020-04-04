@@ -27,11 +27,253 @@
 			}).open();
 		}
 	</script>
-<%-- <script>
 
- var idLogin = <%=session.getAttribute("authInfo")%>;
+<style>
+	
+		table{
+		    border-collapse: collapse;
+		    line-height: 1.5;
+			width:800px;
+			margin:auto;
+		}
+		
+		.table1{
+			margin-top: 100px;
+		}
+		
+		.img{
+			width:50px; 
+			height:50px;
+			float:left;
+		}
+		
+		.proInfo{
+			float:left;
+			margin-left:10px;
+		}
+		
+		.mainhead{
+			text-align:left;
+		}
+		
+		.head1{
+			border:1px solid black;
+			border-left:0;
+			border-right:0;
+			background: #EAEAEA;
+		}
+		
+		.table1 tbody tr{
+			border-bottom:3px solid gray;
+		}
+		
+		.table1 tbody td{
+			text-align:center;
+		}
+		
+		.t1_td{
+			border-right: 0.2px solid gray;
+			border-left: 0.2px solid gray;
+		}
+		
+		.table2{
+			border:0.2px solid gray;
+		}
+		
+		.table2 thead tr{
+			text-align: left;
+			border:0.2px solid gray;
+			background: #EAEAEA;
+		}
+		
+		.table2 thead tr span{
+			font-size: 13px;
+			color: #F15F5F;
+		}
+		
+		.table2 td span{
+			font-size: 13px;
+			color: #F15F5F;
+		}
+		
+		.table2 thead th{
+			padding: 10px;
+		}
+		
+		.table2 tbody tr, .table2 tbody td{
+			padding: 10px;
+			/* border: 0.2px solid gray; */
+		}
+		
+		.td1{
+			background: #EAEAEA;
+			/* border-right:0; */
+		}
+		
+		.td2{
+			/* border-left:0; */
+		}
+		
+		#dc{
+			border-bottom: 0.2px solid gray;
+		}
+		
+		#dm{
+			border-top: 0.2px solid gray;
+		}
+		
+		.table3{
+			border:0.2px solid gray;
+		}
+		
+		.table3 thead tr{
+			text-align: left;
+			border:0.2px solid gray;
+			background: #EAEAEA;
+		}
+		
+		.table3 tr{
+			border:0.2px solid gray;
+		}
+		
+		.right{
+			border-right: 0.2px solid gray
+		}
+		
+		#rowspan{
+			text-align:center;
+		}
+		
+		.s1{
+			color:red;
+			font-size:30px
+		}
+		
+		.s2{
+			font-size:26px;
+		}
+		
+		.div1, .div2{
+			float:left;
+			display:inline-block;
+		}
+		
+		.boss{
+			clear:both;
+			margin-left:510px;
+			display:block;
+			padding:40px;
+			width:50%;
+		}
+		
+		#no1, #no2{
+			width:400px;	
+		}
+		
+		#no1{
+			border-right:0;
+		}
+		
+		#no1 thead tr{
+			border-right:0;
+		}
+		
+		#no2 thead tr{
+			border-left:0;
+		}
+		
+ 		#no1 td{
+			padding:19px;
+		}
+		
+		.tb3{
+			padding:30px;
+			display:inline-block;
+			margin-left: 520px;;
+		}
+		
+		.t {
+		    width: 220px;
+		    height: 80px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 18px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		    margin:5px;
+		}
 
-</script> --%>
+		.t:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		.a {
+		    width: 70px;
+		    height: 20px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 11px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.a:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		.b {
+		    width: 120px;
+		    height: 20px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 11px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.b:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+	
+</style>
+
 </head>
 <body>
 	<c:if test="${cnt > option.stock}">
@@ -43,108 +285,266 @@ history.go(-1);
 	<form name="deliveryAddress" id="deliveryAddress" method="post">
 		<input type="hidden" name="id" id="id" value="${authInfo.id}">
 	</form>
-
-	<form name="orderForm" id="orderForm" action="orderResult"
-		method="post">
-
-		<h1>OrderResult</h1>
-		<h1>DeliveryAddress</h1>
-		상품 이미지 : ${product.productImage}<br> 상품명 : ${product.productName}<br>
-		개수 : ${cnt}<br> 상품가격 : ${product.productPrice}<br> 판매자 :
-		${seller.storeName}<br> 배송비 : ${product.deliveryPrice}<br>
-		최종 결제 금액 : ${payPrice}<br>
-		<c:if test="${member.id == '비회원'}">
-			<h3>비회원 정보입력</h3>
-이름 : <input type="text" id="guestName" name="guestName"
-				value="${guest.guestName }">
-			<br>
-연락처 : <input type="text" id="guestPhone" name="guestPhone"
-				value="${guest.guestPhone }">
-			<br>
-비밀번호 : <input type="text" id="guestPassword" name="guestPassword"
-				value="${guest.guestPassword }">
-			<br>
-			<h3>배송주소록,배송정보</h3>
-			<h4>배송지 정보 입력</h4>
-			<label>배송지 입력</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<p id="deliveryInfo">
-				이름 : <input type="text" id="toName" name="toName" value=""><br>
-				주소 : <input type="text" id="toPost" name="toPost" value="" readonly>&nbsp;<input
-					type="text" id="toAddress" name="toAddress" value=""
-					style="width: 300px" readonly> &nbsp; 
-				상세주소:<input type="text" name="toAddressEtc" id="toAdressEtc">  &nbsp; 
-					<input type="button"
-					onClick="openDaumZipAddress();" value="주소 찾기" /><br> 연락처 : <input
-					type="text" id="toPhone" name="toPhone" value=""><br>
-				배송 메시지 : <input type="text" id="deliveryMessage"
-					name="deliveryMessage" maxlength="50"><br>
-			<p>
-		</c:if>
-		<c:if test="${authInfo != null }">
-			<h3>배송주소록,배송정보</h3>
-			<h4>배송지 정보 입력</h4>
-			<%-- 배송지 선택 : <label><input type="checkbox" class="deliveryCheck" id="default" value="${member.name}" checked>${member.name}</label>&nbsp;&nbsp;&nbsp;<label><input type="checkbox" id="new" class="deliveryCheck" value="">새로운 배송지</label><br> --%>
-배송지 선택 : <label><input type="radio" name="deliveryCheck"
-				id="default" value="${member.name}" checked>${member.name}</label>&nbsp;&nbsp;&nbsp;
-<label><input type="radio" id="new" name="deliveryCheck"
-				value="">새로운 배송지</label>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<input
-				type="button" id="myDeliveryAddress" value="나의 배송 주소록">
-			<p id="deliveryInfo">
-				이름 : <input type="text" id="toName" name="toName"
-					value="${member.name}" readonly><br> 주소 : <input
-					type="text" id="toPost" name="toPost" value="${member.post}"
-					readonly>&nbsp;<input type="text" id="toAddress"
-					name="toAddress" value="${member.address} ${member.addressEtc}"
-					style="width: 300px" readonly><br> 연락처 : <input
-					type="text" id="toPhone" name="toPhone" value="${member.phone}"
-					readonly><br> 배송 메시지 : <input type="text"
-					id="deliveryMessage" name="deliveryMessage" maxlength="50"><br>
-			<p>
-		</c:if>
-		<h3>결제정보</h3>
-		결제방법 선택 : <label><input type="radio" name="payingSelect"
-			class="payingSelect" id="payBank" checked>무통장 입금</label>&nbsp;&nbsp;&nbsp;
-		<label><input type="radio" name="payingSelect"
-			class="payingSelect" id="payCard">신용카드 결제</label><br> <input
-			type="text" id="payPrice" name="payPrice" value="${payPrice}">
-		<input type="text" id="productNum" name="productNum"
-			value="${product.productNum}"> <input type="text"
-			id="memberEmail" name="memberEmail" value="${member.email}">
-		<input type="text" id="memberName" name="memberName"
-			value="${member.name}"> <input type="text" id="memberPhone"
-			name="memberPhone" value="${member.phone}"> <input
-			type="text" id="memberAddress" name="memberAddress"
-			value="${member.address} ${member.addressEtc}"> <input
-			type="text" id="memberPost" name="memberPost" value="${member.post}">
-		<input type="text" id="id" name="id" value="${member.id}"> <input
-			type="text" id="productName" name="productName"
-			value="${product.productName}"> <input type="text"
-			id="productThumb" name="productThumb" value="${product.productThumb}">
-		<c:if test="${!empty option}">
-		<input type="text" id="optionOneNum" name="optionOneNum"
-			value="${option.optionOneNum}"> <input type="text"
-			id="optionTwoNum" name="optionTwoNum" value="${option.optionTwoNum}">
-		<input type="text" id="optionThreeNum" name="optionThreeNum"
-			value="${option.optionThreeNum}"> 
-			<input
-			type="text" id="optionNum" name="optionNum"
-			value="${option.optionNum}">
-		</c:if>
-		<input type="text"
-			id="productPrice" name="productPrice" value="${product.productPrice}"> <input
-			type="text" id="cnt" name="cnt" value="${cnt}"> 
-		<%-- <input type="text" id="optionNum" name="optionNum" value="${basketSelect.optionNum}">
-<input type="text" name="${status.index}"class="checkboxs" id="checkedProduct${status.index}"value="${basket.basketNum}" checked /> --%>
-		<p id="payBankInfo">
-			입금 은행 <select name="bankCode" required>
-				<option value="none">은행을 선택해 주세요</option>
-				<c:forEach var="bankCode" items="${bankInfo}" varStatus="status">
-					<option value="${bankCode.bankCode}">${bankCode.bankName}</option>
-				</c:forEach>
-			</select>
-		</p>
-		<h3>결제하기 버튼</h3>
-		<input type="button" id="payment" value="결제하기">
+	<form name="orderForm" id="orderForm" action="orderResult" method="post">
+	<table class="table1">
+		<colgroup>
+			<col style="width:auto;" />
+			<col style="width:15%;" />
+			<col style="width:15%;" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th class="mainhead">주문상품</th>
+			</tr>
+			<tr class="head1">
+				<th>상품정보</th>
+				<th>판매자</th>
+				<th>배송비</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td>
+				<div class="img">
+					<img src="upload/${product.productImage}" width="50" height="50">
+				</div>
+				<div class="proInfo">
+					<b>[${option.optionOneNum} - ${option.optionTwoNum} - ${option.optionThreeNum}]${product.productName}</b>
+				</div>
+				</td>
+				<td class="t1_td">${seller.storeName}</td>
+				<td>${product.deliveryPrice}</td>
+			</tr>
+		</tbody>
+	</table>
+	<br><br>
+	<!-- 회원 -->
+	<c:if test="${authInfo != null }">
+	<table class="table2">
+		<colgroup>
+			<col style="width:25%;" />
+			<col style="width:auto%;" />
+		</colgroup>
+		<thead>
+			<tr>
+				<th>배송지 정보 입력</th>
+				<th><span>(*필수입력)</span></th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr id="dc">
+				<td class="td1"><span>*</span>배송지 선택</td>
+				<td class="td2">
+					<label>
+						<input type="radio" name="deliveryCheck" id="default" value="${member.name}" checked>${member.name}
+					</label>
+					<label>
+						<input type="radio" id="new" name="deliveryCheck" value="">새로운 배송지
+					</label>
+					<input type="button" class="b" id="myDeliveryAddress" value="나의 배송 주소록">
+				</td>
+			</tr>
+			<tr>
+				<td class="td1">
+					<span>*</span>이름<br><br>
+					<span>*</span>주소<br><br>
+					<span>*</span>연락처
+				</td>
+				<td class="td2">
+					<p id="deliveryInfo">
+					<input type="text" id="toName" name="toName" value="${member.name}" readonly><br><br>
+					<input type="text" id="toPost" name="toPost" value="${member.post}" readonly>
+					<input type="text" id="toAddress" name="toAddress" value="${member.address} ${member.addressEtc}" style="width : 300px" readonly><br><br>
+					<input type="text" id="toPhone" name="toPhone" value="${member.phone}" readonly>
+						<%-- <input type="text" id="toName" name="toName" value="${member.name}" readonly><br><br>
+						<input type="text" id="toPost" name="toPost" value="${member.post}" readonly>
+						<input type="text" id="toAddress" name="toAddress" value="${member.address} ${member.addressEtc}" style="width: 300px" readonly><br>
+						<input type="text" id="toPhone" name="toPhone" value="${member.phone}" readonly> --%>
+					<p>
+				</td>
+			</tr>
+			<%-- <tr>
+				<td class="td1"><span>*</span>주소</td>
+				<td class="td2">
+					<input type="text" id="toPost" name="toPost" value="${member.post}" readonly>
+					<input type="text" id="toAddress" name="toAddress" value="${member.address} ${member.addressEtc}" style="width: 300px" readonly>
+				</td>
+			</tr>
+			<tr>
+				<td class="td1"><span>*</span>연락처</td>
+				<td class="td2">
+					<input type="text" id="toPhone" name="toPhone" value="${member.phone}" readonly>
+				</td>
+			</tr> --%>
+			<tr id="dm">
+				<td class="td1">배송 메시지</td>
+				<td class="td2">
+					<input type="text" id="deliveryMessage" name="deliveryMessage" maxlength="50">
+				</td>
+			</tr>
+		</tbody>
+	</table>
+	</c:if>
+	
+	<!-- 비회원 -->
+	<c:if test="${member.id == '비회원'}">
+	<div class="boss">
+		<div class="div1">
+			<table class="table2" id="no1">
+				<colgroup>
+					<col style="width:35%;" />
+					<col style="width:auto%;" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th>주문회원정보<br><span>(*필수입력)</span></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="td1">
+							<span>*</span>이름
+						</td>
+						<td class="td2">
+							<input type="text" id="guestName" name="guestName" value="${guest.guestName }">
+						</td>
+					</tr>
+					<tr>
+						<td class="td1">
+							<span>*</span>연락처
+						</td>
+						<td class="td2">
+							<input type="text" id="guestPhone" name="guestPhone" value="${guest.guestPhone }">
+						</td>
+					</tr>
+					<tr>
+						<td class="td1">
+							<span>*</span>비밀번호
+						</td>
+						<td class="td2">
+							<input type="text" id="guestPassword" name="guestPassword" value="${guest.guestPassword }">
+						</td>
+					</tr>
+					<tr>
+						<td class="td1">
+						</td>
+						<td class="td2">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		<div class="div2">
+			<table class="table2" id="no2">
+				<colgroup>
+					<col style="width:35%;" />
+					<col style="width:auto%;" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th>배송지정보<br>입력<span>(*필수입력)</span></th>
+						<th></th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="td1">
+							<span>*</span>이름
+						</td>
+						<td class="td2">
+							<input type="text" id="toName" name="toName" value="">
+						</td>
+					</tr>
+					<tr>
+						<td class="td1">
+							<span>*</span>주소
+						</td>
+						<td class="td2">
+							<input type="text" id="toPost" name="toPost" value="" readonly>&nbsp;<input type="button" class="a" onClick="openDaumZipAddress();" value="주소 찾기" />
+							<input type="text" id="toAddress" name="toAddress" value="" style="width: 250px" readonly><input type="text" name="toAddressEtc" id="toAdressEtc" style="width: 250px" placeholder="상세주소를 입력해주세요."> 
+						</td>
+					</tr>
+					<tr>
+						<td class="td1">
+							<span>*</span>비밀번호
+						</td>
+						<td class="td2">
+							<input type="text" id="guestPassword" name="guestPassword" value="${guest.guestPassword }">
+						</td>
+					</tr>
+					<tr>
+						<td class="td1">
+							배송 메시지
+						</td>
+						<td class="td2">
+							<input type="text" id="deliveryMessage" name="deliveryMessage" maxlength="50">
+						</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+	</div>
+	</c:if>
+	
+	<br><br>
+	<div class="tb3">
+		<table class="table3">
+			<colgroup>
+				<col style="width:70%;" />
+				<col style="width:auto%;" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th class="right">결제정보 입력</th>
+					<th>결제하기</th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr>
+					<td class="right">결제 수단</td>
+					<td rowspan="2" id="rowspan">
+						<b><span class="s1">${payPrice}</span></b><span class="s2">원</span><br><br>
+						<input type="submit" class="t" id="payment" value="결제하기">
+					</td>
+				</tr>
+				<tr>
+					<td class="right">
+						<label>
+							<input type="radio" name="payingSelect" class="payingSelect" id="payBank" checked>무통장 입금
+						</label>&nbsp;&nbsp;&nbsp;
+						<label>
+							<input type="radio" name="payingSelect" class="payingSelect" id="payCard">신용카드 결제
+						</label><br> 
+						<p id="payBankInfo">
+							입금 은행 <select name="bankCode">
+								<option value="none">은행을 선택해 주세요</option>
+								<c:forEach var="bankCode" items="${bankInfo}" varStatus="status">
+									<option value="${bankCode.bankCode}">${bankCode.bankName}</option>
+								</c:forEach>
+							</select>
+						</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	</div>
+		<input type="hidden" id="payPrice" name="payPrice" value="${payPrice}">
+		<input type="hidden" id="productNum" name="productNum" value="${product.productNum}"> 
+		<input type="hidden" id="memberEmail" name="memberEmail" value="${member.email}">
+		<input type="hidden" id="memberName" name="memberName" value="${member.name}"> 
+		<input type="hidden" id="memberPhone" name="memberPhone" value="${member.phone}"> 
+		<input type="hidden" id="memberAddress" name="memberAddress" value="${member.address} ${member.addressEtc}"> 
+		<input type="hidden" id="memberPost" name="memberPost" value="${member.post}">
+		<input type="hidden" id="id" name="id" value="${member.id}"> 
+		<input type="hidden" id="productName" name="productName" value="${product.productName}"> 
+		<input type="hidden" id="productThumb" name="productThumb" value="${product.productThumb}">
+		<input type="hidden" id="optionOneNum" name="optionOneNum" value="${option.optionOneNum}"> 
+		<input type="hidden" id="optionTwoNum" name="optionTwoNum" value="${option.optionTwoNum}">
+		<input type="hidden" id="optionThreeNum" name="optionThreeNum" value="${option.optionThreeNum}"> 
+		<input type="hidden" id="productPrice" name="productPrice" value="${payPrice}"> 
+		<input type="hidden" id="cnt" name="cnt" value="${cnt}"> 
+		<input type="hidden" id="optionNum" name="optionNum" value="${option.optionNum}">
 	</form>
 	<script>
 var defaultInfo;
@@ -171,11 +571,11 @@ $(document).on("click", "#payment", function(){
 $('input[name=deliveryCheck]').click(function(){
 	if($('#default').is(':checked') == true) {
 		defaultInfo = $('#deliveryInfo').html();
-		$('#deliveryInfo').html('이름 : <input type="text" id="toName" name="toName" value="${member.name}" readonly><br>	주소 : <input type="text" id="toPost" name="toPost" value="${member.post}" readonly>&nbsp;<input type="text" id="toAddress" name="toAddress" value="${member.address}" style="width : 300px" readonly><br> 연락처 : <input type="text" id="toPhone" name="toPhone" value="${member.phone}" readonly><br> 배송 메시지 : <input type="text" id="deliveryMessage" name="deliveryMessage" maxlength="50"><br>');
+		$('#deliveryInfo').html('<input type="text" id="toName" name="toName" value="${member.name}" readonly><br><br>	<input type="text" id="toPost" name="toPost" value="${member.post}" readonly>&nbsp;<input type="text" id="toAddress" name="toAddress" value="${member.address}${member.addressEtc}" style="width : 300px" readonly><br><br><input type="text" id="toPhone" name="toPhone" value="${member.phone}" readonly><br>');
 	}
 	if($('#new').is(':checked') == true) {
 		newInfo = $('#deliveryInfo').html();
-		$('#deliveryInfo').html('이름 : <input type="text" id="toName" name="toName" value="" ><br> 주소 : <input type="text" id="toPost" name="toPost" value="" readonly>&nbsp; <input type="text" id="toAddress" name="toAddress" value="" style="width : 300px" readonly>&nbsp; 상세주소:<input type="text" name="toAddressEtc" id="toAdressEtc"> &nbsp;<input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /><br> 연락처 : <input type="text" id="toPhone" name="toPhone" value="" ><br> 배송 메시지 : <input type="text" id="deliveryMessage" name="deliveryMessage" maxlength="50"><br>');
+		$('#deliveryInfo').html('<input type="text" id="toName" name="toName" value="" ><br><br> <input type="text" id="toPost" name="toPost" value="" readonly>&nbsp;<input type="button" class="a" onClick="openDaumZipAddress();" value = "주소 찾기" /><br> <input type="text" id="toAddress" name="toAddress" value="" style="width : 300px" readonly>&nbsp; <input type="text" name="toAddressEtc" id="toAdressEtc" placeholder="상세주소를 입력해주세요."><br><br> <input type="text" id="toPhone" name="toPhone" value="" ><br>');
 	}
 });
 

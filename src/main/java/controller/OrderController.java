@@ -200,7 +200,6 @@ public class OrderController {
 			@RequestParam int cnt, @RequestParam int totalPrice, @RequestParam(required = false) int[] basketNums,
 			@RequestParam int payPrice, @RequestParam int totalDeliveryPrice) {
 
-		System.out.println("어서오소@@@@@@@@@" + optionNums[0] + "@@@@@@@@@@@" + optionNums[1]);
 		ModelAndView mv = new ModelAndView();
 
 		HttpSession session = req.getSession();

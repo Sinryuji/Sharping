@@ -9,6 +9,4 @@
 			MemberManage </a>
 	<li><a href="<c:url value='/admin/noticeManage'/>">
 			NoticeManage </a>
-	<li>DeclareManage
-	<li>DeclareContent
 </ul>

@@ -16,7 +16,7 @@
    	  }	
    
       td{
-      border-bottom: 2px solid silver;
+      	border-bottom: 2px solid silver;
       }
       
       table{
@@ -42,6 +42,7 @@
       	height:24px;
       	border:0px;
       	text-align:left;
+      	outline: 0;
       }
       
       #dSearch{
@@ -74,6 +75,7 @@
 			<input type="text" name="search" id="search" class="s" placeholder="키워드를 입력하세요." value="${search}"/>
 			<input type="submit" value="검색" style="height:30px;">
 		</div>
+		<hr color="black" width="11.5%" size="2px" style="margin-left:100px;" noshade>
 	</form>
    <table>
       <colgroup>
@@ -101,7 +103,11 @@
       <tbody>
          <c:choose>
             <c:when test="${empty orderList }" >
-               <tr><td colspan="5" align="center"><b>주문 정보가 없습니다.</b></td></tr>
+               <tr>
+               	<td colspan="10" align="center">
+               		<b>주문 정보가 없습니다.</b>
+               	</td>
+               </tr>
             </c:when> 
             <c:when test="${!empty orderList}">
                <c:forEach var="list" items="${orderList}" varStatus="status">
@@ -109,7 +115,7 @@
                      <td><input type="checkbox" class="select" id="chk${status.index}"></td>
                      <td><c:out value="${list.orderNum}"/></td>
                      <td>
-                     	<span style="float:left"><img src="upload/${list.productThumb}" style="width:50px;">&nbsp;&nbsp;</span>
+                     	<span style="float:left"><img src="opload/${list.productThumb}" style="width:50px;">&nbsp;&nbsp;</span>
                         <span style="float:left"><c:out value="${list.productName}"/></span>
                     </td>
                      <td>

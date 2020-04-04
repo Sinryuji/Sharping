@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
 <!DOCTYPE html>
 <html>
 <head>
@@ -77,6 +78,8 @@ function idCheck(){
 		if(data == 1){
 		   alert("확인 되었습니다.");
 		   idChk = true;
+		   $('.in').slideToggle("slow");
+		   $('#id').val('');
 		   if(phoneChk == true && idChk == true){
 		   $("#changePwPhone").removeAttr("disabled");
 		   }
@@ -131,13 +134,310 @@ $(function(){
 					});
 				});
 	});
+	
+	$(document).on("click", "#e_btn", function(){
+		$('.p_slide').slideUp("fast");
+		$('#email').val('');
+		$('#emailCheck').val('');
+		$('#phone').val('');
+		$('#confirmNumber').val('');
+		$('#newPassword1').val('');
+		$('#newPassword2').val('');
+		$('.e_slide').slideToggle("slow");
+		
+	});
+	
+	$(document).on("click", "#p_btn", function(){
+		$('.e_slide').slideUp("fast");
+		$('#phone').val('');
+		$('#confirmNumber').val('');
+		$('#email').val('');
+		$('#emailCheck').val('');
+		$('#newPassword1').val('');
+		$('#newPassword2').val('');
+		$('.p_slide').slideToggle("slow");
+		
+	});
 
 </script>
+<style>
+		#mm {
+    		 text-align: center;
+ 			 margin: 0 950px;
+    	}
+    	
+    	body{
+   	  		background-image:url('https://images.pexels.com/photos/1470589/pexels-photo-1470589.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+   	  		overflow:hidden;
+   	  	}
+   	  	
+   	  	a{
+   	  		text-decoration:none;
+   	  		color:black;
+   	  	}
+   	  	
+   	  	h1{
+   	  		display:inline;
+   	  	}
+   	  	
+   	  	._id{
+   	  		text-align:center;
+   	  		margin-left:100px;
+   	  	}
+   	  	
+   	  	#id{
+   	  		border:0;
+   	  		outline:0;
+   	  	}
+   	  	
+   	  	.t {
+		    width: 200px;
+		    height: 100px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 18px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.t:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		.reg{
+			text-align: center;
+			/* background: white; */
+			margin: 0 680px;;
+			width: 600px;
+			height: 300px;
+			/* background-color: rgba( 255, 255, 255, 0.6 ); */
+			margin-top: 55px;
+		}
+		
+		.in{
+			position: absolute;
+			left:39.7%;
+			top:35%;
+			display:none;
+		}
+		
+		.b {
+		    width: 90px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 14px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.b:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		/* value에 문자열이 5~6글자 정도인 버튼 */
+		.a {
+		    width: 130px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 14px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.a:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		table{
+		    border-collapse: collapse;
+		    line-height: 1.5;
+			width:600px;
+			margin-left:680px;
+			margin-top:100px;
+		}
+		table thead th {
+		    padding: 10px;
+		    font-weight: bold;
+		    vertical-align: top;
+		    color: #369;
+		    border-bottom: 3px solid #036;
+		}
+		table tbody th {
+		    width: 150px;
+		    padding: 10px;
+		    font-weight: bold;
+		    vertical-align: top;
+		    border-bottom: 1px solid #ccc;
+		    background: #f3f6f7;
+		}
+		table td {
+		    width: 350px;
+		    padding: 10px;
+		    vertical-align: top;
+		    border-bottom: 1px solid #ccc;
+		}
+		
+		.td1{
+			background: silver;
+			text-align:center;
+			vertical-align:middle;
+		}
+		
+		.td2{
+			text-align:left;
+		}
+		
+		.btn{
+			text-align:center;
+			margin-left: 50px;
+		}
+		
+		.e_slide{
+			display:none;
+		}
+		
+		.p_slide{
+			display:none;
+		}
+   	  	
+</style>
 </head>
 <body>
 
+	<div id="mm">
+		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
+	</div>
+	<br><br>
+	<div class="reg">
+		<h2>비밀번호를 재설정 할 아이디를 입력해주세요</h2>
+		<input type="text" id="id" name="id"/>&nbsp&nbsp&nbsp<input type="button" onClick="idCheck();"  class="b" value="확인">
+		<div class="in">
+		<h2>비밀번호 재설정 방법을 선택해주세요</h2>
+			<input type="button" class="t" id="e_btn" value="이메일">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+			<input type="button" class="t" id="p_btn" value="문자 인증">
+		</div>
+	</div>
+	<div class="e_slide">
+		<form action="changePwEmail" method="post">
+			<table>
+				<colgroup>
+					<col style="width:30%;" />
+	         		<col style="width:auto;" />
+				</colgroup>
+				<thead>
+			    	<tr>
+			    		<th>항목</th>
+			    		<th>내용</th>
+			    	</tr>
+			    </thead>
+			    <tbody>
+			    	<tr>
+			    		<td class="td1">이메일</td>
+			    		<td class="td2">
+			    			<input type="text" id="email" name="email" placeholder="이메일을 입력하세요" />
+							<button type="button" class="a" id="emailBtn">발송</button>
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td class="td1">인증번호</td>
+			    		<td class="td2">
+			    			<input type="text" id="emailCheck" placeholder="인증번호입력">
+							<button type="button" class="a" id="emailCheckBtn">인증</button>
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td class="td1">새 비밀번호</td>
+			    		<td class="td2">
+			    			<input type="text" id="newPassword1" name="newPassword">
+							<input type="hidden" path="random" id="random" value="${random}" /> 
+							<input type="submit" class="a" id="changePwEmail" name="changePwEmail" value="변경" disabled="ture">
+			    		</td>
+			    	</tr>
+			    </tbody>
+			</table>
+		</form>
+	</div>
+	<div class="p_slide">
+		<form action="changePwPhone" method="post">
+			<table>
+				<colgroup>
+					<col style="width:30%;" />
+	         		<col style="width:auto;" />
+				</colgroup>
+				<thead>
+			    	<tr>
+			    		<th>항목</th>
+			    		<th>내용</th>
+			    	</tr>
+			    </thead>
+			    <tbody>
+			    	<tr>
+			    		<td class="td1">휴대폰번호</td>
+			    		<td class="td2">
+			    			<input type="text" name="phone" id="phone" />
+							<button type="button" class="a" onclick="sendSms();">전송</button>
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td class="td1">인증번호</td>
+			    		<td class="td2">
+			    			<input type="text" name="confirmNumber" id="confirmNumber" />
+							<button type="button" class="a" onclick="phoneCheck();">인증</button>
+							<input type="hidden" path="random" id="random" value="${random }"/>
+			    		</td>
+			    	</tr>
+			    	<tr>
+			    		<td class="td1">새 비밀번호</td>
+			    		<td class="td2">
+			    			<input type="text" id="newPassword2" name="newPassword">
+							<input type="submit" class="a" value="변경" id="changePwPhone" name="changePwPhone" disabled="ture">
+			    		</td>
+			    	</tr>
+			    </tbody>
+			</table>
+		</form>
+	</div>
+	
 
-<h1> 비밀번호 재설정 하고자 하는 아이디를 입력해주세요</h1>
+<%-- <h1> 비밀번호 재설정 하고자 하는 아이디를 입력해주세요</h1>
 
 <br>
 아이디 : <input type="text" id="id" name="id"/>&nbsp&nbsp&nbsp<input type="button" onClick="idCheck();" value="확인">
@@ -170,7 +470,7 @@ $(function(){
 	<input type="hidden" path="random" id="random" value="${random }"/>
 	새 비밀번호:<input type="text" name="newPassword">
 	<input type="submit" value="폰번호로 변경하기!" id="changePwPhone" name="changePwPhone" disabled="ture">
-</form>
+</form> --%>
 
 </body>
 </html>
