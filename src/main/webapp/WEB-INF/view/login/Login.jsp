@@ -218,10 +218,5 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 	</div>
 	
 	</div>
-<script>
-	$('#selectProduct').click(function(){
-		window.location.href='<%=request.getContextPath()%>/selectGuest';
-		});
-</script>
 </body>
 </html>
