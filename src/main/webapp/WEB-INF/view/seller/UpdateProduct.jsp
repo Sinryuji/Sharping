@@ -508,9 +508,9 @@
 										</table>
 						 </div><br>
 						<div id="optionBox">
-							<input type="hidden" id="h1" name="optionOneName" value="${product.optionOneName}">
-							<input type="hidden" id="h2" name="optionTwoName" value="${product.optionTwoName}">
-							<input type="hidden" id="h3" name="topnThreeName" value="${product.optionThreeName}">
+							<input type="hidden" id="h1" name="h1" value="${product.optionOneName}">
+							<input type="hidden" id="h2" name="h2" value="${product.optionTwoName}">
+							<input type="hidden" id="h3" name="h3" value="${product.optionThreeName}">
 							  <span id="op1">
 							    1차 옵션&nbsp;&nbsp;<select name="optionOneName" class="detailOptionSelect" id="o1" >
 							    	<option id="title1" value="0">${product.optionOneName}</option>
