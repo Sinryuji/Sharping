@@ -310,6 +310,7 @@ public class OrderController {
 			orderListJson.put("productNum", basketSelect.get(i).getProductNum());
 			orderListJson.put("deliveryPrice", basketSelect.get(i).getDeliveryPrice());
 			orderListJson.put("basketNum", basketSelect.get(i).getBasketNum());
+			orderListJson.put("storeName", basketSelect.get(i).getstoreName());
 			orderListJsonArray.add(orderListJson);
 			a += (basketSelect.get(i).getProductPrice() * basketSelect.get(i).getCnt())
 					+ basketSelect.get(i).getDeliveryPrice();
@@ -322,6 +323,7 @@ public class OrderController {
 		String orderListJsonListString = orderListJsonArray.toString();
 
 		mv.addObject("orderListJsonArray", orderListJsonListString);
+		mv.addObject("orderListArray", orderListJsonArray);
 		mv.addObject("totalPrice", a);
 
 		return mv;

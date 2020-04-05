@@ -313,14 +313,14 @@ table {
 					</tr>
 				</thead>
 				<tbody>
-				<c:forEach var="product" items="${product}" varStatus="status">
+				<c:forEach var="product" items="${orderListArray}" varStatus="status">
 					<tr>
 						<td>
 							<div class="img">
 								<img src="opload/${product.productThumb}" width="50" height="50">
 							</div>
 							<div class="proInfo">
-								<b>${product.productName}&nbsp;&nbsp;&nbsp;${cnt}개&nbsp;&nbsp;&nbsp;${product.productPrice}원</b>
+								<b>${product.productName}&nbsp;&nbsp;&nbsp;${product.cnt}개&nbsp;&nbsp;&nbsp;${product.productPrice}원</b>
 							</div>
 						</td>
 						<td class="t1_td">${product.storeName}</td>

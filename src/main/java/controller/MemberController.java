@@ -1,5 +1,8 @@
 package controller;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
@@ -7,7 +10,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -32,6 +37,7 @@ import service.OrderService;
 import service.ProductService;
 import vo.AdminVO;
 import vo.AuthInfo;
+import vo.BankVO;
 import vo.CategoryVO;
 import vo.ChangeMemberVO;
 import vo.ChangePwVO;
@@ -221,15 +227,43 @@ public class MemberController {
 
 	// 로그인 페이지
 	@RequestMapping(value = "/login")
-	public String login() {
-		return "login/Login";
+	public ModelAndView login(HttpServletRequest req) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("login/Login");
+		
+		Cookie[] cookies = req.getCookies();
+		
+		String rememberId = "";
+		
+		for(Cookie cookie : cookies) {
+			
+			if(cookie.getName().equals("rememberId")) {
+				
+				
+				try {
+					rememberId = URLDecoder.decode(cookie.getValue(), "UTF-8");
+					System.out.println(rememberId);
+				} catch (UnsupportedEncodingException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+			}
+			
+		}
+		
+		mv.addObject("rememberId", rememberId);
+		
+		return mv;
 	}
 
 	// 로그인
 	@RequestMapping(value = "/loginComplete")
-	public String loginComplete(LoginVO loginVO, HttpSession session) {
+	public String loginComplete(LoginVO loginVO, HttpSession session, String rememberId, HttpServletResponse resp) {
+		String remember = rememberId;
 		try {
-
+			
 			AdminVO adminVO = adminService.login(loginVO.getId(), loginVO.getPassword());
 			if (adminVO != null) {
 				session.setAttribute("adminVO", adminVO);
@@ -239,11 +273,39 @@ public class MemberController {
 				AuthInfo authInfo = memberService.login(loginVO.getId(), loginVO.getPassword());
 
 				session.setAttribute("authInfo", authInfo);
+				
+				if(remember != null ) {
+				if(remember.equals("true")) {
+					Cookie cookie;
+					try {
+						cookie = new Cookie("rememberId", URLEncoder.encode(authInfo.getId(), "UTF-8"));
+						cookie.setMaxAge(60 * 60 * 72);
+						resp.addCookie(cookie);
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+					
+				}
+				} else {
+					
+					Cookie cookie;
+					try {
+						cookie = new Cookie("rememberId", URLEncoder.encode(authInfo.getId(), "UTF-8"));
+						cookie.setMaxAge(0);
+						resp.addCookie(cookie);
+					} catch (UnsupportedEncodingException e) {
+						// TODO Auto-generated catch block
+						e.printStackTrace();
+					}
+					
+				}
 				return "redirect:main";
 			}
 		} catch (IdPasswordNotMatchingException e) {
 			return "login/Login";
-		}
+		} 
 
 		return "admin/AdminPage";
 	}
@@ -358,6 +420,10 @@ public class MemberController {
 		int ran = new Random().nextInt(900000) + 100000;
 		mv.setViewName("login/ChangeSeller");
 		mv.addObject("random", ran);
+		
+		List<BankVO> bankVO = orderService.selectBankCodeList();
+		
+		mv.addObject("bankInfo", bankVO);
 		return mv;
 	}
 

@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -240,7 +241,12 @@ function phoneCheck() {
 	    		<tr>
 	    			<td class="td1">은행코드</td>
 	    			<td class="td2">
-	    				<input type="number" name="bankCode" />
+	    				 <select name="bankCode">
+								<option value="none">은행을 선택해 주세요</option>
+								<c:forEach var="bankCode" items="${bankInfo}" varStatus="status">
+									<option value="${bankCode.bankCode}">${bankCode.bankName}</option>
+								</c:forEach>
+							</select>
 	    			</td>
 	    		</tr>
 	    	</tbody>

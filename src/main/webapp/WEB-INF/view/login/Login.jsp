@@ -48,7 +48,7 @@ https://t1.daumcdn.net/cfile/tistory/1574BE2F4C67FF6E69
 		text-align: center;
 		border : 2px solid transparent;
 		width: 800px;
-		height: 450px;
+		height: 500px;
 		margin-top: 150px;
 		margin-left: 600px;
 		background: pink;
@@ -99,6 +99,11 @@ https://t1.daumcdn.net/cfile/tistory/1574BE2F4C67FF6E69
 	
 	.in2{
 		margin-right: 40px;
+	}
+	
+	#rememberId{
+		margin-right:22px;
+		margin-bottom:13px;
 	}
 	
 	.btn {
@@ -193,18 +198,21 @@ https://t1.daumcdn.net/cfile/tistory/1574BE2F4C67FF6E69
 		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
 	</div>
 	<div class="form">
+		<form action="loginComplete">
 		<div class="loginBox">
-			<form action="loginComplete">
 				<div class="idPw">
-					<input type="text" autocomplete="off" class="pad" name="id" value="" placeholder="ID"/><br><br>
+					<input type="text" autocomplete="off" class="pad" name="id" placeholder="ID" value="${rememberId}"/><br><br>
 					<input type="text" autocomplete="off" class="pad" name="password" value="" placeholder="Password"/>
 				</div>
 				&nbsp;&nbsp;
 				<div class="in">
 					<input type="submit" class="btn" id="login" value="LOGIN">
 				</div><br><br>
-			</form>
 		</div>
+		<div id="rememberId">
+			<input type="checkbox" name="rememberId" value="true" ${rememberId != "" ? "checked" : "" }>&nbsp;아이디 기억하기
+		</div>
+		</form>
 		<div class="two">
 			<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/regist'" value="회원가입">&nbsp;&nbsp;
 			<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/searchIdChangePw'" value="ID/PW찾기">

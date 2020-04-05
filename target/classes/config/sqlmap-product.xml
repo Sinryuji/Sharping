@@ -137,7 +137,7 @@
 
 	
 		<select id="getProductList"  resultType="productVO">
-		SELECT "productNum", "productName", "productThumb", "productPrice","deliveryPrice" ,"id" FROM PRODUCT WHERE "productName" like '%'||#{keyword}||'%'	
+		SELECT "productNum", "productName", "productThumb", "productPrice","deliveryPrice" ,"id" FROM PRODUCT WHERE "productDisplay" like 'TRUE' AND "productName" like '%'||#{keyword}||'%'	
 	
 			<if test="searchType=='productNum' and keyword2 != null and keyword2 != '' ">
 				AND "productNum" like '%'||#{keyword2}||'%'
