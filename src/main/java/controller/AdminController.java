@@ -4,6 +4,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -23,6 +24,7 @@ import service.AdminService;
 import service.MemberService;
 import service.ProductService;
 import vo.AdminVO;
+import vo.AuthInfo;
 import vo.CategoryVO;
 import vo.MemberVO;
 import vo.NoticeVO;
@@ -415,6 +417,24 @@ public class AdminController {
 		adminService.updateNoticePostByNoticeNum(noticeVO);
 
 		return "complete";
+	}
+	
+	// 메인에 공지사항 띄우기
+	@RequestMapping("/notice")
+	@ResponseBody
+	public NoticeVO notice(NoticeVO noticeVO) throws Exception {
+		
+		
+
+		return noticeVO;
+	}
+	
+	@RequestMapping("/noticee")
+	public String notice() throws Exception {
+		
+		
+
+		return "/admin/Notice";
 	}
 
 

@@ -18,10 +18,19 @@
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/easy-responsive-shortcodes.css' type='text/css' media='all'/>
 	
 	<style>
-    	#mm {
+    	.site-branding {
     		 text-align: center;
  			 margin: 0 auto;
     	}
+    	
+    	a{
+   	  		text-decoration:none;
+   	  		color:black;
+   	  	}
+   	  	
+   	  	h1{
+   	  		display:inline;
+   	  	}
     </style>
 	
 
@@ -31,7 +40,7 @@
 	<div class="page">
 		<header id="masthead" class="site-header">
 		<div class="site-branding">
-			<h1 class="site-title"><a href="<c:url value='/main'/>" rel="home">#ing</a></h1>
+			<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
 		</div>
 		</header>
 		</div>
