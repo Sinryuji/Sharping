@@ -467,10 +467,10 @@ history.go(-1);
 					</tr>
 					<tr>
 						<td class="td1">
-							<span>*</span>비밀번호
+							<span>*</span>연락처
 						</td>
 						<td class="td2">
-							<input type="text" id="guestPassword" name="guestPassword" value="${guest.guestPassword }">
+							<input type="text" id="toPhone" name="toPhone" value="${guest.guestPassword }">
 						</td>
 					</tr>
 					<tr>

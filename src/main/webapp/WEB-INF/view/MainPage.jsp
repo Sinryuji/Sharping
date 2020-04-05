@@ -253,7 +253,7 @@
 	</div>
 	</section>
 	
-
+	<button type="button" id="latelyViewProduct">최근 본 상품</button>
 	
 <%-- 	<footer id="footer">
 		<div id=footerBox>
@@ -390,6 +390,14 @@
 	$(document).on("click", "#mainCategoryView", function(){
 		
 		$('.mainCategoryScroll').slideToggle("slow");
+	})
+	
+	// 최근 본 상품 버튼
+	
+	$(document).on("click", "#latelyViewProduct", function(){
+		
+		location.href = "<%=request.getContextPath()%>/latelyViewProduct";
+		
 	})
 	
 	

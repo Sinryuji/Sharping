@@ -24,15 +24,16 @@ public class ProductVO {
 	private String optionOneName;
 	private String optionTwoName;
 	private String optionThreeName;
+	private String storeName;
 
 	public ProductVO() {
 		super();
 	}
+	
 	public ProductVO(int productNum, String productName, String productText, int productPrice, String productThumb,
 			String productImage, String productDisplay, int stock, int categoryNum, Timestamp productDate, String id,
 			String productMeterial, String manufacturer, Date mfDate, String origin, int deliveryPrice,
-			String optionOneName, String optionTwoName, String optionThreeName) {
-
+			String optionOneName, String optionTwoName, String optionThreeName, String storeName) {
 		super();
 		this.productNum = productNum;
 		this.productName = productName;
@@ -53,8 +54,15 @@ public class ProductVO {
 		this.optionOneName = optionOneName;
 		this.optionTwoName = optionTwoName;
 		this.optionThreeName = optionThreeName;
+		this.storeName = storeName;
 	}
 
+	public String getStoreName() {
+		return storeName;
+	}
+	public void setStoreName(String storeName) {
+		this.storeName = storeName;
+	}
 	public int getProductNum() {
 		return productNum;
 	}
@@ -181,8 +189,9 @@ public class ProductVO {
 				+ ", productDate=" + productDate + ", id=" + id + ", productMeterial=" + productMeterial
 				+ ", manufacturer=" + manufacturer + ", mfDate=" + mfDate + ", origin=" + origin + ", deliveryPrice="
 				+ deliveryPrice + ", optionOneName=" + optionOneName + ", optionTwoName=" + optionTwoName
-				+ ", optionThreeName=" + optionThreeName + "]";
+				+ ", optionThreeName=" + optionThreeName + ", storeName=" + storeName + "]";
 	}
+
 
 
 	

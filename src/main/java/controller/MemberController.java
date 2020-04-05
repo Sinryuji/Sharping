@@ -23,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
-
 import exception.AlreadyExistingIdException;
 import exception.IdPasswordNotMatchingException;
 import exception.PasswordNotMatchingException;
@@ -86,8 +84,6 @@ public class MemberController {
 		
 		mv.setViewName("MainPage");
 		mv.addObject("categorys", categorys);
-		
-		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@" + categorys);
 		
 		return mv;
 	}

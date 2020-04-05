@@ -2,6 +2,9 @@ package controller;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.net.URLDecoder;
+import java.net.URLEncoder;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -10,7 +13,9 @@ import java.util.Map;
 import java.util.UUID;
 
 import javax.annotation.Resource;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.json.simple.JSONObject;
@@ -18,7 +23,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
@@ -93,6 +97,9 @@ public class ProductController {
 //	public String uploadCompleteProduct(@Valid ProductVO productVO , MultipartFile file) {
 	public String uploadCompleteProduct(MultipartHttpServletRequest mtfRequest) {
 		ProductVO productVO = new ProductVO();
+		
+
+
 		String uploadPath = "d:\\dev\\opload\\";
 		String ThumUploadPath = "d:\\dev\\opload\\thum";
 		File dir = new File(uploadPath);
@@ -198,9 +205,20 @@ public class ProductController {
 	}
 
 	// 상품 페이지
-
 	@RequestMapping("/product")
-	public ModelAndView product(int productNum) {
+	public ModelAndView product(int productNum, HttpServletResponse resp) {
+		Cookie cookie = null;
+		try {
+			cookie = new Cookie("latelyViewProduct"+productNum, URLEncoder.encode(String.valueOf(productNum), "UTF-8"));
+			cookie.setMaxAge(60 * 60 * 72);
+			System.out.println(URLEncoder.encode(String.valueOf(productNum), "UTF-8"));
+		} catch (UnsupportedEncodingException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		resp.addCookie(cookie);
+	
 		ProductVO productVO = productService.selectProduct(productNum);
 		SellerVO sellerVO = memberService.searchSellerById(productVO.getId());
 
@@ -994,6 +1012,48 @@ public class ProductController {
 
 		return map;
 
+	}
+	
+	// 최근 본 상품
+	@RequestMapping(value = "latelyViewProduct")
+	public ModelAndView latelyViewProduct(HttpServletRequest req) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("mypage/LatelyViewProduct");
+		
+		Cookie[] cookies = req.getCookies();
+		
+		List<ProductVO> products = new ArrayList<ProductVO>();
+		
+		
+		
+		for(Cookie cookie : cookies) {
+			
+			
+			try {
+				
+				if(cookie.getName().contains("latelyViewProduct")) {
+				System.out.println(Integer.parseInt(URLDecoder.decode(cookie.getValue(), "UTF-8")));
+				ProductVO product = productService.selectProduct(Integer.parseInt(URLDecoder.decode(cookie.getValue(), "UTF-8")));
+				product.setStoreName(memberService.searchSellerById(product.getId()).getStoreName());
+				
+				products.add(product);
+				}
+			} catch (NumberFormatException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			} catch (UnsupportedEncodingException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+			
+		}
+		
+		mv.addObject("products", products);
+		
+		return mv;
 	}
 
 }

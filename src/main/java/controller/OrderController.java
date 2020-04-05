@@ -237,6 +237,12 @@ public class OrderController {
 		}
 
 		List<ProductVO> product = productService.selectProducts(productNum);
+		
+		for(int i = 0 ; i < product.size() ; i++) {
+			SellerVO seller = memberService.searchSellerById(product.get(i).getId());
+			product.get(i).setStoreName(seller.getStoreName());
+		}
+		
 		int products = product.size();
 		String[] proId = new String[products];
 		for (int i = 0; i < products; i++) {
@@ -1044,9 +1050,11 @@ public class OrderController {
 			orderJsonbank.put("optionOneNum", orderList.get(i).getOptionOneNum());
 			orderJsonbank.put("optionTwoNum", orderList.get(i).getOptionTwoNum());
 			orderJsonbank.put("optionThreeNum", orderList.get(i).getOptionThreeNum());
+			if(orderList.get(i).getOptionOneNum() > 0) {
 			orderJsonbank.put("optionOneName", productService.selectDetailOptionByDoNum(orderList.get(i).getOptionOneNum()).getOptionName());
 			orderJsonbank.put("optionTwoName", productService.selectDetailOptionByDoNum(orderList.get(i).getOptionTwoNum()).getOptionName());
 			orderJsonbank.put("optionThreeName", productService.selectDetailOptionByDoNum(orderList.get(i).getOptionThreeNum()).getOptionName());
+			}
 			orderJsonbank.put("orderNum", order.get(i).getOrderNum());
 			orderJsonbank.put("state", order.get(i).getState());
 			orderJsonbank.put("payCase", order.get(i).getPayCase());

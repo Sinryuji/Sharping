@@ -134,3 +134,5 @@ commit;
 SELECT MAX("optionLevel") FROM DETAILOPTION WHERE "productNum" = 2;
 
 insert into ADMIN VALUES ('admin', '$2a$10$o8OCjxqC2tDcgTIZgcgMBeAWd0gsmHfnH4lMs7jv76J3/Ra43virm');
+
+insert into category values (0, 'юс╫ц', 0, 0);

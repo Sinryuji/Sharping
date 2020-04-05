@@ -280,15 +280,14 @@ table {
 		<input type="hidden" name="id" id="id" value="${authInfo.id}">
 	</form>
 	<form name="orderForm" id="orderForm" action="orderResultByBasket"method="post">
-		<c:forEach var="product" items="${product}" varStatus="status">
-			<input type="hidden" id="payPrice${stats.index}" name="payPrice"value="${totalPrice}">
-			<input type="hidden" id="memberEmail${stats.index}"name="memberEmail" value="${member.email}">
+ 			<input type="hidden" id="payPrice${stats.index}" name="payPrice"value="${totalPrice}">
+ 			
+			<%-- <input type="hidden" id="memberEmail${stats.index}"name="memberEmail" value="${member.email}">
 			<input type="hidden" id="memberName${stats.index}" name="memberName"value="${member.name}">
 			<input type="hidden" id="memberPhone${stats.index}"name="memberPhone" value="${member.phone}">
 			<input type="hidden" id="memberAddress${stats.index}"name="memberAddress" value="${member.address} ${member.addressEtc}">
 			<input type="hidden" id="memberPost${stats.index}" name="memberPost"value="${member.post}">
 			<input type="hidden" id="id${stats.index}" name="id"value="${member.id}">
-			<!--일단 주석 orderList에 들어갈 정보  -->
 			<input type="hidden" id="productName${stats.index}"name="productName" value="${product.productName}">
 			<input type="hidden" id="productThumb${stats.index}"name="productThumb" value="${product.productThumb}">
 			<input type="hidden" id="optionOneNum${stats.index}"name="optionOneNum" value="${option[status.index].optionOneNum}">
@@ -296,7 +295,7 @@ table {
 			<input type="hidden" id="optionThreeNum${stats.index}"name="optionThreeNum" value="${option[status.index].optionThreeNum}">
 			<input type="hidden" id="productPrice${stats.index}"name="productPrice" value="${product.productPrice}">
 			<input type="hidden" id="cnt${stats.index}" name="cnt" value="${cnt}">
-			<input type="hidden" id="optionNum${stats.index}" name="optionNum"value="${option[status.index].optionNum}">
+			<input type="hidden" id="optionNum${stats.index}" name="optionNum"value="${option[status.index].optionNum}"> --%>
 			<table class="table1">
 				<colgroup>
 					<col style="width: auto;" />
@@ -314,23 +313,24 @@ table {
 					</tr>
 				</thead>
 				<tbody>
+				<c:forEach var="product" items="${product}" varStatus="status">
 					<tr>
 						<td>
 							<div class="img">
-								<img src="upload/${product.productImage}" width="50" height="50">
+								<img src="opload/${product.productThumb}" width="50" height="50">
 							</div>
 							<div class="proInfo">
 								<b>${product.productName}&nbsp;&nbsp;&nbsp;${cnt}개&nbsp;&nbsp;&nbsp;${product.productPrice}원</b>
 							</div>
 						</td>
-						<td class="t1_td">${seller[status.index].storeName}</td>
+						<td class="t1_td">${product.storeName}</td>
 						<td class="pricetd">${product.deliveryPrice}</td>
 					</tr>
+					</c:forEach>
 				</tbody>
 			</table>
 			<br>
 			<br>
-		</c:forEach>
 
 		<table class="table2">
 			<colgroup>
@@ -386,7 +386,7 @@ table {
 					<tr>
 						<td class="right">결제 수단</td>
 						<td rowspan="2" id="rowspan"><b><span class="s1">
-							${payPrice}</span></b>
+							${totalPrice}</span></b>
 							<span class="s2">원</span><br>
 							<br>
 							<input type="hidden" name="orderJson"value='${orderJson}' /> 
