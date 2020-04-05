@@ -54,10 +54,75 @@
       	background: white;
       }
       
+      .a {
+		    width: 80px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 12px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.a:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		.delivery {
+		    width: 100px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 12px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.delivery:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		#mm {
+    		text-align: center;
+ 			margin: 0 950px;
+    	}
+    	
+    	a{
+   	  		text-decoration:none;
+   	  		color:black;
+   	  	}
+      
 	</style>
 </head>
 <body>
-	<h1 style="text-align:center;"><a href="<c:url value='/main'/>"> 메인 </a></h1><br><br>
+	<b><a href="<c:url value='/sellerPage'/>">판매자 페이지</a></b><br>
+	<div id="mm">
+		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
+	</div>
 	<form action="orderManage" id="searchOrder" name="searchOrder">
 		<select class="dSearch" name="dSearch" id="dSearch" class="s" >
 			<option value="">-----선택-----</option>
@@ -73,9 +138,9 @@
 		</select>
 		<div id="searchBox" style="display:inline">
 			<input type="text" name="search" id="search" class="s" placeholder="키워드를 입력하세요." value="${search}"/>
-			<input type="submit" value="검색" style="height:30px;">
+			<input type="submit" class="a" value="검색" style="height:30px;">
 		</div>
-		<hr color="black" width="11.5%" size="2px" style="margin-left:100px;" noshade>
+		<hr color="black" width="13.5%" size="2px" style="margin-left:100px;" noshade>
 	</form>
    <table>
       <colgroup>

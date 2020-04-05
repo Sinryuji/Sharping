@@ -13,18 +13,18 @@
 </script>
 <style>
     #mm {
-       text-align: center;
-       margin: 0 950px;
-   }
-       
-       
-       
+    	text-align: center;
+ 		margin: 0 950px;
+	}
+    	
+    	
+    	
     a{
-         text-decoration:none;
-         color:black;
-      }
+   		text-decoration:none;
+   		color:black;
+   	}
 
-   table{
+	table{
         text-align: center;
         line-height: 1.5;
         vertical-align: middle;
@@ -43,6 +43,7 @@
     }
 
     .cancle {
+<<<<<<< HEAD
           width: 130px;
           height: 30px;
           font-family: 'Roboto', sans-serif;
