@@ -134,7 +134,6 @@ body {
 				
 				$("#upPro").click(function(){
 					
-
 							var formup = $("form[role='form']");
 							formup.attr("method", "get");
 							formup.submit(); 

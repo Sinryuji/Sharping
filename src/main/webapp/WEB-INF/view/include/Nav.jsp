@@ -20,14 +20,17 @@
 				<li class="navbar-left"><b><a href="<c:url value='/login'/>">&nbsp;로그인&nbsp;&nbsp;</a></b>
 				<li class="navbar-left"><b><a href="<c:url value='/regist'/>">&nbsp;회원가입&nbsp;</a></b>
 				<li class="active"><h1><i><a href="<c:url value='/main'/>"> #ing </a></i></h1>
+				<li class="navbar-right"><a href="<c:url value='latelyViewProduct'/>">&nbsp;최근 본 상품&nbsp;</a></li>
 			</c:if>
 			<c:if test="${!empty authInfo}">
 				<li class="navbar-left"><a href="#"><b>[${authInfo.name}]</b>님 환영합니다.</a></li>
+				<li class="navbar-left"><a href="<c:url value='/infoChange'/>">&nbsp;회원정보 수정&nbsp;</a></li>		
 				<li class="navbar-left"><a href="<c:url value='/logout'/>">&nbsp;로그아웃&nbsp;</a></li>
-				<li class="navbar-left"><a href="<c:url value='/infoChange'/>">&nbsp;회원정보 수정&nbsp;</a></li>
 				<li class="active"><h1><i><a href="<c:url value='/main'/>"> #ing </a></i></h1>
-				<li class="navbar-right"><a href="<c:url value='/myPage'/>">&nbsp;마이페이지&nbsp;</a></li>
 				<li class="navbar-right"><a href="<c:url value='/basket'/>">&nbsp;장바구니&nbsp;</a></li>
+				<li class="navbar-right"><a href="<c:url value='/myPage'/>">&nbsp;마이페이지&nbsp;</a></li>			
+				<li class="navbar-right"><a href="<c:url value='latelyViewProduct'/>">&nbsp;최근 본 상품&nbsp;</a></li>
+			
 			<c:if test="${authInfo.sellerCheck == 'false' }">
 				<li class="navbar-right"><a href="<c:url value='/changeSeller'/>">&nbsp;판매하기&nbsp;</a></li>
 			</c:if>

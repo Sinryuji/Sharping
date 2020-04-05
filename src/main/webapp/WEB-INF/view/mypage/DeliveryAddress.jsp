@@ -12,8 +12,7 @@
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
 	
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
+	<link rel='stylesheet' href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
 	<link rel='stylesheet'
 		href='${pageContext.request.contextPath}/resources/css/woocommerce-layout.css'
 		type='text/css' media='all' />
@@ -83,12 +82,6 @@ section#container::after {
 }
 
 div#containerBox {
-	float: right;
-	width: calc(100% - 200px - 20px);
-	padding-bottom: 10px;
-}
-
-div#containerWrite {
 	float: right;
 	width: calc(100% - 200px - 20px);
 	padding-bottom: 10px;
@@ -235,6 +228,11 @@ footer#footer div {
 		});
 		
 		$('.deliveryAddressUpdate').click(function(){
+			window.name = "DeliveryAddress";
+			
+			var popupp = window.open("deliveryAddressUpdate", "배송주소록 수정",
+					"width = 700, height = 450, resizable = no, scrollbars = no, status = no")
+			
 			var daaNameStr = '#daaName' + $(this).val();
 			var idStr = '#id' + $(this).val();
 			
@@ -243,7 +241,7 @@ footer#footer div {
 			f.name="updateInfo";
 			f.action="<%=request.getContextPath()%>/deliveryAddressUpdate";
 			f.method="post";
-			f.target="";
+			f.target="배송주소록 수정";
 			
 			var elem = document.createElement("input");
 			
@@ -263,6 +261,14 @@ footer#footer div {
 			document.body.appendChild(f);
 			
 			f.submit();
+			
+	    	var timer = setInterval(function(){
+		        if(popupp.closed) {
+					clearInterval(timer);
+					window.location.reload();
+					
+		        } 
+		    },300)
 			
 		});
 		
