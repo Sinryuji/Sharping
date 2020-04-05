@@ -105,11 +105,9 @@
 			margin-right: 10px;
 		}
 		
-   	  	a{
+   	  	.navbar-nav > li.active a{
    	  		text-decoration:none;
    	  		color:black;
-   	  		border:0;
-   	  		outline:0;
    	  	}
    	  	
    	  	div{
@@ -207,8 +205,8 @@
 
 <div class="wrap">
 
-	<!-- <nav class="navbar navbar-default"> -->
-	<nav class="navbar">
+	<nav class="navbar navbar-default">
+	<!-- <nav class="navbar"> -->
 		<div id="navBox">
 			<%@ include file="./include/Nav.jsp"%>
 		</div>

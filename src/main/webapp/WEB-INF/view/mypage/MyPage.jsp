@@ -11,60 +11,205 @@
 	crossorigin="anonymous">
 </script>
 <style>
-td{
-		border: 2px solid hotpink;
+
+		#mm {
+    		text-align: center;
+ 			margin: 0 950px;
+    	}
+    	
+    	.a {
+		    width: 120px;
+		    height: 75px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 16px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
 		}
+
+		.a:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		.b {
+		    width: 80px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 12px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.b:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		.c {
+		    width: 100px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 12px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.c:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		.deliveryTracking {
+		    width: 100px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 12px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.deliveryTracking:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+    	
+    	a{
+   	  		text-decoration:none;
+   	  		color:black;
+   	  	}
+
+	table{
+        text-align: center;
+        line-height: 1.5;
+        vertical-align: middle;
+        border-top:1px solid black;
+        border-spacing:0 10px;
+        width: 1000px;
+        margin:auto;
+    }
+
+    thead th{
+        border-bottom: 3px solid black;
+    }
+    
+    .td2{
+    	border-right:1px solid gray;
+    	border-left:1px solid gray;
+    }
+    
+    .td3{
+    	border-right:1px solid gray;
+    }
+    
+    tbody tr{
+    	border-bottom:1px solid gray;
+    }
+    
+    .filterBox{
+    	text-align:center;
+    	margin-right:285px;
+    }
+
 </style>
 </head>
 <body>
-	<h1>WishList</h1>
-	<input type="button"
+	<div id="mm">
+		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
+	</div>
+
+	<input type="button" class="a"
 		onclick="location.href='${pageContext.request.contextPath}/infoChange'"
 		value="회원정보수정">
 	<br>
 	<br>
 	<c:if test="${authInfo.sellerCheck == 'false' }">
-		<input type="button"
+		<input type="button" class="a"
 			onclick="location.href='${pageContext.request.contextPath}/changeSeller'"
-			value="판매자 전환하기">
+			value="판매자 전환">
+		<br>
+		<br>
 	</c:if>
-	<input type="button"
+	<input type="button" class="a"
 		onclick="location.href='${pageContext.request.contextPath}/deliveryAddress'"
 		value="배송주소록">
 	<br>
 	<br>
-	<h1>CS</h1>
-	<h1>MyReviewList</h1>
-	<h1>SellerDetail</h1>
-	<h1>Store</h1>
-	<h1>ProductQa</h1>
-	<h1>ChangeProduct</h1>
-	<h1>ReturnProduct</h1>
-	<form action="myPage" id="submitInfo" onsubmit="return false">
-		<input type="date" name="firstDate" id="firstDate">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;
-		<input type="hidden">
-		<input type="date" name="secondDate" id="secondDate">
-		<!-- <input type="submit" value="검색"> -->
-	<!-- </form>
-	<form action="myPage"> -->
-		<input type="text" id="keywordO" name="keywordO" placeholder="키워드를 입력하세요." value="${keywordO}" />
-		<!-- <input type="submit" value="검색"> -->
-	<!-- </form>
-	<form action="myPage" name="sort" id="sort"> -->
-		<select name="state" id="state">
-			<option value="전체 주문 상태" ${state == "전체 주문 상태" ? "selected" : "" }>전체 주문 상태</option>
-			<option value="입금 대기" ${state == "입금 대기" ? "selected" : "" }>입금 대기</option>
-			<option value="결제 완료" ${state == "결제 완료" ? "selected" : "" }>결제 완료</option>
-			<option value="배송 준비중" ${state == "배송 준비중" ? "selected" : "" }>배송 준비중</option>
-			<option value="배송 중" ${state == "배송 중" ? "selected" : "" }>배송 중</option>
-			<option value="배송 완료" ${state == "배송 완료" ? "selected" : "" }>배송 완료</option>
-			<option value="구매 확정" ${state == "구매 확정" ? "selected" : "" }>구매 확정</option>
-			<option value="주문 취소" ${state == "주문 취소" ? "selected" : "" }>주문 취소</option>
-			<option value="반품 완료" ${state == "반품 완료" ? "selected" : "" }>반품 완료</option>
-			<option value="교환 완료" ${state == "교환 완료" ? "selected" : "" }>교환 완료</option>
-		</select>
-		<input type="button" id="submit" value="검색">
-	</form>
+	<div class="filterBox">
+		<form action="myPage" id="submitInfo" onsubmit="return false">
+			<input type="date" name="firstDate" id="firstDate">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;
+			<input type="hidden">
+			<input type="date" name="secondDate" id="secondDate">
+			<!-- <input type="submit" value="검색"> -->
+		<!-- </form>
+		<form action="myPage"> -->
+			<input type="text" id="keywordO" name="keywordO" placeholder="키워드를 입력하세요." value="${keywordO}" />
+			<!-- <input type="submit" value="검색"> -->
+		<!-- </form>
+		<form action="myPage" name="sort" id="sort"> -->
+			<select name="state" id="state">
+				<option value="전체 주문 상태" ${state == "전체 주문 상태" ? "selected" : "" }>전체 주문 상태</option>
+				<option value="입금 대기" ${state == "입금 대기" ? "selected" : "" }>입금 대기</option>
+				<option value="결제 완료" ${state == "결제 완료" ? "selected" : "" }>결제 완료</option>
+				<option value="배송 준비중" ${state == "배송 준비중" ? "selected" : "" }>배송 준비중</option>
+				<option value="배송 중" ${state == "배송 중" ? "selected" : "" }>배송 중</option>
+				<option value="배송 완료" ${state == "배송 완료" ? "selected" : "" }>배송 완료</option>
+				<option value="구매 확정" ${state == "구매 확정" ? "selected" : "" }>구매 확정</option>
+				<option value="주문 취소" ${state == "주문 취소" ? "selected" : "" }>주문 취소</option>
+				<option value="반품 완료" ${state == "반품 완료" ? "selected" : "" }>반품 완료</option>
+				<option value="교환 완료" ${state == "교환 완료" ? "selected" : "" }>교환 완료</option>
+			</select>
+			<input type="button" class="b" id="submit" value="검색">
+		</form>
+		<br>
+	</div>
 	<div id="hiddenSubmitInfo">
 		<form id="hiddenSubmit" action="myPage">
 			<input type="hidden" id="hiddenState" name="state">
@@ -74,9 +219,9 @@ td{
 	<table>
 		<colgroup>
 			<col style="width: auto;" />
+			<col style="width: 27%;" />
 			<col style="width: 10%;" />
-			<col style="width: 10%;" />
-			<col style="width: 10%;" />
+			<col style="width: 13%;" />
 		</colgroup>
 		<thead>
 			<tr>
@@ -89,7 +234,7 @@ td{
 		<tbody>
 		<c:if test="${empty ordersJsonArray}">
 		<tr>
-			<td>해당하는 상품이 없습니다.</td>
+			<td colspan="4">해당하는 상품이 없습니다.</td>
 		</tr>
 		</c:if>
 		<c:if test="${!empty ordersJsonArray}">
@@ -98,34 +243,36 @@ td{
 					<c:forEach var="orderList" items="${order.orderLists}" varStatus="status2">
 					<tr>
 					<c:if test="${order.payNum != order.prePayNum || status.index == 0}">
-					<td rowspan="${order.payNumCount}">
+					<td rowspan="${order.payNumCount}" class="td1">
 						${order.orderData}<br>
 						결제 금액 : ${order.payPrice}<br>
 						결제번호 : ${order.payNum}
 					</td>
 					</c:if>
-						<td>
-							상품 썸네일 : ${orderList.productThumb}<br>
+						<td class="td2">
+							<img src="opload/${orderList.productThumb}" style="width:50px;"><br>
 							상품명 : ${orderList.productName}<br>
 							주문 옵션 : ${orderList.optionName}<br>
 							주문 번호 : ${order.orderNum}<br>
 						</td>
-						<td>
+						<td class="td3">
 							${orderList.storeName}
 						</td>
-						<td>
+						<td class="td4">
 							${order.state}<br>
 							<c:if test="${order.state == '입금 대기'}">
 							<form action="insertMoney">
 							<input type="hidden" name="payNum" value="${order.payNum}">
-							<input type="submit" value="입금">
+							<input type="submit" class="b" value="입금">
 							</form>
+							<br>
 							<form action="orderCancle" name="cancleInfo" method="post">
 							<input type="hidden" name="orderNum" value="${order.orderNum}">
-							<input type="submit" value="주문 취소">
+							<input type="submit" class="c" value="주문 취소">
 							</form>				
 							</c:if>
 							<c:if test="${order.state == '배송 중'}">
+							<br>
 							<button type="button" class="deliveryTracking" value="${order.orderNum}">배송 조회</button>
 							</c:if>
 						</td>
