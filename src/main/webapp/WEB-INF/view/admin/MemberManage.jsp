@@ -99,6 +99,7 @@ div#root {
 section#container {
 	padding: 20px 0;
 	border-top: 2px solid #eee;
+	margin-bottom: 50px;	
 }
 
 section#container::after {

@@ -38,8 +38,7 @@
 		window.name = "AdminPage";
 
 		// window.open("자식창 이름", "불러올 자식 창의 닉네임", "팝업창 옵션");
-		window
-				.open("admin/registerAdmin", "새관리자등록",
+		window.open("admin/registerAdmin", "새관리자등록",
 						"width = 500, height = 320, resizable = no, scrollbars = no, status = no");
 	}
 </script>
@@ -92,13 +91,10 @@ div#root {
     float: right !important;
 } 
 
-.site-title {
-	font-size: 50px;
-}
-
 section#container {
 	padding: 20px 0;
 	border-top: 2px solid #eee;
+	margin-bottom: 50px;	
 }
 
 section#container::after {
