@@ -203,7 +203,8 @@ public class ProductController {
 		}
 		return "seller/UploadResult";
 	}
-
+ 
+	
 	// 상품 페이지
 	@RequestMapping("/product")
 	public ModelAndView product(int productNum, HttpServletResponse resp) {
