@@ -99,6 +99,7 @@ div#root {
 section#container {
 	padding: 20px 0;
 	border-top: 2px solid #eee;
+	margin-bottom: 50px;	
 }
 
 section#container::after {
@@ -160,7 +161,7 @@ footer#footer div {
 }
 
 #btnCate, #updateCategoryComplete, #updateCategoryCancle,
-.updateCategory, .deleteCategory, .depthTwoPlus, .depthThreePlus,
+.updateCategory, /* .deleteCategory, */ .depthTwoPlus, .depthThreePlus,
 .insertDepthOne, .insertDepthTwo, .insertDepthThree {
     width: 90px;
     height: 30px;
@@ -186,6 +187,12 @@ footer#footer div {
     color: #fff;
     transform: translateY(-7px);
 }
+
+.updateCategory, .deleteCategory {
+	border: none;
+	background-color: transparent;
+}
+
 </style>
 
 </head>
@@ -297,7 +304,7 @@ footer#footer div {
 		
 		categorySelectNumTemp = currentCategoryNum;
 		
-		$(this).after('<span class="UpdateDelete">&nbsp;<button type="button" class="updateCategory" value="' + currentCategoryNum + '">수정</button>&nbsp;<button type="button" class="deleteCategory" value="' + currentCategoryNum + '">삭제</button></span>');
+		$(this).after('<span class="UpdateDelete">&nbsp;<button type="button" class="updateCategory" value="' + currentCategoryNum + '"><img src="${pageContext.request.contextPath}/resources/images/수정이미지.png"></button>&nbsp;<button type="button" class="deleteCategory" value="' + currentCategoryNum + '"><img src="${pageContext.request.contextPath}/resources/images/삭제이미지.png"></button></span>');
 		
 		$("#DepthThreeSpace").html('');
 		
@@ -386,7 +393,7 @@ footer#footer div {
 		categorySelectNumTemp = currentCategoryNum;
 		
 		
-		$(this).after('<span class="UpdateDelete">&nbsp;<button type="button" class="updateCategory" value="' + currentCategoryNum + '">수정</button>&nbsp;<button type="button" class="deleteCategory" value="' + currentCategoryNum + '">삭제</button></span>');
+		$(this).after('<span class="UpdateDelete">&nbsp;<button type="button" class="updateCategory" value="' + currentCategoryNum + '"><img src="${pageContext.request.contextPath}/resources/images/수정이미지.png"></button>&nbsp;<button type="button" class="deleteCategory" value="' + currentCategoryNum + '"><img src="${pageContext.request.contextPath}/resources/images/삭제이미지.png"></button></span>');
 
 		$.ajax({
 			url : "<%=request.getContextPath()%>/admin/selectCategory",
@@ -470,7 +477,7 @@ footer#footer div {
 		
 	
 		
-		$(this).after('<span class="UpdateDelete">&nbsp;<button type="button" class="updateCategory" value="' + currentCategoryNum + '">수정</button>&nbsp;<button type="button" class="deleteCategory" value="' + currentCategoryNum + '">삭제</button></span>');
+		$(this).after('<span class="UpdateDelete">&nbsp;<button type="button" class="updateCategory" value="' + currentCategoryNum + '"><img src="${pageContext.request.contextPath}/resources/images/수정이미지.png"></button>&nbsp;<button type="button" class="deleteCategory" value="' + currentCategoryNum + '"><img src="${pageContext.request.contextPath}/resources/images/삭제이미지.png"></button></span>');
 		
 		}
 		

@@ -244,7 +244,7 @@ public class MemberController {
 
 				session.setAttribute("authInfo", authInfo);
 //				 return "login/LoginResult";
-				return "MainPage";
+				return "redirect:/main";
 			}
 		} catch (IdPasswordNotMatchingException e) {
 			return "login/Login";

@@ -121,7 +121,7 @@
 		o, PRODUCT p, BASKET b, MEMBER m, SELLER s
 		where p."productNum" = o."productNum" and p."id" = s."id"
 		and b."optionNum" = o."optionNum" and b."id" = m."id"
-		and b."id" = #{id}
+		and m."id" = #{id}
 	</select>
 
 	<update id="updateCnt" parameterType="basketVO">

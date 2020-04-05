@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@ taglib prefix="form" uri = "http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -11,32 +12,12 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 	crossorigin="anonymous"></script>
-
+<!-- Bootstrap CSS -->
+<link rel="stylesheet"
+	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+	crossorigin="anonymous">
 <title>WriteNotice</title>
-
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
-	<link rel='stylesheet'
-		href='${pageContext.request.contextPath}/resources/css/woocommerce-layout.css'
-		type='text/css' media='all' />
-	<link rel='stylesheet'
-		href='${pageContext.request.contextPath}/resources/css/woocommerce-smallscreen.css'
-		type='text/css' media='only screen and (max-width: 768px)' />
-	<link rel='stylesheet'
-		href='${pageContext.request.contextPath}/resources/css/woocommerce.css'
-		type='text/css' media='all' />
-	<link rel='stylesheet'
-		href='${pageContext.request.contextPath}/resources/css/font-awesome.min.css'
-		type='text/css' media='all' />
-	<link rel='stylesheet'
-		href='${pageContext.request.contextPath}/resources/css/styleSB.css'
-		type='text/css' media='all' />
-	<link rel='stylesheet'
-		href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700'
-		type='text/css' media='all' />
-	<link rel='stylesheet'
-		href='${pageContext.request.contextPath}/resources/css/easy-responsive-shortcodes.css'
-		type='text/css' media='all' />
 
 <style>
 body {
@@ -109,36 +90,7 @@ p {
 	font-size:15px;
 	font-weight:bold;
 }
-
-.mb-3 {
-	padding-bottom: 10px;
-}
-
-#btnSave, #btnCanc {
-	    width: 90px;
-	    height: 30px;
-	    font-family: 'Roboto', sans-serif;
-	    font-size: 14px;
-	    text-transform: uppercase;
-	    letter-spacing: 2.5px;
-	    font-weight: 500;
-	    color: white;
-	    background-color: #6B66FF;
-	    border: none;
-	    border-radius: 35px;
-	    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-	    transition: all 0.3s ease 0s;
-	    cursor: pointer;
-	    outline: none;
-	    opacity: 0.8;
-}
-
-#btnSave:hover, #btnCanc:hover {
-     background-color: #FFB2F5;
-     box-shadow: 0px 15px 20px hotpink;
-     color: #fff;
-     transform: translateY(-7px);
-}	
+	
 	
 	
 }
@@ -181,8 +133,8 @@ p {
 			</form>
 
 			<div>
-				<button type="button" id="btnSave">저장</button>
-				<button type="button" id="btnCanc">취소</button>
+				<button type="button" class="btn btn-sm btn-primary" id="btnSave">저장</button>
+				<button type="button" class="btn btn-sm btn-primary" id="btnCanc">취소</button>
 			</div>
 		</div>
 	</article>
