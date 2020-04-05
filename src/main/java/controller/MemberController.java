@@ -239,7 +239,6 @@ public class MemberController {
 				AuthInfo authInfo = memberService.login(loginVO.getId(), loginVO.getPassword());
 
 				session.setAttribute("authInfo", authInfo);
-//				 return "login/LoginResult";
 				return "redirect:main";
 			}
 		} catch (IdPasswordNotMatchingException e) {
