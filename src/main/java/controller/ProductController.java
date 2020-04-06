@@ -18,6 +18,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -32,6 +33,7 @@ import org.springframework.web.servlet.ModelAndView;
 import net.coobird.thumbnailator.Thumbnails;
 import service.AdminService;
 import service.MemberService;
+import service.OrderService;
 import service.ProductService;
 import vo.AuthInfo;
 import vo.BasketListVO;
@@ -40,6 +42,7 @@ import vo.CategoryVO;
 import vo.DetailOptionVO;
 import vo.MemberVO;
 import vo.OptionVO;
+import vo.OrderListVO;
 import vo.OrderProductVO;
 import vo.OrderVO;
 import vo.ProductVO;
@@ -52,6 +55,7 @@ public class ProductController {
 	private ProductService productService;
 	private MemberService memberService;
 	private AdminService adminService;
+	private OrderService orderService;
 
 	@Resource(name = "uploadPath")
 	private String uploadPath;
@@ -69,6 +73,16 @@ public class ProductController {
 		this.memberService = memberService;
 	}
 	
+	
+	
+	public OrderService getOrderService() {
+		return orderService;
+	}
+
+	public void setOrderService(OrderService orderService) {
+		this.orderService = orderService;
+	}
+
 	public AdminService getAdminService() {
 		return adminService;
 	}
@@ -294,11 +308,42 @@ public class ProductController {
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 
 		List<ProductVO> productList = productService.productListById(authInfo.getId());
+		
+		JSONArray productListt = new JSONArray();
+		
+		for(int i = 0 ; i < productList.size() ; i++) {
+			JSONObject product = new JSONObject();
+			product.put("productNum", productList.get(i).getProductNum());
+			product.put("productThumb", productList.get(i).getProductThumb());
+			product.put("productName", productList.get(i).getProductName());
+			product.put("productPrice", productList.get(i).getProductPrice());
+			product.put("deliveryPrice", productList.get(i).getDeliveryPrice());
+			product.put("productDisplay", productList.get(i).getProductDisplay());
+			List<OptionVO> options = productService.selectOptionByProduct(productList.get(i).getProductNum());
+			int[] optionNums = new int[options.size()];
+			int count = 0;
+			int sales = 0;
+			for(int j = 0 ; j < options.size() ; j++) {
+				optionNums[i] = options.get(i).getOptionNum();
+				System.out.println(optionNums[i]);
+			}
+			List<OrderListVO> list = orderService.selectBuyCount(optionNums);
+			for(int k = 0 ; k < list.size() ; k++) {
+				OrderVO order = orderService.selectOrderByorderNum(list.get(k).getOrderNum());
+				if(order.getState().equals("구매 확정")) {
+					count++;
+					sales += order.getPayPrice();
+				}
+			}
+			product.put("butCount", count);
+			product.put("sales", sales);
+			productListt.add(product);
+		}
 
 		ModelAndView mv = new ModelAndView();
 
 		mv.setViewName("seller/ProductManage");
-		mv.addObject("productList", productList);
+		mv.addObject("productList", productListt);
 
 		return mv;
 	}

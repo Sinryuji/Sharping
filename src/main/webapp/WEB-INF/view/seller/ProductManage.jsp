@@ -212,6 +212,7 @@
 </style>
 </head>
 <body>
+<b><a href="<c:url value='/sellerPage'/>">판매자 페이지</a></b><br>
 	<div id="mm">
 		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
 	</div>
@@ -261,8 +262,8 @@
                            <c:out value="${list.deliveryPrice}"/>
                         </c:if>
                      </td>
-                     <td><c:out value="?"/></td>
-                     <td><c:out value="매출총액 : ?"/></td>
+                     <td><c:out value="${list.butCount}"/></td>
+                     <td><c:out value="매출총액 : ${list.sales}원"/></td>
                      <td><label class="switch">
                           <input type="hidden" id="dis${status.index}" value="${status.index}" >
                           <input type="checkbox" class="display" id="chk${status.index}" ${list.productDisplay == "TRUE" ? "checked" : ""}>

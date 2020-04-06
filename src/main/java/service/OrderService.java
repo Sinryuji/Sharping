@@ -103,5 +103,8 @@ public interface OrderService {
 	
 	// 판매자 페이지에서 주문 상태 제어하기
 	public abstract int updateOrderState(OrderVO orderVO);
+	
+	// 구매수
+	public abstract List<OrderListVO> selectBuyCount(int[] optionNums);
 
 }

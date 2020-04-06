@@ -210,6 +210,11 @@ public class OrderDAOImpl implements OrderDAO{
 	public int updateOrderState(OrderVO orderVO) {
 		return sqlSessionTemplate.update("orderDAO.updateOrderState", orderVO);
 	}
+	
+	@Override
+	public List<OrderListVO> selectBuyCount(int[] optionNums) {
+		return sqlSessionTemplate.selectList("orderDAO.selectBuyCount", optionNums);
+	}
 
 
 }

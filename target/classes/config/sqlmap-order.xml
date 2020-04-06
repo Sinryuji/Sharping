@@ -181,5 +181,13 @@
 		UPDATE ORDERR SET "state" = #{state}, "trackingCode" = #{trackingCode}, "trackingNum" = #{trackingNum} WHERE "orderNum" = #{orderNum}
 	</update>
 	
+	<select id="selectBuyCount" resultType="orderListVO">
+		SELECT * FROM ORDERR O, ORDERLIST OL, OPTIONN OP WHERE O."orderNum" = OL."orderNum" AND OL."optionNum" = OP."optionNum" AND 
+		<foreach collection="array" item="optionNum" open="(" close=")" separator="OR">
+			OL."optionNum" = #{optionNum}
+		</foreach>
+	</select>
+	
+	
 
 </mapper>
