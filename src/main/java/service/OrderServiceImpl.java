@@ -225,6 +225,11 @@ public class OrderServiceImpl implements OrderService{
 	public List<OrderListVO> selectBuyCount(int[] optionNums) {
 		return orderDAO.selectBuyCount(optionNums);
 	}
+	
+	@Override
+	public List<OrderVO> selectOrderAll() {
+		return orderDAO.selectOrderAll();
+	}
 
 
 }

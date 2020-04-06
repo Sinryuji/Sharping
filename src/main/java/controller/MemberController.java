@@ -10,6 +10,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
+import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -21,6 +22,7 @@ import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -59,7 +61,7 @@ public class MemberController {
 	private AdminService adminService;
 	private OrderService orderService;
 	private ProductService productService;
-
+	
 	public void setProductService(ProductService productService) {
 		this.productService = productService;
 	}
@@ -883,6 +885,8 @@ public class MemberController {
 		
 		return mv;
 	}
+	
+	
 
 
 }

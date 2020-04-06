@@ -103,5 +103,8 @@ public interface OrderDAO {
 	
 	// 구매수
 	public abstract List<OrderListVO> selectBuyCount(int[] optionNums);
+	
+	// 모든 주문 가져오기
+	public abstract List<OrderVO> selectOrderAll();
 
 }

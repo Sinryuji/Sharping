@@ -268,15 +268,12 @@
                      <input type="hidden" name="payNum" value="${order.payNum}">
                      <input type="submit" class="b" value="입금">
                      </form>
-                     <br>
                      <form action="orderCancle" name="cancleInfo" method="post">
                      <input type="hidden" name="orderNum" value="${order.orderNum}">
                      <input type="submit" class="c" value="주문 취소">
                      </form>
-                     <br>            
                      </c:if>
-                     <c:if test="${order.state == '배송 중'}">
-                     <br>
+                     <c:if test="${order.state == '배송 중' || order.state == '배송 완료'}">
                      <button type="button" class="deliveryTracking" value="${order.orderNum}">배송 조회</button>
                      </c:if>
                   </td>

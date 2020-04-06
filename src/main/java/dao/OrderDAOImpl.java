@@ -216,5 +216,9 @@ public class OrderDAOImpl implements OrderDAO{
 		return sqlSessionTemplate.selectList("orderDAO.selectBuyCount", optionNums);
 	}
 
+	@Override
+	public List<OrderVO> selectOrderAll() {
+		return sqlSessionTemplate.selectList("orderDAO.selectOrderAll");
+	}
 
 }

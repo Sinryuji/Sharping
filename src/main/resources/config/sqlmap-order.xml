@@ -188,6 +188,9 @@
 		</foreach>
 	</select>
 	
+	<select id="selectOrderAll" resultType="orderVO">
+		SELECT * FROM ORDERR
+	</select> 
 	
 
 </mapper>
