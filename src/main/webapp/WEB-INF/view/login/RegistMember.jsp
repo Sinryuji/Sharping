@@ -66,12 +66,12 @@
 		}
 		
 		.submit{
-			margin-left:900px;;
+			margin-left:850px;;
 		}
 		
 		#mm {
     		text-align: center;
- 			margin: 0 950px;
+ 			margin: 0 910px;
     	}
     	
 		a{

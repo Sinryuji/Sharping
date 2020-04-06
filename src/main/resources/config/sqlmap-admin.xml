@@ -103,4 +103,8 @@
       	UPDATE NOTICE SET "noticePost" = #{noticePost} WHERE "noticeNum" = #{noticeNum}
     </update>
     
+    <select id="selectNoticeByNoticePost" resultType="noticeVO">
+    	SELECT * FROM NOTICE WHERE "noticePost" = #{noticePost}
+    </select>
+    
 </mapper>

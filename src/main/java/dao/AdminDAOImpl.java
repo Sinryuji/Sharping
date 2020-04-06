@@ -129,5 +129,10 @@ public class AdminDAOImpl implements AdminDAO {
 		return sqlSessionTemplate.update("adminDAO.updateNoticePostByNoticeNum", noticeVO);
 	}
 	
+	@Override
+	public List<NoticeVO> selectNoticeByNoticePost(String t) throws Exception {
+		return sqlSessionTemplate.selectList("adminDAO.selectNoticeByNoticePost", t);
+	}
+	
 	
 }

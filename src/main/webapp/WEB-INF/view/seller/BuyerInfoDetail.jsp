@@ -48,13 +48,39 @@
 		.td2{
 			text-align:left;
 		}
+		
+		.b {
+		    width: 90px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 14px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.b:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
 
 </style>
 </head>
 <body>
    <table>
       <colgroup>
-         <col style="width:50%;" />
+         <col style="width:30%;" />
          <col style="width:auto;" />
       </colgroup>
       <thead>
@@ -82,6 +108,6 @@
         </tr>
       </tbody>
    </table>
-   <br><div align="center"><input type="button" value="닫기" onclick="window.close()"></div>
+   <br><div align="center"><input type="button" class="b" value="닫기" onclick="window.close()"></div>
 </body>
 </html>

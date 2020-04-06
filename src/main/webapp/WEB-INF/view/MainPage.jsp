@@ -108,6 +108,8 @@
    	  	.navbar-nav > li.active a{
    	  		text-decoration:none;
    	  		color:black;
+   	  		margin-right:90px;
+   	  		
    	  	}
    	  	
    	  	div{
@@ -261,8 +263,49 @@
 
 
 </div>
+<c:forEach var="notice" items="${noticeList}" varStatus="status">
+	<form id="noticeForm${status.index}">
+	<input type="hidden" id="noticeNum${status.index}" value="${notice.noticeNum}">
+	<input type="hidden" id="noticeSubject${status.index}" name="noticeSubject" value="${notice.noticeSubject}">
+	<input type="hidden" id="noticeDate${status.index}" name="noticeDate" value="${notice.noticeDate}">
+	<input type="hidden" id="noticeText${status.index}"name="noticeText" value="${notice.noticeText}">
+	</form>
+</c:forEach>
 
 <script>
+var size = '${noticeSize}';
+
+$(document).ready(function(){
+	
+	var left = 0;
+
+	for(var i=0 ; i<size; i++){
+			var strS = '#noticeSubject'+i;
+			var strD = '#noticeDate'+i;
+			var strT = '#noticeText'+i;
+			var strN = '#noticeNum'+i;
+			
+			$.ajax({
+				url : "<%=request.getContextPath()%>/notice",
+					type : "post",
+					data : {
+						noticeSubject : $(strS).val(),
+						noticeDate : $(strD).val(),
+						noticeText : $(strT).val(),
+						noticeNum : $(strN).val()
+					},
+		
+					
+					success : function(data) {
+						left += data.notice.noticeNum * 200;
+						window.open("noticee?noticeSubject=" + data.notice.noticeSubject + "&noticeDate=" + data.date + "&noticeText=" + data.notice.noticeText, "popup" + data.notice.noticeNum, "width=400, height=400, top=30, resizable = no," + "left=" + left);
+					} 
+					
+			});
+			
+	}
+	})
+	
 
 	// 카테고리@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 	

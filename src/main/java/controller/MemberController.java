@@ -48,6 +48,7 @@ import vo.DeliveryAddressVO;
 import vo.DetailOptionVO;
 import vo.LoginVO;
 import vo.MemberVO;
+import vo.NoticeVO;
 import vo.OptionVO;
 import vo.OrderListVO;
 import vo.OrderVO;
@@ -84,14 +85,19 @@ public class MemberController {
 
 	// 메인
 	@RequestMapping("/main")
-	public ModelAndView main() {
+	public ModelAndView main() throws Exception {
+		
+		String t = "TRUE";
 		
 		ModelAndView mv = new ModelAndView();
 		
 		List<CategoryVO> categorys = adminService.selectCategoryByCategoryDepth(1);
+		List<NoticeVO> noticeList = adminService.selectNoticeByNoticePost(t);
 		
 		mv.setViewName("MainPage");
 		mv.addObject("categorys", categorys);
+		mv.addObject("noticeList", noticeList);
+		mv.addObject("noticeSize", noticeList.size());
 		
 		return mv;
 	}
@@ -138,7 +144,7 @@ public class MemberController {
 			throw new AlreadyExistingIdException();
 		}
 		memberService.registMember(memberVO);
-		return "login/RegistResult";
+		return "redirect:/main";
 	}
 
 	// 판매자 회원 가입 완료
@@ -162,7 +168,7 @@ public class MemberController {
 		}
 		memberService.registMember(memberVO);
 		memberService.registSeller(sellerVO);
-		return "login/RegistResult";
+		return "redirect:/main";
 	}
 
 	// 아이디 찾기/비밀번호 재설정 페이지

@@ -76,5 +76,7 @@ public interface AdminService {
 	public abstract int deleteCategory(int categoryNum);
 	//공지사항 진열여부
 	public abstract int updateNoticePostByNoticeNum(NoticeVO noticeVO) throws Exception;
+	//공지사항 진열여부 값'TRUE' 가져오기
+	public abstract List<NoticeVO> selectNoticeByNoticePost(String t) throws Exception;
 		
 }

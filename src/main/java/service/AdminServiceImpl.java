@@ -170,5 +170,10 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.updateNoticePostByNoticeNum(noticeVO);
 	}
 	
+	@Override
+	public List<NoticeVO> selectNoticeByNoticePost(String t) throws Exception {
+		return adminDAO.selectNoticeByNoticePost(t);
+	}
+	
 		
 }

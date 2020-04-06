@@ -208,11 +208,45 @@
 	  		color: #fff;
 	  		transform: translateY(-7px);
 		}
+		
+		.sellP {
+		    width: 140px;
+		    height: 50px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 16px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.sellP:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
+		.menu{
+			margin-top: 20px;
+			margin-left: 20px;
+		}
       
 </style>
 </head>
 <body>
-<b><a href="<c:url value='/sellerPage'/>">판매자 페이지</a></b><br>
+	<div class="menu">
+		<input type="button" class="sellP" onclick="location.href='${pageContext.request.contextPath}/sellerPage'" value="판매자 페이지"><br>
+	</div>
+	<br>
 	<div id="mm">
 		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
 	</div>

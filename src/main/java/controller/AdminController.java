@@ -1,5 +1,8 @@
 package controller;
 
+import java.sql.Date;
+import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -10,7 +13,6 @@ import javax.validation.Valid;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -415,6 +417,35 @@ public class AdminController {
 		adminService.updateNoticePostByNoticeNum(noticeVO);
 
 		return "complete";
+	}
+	
+	// 메인에 공지사항 띄우기
+	@RequestMapping("/notice")
+	@ResponseBody
+	public Map<String, Object> notice(NoticeVO noticeVO) throws Exception {
+		
+		Timestamp timestamp = noticeVO.getNoticeDate();
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		Date date = new Date(timestamp.getTime());
+		
+		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
+		
+		String datee = sdf.format(date);
+		
+		map.put("notice", noticeVO);
+		map.put("date", datee);
+
+		return map;
+	}
+	
+	@RequestMapping("/noticee")
+	public String notice() throws Exception {
+		
+		
+
+		return "/admin/Notice";
 	}
 
 
