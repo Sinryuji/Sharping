@@ -299,7 +299,8 @@ public class AdminController {
 	public String adminPw() {
 		return "admin/AdminPw";
 	}
-
+ 
+	
 	// 관리자 비밀번호 확인
 	@RequestMapping(value = "/adminPwChk", produces = "text/json;charset=UTF-8")
 	@ResponseBody
