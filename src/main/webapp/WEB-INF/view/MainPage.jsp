@@ -30,26 +30,11 @@
 			position: relative;
 			padding-bottom: 150px; /* footer height */
 		}
-   	  	
-   	  	header#header {
-/* 			font-size: 30px;
-			border: 0; */
-			/* padding: 20px 0; */
-			height: 50px;
-			text-shadow: black 0.2em 0.2em 0.2em;
-			color: white;
-		}
-	
-		header#header h1 a {
-			color: #000;
-			font-weight: bold;
-			display:inline;
-		}
 		
 		.navbar-nav {
   		  width: 100%;
   		  text-align: center;
-		    height:100%;
+		  height:100%;
 		}
 
 		.navbar-nav > li {
@@ -62,9 +47,6 @@
 		} 
 		
 		section#container {
-			/* padding: 20px 0;
-			border-top: 2px solid #eee;
-			border-bottom: 2px solid #eee; */
 			margin: 0 auto;
 		}
 		
@@ -213,6 +195,8 @@
 			<%@ include file="./include/Nav.jsp"%>
 		</div>
 	</nav>
+	
+	
 	<div class="sDiv">
 		<form action="productList" class="searchBox">
 			<input type="text" autocomplete="off" name="keyword" id="search" placeholder="키워드를 입력하세요."/>
@@ -253,13 +237,7 @@
 	</div>
 	</section>
 	
-	<button type="button" id="latelyViewProduct">최근 본 상품</button>
-	
-<%-- 	<footer id="footer">
-		<div id=footerBox>
-			<%@ include file="./include/Footer.jsp"%>
-		</div>
-	</footer> --%>
+<!-- 	<button type="button" id="latelyViewProduct">최근 본 상품</button> -->
 
 
 </div>

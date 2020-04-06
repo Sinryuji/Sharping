@@ -110,7 +110,7 @@ div#containerBox {
 				</div>
 				<div class="dm">	
 					<label for=daAddress>주소</label>
-					<input type="text" name="daAddress" id="daAddress" style="width:200px;" readonly /><br>
+					<input type="text" name="daAddress" id="daAddress" style="width:300px;" readonly /><br>
 				</div>
 				<div class="dm">	
 					<label for=daAddressEtc>상세주소</label>
