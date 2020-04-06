@@ -147,6 +147,7 @@
 		}
 		
 		.menu{
+			margin-top: 20px;
 			margin-left: 20px;
 		}
       
@@ -243,7 +244,7 @@
    		var state = $(this).attr("data-state");
    		
    		var popTitle = "popupOpener"
-   		var popup = window.open("",popTitle, "width=800, height=500");
+   		var popup = window.open("",popTitle, "width=700, height=320");
    			
    		var f = document.createElement("form");
 		
@@ -306,7 +307,7 @@
                   success: function(data) {
                 	  var url = "deliveryInfo?toName=" + data.order.toName + "&toPhone=" + data.order.toPhone + "&toPost=" + data.order.toPost + "&toAddress=" + data.order.toAddress + "&trackingNum=" + data.order.trackingNum ;
                 	  var name = "popup";
-                	  var option = "width = 500, height = 350, left = 700, top = 200";
+                	  var option = "width = 520, height = 350, left = 700, top = 200";
                  	 window.open(url, name, option);
                   }
             });
@@ -315,7 +316,7 @@
      function buyerInfo(id){   
          window.name = "buyerInfo";   
      var popup = window.open("buyerInfo" + "?id=" + id , "회원상세정보",
-                 "width = 500, height = 310, resizable = no, , left = 700, top = 200");
+                 "width = 520, height = 310, resizable = no, , left = 700, top = 200");
 	}
      
     $('#dSearch').change(function(){

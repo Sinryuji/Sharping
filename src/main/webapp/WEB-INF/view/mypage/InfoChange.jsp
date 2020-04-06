@@ -9,7 +9,7 @@
 <style>
 		#mm {
     		 text-align: center;
- 			 margin: 0 950px;
+ 			 margin: 0 910px;
     	}
     	
     	body{
@@ -64,7 +64,7 @@
 		
 		.in{
 			position: absolute;
-			left:41%;
+			left:40%;
 			top:35%;
 		}
 </style>

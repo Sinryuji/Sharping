@@ -108,6 +108,8 @@
    	  	.navbar-nav > li.active a{
    	  		text-decoration:none;
    	  		color:black;
+   	  		margin-right:90px;
+   	  		
    	  	}
    	  	
    	  	div{
@@ -295,8 +297,8 @@ $(document).ready(function(){
 		
 					
 					success : function(data) {
-						left += data.noticeNum * 200;
-						window.open("noticee?noticeSubject=" + data.noticeSubject + "&noticeDate=" + data.noticeDate + "&noticeText=" + data.noticeText, "popup" + data.noticeNum, "width=400, height=200, top=30, resizable = no," + "left=" + left);
+						left += data.notice.noticeNum * 200;
+						window.open("noticee?noticeSubject=" + data.notice.noticeSubject + "&noticeDate=" + data.date + "&noticeText=" + data.notice.noticeText, "popup" + data.notice.noticeNum, "width=400, height=400, top=30, resizable = no," + "left=" + left);
 					} 
 					
 			});

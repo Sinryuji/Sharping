@@ -80,7 +80,7 @@
 <body>
    <table>
       <colgroup>
-         <col style="width:50%;" />
+         <col style="width:30%;" />
          <col style="width:auto;" />
       </colgroup>
       <thead>

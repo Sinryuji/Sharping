@@ -124,7 +124,7 @@ $(function(){
 <style>
 		#mm {
     		 text-align: center;
- 			 margin: 0 950px;
+ 			 margin: 0 910px;
     	}
     	
     	body{
@@ -170,7 +170,7 @@ $(function(){
 		.reg{
 			text-align: center;
 			/* background: white; */
-			margin: 0 680px;;
+			margin: 0 650px;;
 			width: 600px;
 			height: 300px;
 			/* background-color: rgba( 255, 255, 255, 0.6 ); */
@@ -179,7 +179,7 @@ $(function(){
 		
 		.in{
 			position: absolute;
-			left:39.7%;
+			left:38.5%;
 			top:35%;
 		}
 		

@@ -200,12 +200,12 @@ function idCheck(){
 		}
 		
 		.submit{
-			margin-left:900px;;
+			margin-left:850px;;
 		}
 		
 		#mm {
     		text-align: center;
- 			margin: 0 950px;
+ 			margin: 0 910px;
     	}
     	
 		a{
@@ -321,6 +321,7 @@ function idCheck(){
 	  		color: #fff;
 	  		transform: translateY(-7px);
 		}
+
    	  	
 	</style>
 </head>
@@ -431,8 +432,8 @@ function idCheck(){
 	        </tr>
 	      </tbody>
 	   </table>
-	   <br><input type="submit" class="submit" name="regist" id="regist" value="회원가입">
-	   &nbsp;&nbsp;<input type="button" class="b" value="취소" onclick="location.href = '<c:url value='/main'/>'">
+		   <br><input type="submit" class="submit" name="regist" id="regist" value="회원가입">
+		   &nbsp;&nbsp;<input type="button" class="b" value="취소" onclick="location.href = '<c:url value='/main'/>'">
 	</form>
 
 

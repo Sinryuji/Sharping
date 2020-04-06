@@ -13,7 +13,7 @@
 <style>
 		#mm {
     		text-align: center;
- 			margin: 0 950px;
+ 			margin: 0 910px;
     	}
     	
     	.a {

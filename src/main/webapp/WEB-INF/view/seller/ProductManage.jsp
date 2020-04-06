@@ -236,6 +236,7 @@
 		}
 		
 		.menu{
+			margin-top: 20px;
 			margin-left: 20px;
 		}
       

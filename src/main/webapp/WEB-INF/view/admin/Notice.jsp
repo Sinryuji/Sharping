@@ -6,6 +6,41 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
+
+	<style>
+		table{
+		    border-collapse: collapse;
+		    line-height: 1.5;
+		}
+
+		table thead th {
+		    padding: 10px;
+		    font-weight: bold;
+		    vertical-align: top;
+		    color: #369;
+		    border-bottom: 3px solid #036;
+		}
+		table tbody th {
+		    width: 150px;
+		    padding: 10px;
+		    font-weight: bold;
+		    vertical-align: top;
+		    border-bottom: 1px solid #ccc;
+		    background: #f3f6f7;
+		}
+		table td {
+		    width: 350px;
+		    padding: 10px;
+		    vertical-align: top;
+		    border-bottom: 1px solid #ccc;
+		}
+		
+		.btn{
+			margin-left:168px;
+		}
+		
+	</style>
+	
 </head>
 <body>
 <table>
@@ -33,6 +68,8 @@
 		</tr>
 	</tbody>
 </table>
-<input type="button" value="닫기" onclick="window.close()">
+<br>
+
+<input type="button" class="btn" value="닫기" onclick="window.close()">
 </body>
 </html>
