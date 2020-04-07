@@ -231,5 +231,15 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.selectOrderAll();
 	}
 
+	@Override
+	public List<VirtualAccountVO> selectAllVirtualAccountVO(int paynum) {
+		return orderDAO.selectAllVirtualAccountVO(paynum);
+	}
+
+	@Override
+	public List<OrderVO> selectOrderAllState(String state) {
+		return orderDAO.selectOrderAllState(state);
+	}
+
 
 }

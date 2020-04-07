@@ -120,7 +120,6 @@ div#containerBox {
 	width: 25%; 
 	height: auto;
 	text-align: center;
-	background-color: rgba( 255, 255, 255, 0.5);	
 }
 
 .s3{
@@ -128,7 +127,6 @@ div#containerBox {
 	 width: 25%;
 	 height: auto;
 	 text-align: center;
-	 background-color: rgba( 255, 255, 255, 0.5);
 }
 
 #DepthOneSpace h4, #DepthTwoSpace h4, #DepthThreeSpace h4, #DepthOneNameStr {

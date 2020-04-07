@@ -221,4 +221,14 @@ public class OrderDAOImpl implements OrderDAO{
 		return sqlSessionTemplate.selectList("orderDAO.selectOrderAll");
 	}
 
+	@Override
+	public List<VirtualAccountVO> selectAllVirtualAccountVO(int paynum) {
+		return sqlSessionTemplate.selectList("orderDAO.selectAllVirtualAccountVO",paynum);
+	}
+
+	@Override
+	public List<OrderVO> selectOrderAllState(String state) {
+		return sqlSessionTemplate.selectList("orderDAO.selectOrderAllState",state);
+	}
+
 }

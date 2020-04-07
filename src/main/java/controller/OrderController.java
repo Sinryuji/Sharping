@@ -2,18 +2,22 @@ package controller;
 
 import java.sql.SQLException;
 import java.text.DecimalFormat;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Random;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
+import org.apache.ibatis.jdbc.SelectBuilder;
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
 import org.json.simple.parser.JSONParser;
 import org.json.simple.parser.ParseException;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -1132,6 +1136,40 @@ public class OrderController {
 		
 		return mv;
 	}
- 	
-
+	
+	@Scheduled(cron = "* /4 * * * * ")
+	public void stateChange() {
+		List<VirtualAccountVO> virList = null;
+		String stateName = "입금 대기";
+		String stateCancle = "주문 취소";
+		//"입금 대기" 오더리스트 뽑아오기
+		List<OrderVO> state = orderService.selectOrderAllState(stateName); 
+		//날자 변환 포맷
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+		Date time = new Date();
+		System.out.println(time);
+		// 현재 시간 포맷
+		String time1 = format1.format(time);
+		for(int i = 0 ; i < state.size() ; i++) {
+			//오더리스트의 결제번호로 가상계좌 셀렉트
+			virList = orderService.selectAllVirtualAccountVO(state.get(i).getPayNum());
+			//가상계좌의 입금마감일 뽑아오기
+			String depositDate = format1.format(virList.get(0).getDepositDate());
+			//현재 시간이랑 가상계좌의 입금마감일 비교
+			int compare = depositDate.compareTo(time1);
+			
+			if(compare > 0) { // 입금마감일이 현재시간보다 크면 
+				//주문취소 들어가
+				orderService.updateOrderByOrderNum(state.get(i).getOrderNum());
+				
+			}else if(compare < 0){ // 입금마감일이 현재시간보다 작으면 
+				
+			}else { // 입금마감일이 현재시간과 같으면 
+				//이것도 주문취소 들어가
+				orderService.updateOrderByOrderNum(state.get(i).getOrderNum());
+			}
+			
+		}
+		
+	}
 }
