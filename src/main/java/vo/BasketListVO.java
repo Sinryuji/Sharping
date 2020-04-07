@@ -31,10 +31,11 @@ public class BasketListVO {
 		this.stock = stock;
 		this.storeName = storeName;
 	}
-	public String getstoreName() {
+	
+	public String getStoreName() {
 		return storeName;
 	}
-	public void setstoreName(String storeName) {
+	public void setStoreName(String storeName) {
 		this.storeName = storeName;
 	}
 	public int getStock() {

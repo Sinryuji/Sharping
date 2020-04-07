@@ -565,7 +565,7 @@
 									</div>
 									<div class="col-sm-4 mb-2" id="detailOptionTwo">
 										<label for="option2">2차 옵션</label>
-										<select name="optionDetailNo2" class="formControl" id="option2">
+										<select name="optionDetailNo2" class="formControl" id="option2" disabled="disabled">
 											<option id="default2" value="0">선택</option>
 										    	<c:forEach items="${twodo}" var="two">
 													<option id="do${two.doNum}" value="${two.doNum}">${two.optionName}</option>
@@ -577,7 +577,7 @@
 									</div>
 									<div class="col-sm-4 mb-2" id="detailOptionThree">
 										<label for="option2">3차 옵션</label>
-										<select name="optionDetailNo3" class="formControl" id="option3">
+										<select name="optionDetailNo3" class="formControl" id="option3" disabled="disabled">
 										    <option id="default3" value="0">선택</option>
 										    	<c:forEach items="${threedo}" var="three">
 													<option id="do${three.doNum}" value="${three.doNum}">${three.optionName}</option>
@@ -908,6 +908,9 @@ $(document).on("click", "#save", function(){
 			$("#leftCnt").val("");
 			
 			$(".deleteOption").attr("disabled", "disabled");
+			
+			$("#option2").attr("disabled", "disabled");
+			$("#option3").attr("disabled", "disabled");
 
 			return;
 
@@ -940,6 +943,7 @@ $(document).on("click", "#save", function(){
 					$("#option3").html('<option id="default3" value="0">선택</option>');
 					$("#leftCnt").val("");
 					$(".deleteOption").attr("disabled", "disabled");
+					$("#option2").removeAttr("disabled");
 				} 
 				
 		});
@@ -989,6 +993,7 @@ $(document).on("click", "#save", function(){
 			$("#leftCnt").val("");
 			
 			$(".deleteOption").attr("disabled", "disabled");
+			$("#option3").attr("disabled", "disabled");
 			
 			return;
 
@@ -1019,6 +1024,7 @@ $(document).on("click", "#save", function(){
 					}
 					
 					$("#option3").html(htmls);
+					$("#option3").removeAttr("disabled");
 				} 
 				
 		});

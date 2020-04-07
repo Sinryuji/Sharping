@@ -122,13 +122,29 @@ public class OrderController {
 			
 			mv.setViewName("order/OrderPage");
 			
+			String optionName = "";
+			
 			if(option != null) {
 			
 			mv.addObject("optionNum", optionNum);
 
 			mv.addObject("option", option);
 			
+				if(option.getOptionOneNum() != 0) {
+					optionName += productService.selectDetailOptionByDoNum(option.getOptionOneNum()).getOptionName();
+				}
+				
+				if(option.getOptionTwoNum() != 0) {
+					optionName += " / " + productService.selectDetailOptionByDoNum(option.getOptionTwoNum()).getOptionName();
+				}
+				
+				if(option.getOptionThreeNum() != 0) {
+					optionName += " / " + productService.selectDetailOptionByDoNum(option.getOptionThreeNum()).getOptionName();
+				}
+			
 			}
+			
+			mv.addObject("optionName", optionName);
 
 			mv.addObject("product", product);
 
@@ -184,13 +200,29 @@ public class OrderController {
 
 			mv.setViewName("order/OrderPage");
 
+			String optionName = "";
+			
 			if(option != null) {
-				
-				mv.addObject("optionNum", optionNum);
+			
+			mv.addObject("optionNum", optionNum);
 
-				mv.addObject("option", option);
+			mv.addObject("option", option);
+			
+				if(option.getOptionOneNum() != 0) {
+					optionName += productService.selectDetailOptionByDoNum(option.getOptionOneNum()).getOptionName();
+				}
 				
+				if(option.getOptionTwoNum() != 0) {
+					optionName += " / " + productService.selectDetailOptionByDoNum(option.getOptionTwoNum()).getOptionName();
+				}
+				
+				if(option.getOptionThreeNum() != 0) {
+					optionName += " / " + productService.selectDetailOptionByDoNum(option.getOptionThreeNum()).getOptionName();
+				}
+			
 			}
+			
+			mv.addObject("optionName", optionName);
 
 			mv.addObject("product", product);
 
@@ -230,6 +262,9 @@ public class OrderController {
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 		List<BankVO> bankVO = orderService.selectBankCodeList();
 		List<BasketListVO> basketSelect = productService.selectBasket(basketNums);
+		for(int i = 0 ; i < basketSelect.size() ; i++) {
+			System.out.println(basketSelect.get(i));
+		}
 		List<OptionVO> option = productService.selectOptionByOptionNumList(optionNums);
 		
 		System.out.println("어서오소@@@@@@@@@" + option);
@@ -302,19 +337,32 @@ public class OrderController {
 
 		for (int i = 0; i < basketSelect.size(); i++) {
 			JSONObject orderListJson = new JSONObject();
+			String optionName = "";
 			OptionVO optionVO = productService.selectOptionByOptionNum(basketSelect.get(i).getOptionNum());
 			orderListJson.put("productName", basketSelect.get(i).getProductName());
 			orderListJson.put("productThumb", basketSelect.get(i).getProductThumb());
 			orderListJson.put("optionOneNum", optionVO.getOptionOneNum());
+			if(optionVO.getOptionOneNum() != 0) {
+				optionName += productService.selectDetailOptionByDoNum(optionVO.getOptionOneNum()).getOptionName();
+			}
 			orderListJson.put("optionTwoNum", optionVO.getOptionTwoNum());
+			if(optionVO.getOptionTwoNum() != 0) {
+				optionName += " / " + productService.selectDetailOptionByDoNum(optionVO.getOptionTwoNum()).getOptionName();
+			}
 			orderListJson.put("optionThreeNum", optionVO.getOptionThreeNum());
+			if(optionVO.getOptionThreeNum() != 0) {
+				optionName += " / " + productService.selectDetailOptionByDoNum(optionVO.getOptionThreeNum()).getOptionName();
+			}
+			orderListJson.put("optionName", optionName);
 			orderListJson.put("productPrice", basketSelect.get(i).getProductPrice());
 			orderListJson.put("cnt", basketSelect.get(i).getCnt());
+			orderListJson.put("stock", optionVO.getStock());
 			orderListJson.put("optionNum", optionVO.getOptionNum());
 			orderListJson.put("productNum", basketSelect.get(i).getProductNum());
 			orderListJson.put("deliveryPrice", basketSelect.get(i).getDeliveryPrice());
 			orderListJson.put("basketNum", basketSelect.get(i).getBasketNum());
-			orderListJson.put("storeName", basketSelect.get(i).getstoreName());
+			orderListJson.put("storeName", basketSelect.get(i).getStoreName());
+			System.out.println(basketSelect.get(i).getStoreName());
 			orderListJsonArray.add(orderListJson);
 			a += (basketSelect.get(i).getProductPrice() * basketSelect.get(i).getCnt())
 					+ basketSelect.get(i).getDeliveryPrice();
@@ -1136,40 +1184,5 @@ public class OrderController {
 		
 		return mv;
 	}
-	
-	@Scheduled(cron = "* /4 * * * * ")
-	public void stateChange() {
-		List<VirtualAccountVO> virList = null;
-		String stateName = "입금 대기";
-		String stateCancle = "주문 취소";
-		//"입금 대기" 오더리스트 뽑아오기
-		List<OrderVO> state = orderService.selectOrderAllState(stateName); 
-		//날자 변환 포맷
-		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
-		Date time = new Date();
-		System.out.println(time);
-		// 현재 시간 포맷
-		String time1 = format1.format(time);
-		for(int i = 0 ; i < state.size() ; i++) {
-			//오더리스트의 결제번호로 가상계좌 셀렉트
-			virList = orderService.selectAllVirtualAccountVO(state.get(i).getPayNum());
-			//가상계좌의 입금마감일 뽑아오기
-			String depositDate = format1.format(virList.get(0).getDepositDate());
-			//현재 시간이랑 가상계좌의 입금마감일 비교
-			int compare = depositDate.compareTo(time1);
-			
-			if(compare > 0) { // 입금마감일이 현재시간보다 크면 
-				//주문취소 들어가
-				orderService.updateOrderByOrderNum(state.get(i).getOrderNum());
-				
-			}else if(compare < 0){ // 입금마감일이 현재시간보다 작으면 
-				
-			}else { // 입금마감일이 현재시간과 같으면 
-				//이것도 주문취소 들어가
-				orderService.updateOrderByOrderNum(state.get(i).getOrderNum());
-			}
-			
-		}
-		
-	}
+
 }

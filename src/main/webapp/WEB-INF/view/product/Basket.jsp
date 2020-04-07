@@ -148,7 +148,7 @@
 							<!-- 상품가격 -->
 							<td>
 							<div class="price">
-							<input type="number" id="price${status.index}" value="${basket.productPrice*basket.cnt}" /> 
+							<input type="number" id="price${status.index}" value="${basket.productPrice*basket.cnt}" readonly/> 
 							<input type="hidden" id="pricee${status.index}"value="${basket.productPrice}">원
 							</div>
 							</td>

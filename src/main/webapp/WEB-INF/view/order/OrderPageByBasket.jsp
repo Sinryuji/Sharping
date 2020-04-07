@@ -270,9 +270,20 @@ table {
 	color: #fff;
 	transform: translateY(-7px);
 }
+
+.pricetd {
+	border-rigth : 1px solid black;
+}
 </style>
 </head>
 <body>
+<c:forEach var="product" items="${orderListArray}" varStatus="status">
+	<c:if test="${product.cnt > product.stock} ">
+		<script>
+			alert("상품의 재고 보다 선택한 수량이 많습니다. 재고 : " + ${product.stock});
+		</script>
+	</c:if>
+</c:forEach>
 	<div>
 		<h2>주문서</h2>
 	</div>
@@ -310,6 +321,7 @@ table {
 						<th>상품정보</th>
 						<th>판매자</th>
 						<th>배송비</th>
+						<th>금액</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -320,11 +332,12 @@ table {
 								<img src="opload/${product.productThumb}" width="50" height="50">
 							</div>
 							<div class="proInfo">
-								<b>${product.productName}&nbsp;&nbsp;&nbsp;${product.cnt}개&nbsp;&nbsp;&nbsp;${product.productPrice}원</b>
+								<b>${product.productName}&nbsp;&nbsp;${product.optionName}&nbsp;&nbsp;${product.cnt}개&nbsp;&nbsp${product.productPrice}원</b>
 							</div>
 						</td>
 						<td class="t1_td">${product.storeName}</td>
 						<td class="pricetd">${product.deliveryPrice}</td>
+						<td>${product.cnt * product.productPrice + product.deliveryPrice}</td>
 					</tr>
 					</c:forEach>
 				</tbody>
@@ -391,7 +404,7 @@ table {
 							<br>
 							<input type="hidden" name="orderJson"value='${orderJson}' /> 
 							<input type="hidden"name="orderListJsonArray" value='${orderListJsonArray}' /> 
-							<input type="submit" class="t" id="payment" value="결제하기"></td>
+							<input type="button" class="t" id="payment" value="결제하기"></td>
 					</tr>
 					<tr>
 						<td class="right">

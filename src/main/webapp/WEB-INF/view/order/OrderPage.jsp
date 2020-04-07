@@ -271,6 +271,9 @@
 	  		transform: translateY(-7px);
 		}
 		
+		.t1_td {
+			border-rigth : 1px solid black;
+		}
 	
 </style>
 
@@ -300,6 +303,7 @@ history.go(-1);
 				<th>상품정보</th>
 				<th>판매자</th>
 				<th>배송비</th>
+				<th>금액</th>
 			</tr>
 		</thead>
 		<tbody>
@@ -309,11 +313,12 @@ history.go(-1);
 					<img src="opload/${product.productThumb}" width="50" height="50">
 				</div>
 				<div class="proInfo">
-					<b>${product.productName}</b>
+					<b>${product.productName}&nbsp;&nbsp;${optionName}&nbsp;&nbsp;${cnt}개&nbsp;&nbsp${product.productPrice}원</b>
 				</div>
 				</td>
 				<td class="t1_td">${seller.storeName}</td>
-				<td>${product.deliveryPrice}</td>
+				<td class="t1_td">${product.deliveryPrice}</td>
+				<td>${cnt * product.productPrice + product.deliveryPrice}</td>
 			</tr>
 		</tbody>
 	</table>

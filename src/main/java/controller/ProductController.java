@@ -790,6 +790,8 @@ public class ProductController {
 			productVO.setOptionThreeName(mtfRequest.getParameter("optionThreeName"));
 
 			String d = mtfRequest.getParameter("mfDate");
+			
+			productVO.setId(mtfRequest.getParameter("id"));
 
 			if (mtfRequest.getParameter("hidden").equals("n")) {
 				System.out.println("1 : " + productVO.toString());
@@ -860,6 +862,11 @@ public class ProductController {
 			productVO.setOptionThreeName(mtfRequest.getParameter("optionThreeName"));
 
 			String d = mtfRequest.getParameter("mfDate");
+			
+			productVO.setId(mtfRequest.getParameter("id"));
+			
+			System.out.println(productVO);
+			
 
 			if (mtfRequest.getParameter("hidden").equals("n")) {
 				productService.updateProductByProductNumDateIsNull(productVO);

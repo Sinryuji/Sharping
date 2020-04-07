@@ -1,12 +1,15 @@
 package service;
 
 
+import java.io.IOException;
+import java.util.List;
+
+import javax.servlet.http.HttpServletResponse;
+
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import dao.OrderDAO;
-
-import java.util.List;
-
 import vo.BankVO;
 import vo.GuestVO;
 import vo.OrderListVO;
@@ -240,6 +243,27 @@ public class OrderServiceImpl implements OrderService{
 	public List<OrderVO> selectOrderAllState(String state) {
 		return orderDAO.selectOrderAllState(state);
 	}
+	
+	@Scheduled(fixedDelay=1000)
+	public void deliveryCheck(HttpServletResponse resp) {
+		
+		List<OrderVO> list = orderDAO.selectOrderAllState("배송 중");
+		for(int i = 0 ; i < list.size() ; i++) {
+			String trackingNum = list.get(i).getTrackingNum();
+			String trackingCode = list.get(i).getTrackingCode();
+			int orderNum = list.get(i).getOrderNum();
+			try {
+				resp.sendRedirect("deliveryCheck?trackingNum=" + trackingNum + "&trackingCode=" + trackingCode + "&orderNum=" + orderNum);
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			
+		}
+		
+	}
+	
+	
 
 
 }

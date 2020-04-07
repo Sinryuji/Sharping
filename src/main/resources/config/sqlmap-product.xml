@@ -102,8 +102,8 @@
 
 	<select id="selectBasketByOptionNum" parameterType="hashmap" resultType="basketListVO">
 		select * from (select b."basketNum", p."productPrice",p."deliveryPrice" , m."id", p."productName",p."productThumb",
-		o."productNum",b."cnt" ,o."stock",b."optionNum" from OPTIONN o, PRODUCT p, BASKET b, MEMBER m
-		where p."productNum" = o."productNum" and b."optionNum" = o."optionNum" and m."id" = b."id")
+		o."productNum",b."cnt" ,o."stock",b."optionNum", s."storeName" from OPTIONN o, PRODUCT p, BASKET b, MEMBER m, SELLER s
+		where p."productNum" = o."productNum" and b."optionNum" = o."optionNum" and m."id" = b."id" and p."id" = s."id")
 		<foreach collection="array" item="basketNum" open="WHERE" separator="OR">
 			"basketNum" = #{basketNum}
 		</foreach>
@@ -176,8 +176,7 @@
 	      "productThumb" = #{productThumb} , "productImage" = #{productImage} ,"productDisplay" = #{productDisplay} ,
 	      "stock" = #{stock} , "categoryNum" = #{categoryNum} ,"productMeterial" = #{productMeterial} , 
 	      "manufacturer" = #{manufacturer}  , "mfDate" = #{mfDate} , "origin" = #{origin} , 
-		  "deliveryPrice" = #{deliveryPrice} ,"optionOneName" = #{optionOneName} , 
-		  "optionTwoName" = #{optionTwoName} , "optionThreeName" = #{optionThreeName}
+		  "deliveryPrice" = #{deliveryPrice}
 	  WHERE "productNum" = #{productNum}
    </update>
    
@@ -187,8 +186,7 @@
 	      "productThumb" = #{productThumb} , "productImage" = #{productImage} ,"productDisplay" = #{productDisplay} ,
 	      "stock" = #{stock} , "categoryNum" = #{categoryNum} ,"productMeterial" = #{productMeterial} , 
 	      "manufacturer" = #{manufacturer}  , "origin" = #{origin} , 
-		  "deliveryPrice" = #{deliveryPrice} ,"optionOneName" = #{optionOneName} , 
-		  "optionTwoName" = #{optionTwoName} , "optionThreeName" = #{optionThreeName}
+		  "deliveryPrice" = #{deliveryPrice}
 	  WHERE "productNum" = #{productNum}
    </update>
    

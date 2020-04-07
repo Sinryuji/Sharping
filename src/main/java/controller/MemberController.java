@@ -899,6 +899,30 @@ public class MemberController {
 		return mv;
 	}
 	
+	// 배송 완료 체크
+	@RequestMapping(value = "deliveryCheck")
+	public ModelAndView deliveryCheck(String trackingNum, String trackingCode) {
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("mypage/DeliveryCheck");
+		
+		mv.addObject("trackingNum", trackingNum);
+		mv.addObject("trackingCode", trackingCode);
+		
+		return mv;
+	}
+	
+	// 배송 중이던 놈 배송 완료 되면 배송 완료로 변경
+	@RequestMapping(value = "deliveryStateChange")
+	public void deliveryStateChange(String values, int orderNum) {
+		
+		if(values.contains("배송 완료 ")) {
+			
+			OrderVO order = orderService.selectOrderByorderNum(orderNum);
+		}
+		
+	}
+	
 	
 
 
