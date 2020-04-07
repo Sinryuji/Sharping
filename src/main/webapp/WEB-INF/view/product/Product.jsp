@@ -205,9 +205,12 @@ $('#cnt').change(function(){
 			data: data,
 			success : function(result){
 				if(result == 1){
-					alert("담았으");
-					$(".cnt").val("1");
-					window.location.href='<%=request.getContextPath()%>/basket';
+					var result1 = confirm("장바구니에 추가 되었습니다. 계속 쇼핑 하시겠습니까?");
+					if(result1){
+					location.reload();
+					}else{
+					window.location.href='<%=request.getContextPath()%>/basket';	
+					}
 				}else{
 					alert("로그인하세요");
 					window.location.href='<%=request.getContextPath()%>/login';

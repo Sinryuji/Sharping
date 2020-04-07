@@ -106,5 +106,8 @@ public interface OrderDAO {
 	
 	// 모든 주문 가져오기
 	public abstract List<OrderVO> selectOrderAll();
+	
+	public abstract List<VirtualAccountVO> selectAllVirtualAccountVO(int paynum);
 
+	public abstract List<OrderVO> selectOrderAllState(String state);
 }
