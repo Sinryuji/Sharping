@@ -56,7 +56,7 @@ html {
 }
 
 body {
-	background-image: url('${pageContext.request.contextPath}/resources/images/신세경1.jpg');
+/*  	background-image: url('${pageContext.request.contextPath}/resources/images/신세경1.jpg'); */
 	background-size: cover;
 	font-family: '맑은 고딕', verdana;
 	padding: 0;
@@ -392,7 +392,7 @@ footer#footer div {
 			window.name = "MemberManage";
 			var popup = window
 					.open("infoDetail" + "?id=" + id, "회원상세정보",
-							"width = 450, height = 320, resizable = no, scrollbars = no, status = no");
+							"width = 450, height = 350, resizable = no, scrollbars = no, status = no");
 
 			var timer = setInterval(function() {
 				if (popup.closed) {
@@ -412,9 +412,7 @@ footer#footer div {
 			var url = $(location).attr('href');
 			if (url.match("sellerList")) {
 				url += "#tab02";
-				console.log($("#t2").val());
 				$("#t2").trigger("click");
-				console.log("이동");
 			}
 		});
 		
@@ -422,7 +420,6 @@ footer#footer div {
 
 
 
-<%-- 	<script src="${pageContext.request.contextPath}/resources/js/jquery.js"></script> --%>
 	<script
 		src="${pageContext.request.contextPath}/resources/js/masonry.pkgd.min.js"></script>
 	<script

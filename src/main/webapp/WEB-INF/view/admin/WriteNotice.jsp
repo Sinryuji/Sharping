@@ -12,6 +12,8 @@
 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 	crossorigin="anonymous"></script>
 
+
+
 <title>WriteNotice</title>
 
 <link rel='stylesheet'
@@ -39,10 +41,64 @@
 		type='text/css' media='all' />
 
 <style>
-body {
-	padding-top: 70px;
-	padding-bottom: 30px;
 	
+#container {
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	text-align:center
+}
+
+#containerBox {
+	display:inline-block;
+	vertical-align:middle;
+}
+
+.blank {
+	display:inline-block;
+	width:0;
+	height:100%;
+	vertical-align:middle;
+}
+
+.mb-3 {
+	padding-bottom: 10px;
+}
+
+#btnSave, #btnCanc {
+	    width: 90px;
+	    height: 30px;
+	    font-family: 'Roboto', sans-serif;
+	    font-size: 14px;
+	    text-transform: uppercase;
+	    letter-spacing: 2.5px;
+	    font-weight: 500;
+	    color: white;
+	    background-color: #6B66FF;
+	    border: none;
+	    border-radius: 35px;
+	    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	    transition: all 0.3s ease 0s;
+	    cursor: pointer;
+	    outline: none;
+	    opacity: 0.8;
+}
+
+#btnSave:hover, #btnCanc:hover {
+     background-color: #FFB2F5;
+     box-shadow: 0px 15px 20px hotpink;
+     color: #fff;
+     transform: translateY(-7px);
+}
+
+#noticeText {
+	font-size: 12pt;
+	margin: 0;
+	width: 450px;
+	height: 200px;
+}	
 
 .switch {
   position: relative;
@@ -103,42 +159,7 @@ input:checked + .slider:before {
   border-radius: 50%;
 }
 
-p {
-	margin:0px;
-	display:inline-block;
-	font-size:15px;
-	font-weight:bold;
-}
 
-.mb-3 {
-	padding-bottom: 10px;
-}
-
-#btnSave, #btnCanc {
-	    width: 90px;
-	    height: 30px;
-	    font-family: 'Roboto', sans-serif;
-	    font-size: 14px;
-	    text-transform: uppercase;
-	    letter-spacing: 2.5px;
-	    font-weight: 500;
-	    color: white;
-	    background-color: #6B66FF;
-	    border: none;
-	    border-radius: 35px;
-	    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-	    transition: all 0.3s ease 0s;
-	    cursor: pointer;
-	    outline: none;
-	    opacity: 0.8;
-}
-
-#btnSave:hover, #btnCanc:hover {
-     background-color: #FFB2F5;
-     box-shadow: 0px 15px 20px hotpink;
-     color: #fff;
-     transform: translateY(-7px);
-}	
 	
 	
 }
@@ -148,9 +169,10 @@ p {
 
 <body>
 
-	<article>
-		<div class="container" role="main">
 
+	<article>
+		<section id="container">
+			<div id="containerBox">
 			<h2>공지사항</h2>
 
 			<form name="form" id="form" role="form" method="post"
@@ -159,34 +181,38 @@ p {
 
 				<div class="mb-3">
 					<label for="noticeSubject">제목</label> 
-					<input type="text" class="form-control" name="noticeSubject" id="noticeSubject" placeholder="제목을 입력해 주세요" />
+					<input type="text" name="noticeSubject" id="noticeSubject" placeholder="제목을 입력해 주세요" />
 				</div>
 
 				<div class="mb-3">
 					<label for="adminId">작성자</label> 
-					<input type="text" class="form-control" name="adminId" id="adminId" value="${adminVO.adminId }" readonly />
+					<input type="text" name="adminId" id="adminId" value="${adminVO.adminId }" readonly />
 				</div>
 
 				<div class="mb-3">
 					<label for="noticeText">내용</label>
-					<textarea class="form-control" rows="5" name="noticeText" id="noticeText" placeholder="내용을 입력해 주세요" /></textarea>
+					<textarea rows="5" name="noticeText" id="noticeText" placeholder="내용을 입력해 주세요" /></textarea>
 				</div>
 				
 				<div class="mb-3">
-					<label for="noticePost" class="switch">진열여부
-					<input type="checkbox" class="form-control" name="noticePost" id="noticePost"/>
-					<span class="slider round"></span>
+					<label for="noticePost">진열여부</label>
+					<label class="switch"> 
+						<input type="checkbox" name="noticePost" id="noticePost"/>
+						<span class="slider round"></span>
 					</label>
 				</div>
 			</form>
-
-			<div>
-				<button type="button" id="btnSave">저장</button>
-				<button type="button" id="btnCanc">취소</button>
+			
+				<div>
+					<button type="button" id="btnSave">저장</button>
+					<button type="button" id="btnCanc">취소</button>
+				</div>
+			
 			</div>
-		</div>
+			<span class="blank"></span>
+		</section>
 	</article>
-	
+
 	
 	<script>
 	$(document).on('click', '#btnSave', function() {
@@ -204,10 +230,12 @@ p {
         }
 		
 		$("#form").submit();
+		
+		window.close();
 	});
 
 	$(document).on('click','#btnCanc',function() {
-		location.href = "${pageContext.request.contextPath}/admin/noticeManage";
+		window.close();
 	});
 	
 	$("#noticePost").click(function(){

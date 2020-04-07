@@ -33,9 +33,25 @@
 	
 <style>
 
-div#containerBox {
-	float: right;
-	width: calc(100% - 200px - 20px);
+#container {
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	text-align:center
+}
+
+#containerBox {
+	display:inline-block;
+	vertical-align:middle;
+}
+
+.blank {
+	display:inline-block;
+	width:0;
+	height:100%;
+	vertical-align:middle;
 }
 
 .dm {
@@ -105,16 +121,16 @@ div#containerBox {
 				</div>
 				<div class="dm">
 					<label for=daPost>우편번호</label>
-					<input type="text" name="daPost" id="daPost" readonly value="${deliveryAddress.daPost}"/><br> 
+					<input type="text" name="daPost" id="daPost" readonly value="${deliveryAddress.daPost}"/>
+					<input type="button" id="selAdd" onClick="openDaumZipAddress();" value="주소 찾기" /> 
 				</div>
 				<div class="dm">	
 					<label for=daAddress>주소</label>
-					<input type="text" name="daAddress" id="daAddress" style="width:300px;" readonly value="${deliveryAddress.daAddress}"/><br>
+					<input type="text" name="daAddress" id="daAddress" style="width:300px;" readonly value="${deliveryAddress.daAddress}"/>
 				</div>
 				<div class="dm">	
 					<label for=daAddressEtc>상세주소</label>
-					<input type="text" name="daAddressEtc" id="daAdressEtc" value="${deliveryAddress.daAddressEtc}">
-					<input type="button" id="selAdd" onClick="openDaumZipAddress();" value="주소 찾기" />
+					<input type="text" name="daAddressEtc" id="daAdressEtc" value="${deliveryAddress.daAddressEtc}">	
 				</div>
 				<input type="hidden" name="id" id="id" value="${authInfo.id}">
 				<input type="hidden" name="daaName" id="daaName" value="${deliveryAddress.daaName}">
@@ -127,6 +143,7 @@ div#containerBox {
 				</div>
 
 			</div>
+			<span class="blank"></span>			
 		</section>
 	</article>
 

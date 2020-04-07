@@ -58,7 +58,7 @@ html {
 }
 
 body {
-	background-image: url('${pageContext.request.contextPath}/resources/images/신세경1.jpg');
+/* 	background-image: url('${pageContext.request.contextPath}/resources/images/신세경1.jpg'); */
 	background-size: cover;
 	font-family: '맑은 고딕', verdana;
 	padding: 0;
@@ -278,7 +278,7 @@ table{
 							<c:choose>
 								<c:when test="${empty noticeList }">
 									<tr>
-										<td colspan="5" align="center"><b>검색결과가 없습니다.</b></td>
+										<td colspan="10" align="center"><b>검색결과가 없습니다.</b></td>
 									</tr>
 								</c:when>
 								<c:when test="${!empty noticeList}">
@@ -321,7 +321,19 @@ table{
 	<script>
 	
 	$(document).on('click', '#btnWrite', function(){
-		location.href="${pageContext.request.contextPath}/admin/writeNotice"
+		window.name = "NoticeManage";
+		
+		var popup = window.open("writeNotice", "공지사항 작성", 
+				"width = 700, height = 470, resizable = no, scrollbars = no, status = no");
+		
+    	var timer = setInterval(function(){
+	        if(popup.closed) {
+				clearInterval(timer);
+				window.location.reload();
+				
+	        } 
+	    },300)
+	    
 	});
 	
 	
@@ -329,7 +341,7 @@ table{
 		window.name="NoticeManage";
 		
 		var popup = window.open("noticeContent" + "?noticeNum=" + noticeNum, "공지사항내용", 
-				"width = 450, height = 350, resizable = no, scrollbars = no, status = no");
+				"width = 700, height = 470, resizable = no, scrollbars = no, status = no");
 		
     	var timer = setInterval(function(){
 	        if(popup.closed) {

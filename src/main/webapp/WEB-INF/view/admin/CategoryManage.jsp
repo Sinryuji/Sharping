@@ -56,7 +56,7 @@ html {
 
 body {
 
-	background-image: url('${pageContext.request.contextPath}/resources/images/신세경1.jpg');	
+/* 	background-image: url('${pageContext.request.contextPath}/resources/images/신세경1.jpg');	 */
 	background-size: cover;
 	font-family: '맑은 고딕', verdana;
 	padding: 0;
@@ -163,7 +163,7 @@ footer#footer div {
 }
 
 #btnCate, #updateCategoryComplete, #updateCategoryCancle,
-.updateCategory, /* .deleteCategory, */ .depthTwoPlus, .depthThreePlus,
+.depthTwoPlus, .depthThreePlus,
 .insertDepthOne, .insertDepthTwo, .insertDepthThree {
     width: 90px;
     height: 30px;
