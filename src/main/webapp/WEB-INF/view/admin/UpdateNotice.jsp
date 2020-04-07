@@ -1,29 +1,105 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
-<%@ taglib prefix="form" uri = "http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width" initial-scale="1">
 <!-- jQuery -->
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
 	integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo"
 	crossorigin="anonymous"></script>
-<!-- Bootstrap CSS -->
-<link rel="stylesheet"
-	href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
-	integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
-	crossorigin="anonymous">
+
 <title>WriteNotice</title>
 
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
+	<link rel='stylesheet'
+		href='${pageContext.request.contextPath}/resources/css/woocommerce-layout.css'
+		type='text/css' media='all' />
+	<link rel='stylesheet'
+		href='${pageContext.request.contextPath}/resources/css/woocommerce-smallscreen.css'
+		type='text/css' media='only screen and (max-width: 768px)' />
+	<link rel='stylesheet'
+		href='${pageContext.request.contextPath}/resources/css/woocommerce.css'
+		type='text/css' media='all' />
+	<link rel='stylesheet'
+		href='${pageContext.request.contextPath}/resources/css/font-awesome.min.css'
+		type='text/css' media='all' />
+	<link rel='stylesheet'
+		href='${pageContext.request.contextPath}/resources/css/styleSB.css'
+		type='text/css' media='all' />
+	<link rel='stylesheet'
+		href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700'
+		type='text/css' media='all' />
+	<link rel='stylesheet'
+		href='${pageContext.request.contextPath}/resources/css/easy-responsive-shortcodes.css'
+		type='text/css' media='all' />
+		
 <style>
-body {
-	padding-top: 70px;
-	padding-bottom: 30px;
-	
 
-	.switch {
+#container {
+	position:absolute;
+	top:0;
+	left:0;
+	width:100%;
+	height:100%;
+	text-align:center
+}
+
+#containerBox {
+	display:inline-block;
+	vertical-align:middle;
+}
+
+.blank {
+	display:inline-block;
+	width:0;
+	height:100%;
+	vertical-align:middle;
+}
+
+
+.mb-3 {
+	padding-bottom: 10px;
+	
+}
+
+#btnUpdate, #btnCanc {
+	    width: 90px;
+	    height: 30px;
+	    font-family: 'Roboto', sans-serif;
+	    font-size: 14px;
+	    text-transform: uppercase;
+	    letter-spacing: 2.5px;
+	    font-weight: 500;
+	    color: white;
+	    background-color: #6B66FF;
+	    border: none;
+	    border-radius: 35px;
+	    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	    transition: all 0.3s ease 0s;
+	    cursor: pointer;
+	    outline: none;
+	    opacity: 0.8;
+}
+
+#btnUpdate:hover, #btnCanc:hover {
+     background-color: #FFB2F5;
+     box-shadow: 0px 15px 20px hotpink;
+     color: #fff;
+     transform: translateY(-7px);
+}	
+
+#noticeText {
+	font-size: 12pt;
+	margin: 0;
+	width: 450px;
+	height: 200px;
+}
+
+.switch {
   position: relative;
   display: inline-block;
   width: 60px;
@@ -81,13 +157,6 @@ input:checked + .slider:before {
 .slider.round:before {
   border-radius: 50%;
 }
-
-p {
-	margin:0px;
-	display:inline-block;
-	font-size:15px;
-	font-weight:bold;
-}
 	
 	
 	
@@ -99,45 +168,49 @@ p {
 <body>
 
 	<article>
-		<div class="container" role="main">
-
+		<section id="container">
+			<div id="containerBox">
 			<h2>공지사항</h2>
 
-			<form role="form" method="post" autocomplete="off" action="${pageContext.request.contextPath}/admin/updateNotice">
+			<form role="form" name="form" id="form" method="post" autocomplete="off"
+				action="${pageContext.request.contextPath}/admin/updateNotice">
 
 
 				<div class="mb-3">
 					<label for="noticeSubject">제목</label> 
-					<input type="text" class="form-control" name="noticeSubject" id="noticeSubject" value="${updateNotice.noticeSubject}" />
+					<input type="text" name="noticeSubject" id="noticeSubject" value="${updateNotice.noticeSubject}" />
 				</div>
 
 				<div class="mb-3">
 					<label for="adminId">작성자</label> 
-					<input type="text" class="form-control" name="adminId" id="adminId" value="${adminVO.adminId }" readonly />
+					<input type="text" name="adminId" id="adminId" value="${adminVO.adminId }" readonly />
 				</div>
 
 				<div class="mb-3">
 					<label for="noticeText">내용</label>
-					<textarea class="form-control" rows="5" name="noticeText" id="noticeText" >${updateNotice.noticeText}</textarea>
+					<textarea rows="5" name="noticeText" id="noticeText">${updateNotice.noticeText}</textarea>
 				</div>
 				
 				<div class="mb-3">
-					<label for="noticePost" class="switch">진열여부
-					<input type="checkbox" class="form-control" name="noticePost" id="noticePost" ${updateNotice.noticePost == "TRUE" ? "checked" : "FALSE"}/>
-					<span class="slider round"></span>
+					<label for="noticePost">진열여부</label>
+					<label class="switch"> 
+						<input type="checkbox" name="noticePost" id="noticePost" ${updateNotice.noticePost == "TRUE" ? "checked" : "FALSE"}/>
+						<span class="slider round"></span>
 					</label>
-					<p id="no">미진열</p><p id="yes" style="display:none;">진열</p>
 				</div>
-
-
-				<button type="submit" class="btn btn-sm btn-primary" id="btnUpdate">수정</button>
-				<button type="button" class="btn btn-sm btn-primary" id="btnCanc">취소</button>
-				
 				<input type="hidden" value="${updateNotice.noticeNum}" name="noticeNum">
-			
 			</form>
-		</div>
+			
+				<div>
+					<button type="button" id="btnUpdate">수정</button>
+					<button type="button" id="btnCanc">취소</button>
+				</div>
+			
+			</div>
+			<span class="blank"></span>			
+		</section>
 	</article>
+
 	
 	
 	<script>
@@ -162,13 +235,16 @@ p {
 			}
 		});
     
-    // 취소 버튼 클릭
-	$(document).on('click','#btnCanc',function(e) {
+
+	$(document).on('click','#btnCanc',function() {
 		window.close();
 		location.href = "${pageContext.request.contextPath}/admin/noticeManage";
 	});
 	
-	$(document).on('click','#btnUpdate',function(e) {
+	$(document).on('click','#btnUpdate',function() {
+		
+		$("#form").submit();
+		
 		window.close();
 	});
     

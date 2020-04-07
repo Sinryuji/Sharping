@@ -17,9 +17,9 @@
 <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
 		<ul class="nav navbar-nav">
 			<c:if test="${empty authInfo}">
-				<li class="navbar-left"><b><a href="<c:url value='/login'/>">&nbsp;로그인&nbsp;&nbsp;</a></b>
-				<li class="navbar-left"><b><a href="<c:url value='/regist'/>">&nbsp;회원가입&nbsp;</a></b>
-				<li class="active"><h1><i><a href="<c:url value='/main'/>"> #ing </a></i></h1>
+				<li class="navbar-left"><a href="<c:url value='/login'/>">&nbsp;로그인&nbsp;&nbsp;</a>
+				<li class="navbar-left"><a href="<c:url value='/regist'/>">&nbsp;회원가입&nbsp;</a>
+				<li class="active"><h1><a href="<c:url value='/main'/>"><i> #ing </i></a></h1>
 				<li class="navbar-right"><a href="<c:url value='latelyViewProduct'/>">&nbsp;최근 본 상품&nbsp;</a></li>
 			</c:if>
 			<c:if test="${!empty authInfo}">
