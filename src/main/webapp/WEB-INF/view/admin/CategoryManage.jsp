@@ -120,6 +120,7 @@ div#containerBox {
 	width: 25%; 
 	height: auto;
 	text-align: center;
+	background-color: rgba( 255, 255, 255, 0.5);	
 }
 
 .s3{
@@ -127,6 +128,7 @@ div#containerBox {
 	 width: 25%;
 	 height: auto;
 	 text-align: center;
+	 background-color: rgba( 255, 255, 255, 0.5);
 }
 
 #DepthOneSpace h4, #DepthTwoSpace h4, #DepthThreeSpace h4, #DepthOneNameStr {
@@ -273,6 +275,8 @@ footer#footer div {
 	
 	$(document).on("click", '.depthOne', function(){
 		
+		console.log(count1);
+		
 		var currentCategoryNum = $(this).attr("data-type");
 		
 		
@@ -363,6 +367,8 @@ footer#footer div {
 	// 중분류 카테고리명 클릭하는 경우
 	$(document).on("click", ".depthTwo", function(){
 		
+		console.log(count2);
+		
 		var currentCategoryNum = $(this).attr("data-type");
 		
 		if(categorySelectNumTemp == 0) {
@@ -444,6 +450,8 @@ footer#footer div {
 	
 	// 소분류 카테고리명 클릭하는 경우
 	$(document).on("click", ".depthThree", function(){
+		
+		console.log(count3);
 		
 		var currentCategoryNum = $(this).attr("data-type");
 		
@@ -695,8 +703,7 @@ footer#footer div {
 					console.log(classStr + "asdf");
 					
 					$(str).html('');
-					$(str).html('<div id="categoryName' + data.categoryNum  + '"><h4><a href="#" class="' + classStr + '" data-type="' + data.categoryNum + '">' + data.categoryName + '</a><span class="UpdateDelete">&nbsp;<button type="button" class="updateCategory" value="' + currentCategoryNum + '">수정</button>&nbsp;<button type="button" class="deleteCategory" value="' + currentCategoryNum + '">삭제</button></span></h4></div>');
-					
+					$(str).html('<div id="categoryName' + data.categoryNum  + '"><h4><a href="#" class="' + classStr + '" data-type="' + data.categoryNum + '">' + data.categoryName + '</a><span class="UpdateDelete">&nbsp;<button type="button" class="updateCategory" value="' + currentCategoryNum + '"><img src="${pageContext.request.contextPath}/resources/images/수정이미지.png"></button>&nbsp;<button type="button" class="deleteCategory" value="' + currentCategoryNum + '"><img src="${pageContext.request.contextPath}/resources/images/삭제이미지.png"></button></span></h4></div>');
 					/* $('#DepthThreeNameStr').remove();
 					
 					var htmls = '<h4><a href="#" class="depthThree" data-type="' + data.categoryNum + '">' + data.categoryName + '</a></h4>';

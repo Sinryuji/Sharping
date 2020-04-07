@@ -416,7 +416,7 @@
 		      		<td class="td2">
 		      			<div id="detailOptionBox1">
 							<span id="dop1">
-						  		1차 상세 옵션 <input type="text" name="optionOneDetail" id="doText1">&nbsp;&nbsp;<button type="button" id="do1_btn" class="btn" value="1">저장</button>&nbsp;&nbsp;<button type="button" id="do2_bt2" class="btn2" value="1">관리</button>
+						  		${product.optionOneName} 상세 옵션 <input type="text" name="optionOneDetail" id="doText1">&nbsp;&nbsp;<button type="button" id="do1_btn" class="btn" value="1">저장</button>&nbsp;&nbsp;<button type="button" id="do2_bt2" class="btn2" value="1">관리</button>
 						 	</span>
 						 </div>
 						 <div class="optiondetail-scroll">
@@ -447,7 +447,7 @@
 						 </div>
 						<div id="detailOptionBox2">
 							<span id="dop2">
-						  		2차 상세 옵션 <input type="text" name="optionTwoDetail" id="doText2">&nbsp;&nbsp;<button type="button" id="do2_btn" class="btn" value="2">저장</button>&nbsp;&nbsp;<button type="button" id="do2_btn2" class="btn2" value="2">관리</button>
+						  		${product.optionTwoName} 상세 옵션 <input type="text" name="optionTwoDetail" id="doText2">&nbsp;&nbsp;<button type="button" id="do2_btn" class="btn" value="2">저장</button>&nbsp;&nbsp;<button type="button" id="do2_btn2" class="btn2" value="2">관리</button>
 							</span>
 						</div>
 						<div class="optiondetail-scroll">
@@ -478,7 +478,7 @@
 						 </div>
 						<div id="detailOptionBox3">
 							<span id="dop3">
-						  		3차 상세 옵션 <input type="text" name="optionThreeDetail" id="doText3">&nbsp;&nbsp;<button type="button" id="do3_btn" class="btn" value="3">저장</button>&nbsp;&nbsp;<button type="button" id="do3_btn3" class="btn2" value="3">관리</button>
+						  		${product.optionThreeName} 상세 옵션 <input type="text" name="optionThreeDetail" id="doText3">&nbsp;&nbsp;<button type="button" id="do3_btn" class="btn" value="3">저장</button>&nbsp;&nbsp;<button type="button" id="do3_btn3" class="btn2" value="3">관리</button>
 							</span>
 						</div>
 						<div class="optiondetail-scroll">
@@ -521,7 +521,7 @@
 							  </span>
 							  <br>
 							  <span id="op2">
-							    2차 옵션&nbsp;&nbsp;<select name="optionTwoName" class="detailOptionSelect" id="o2" >
+							    2차 옵션&nbsp;&nbsp;<select name="optionTwoName" class="detailOptionSelect" id="o2" disabled="disabled">
 							    	<option id="title2" value="0">${product.optionTwoName}</option>
 							    	<c:forEach var="two" items="${twodo}" varStatus="status">
 							    	<option id="${two.doNum}" value="${two.doNum}">${two.optionName}</option>
@@ -530,7 +530,7 @@
 							  </span>
 							  <br>
 							  <span id="op3">
-							    3차 옵션&nbsp;&nbsp;<select name="optionThreeName" class="detailOptionSelect" id="o3" >
+							    3차 옵션&nbsp;&nbsp;<select name="optionThreeName" class="detailOptionSelect" id="o3" disabled="disabled">
 							    	<option id="title3" value="0">${product.optionThreeName}</option>
 							    	<c:forEach var="three" items="${threedo}" varStatus="status">
 							    	<option id="${three.doNum}" value="${three.doNum}">${three.optionName}</option>
@@ -592,7 +592,7 @@
 										<input class="form-control" id="leftCnt" type="text" disabled />
 									</div>
 									<div class="col-sm-12 mb-2">
-										<button type="button" class="deleteOption" style="width:100%;">삭제</button>
+										<button type="button" class="deleteOption" style="width:100%;" disabled="disabled">삭제</button>
 									</div>
 								</div>
 							</div>									
@@ -698,6 +698,8 @@ $(document).on("click", "#save", function(){
 
     var count = 0;
     var count2 = 0;
+    var count3 = 0;
+    var count4 = 0;
 
 	$(document).ready(function(){
 		if($('#h1').val() == ''){
@@ -814,6 +816,8 @@ $(document).on("click", "#save", function(){
 					$("#title1").prop("selected", true);
 					$("#title2").prop("selected", true);
 					$("#title3").prop("selected", true);
+					$("#o2").attr("disabled", "disabled");
+					$("#o3").attr("disabled", "disabled");
 					$("#stock").val("");
 					if(data == "null") {
 						alert("이미 추가한 옵션입니다.");
@@ -828,6 +832,10 @@ $(document).on("click", "#save", function(){
 	$(".btn2").click(function(){
 
 		$(this).parent().parent().next().slideToggle(1);
+		$("#default1").prop("selected", "selected");
+		$("#default2").prop("selected", "selected");
+		$("#default3").prop("selected", "selected");
+
 
 	});
 
@@ -836,10 +844,13 @@ $(document).on("click", "#save", function(){
 	$(".dopclose").click(function(){
 
 		$(this).parent().slideToggle(1);
+		$("#default1").prop("selected", "selected");
+		$("#default2").prop("selected", "selected");
+		$("#default3").prop("selected", "selected");
 
 	});
 	
-	// 상세 상세 옵션 삭제
+	// 상세 옵션 삭제
 	
 	$(document).on("click", ".deleteDetailOption" ,function(){
 		var doNumStr = "#oneDoNum" + $(this).val();
@@ -874,7 +885,7 @@ $(document).on("click", "#save", function(){
 	
 	// 상세 옵션 관리 고르는 액션
 	
-	// 1차 상세 옵션을 고르는 경우
+	// 옵션 관리에서 1차 상세 옵션을 고르는 경우
 	
 	$("#option1").change(function(){
 		
@@ -895,10 +906,14 @@ $(document).on("click", "#save", function(){
 			$("#option3").html(htmls);
 			
 			$("#leftCnt").val("");
+			
+			$(".deleteOption").attr("disabled", "disabled");
 
 			return;
 
 		}
+		
+		if(count > 1) {
 	
 		$.ajax({
 			url : "<%=request.getContextPath()%>/selectOptionOne",
@@ -924,14 +939,39 @@ $(document).on("click", "#save", function(){
 					$("#option2").html(htmls);
 					$("#option3").html('<option id="default3" value="0">선택</option>');
 					$("#leftCnt").val("");
-	
+					$(".deleteOption").attr("disabled", "disabled");
 				} 
 				
 		});
 		
+		}
+		
+		else if(count == 1) {
+			
+			$.ajax({
+				url : "<%=request.getContextPath()%>/selectDetailOption",
+					type : "post",
+					data : {
+						productNum : $("#productNum").val(),
+						optionOneNum : $('#option1').val(),
+						optionTwoNum : $('#option2').val(),
+						optionThreeNum : $('#option3').val()
+					},
+					
+					success : function(data) {
+						var stock = data.stock;
+						$("#leftCnt").val(stock);
+						$(".deleteOption").removeAttr("disabled");
+						
+					} 
+					
+			});
+			
+		}
+		
 	})
 	
-	// 2차 상세 옵션을 고르는 경우
+	// 옵션 관리에서 2차 상세 옵션을 고르는 경우
 	
 	$("#option2").change(function(){
 		
@@ -948,9 +988,13 @@ $(document).on("click", "#save", function(){
 			
 			$("#leftCnt").val("");
 			
+			$(".deleteOption").attr("disabled", "disabled");
+			
 			return;
 
 		}
+		
+		if(count > 2) {
 	
 		$.ajax({
 			url : "<%=request.getContextPath()%>/selectOptionTwo",
@@ -975,14 +1019,48 @@ $(document).on("click", "#save", function(){
 					}
 					
 					$("#option3").html(htmls);
-	
 				} 
 				
 		});
 		
-	})
+		}
+		
+		else if(count == 2) {
+			
+			
+			$.ajax({
+				url : "<%=request.getContextPath()%>/selectDetailOption",
+					type : "post",
+					data : {
+						productNum : $("#productNum").val(),
+						optionOneNum : $('#option1').val(),
+						optionTwoNum : $('#option2').val(),
+						optionThreeNum : $('#option3').val()
+					},
+					
+					success : function(data) {
+						var stock = data.stock;
+						$("#leftCnt").val(stock);
+						$(".deleteOption").removeAttr("disabled");
+					} 
+					
+			});
+			
+		}
+		
+	});
+	
+	// 옵션 관리에서 3차 상세 옵션을 고르는 경우
 	
 	$("#option3").change(function(){
+		
+		var optionDetailNo1 = $(this).val();
+		
+		if(optionDetailNo1 == 0) {
+			$(".deleteOption").attr("disabled", "disabled");
+			$("#leftCnt").val("");
+			return;
+		}
 		
 		$.ajax({
 			url : "<%=request.getContextPath()%>/selectDetailOption",
@@ -997,11 +1075,54 @@ $(document).on("click", "#save", function(){
 				success : function(data) {
 					var stock = data.stock;
 					$("#leftCnt").val(stock);
-				} 
+					$(".deleteOption").removeAttr("disabled");
+				}
+				
 				
 		});
 		
 	}) 
+	
+	// 옵션 설정에서 1차 상세 옵션을 고르는 경우
+	
+	$("#o1").change(function(){
+		$("#title2").prop("selected", "selected");
+		$("#title3").prop("selected", "selected");
+		if($("#o1").val() != 0) {
+		$("#o2").removeAttr("disabled");
+		count2 = 1;
+		}
+		else if( $("#o1").val() == 0 ) {
+			$("#o2").attr("disabled", "didabled");
+			$("#o3").attr("disabled", "didabled");
+			count2 = 0;
+		}
+	});
+	
+	// 옵션 설정에서 2차 상세 옵션을 고르는 경우
+	
+	$("#o2").change(function(){
+		$("#title3").prop("selected", "selected");
+		if($("#o2").val() != 0) {
+		$("#o3").removeAttr("disabled");
+		count3 = 1;
+		}
+		else if( $("#o2").val() == 0 ) {
+			$("#o3").attr("disabled", "didabled");
+			count3 = 0;
+		}
+	});
+	
+	// 옵션 설정에서 3차 상세 옵션을 고르는 경우
+	
+	$("#o3").change(function(){
+		if($(this).val() != 0) {
+			count4 = 1;
+		}
+		else if($(this).val() == 0) {
+			count4 = 0;
+		}
+	})
 	
 	// 상품 옵션 삭제
 	
@@ -1035,23 +1156,31 @@ $(document).on("click", "#save", function(){
 	
 	$(".detailOptionSelect").change(function(){
 		
-		if($(this).val() != 0){
-			if(count2 < 3) {
-			count2++;;
+		if(count == 1) {
+			if(count2 == 1) {
+				$('#insertOption').removeAttr('disabled');
 			}
-			console.log(count2);
-		} else if($(this).val() == 0) {
-			if(count2 > 0) {
-			count2--;
+			else {
+				$('#insertOption').attr('disabled', 'disabled');
 			}
-			console.log(count2);
 		}
-	
 		
-		if(count == count2) {
-			$('#insertOption').removeAttr('disabled');
-		} else if(count != count2) {
-			$('#insertOption').attr('disabled', 'disabled');
+		if(count == 2) {
+			if(count2 == 1 && count3 == 1) {
+				$('#insertOption').removeAttr('disabled');
+			}
+			else {
+				$('#insertOption').attr('disabled', 'disabled');
+			}
+		}
+		
+		if(count == 3) {
+			if(count2 == 1 && count3 == 1 && count4 == 1) {
+				$('#insertOption').removeAttr('disabled');
+			}
+			else {
+				$('#insertOption').attr('disabled', 'disabled');
+			}
 		}
 		
 	})

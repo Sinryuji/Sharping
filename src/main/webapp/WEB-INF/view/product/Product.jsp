@@ -87,8 +87,8 @@
 										<input type="hidden" name="optionThreeNum" value="0">
 									</c:if>
 									<c:if test="${maxOptionLevel == 1}">
-										<select name="optionOneNum">
-										<option value="none">=== ${product.optionOneName} ===</option>
+										<select name="optionOneNum" id="optionOneNum" class="optionNums">
+										<option id="default1" value="0">${product.optionOneName}</option>
 										<c:forEach var="detailOption" items="${detailOptionList}" varStatus="status">
 										<c:if test="${detailOption.optionLevel == 1}">
 										<option value="${detailOption.doNum}">${detailOption.optionName}</option>
@@ -97,16 +97,16 @@
 										</select>
 									</c:if>
 									<c:if test="${maxOptionLevel == 2 }">
-										<select name="optionOneNum">
-											<option value="none">=== ${product.optionOneName} ===</option>
+										<select name="optionOneNum" id="optionOneNum" class="optionNums">
+											<option id="default1" value="0">${product.optionOneName}</option>
 											<c:forEach var="detailOption" items="${detailOptionList}" varStatus="status">
 											<c:if test="${detailOption.optionLevel == 1}">
 											<option value="${detailOption.doNum}">${detailOption.optionName}</option>
 											</c:if>
 											</c:forEach>
 										</select>
-										<select name="optionTwoNum">
-											<option value="none">=== ${product.optionTwoName} ===</option>
+										<select name="optionTwoNum" id="optionTwoNum" class="optionNums" disabled="disabled">
+											<option id="default2" value="0">${product.optionTwoName}</option>
 											<c:forEach var="detailOption" items="${detailOptionList}" varStatus="status">
 											<c:if test="${detailOption.optionLevel == 2}">
 											<option value="${detailOption.doNum}">${detailOption.optionName}</option>
@@ -117,24 +117,24 @@
 									</c:if>
 									
 									<c:if test="${maxOptionLevel == 3}">
-											<select name="optionOneNum">
-											<option value="none">=== ${product.optionOneName} ===</option>
+											<select name="optionOneNum" id="optionOneNum" class="optionNums">
+											<option id="default1" value="0">${product.optionOneName}</option>
 											<c:forEach var="detailOption" items="${detailOptionList}" varStatus="status">
 											<c:if test="${detailOption.optionLevel == 1}">
 											<option value="${detailOption.doNum}">${detailOption.optionName}</option>
 											</c:if>
 											</c:forEach>
 											</select>
-											<select name="optionTwoNum">
-											<option value="none">=== ${product.optionTwoName} ===</option>
+											<select name="optionTwoNum" id="optionTwoNum" class="optionNums" disabled="disabled">
+											<option id="default2" value="0">${product.optionTwoName}</option>
 											<c:forEach var="detailOption" items="${detailOptionList}" varStatus="status">
 											<c:if test="${detailOption.optionLevel == 2}">
 											<option value="${detailOption.doNum}">${detailOption.optionName}</option>
 											</c:if>
 											</c:forEach>
 											</select>
-											<select name="optionThreeNum">
-											<option value="none">=== ${product.optionThreeName} ===</option>
+											<select name="optionThreeNum" id="optionThreeNum" class="optionNums" disabled="disabled">
+											<option id="default3" value="0">${product.optionThreeName}</option>
 											<c:forEach var="detailOption" items="${detailOptionList}" varStatus="status">
 											<c:if test="${detailOption.optionLevel == 3}">
 											<option value="${detailOption.doNum}">${detailOption.optionName}</option>
@@ -185,6 +185,26 @@ $('#cnt').change(function(){
 })
 </script>
 <script>
+
+
+	var count = "${maxOptionLevel}";
+	var count2 = 0;
+	var count3 = 0;
+	var count4 = 0;
+	var optionOneName = "${product.optionOneName}";
+	var optionTwoName = "${product.optionTwoName}";
+	var optionThreeName = "${product.optionThreeName}";
+	
+	$(document).ready(function(){
+		
+		console.log(count);
+		
+		if(count != 0) {
+			$("#t").attr("disabled", "disabled");
+		}
+		
+	})
+
 	$(".basketBtn").click(function(){
 		
 	 	var cnt = $("#cnt").val();
@@ -216,6 +236,141 @@ $('#cnt').change(function(){
 			
 		});
 	});
+	
+	// 1차 옵션을 고르는 경우
+	
+	$("#optionOneNum").change(function(){
+		
+		if($("#optionOneNum").val() == 0) {
+			$("#default2").prop("selected", "selected");
+			$("#default3").prop("selected", "selected");
+			count2 = 0;
+			$("#optionTwoNum").attr("disabled", "disabled");
+			$("#optionThreeNum").attr("disabled", "disabled");
+		}
+		else if($("#optionOneNum").val() != 0) {
+			
+			$.ajax({
+				url : "<%=request.getContextPath()%>/selectOptionOne",
+					type : "post",
+					data : {
+						productNum : $("#productNum").val(),
+						optionOneNum : $('#optionOneNum').val(),
+						optionTwoNum : $('#optionTwoNum').val(),
+						optionThreeNum : $('#optionThreeNum').val()
+					},
+					
+					dataType : 'json',
+					
+					success : function(data) {
+						
+						var htmls = '<option id="default2" value="0">' + optionTwoName  + '</option>';
+						for(var i = 0 ; i < data.list.length ; i++) {
+							var option = data.list[i];
+							htmls += '<option value="' + option.doNum + '">' + option.optionName + '</option>'
+						}
+						
+						$("#optionTwoNum").html(htmls);
+						$("#optionThreeNum").html('<option id="default3" value="0">' + optionThreeName + '</option>');
+		
+					} 
+					
+			});
+
+			count2 = 1;
+			$("#optionTwoNum").removeAttr("disabled");
+		}
+		
+	});
+	
+	// 2차 옵션을 고르는 경우
+	
+	$("#optionTwoNum").change(function(){
+		
+		if($("#optionTwoNum").val() == 0) {
+			$("#default3").prop("selected", "selected");
+			count3 = 0;
+			$("#optionThreeNum").attr("disabled", "disabled");
+		}
+		else if($("#optionTwoNum").val() != 0) {
+			
+			$.ajax({
+				url : "<%=request.getContextPath()%>/selectOptionTwo",
+					type : "post",
+					data : {
+						productNum : $("#productNum").val(),
+						optionOneNum : $('#optionOneNum').val(),
+						optionTwoNum : $('#optionTwoNum').val(),
+						optionThreeNum : $('#optionThreeNum').val()
+					},
+					
+					dataType : 'json',
+					
+					success : function(data) {
+						
+						var htmls = '<option id="default3" value="0">' + optionThreeName  + '</option>';
+						for(var i = 0 ; i < data.list.length ; i++) {
+							var option = data.list[i];
+							htmls += '<option value="' + option.doNum + '">' + option.optionName + '</option>'
+						}
+						
+						$("#optionThreeNum").html(htmls);
+		
+					} 
+					
+			});
+			
+			count3 = 1;
+			$("#optionThreeNum").removeAttr("disabled");
+		}
+	});
+	
+	// 3차 옵션을 고르는 경우
+	
+	$("#optionThreeNum").change(function(){
+		
+		if($("#optionThreeNum").val() == 0) {
+			count4 = 0;
+		}
+		else if($("#optionThreeNum").val() != 0) {
+			count4 = 1;
+		}
+		
+	});
+	
+	// 주문 버튼 활성화/비활성화
+	
+	$(document).on("change", ".optionNums", function(){
+		
+		if(count == 1) {
+			if(count2 == 1) {
+				$("#t").removeAttr('disabled');
+			}
+			else {
+				$("#t").attr('disabled', 'disabled');
+			}
+		}
+		
+		else if(count == 2) {
+			if(count2 == 1 && count3 == 1) {
+				$("#t").removeAttr('disabled');
+			}
+			else {
+				$("#t").attr('disabled', 'disabled');
+			}
+		}
+		
+		else if(count == 3) {
+			if(count2 == 1 && count3 == 1 && count4 == 1) {
+				$("#t").removeAttr('disabled');
+			}
+			else {
+				$("#t").attr('disabled', 'disabled');
+			}
+		}
+		
+	})
+	
 </script>
 
 </body>

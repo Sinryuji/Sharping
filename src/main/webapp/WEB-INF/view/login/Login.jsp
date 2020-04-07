@@ -202,7 +202,7 @@ https://t1.daumcdn.net/cfile/tistory/1574BE2F4C67FF6E69
 		<div class="loginBox">
 				<div class="idPw">
 					<input type="text" autocomplete="off" class="pad" name="id" placeholder="ID" value="${rememberId}"/><br><br>
-					<input type="text" autocomplete="off" class="pad" name="password" value="" placeholder="Password"/>
+					<input type="Password" autocomplete="off" class="pad" name="password" value="" placeholder="Password"/>
 				</div>
 				&nbsp;&nbsp;
 				<div class="in">

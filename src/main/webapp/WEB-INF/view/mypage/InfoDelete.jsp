@@ -114,7 +114,7 @@
 				</tr>
 				<tr>
 					<td>비밀번호</td>
-					<td><input type="text" name="password" id="pw1" required /></td>				
+					<td><input type="password" name="password" id="pw1" required /></td>				
 				</tr>
 			</tbody>
 		</table>

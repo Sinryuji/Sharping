@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +21,6 @@ import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -437,7 +435,7 @@ public class MemberController {
 
 	// 판매자 전환 완료
 	@RequestMapping(value = "/changeSellerComplete")
-	public String chageSellerComplete(@Valid SellerVO sellerVO) {
+	public String chageSellerComplete(@Valid SellerVO sellerVO, HttpServletRequest req) {
 
 		/*
 		 * String addressEtc = sellerVO.getAddressEtc();
@@ -448,7 +446,16 @@ public class MemberController {
 		 * 
 		 * sellerVO.setAddress(addressFinal);
 		 */
-
+		
+		HttpSession session = req.getSession();
+		
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		authInfo.setSellerCheck("true");
+		
+		session.removeAttribute("authInfo");
+		
+		session.setAttribute("authInfo", authInfo);
+		
 		memberService.registSeller(sellerVO);
 		return "login/ChangeSellerResult";
 	}
@@ -511,7 +518,7 @@ public class MemberController {
 //		changeMemberVO.setNewAddress(addressFinal);
 
 		memberService.updateMemberInfoById(changeMemberVO);
-		return "mypage/InfoChangeMemberResult";
+		return "redirect:/main";
 	}
 
 	// 판매자 회원 정보 수정
@@ -528,7 +535,7 @@ public class MemberController {
 
 		memberService.updateMemberInfoById(changeMemberVO);
 		memberService.updateSellerInfoById(changeMemberVO);
-		return "mypage/InfoChangeMemberResult";
+		return "redirect:/main";
 	}
 
 	// 회원 탈퇴 페이지
@@ -542,7 +549,7 @@ public class MemberController {
 	public String infoDeleteComplete(DeleteVO deleteVO, HttpSession session) {
 		memberService.deleteMemberByIdPw(deleteVO);
 		session.invalidate();
-		return "mypage/InfoDeleteResult";
+		return "redirect:/main";
 	}
 
 	@RequestMapping(value = "/phoneCheck")

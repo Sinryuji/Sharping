@@ -131,7 +131,7 @@ public class ProductController {
 		String thumFileName = mft.getOriginalFilename();
 		String thumSaveName = uid.toString() + "_" + thumFileName;
 		String thumbFileName = "s_" + thumSaveName;
-		File Thum = new File(ThumUploadPath, thumSaveName);
+		File Thum = new File(ThumUploadPath, thumbFileName);
 		try {
 			FileCopyUtils.copy(mf.getBytes(), target);
 			FileCopyUtils.copy(mft.getBytes(), Thum);
@@ -324,9 +324,9 @@ public class ProductController {
 			int count = 0;
 			int sales = 0;
 			for(int j = 0 ; j < options.size() ; j++) {
-				optionNums[i] = options.get(i).getOptionNum();
-				System.out.println(optionNums[i]);
+				optionNums[j] = options.get(j).getOptionNum();
 			}
+			if(optionNums.length > 0) {
 			List<OrderListVO> list = orderService.selectBuyCount(optionNums);
 			for(int k = 0 ; k < list.size() ; k++) {
 				OrderVO order = orderService.selectOrderByorderNum(list.get(k).getOrderNum());
@@ -334,6 +334,7 @@ public class ProductController {
 					count++;
 					sales += order.getPayPrice();
 				}
+			}
 			}
 			product.put("butCount", count);
 			product.put("sales", sales);
@@ -736,7 +737,7 @@ public class ProductController {
 			String thumFileName = mft.getOriginalFilename();
 			String thumSaveName = uid.toString() + "_" + thumFileName;
 			String thumbFileName = "s_" + thumSaveName;
-			File Thum = new File(ThumUploadPath, thumSaveName);
+			File Thum = new File(ThumUploadPath, thumbFileName);
 			try {
 				FileCopyUtils.copy(mf.getBytes(), target);
 				FileCopyUtils.copy(mft.getBytes(), Thum);
@@ -1009,9 +1010,19 @@ public class ProductController {
 
 		List<DetailOptionVO> list2 = new ArrayList<DetailOptionVO>();
 
+		boolean flag = true;
+		
 		for (int i = 0; i < list.size(); i++) {
+			flag = true;
 			int doNum = list.get(i).getOptionTwoNum();
-			list2.add(productService.selectDetailOptionByDoNum(doNum));
+			for(int j = 0 ; j < list2.size() ; j++) {
+				if(list2.get(j).getDoNum() == doNum) {
+					flag = false;
+				}
+			}
+			if(flag == true) {
+				list2.add(productService.selectDetailOptionByDoNum(doNum));
+			}
 		}
 
 		map.put("list", list2);
@@ -1034,23 +1045,20 @@ public class ProductController {
 		System.out.println(list);
 
 		List<DetailOptionVO> list2 = new ArrayList<DetailOptionVO>();
-		int a = 0;
+		
+		boolean flag = true;
+		
 		for (int i = 0; i < list.size(); i++) {
-//			if(i == 0) {
-//			list2.add(productService.selectDetailOptionByOptionOneNum(list.get(i)));
-//			}
-			System.out.println(list.get(i));
-			if(list.get(i).getOptionTwoNum() != a) {
-				a = list.get(i).getOptionTwoNum();
-			list2.add(productService.selectDetailOptionByOptionTwoNum(list.get(i)));
+			flag = true;
+			int  doNum = list.get(i).getOptionThreeNum();
+			for(int j = 0 ; j < list2.size() ; j++) {
+				if(list2.get(j).getDoNum() == doNum) {
+					flag = false;
+				}
 			}
-//			if(i > 0) {
-//			for(int j = 0 ; j <list2.size() ; j++) {
-//				if(list2.get(j).getDoNum() != list.get(i).getOptionTwoNum()) {
-//					list2.add(productService.selectDetailOptionByOptionOneNum(list.get(i)));
-//				}
-//			}
-//			}
+			if(flag == true) {
+				list2.add(productService.selectDetailOptionByOptionTwoNum(list.get(i)));
+			}
 		}
 		
 
@@ -1082,9 +1090,10 @@ public class ProductController {
 				if(cookie.getName().contains("latelyViewProduct")) {
 				System.out.println(Integer.parseInt(URLDecoder.decode(cookie.getValue(), "UTF-8")));
 				ProductVO product = productService.selectProduct(Integer.parseInt(URLDecoder.decode(cookie.getValue(), "UTF-8")));
+				if(product != null) {
 				product.setStoreName(memberService.searchSellerById(product.getId()).getStoreName());
-				
 				products.add(product);
+				}
 				}
 			} catch (NumberFormatException e) {
 				// TODO Auto-generated catch block

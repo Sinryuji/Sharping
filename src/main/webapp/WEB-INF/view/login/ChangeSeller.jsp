@@ -252,6 +252,7 @@ function phoneCheck() {
 	    	</tbody>
 		</table>
 		<br>
+		<input type="hidden" path="random" id="random" value="${random}"/>
 		<input type="submit" class="submit" id="changeSeller" value="전환하기" disabled="true">
 	</form>
 

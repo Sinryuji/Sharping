@@ -386,7 +386,7 @@ $(function(){
 			    	<tr>
 			    		<td class="td1">새 비밀번호</td>
 			    		<td class="td2">
-			    			<input type="text" id="newPassword1" name="newPassword">
+			    			<input type="password" id="newPassword1" name="newPassword">
 							<input type="hidden" path="random" id="random" value="${random}" /> 
 							<input type="submit" class="a" id="changePwEmail" name="changePwEmail" value="변경" disabled="ture">
 			    		</td>
@@ -427,7 +427,7 @@ $(function(){
 			    	<tr>
 			    		<td class="td1">새 비밀번호</td>
 			    		<td class="td2">
-			    			<input type="text" id="newPassword2" name="newPassword">
+			    			<input type="password" id="newPassword2" name="newPassword">
 							<input type="submit" class="a" value="변경" id="changePwPhone" name="changePwPhone" disabled="ture">
 			    		</td>
 			    	</tr>

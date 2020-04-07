@@ -506,7 +506,7 @@
 	   if(this.files && this.files[0]) {
 	    var reader = new FileReader;
 	    reader.onload = function(data) {
-	     $(".select_img img").attr("src", data.target.result).width(500);        
+	     $(".select_img img").attr("src", data.target.result).width(500).height(500);        
 	    }
 	    reader.readAsDataURL(this.files[0]);
 	   }
@@ -518,7 +518,7 @@
 	   if(this.files && this.files[0]) {
 	    var reader = new FileReader;
 	    reader.onload = function(data) {
-	     $(".select_thumbImg img").attr("src", data.target.result).width(250);        
+	     $(".select_thumbImg img").attr("src", data.target.result).width(250).height(250);        
 	    }
 	    reader.readAsDataURL(this.files[0]);
 	   }

@@ -283,16 +283,16 @@ function openPop(){
 				</tr>
 				<tr>
 					<td class="td1">기존 비밀번호</td>
-					<td class="td2"><input type="text" name="password" id="pw1" required /></td>
+					<td class="td2"><input type="password" name="password" id="pw1" required /></td>
 				</tr>
 				<tr>
 					<td class="td1">새 비밀번호</td>
-					<td class="td2"><input type="text" name="newPassword" id="pw2" required /></td>
+					<td class="td2"><input type="password" name="newPassword" id="pw2" required /></td>
 				</tr>
 				<tr>
 					<td class="td1">새 비밀번호 확인</td>
 					<td class="td2">
-						<input type="text" name="passwordCheck" id="pwc" required />
+						<input type="password" name="passwordCheck" id="pwc" required />
 						<input type="button" class="b" onclick="openPop();" value="변경">
 					</td>
 				</tr>

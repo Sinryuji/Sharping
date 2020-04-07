@@ -204,6 +204,10 @@ footer#footer div {
         color: #fff;
         transform: translateY(-7px);
 	}
+	
+	table{
+	background-color: rgba( 255, 255, 255, 0.5);
+	}
 
 
 </style>
