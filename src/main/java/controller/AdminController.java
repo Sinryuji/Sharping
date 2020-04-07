@@ -215,8 +215,6 @@ public class AdminController {
 		
 		List<ProductVO> products = productService.selectProductByCategoryNum(categoryNums);
 		
-		System.out.println("으아아아아2"+products);
-		
 		if(products.size() != 0) {
 		for(int i = 0 ; i < products.size() ; i++) {
 			productService.updateProductByCategoryNumZero(products.get(i).getProductNum());
