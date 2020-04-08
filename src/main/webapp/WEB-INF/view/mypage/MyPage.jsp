@@ -94,6 +94,32 @@
 	  		transform: translateY(-7px);
 		}
 		
+		.buyConfirm {
+		    width: 100px;
+		    height: 30px;
+		    font-family: 'Roboto', sans-serif;
+		    font-size: 12px;
+		    text-transform: uppercase;
+		    letter-spacing: 2.5px;
+		    font-weight: 500;
+		    color: white;
+		    background-color: #6B66FF;
+		    border: none;
+		    border-radius: 35px;
+		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+		    transition: all 0.3s ease 0s;
+		    cursor: pointer;
+		    outline: none;
+		    opacity: 0.8;
+		}
+
+		.buyConfirm:hover {
+	  		background-color: #FFB2F5;
+	  		box-shadow: 0px 15px 20px hotpink;
+	  		color: #fff;
+	  		transform: translateY(-7px);
+		}
+		
 		.deliveryTracking {
 		    width: 100px;
 		    height: 30px;
@@ -273,8 +299,15 @@
                      <input type="submit" class="c" value="주문 취소">
                      </form>
                      </c:if>
-                     <c:if test="${order.state == '배송 중' || order.state == '배송 완료'}">
+                     <c:if test="${order.state == '배송 중'}">
                      <button type="button" class="deliveryTracking" value="${order.orderNum}">배송 조회</button>
+                     </c:if>
+                     <c:if test="${order.state == '배송 완료'}">
+                     <button type="button" class="deliveryTracking" value="${order.orderNum}">배송 조회</button>
+                     <form action="buyConfirm" id="buyConfirm${order.orderNum}" method="post">
+                     	<input type="hidden" name="orderNum" value="${order.orderNum}"> 
+                     	<button type="button" class="buyConfirm" value="${order.orderNum}">구매 확정</button>
+                     </form>
                      </c:if>
                   </td>
                   </tr>
@@ -365,6 +398,22 @@ $('.deliveryTracking').click(function(){
    document.body.appendChild(f);
    
    f.submit();
+})
+
+$('.buyConfirm').click(function(){
+	
+	var confirmResult = confirm("구매를 확정 하시겠습니까? 구매를 확정 하시면 주문 취소가 불가능 합니다!");
+	
+	if(confirmResult == true) {
+		var str = "#buyConfirm" + $(this).val();
+		$(str).submit();
+	}
+	
+	else if (counfirmResult == false) {
+		
+		alert("구매 확정이 취소 되었습니다!");
+	}
+	
 })
 </script>
 </body>

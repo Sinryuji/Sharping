@@ -201,6 +201,7 @@ $('#cnt').change(function(){
 		
 		if(count != 0) {
 			$("#t").attr("disabled", "disabled");
+			$(".basketBtn").attr("disabled", "disabled");
 		}
 		
 	})
@@ -348,27 +349,33 @@ $('#cnt').change(function(){
 		if(count == 1) {
 			if(count2 == 1) {
 				$("#t").removeAttr('disabled');
+				$(".basketBtn").removeAttr("disabled");
 			}
 			else {
 				$("#t").attr('disabled', 'disabled');
+				$(".basketBtn").attr("disabled", "disabled");
 			}
 		}
 		
 		else if(count == 2) {
 			if(count2 == 1 && count3 == 1) {
 				$("#t").removeAttr('disabled');
+				$(".basketBtn").removeAttr("disabled");
 			}
 			else {
 				$("#t").attr('disabled', 'disabled');
+				$(".basketBtn").attr("disabled", "disabled");
 			}
 		}
 		
 		else if(count == 3) {
 			if(count2 == 1 && count3 == 1 && count4 == 1) {
 				$("#t").removeAttr('disabled');
+				$(".basketBtn").removeAttr("disabled");
 			}
 			else {
 				$("#t").attr('disabled', 'disabled');
+				$(".basketBtn").attr("disabled", "disabled");
 			}
 		}
 		

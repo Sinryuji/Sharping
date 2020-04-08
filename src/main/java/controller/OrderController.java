@@ -1184,5 +1184,26 @@ public class OrderController {
 		
 		return mv;
 	}
+	
+	// 구매 확정
+	@RequestMapping(value = "/buyConfirm")
+	public ModelAndView buyConfirm(int orderNum) {
+		
+		ModelAndView mv = new ModelAndView();
+		
+		OrderVO order = orderService.selectOrderByorderNum(orderNum);
+		
+		if(order != null) {
+		
+		order.setState("구매 확정");
+		
+		orderService.updateOrderStateTwo(order);
+		
+		}
+		
+		mv.setViewName("redirect:/myPage");
+		
+		return mv;
+	}
 
 }

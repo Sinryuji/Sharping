@@ -78,7 +78,7 @@
 	</div>
 	<div class="menu">
 		<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/uploadProduct'" value="상품 등록"><br>
-		<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/productManage'" value="상품 관리"><br>
+		<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/productManage?page=1'" value="상품 관리"><br>
 		<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/orderManage'" value="주문 관리">
 	</div>
 </body>

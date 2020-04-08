@@ -238,15 +238,36 @@ public class ProductController {
 		SellerVO sellerVO = memberService.searchSellerById(productVO.getId());
 
 		List<DetailOptionVO> detailOptionList = productService.selectDetailOption(productNum);
+		
+		List<OptionVO> optionList = productService.selectOptionByProduct(productNum);
+		
+		ProductVO product = productService.selectProduct(productNum);
 
 		int maxOptionLevel = 0;
-
-		if (detailOptionList.size() != 0) {
-			maxOptionLevel = productService.selectOptionLevelMaxByProductNum(productNum);
-
-		} else if (detailOptionList.size() == 0) {
-			maxOptionLevel = 0;
+		
+		if(product.getOptionOneName() != null) {
+			if(!product.getOptionOneName().equals("")) {
+				maxOptionLevel++;
+				if(product.getOptionTwoName() != null) {
+					if(!product.getOptionTwoName().equals("")) {
+						maxOptionLevel++;
+						if(product.getOptionThreeName() != null) {
+							if(!product.getOptionThreeName().equals("")) {
+								maxOptionLevel++;
+							}
+						}
+					}
+				}
+			}
 		}
+//		if (detailOptionList.size() != 0) {
+//			maxOptionLevel = productService.selectOptionLevelMaxByProductNum(productNum);
+//
+//		} else if (detailOptionList.size() == 0) {
+//			if(optionList.size() != 0) {
+//				maxOptionLevel = 0;
+//			}
+//		}
 
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("product/Product");
@@ -301,25 +322,43 @@ public class ProductController {
 
 	// 상품 관리 탭
 	@RequestMapping("/productManage")
-	public ModelAndView productManage(HttpServletRequest req) {
+	public ModelAndView productManage(HttpServletRequest req, int page) {
 
 		HttpSession session = req.getSession();
 
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 
+		ProductVO productVO = new ProductVO();
+		productVO.setId(authInfo.getId());
+		
 		List<ProductVO> productList = productService.productListById(authInfo.getId());
 		
+		int totCnt = productList.size();
+		
+		if(page == 1) {
+			productVO.setStartNum(1);
+			productVO.setEndNum(20);
+		} else {
+			productVO.setStartNum(page+(19*(page-1)));
+			productVO.setEndNum(page*20);
+			if(productVO.getEndNum() < totCnt) {
+				productVO.setEndNum(totCnt);
+			}
+		}
+		
+		List<ProductVO> productList2 = productService.selectProductByIdPaging(productVO);
+
 		JSONArray productListt = new JSONArray();
 		
-		for(int i = 0 ; i < productList.size() ; i++) {
+		for(int i = 0 ; i < productList2.size() ; i++) {
 			JSONObject product = new JSONObject();
-			product.put("productNum", productList.get(i).getProductNum());
-			product.put("productThumb", productList.get(i).getProductThumb());
-			product.put("productName", productList.get(i).getProductName());
-			product.put("productPrice", productList.get(i).getProductPrice());
-			product.put("deliveryPrice", productList.get(i).getDeliveryPrice());
-			product.put("productDisplay", productList.get(i).getProductDisplay());
-			List<OptionVO> options = productService.selectOptionByProduct(productList.get(i).getProductNum());
+			product.put("productNum", productList2.get(i).getProductNum());
+			product.put("productThumb", productList2.get(i).getProductThumb());
+			product.put("productName", productList2.get(i).getProductName());
+			product.put("productPrice", productList2.get(i).getProductPrice());
+			product.put("deliveryPrice", productList2.get(i).getDeliveryPrice());
+			product.put("productDisplay", productList2.get(i).getProductDisplay());
+			List<OptionVO> options = productService.selectOptionByProduct(productList2.get(i).getProductNum());
 			int[] optionNums = new int[options.size()];
 			int count = 0;
 			int sales = 0;
@@ -336,7 +375,7 @@ public class ProductController {
 				}
 			}
 			}
-			product.put("butCount", count);
+			product.put("buyCount", count);
 			product.put("sales", sales);
 			productListt.add(product);
 		}
@@ -345,9 +384,82 @@ public class ProductController {
 
 		mv.setViewName("seller/ProductManage");
 		mv.addObject("productList", productListt);
+		mv.addObject("totCnt", totCnt);
+		mv.addObject("startNum", productVO.getStartNum());
 
 		return mv;
 	}
+	
+	// 상품 관리 탭 스크롤
+		@RequestMapping("/productManageScroll")
+		@ResponseBody
+		public Map<String, Object> productManageScroll(HttpServletRequest req, int page) {
+
+			HttpSession session = req.getSession();
+
+			AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+			
+			ProductVO productVO = new ProductVO();
+			productVO.setId(authInfo.getId());
+			
+			List<ProductVO> productList = productService.productListById(authInfo.getId());
+			
+			int totCnt = productList.size();
+			
+			if(page == 1) {
+				productVO.setStartNum(1);
+				productVO.setEndNum(20);
+			} else {
+				productVO.setStartNum(page+(19*(page-1)));
+				productVO.setEndNum(page*20);
+				if(productVO.getEndNum() < totCnt) {
+					productVO.setEndNum(totCnt);
+				}
+			}
+			
+			List<ProductVO> productList2 = productService.selectProductByIdPaging(productVO);
+
+			JSONArray productListt = new JSONArray();
+			
+			for(int i = 0 ; i < productList2.size() ; i++) {
+				JSONObject product = new JSONObject();
+				product.put("productNum", productList2.get(i).getProductNum());
+				product.put("productThumb", productList2.get(i).getProductThumb());
+				product.put("productName", productList2.get(i).getProductName());
+				product.put("productPrice", productList2.get(i).getProductPrice());
+				product.put("deliveryPrice", productList2.get(i).getDeliveryPrice());
+				product.put("productDisplay", productList2.get(i).getProductDisplay());
+				List<OptionVO> options = productService.selectOptionByProduct(productList2.get(i).getProductNum());
+				int[] optionNums = new int[options.size()];
+				int count = 0;
+				int sales = 0;
+				for(int j = 0 ; j < options.size() ; j++) {
+					optionNums[j] = options.get(j).getOptionNum();
+				}
+				if(optionNums.length > 0) {
+				List<OrderListVO> list = orderService.selectBuyCount(optionNums);
+				for(int k = 0 ; k < list.size() ; k++) {
+					OrderVO order = orderService.selectOrderByorderNum(list.get(k).getOrderNum());
+					if(order.getState().equals("구매 확정")) {
+						count++;
+						sales += order.getPayPrice();
+					}
+				}
+				}
+				product.put("buyCount", count);
+				System.out.println(sales);
+				product.put("sales", sales);
+				productListt.add(product);
+			}
+
+			Map<String, Object> map = new HashMap<String, Object>();
+			
+			map.put("productList", productListt);
+			map.put("totCnt", totCnt);
+			map.put("startNum", productVO.getStartNum());
+
+			return map;
+		}
 
 	// 상품 관리 탭 (진열여부)
 	@RequestMapping("/updateProductDisplay")
@@ -633,7 +745,8 @@ public class ProductController {
 			@RequestParam(required = false, defaultValue = "productDate") String sortType,
 			@RequestParam(required = false) String highPrice, @RequestParam(required = false) String lowPrice,
 			@RequestParam(required = false) String productDate,
-			@RequestParam(required = false) Integer categoryNum) throws Exception {
+			@RequestParam(required = false) Integer categoryNum,
+			@RequestParam(required = false) int page) throws Exception {
 		SearchVO search = new SearchVO();
 		search.setSearchType(searchType);
 		search.setSortType(sortType);
@@ -646,15 +759,86 @@ public class ProductController {
 		search.setLowPrice(lowPrice);
 		search.setProductDate(productDate);
 		search.setCategoryNum(categoryNum);
+		
+		int totCnt = productService.getProductListTotal(search).size();
+		
+		if(page == 1) {
+			search.setStartNum(1);
+			search.setEndNum(20);
+		} else {
+			search.setStartNum(page+(19*(page-1)));
+			search.setEndNum(page*20);
+			if(search.getEndNum() < totCnt) {
+				search.setEndNum(totCnt);
+			}
+		}
+		
+		System.out.println(search);
 
 		model.addAttribute("productList", productService.getProductList(search));
+		model.addAttribute("totCnt", productService.getProductListTotal(search).size());
+		model.addAttribute("startNum", search.getStartNum());
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("keyword2", keyword2);
 		model.addAttribute("minPrice", minPrice);
 		model.addAttribute("maxPrice", maxPrice);
 		return "product/SearchResult";
 	}
+	
+	// 상품 리스트 페이지
+		@RequestMapping(value = "/productListPaging")
+		@ResponseBody
+		public Map<String, Object> getProductListPaging(Model model,
+				@RequestParam(required = false, defaultValue = "productName") String searchType,
+				@RequestParam(required = false) String keyword, @RequestParam(required = false) String keyword2,
+				@RequestParam(required = false) String minPrice, @RequestParam(required = false) String maxPrice,
+				@RequestParam(required = false) String checkDelivery,
+				@RequestParam(required = false, defaultValue = "productDate") String sortType,
+				@RequestParam(required = false) String highPrice, @RequestParam(required = false) String lowPrice,
+				@RequestParam(required = false) String productDate,
+				@RequestParam(required = false) Integer categoryNum,
+				@RequestParam(required = false) int page) throws Exception {
+			SearchVO search = new SearchVO();
+			search.setSearchType(searchType);
+			search.setSortType(sortType);
+			search.setKeyword(keyword);
+			search.setKeyword2(keyword2);
+			search.setMinPrice(minPrice);
+			search.setMaxPrice(maxPrice);
+			search.setCheckDelivery(checkDelivery);
+			search.setHighPrice(highPrice);
+			search.setLowPrice(lowPrice);
+			search.setProductDate(productDate);
+			search.setCategoryNum(categoryNum);
+			
+			int totCnt = productService.getProductListTotal(search).size();
+			
+			if(page == 1) {
+				search.setStartNum(1);
+				search.setEndNum(20);
+			} else {
+				search.setStartNum(page+(19*(page-1)));
+				search.setEndNum(page*20);
+				if(search.getEndNum() > totCnt) {
+					search.setEndNum(totCnt);
+				}
+			}
+			
+			System.out.println(search); 
+			
+			Map<String, Object> map = new HashMap<String, Object>();
+			
 
+			map.put("productList", productService.getProductList(search));
+			map.put("totCnt", productService.getProductListTotal(search).size());
+			map.put("startNum", search.getStartNum());
+			map.put("keyword", keyword);
+			map.put("keyword2", keyword2);
+			map.put("minPrice", minPrice);
+			map.put("maxPrice", maxPrice);
+			return map;
+		}
+	
 	// 장바구니 선텍 삭제
 	@ResponseBody
 	@RequestMapping(value = "/deleteBasket")

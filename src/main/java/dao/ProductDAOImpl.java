@@ -244,5 +244,13 @@ public class ProductDAOImpl implements ProductDAO{
 		return sqlSessionTemplate.selectOne("productDAO.selectLatelyProductNum", id);
 	}
 	
+	@Override
+	public List<ProductVO> getProductListTotal(SearchVO searchVO) {
+		return sqlSessionTemplate.selectList("productDAO.getProductListTotal", searchVO);
+	}
 	
+	@Override
+	public List<ProductVO> selectProductByIdPaging(ProductVO productVO) {
+		return sqlSessionTemplate.selectList("productDAO.selectProductByIdPaging", productVO);
+	}
 }

@@ -1,11 +1,17 @@
 package service;
 
 
-import java.io.IOException;
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
+import java.net.HttpURLConnection;
+import java.net.URL;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
-import javax.servlet.http.HttpServletResponse;
-
+import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
@@ -244,19 +250,130 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.selectOrderAllState(state);
 	}
 	
-	@Scheduled(fixedDelay=1000)
-	public void deliveryCheck(HttpServletResponse resp) {
+	@Override
+	public int updateOrderStateTwo(OrderVO orderVO) {
+		return orderDAO.updateOrderStateTwo(orderVO);
+	}
+	
+	
+	// 배송 완료 된 주문들 상태를 배송 완료로 바꾸는 스케쥴러
+	@Scheduled(fixedDelay=1800000)
+	public void deliveryCheckScheduled() {
 		
 		List<OrderVO> list = orderDAO.selectOrderAllState("배송 중");
+	
+		
 		for(int i = 0 ; i < list.size() ; i++) {
 			String trackingNum = list.get(i).getTrackingNum();
+			System.out.println(trackingNum);
 			String trackingCode = list.get(i).getTrackingCode();
+			System.out.println(trackingCode);
 			int orderNum = list.get(i).getOrderNum();
+			String url = "http://info.sweettracker.co.kr/api/v1/trackingInfo?t_key="+"OIjx4Zjhi1fGysjpq0lfTg"+"&t_code=0"+trackingCode+"&t_invoice="+trackingNum;
 			try {
-				resp.sendRedirect("deliveryCheck?trackingNum=" + trackingNum + "&trackingCode=" + trackingCode + "&orderNum=" + orderNum);
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
+				URL obj = new URL(url);
+				HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
+				conn.setRequestMethod("GET");
+				BufferedReader in = null;
+				in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+				String line;
+				line = in.readLine();
+				System.out.println(line);
+				JSONParser parser = new JSONParser();
+				Object ob = parser.parse(line);
+				JSONObject jsonObj = (JSONObject) ob;
+				System.out.println(jsonObj.toString());
+				JSONObject lastDetail = (JSONObject) jsonObj.get("lastDetail");
+				String lastDetailKind = (String) lastDetail.get("kind");
+				System.out.println(lastDetailKind);
+				if(lastDetailKind.equals("배송완료") || lastDetailKind.equals("배달완료")) {
+				
+				OrderVO order = orderDAO.selectOrderByorderNum(orderNum);
+				order.setState("배송 완료");
+				orderDAO.updateOrderStateTwo(order);
+				
+			}
+			}catch (Exception e) {
+				
+			}
+			
+		}
+		
+	}
+	
+	// 배송 완료된 주문들 일주일 후 구매 확정으로 바꾸는 스케쥴러
+	@Scheduled(cron = "0 10 0 * * ?")
+	public void buyConfirmScheduled() {
+	
+		List<OrderVO> list = orderDAO.selectOrderAllState("배송 완료");
+		
+		for(int i = 0 ; i < list.size() ; i++) {
+			
+			String trackingNum = list.get(i).getTrackingNum();
+			System.out.println(trackingNum);
+			String trackingCode = list.get(i).getTrackingCode();
+			System.out.println(trackingCode);
+			int orderNum = list.get(i).getOrderNum();
+			String url = "http://info.sweettracker.co.kr/api/v1/trackingInfo?t_key="+"Mptc8WkAYQqshH6Q2Zn0Ug"+"&t_code=0"+trackingCode+"&t_invoice="+trackingNum;
+			try {
+				URL obj = new URL(url);
+				HttpURLConnection conn = (HttpURLConnection) obj.openConnection();
+				conn.setRequestMethod("GET");
+				BufferedReader in = null;
+				in = new BufferedReader(new InputStreamReader(conn.getInputStream(), "UTF-8"));
+				String line;
+				line = in.readLine();
+				System.out.println(line);
+				JSONParser parser = new JSONParser();
+				Object ob = parser.parse(line);
+				JSONObject jsonObj = (JSONObject) ob;
+				System.out.println(jsonObj.toString());
+				JSONObject lastDetail = (JSONObject) jsonObj.get("lastDetail");
+				String lastDetailKind = (String) lastDetail.get("kind");
+				String lastDetailTimeString = (String) lastDetail.get("timeString");
+				System.out.println(lastDetailKind);
+				System.out.println(lastDetailTimeString);
+				if(lastDetailKind.contains("완료")) {
+					
+					Calendar cal = Calendar.getInstance();
+					
+					Calendar cal2 = Calendar.getInstance();
+					
+					SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+					
+					Date deliveryCompleteDate =  sdf.parse(lastDetailTimeString);
+					
+//					String deliveryCompleteDateString = sdf.format(deliveryCompleteDate);
+					
+					cal.setTime(deliveryCompleteDate);
+					cal.add(Calendar.DATE, 7);
+					
+					cal2.setTime(new Date());
+					
+					
+					String buyConfirmDateString = sdf.format(cal.getTime());
+					String currentDateString = sdf.format(cal2.getTime());
+					
+					System.out.println(buyConfirmDateString);
+					System.out.println(currentDateString);
+					
+					Date buyConfirmDate = sdf.parse(buyConfirmDateString);
+					Date currentDate = sdf.parse(currentDateString);
+					
+					int result = buyConfirmDate.compareTo(currentDate);
+					
+					if(result <= 0) {
+						
+						OrderVO order = orderDAO.selectOrderByorderNum(orderNum);
+						order.setState("구매 확정");
+						orderDAO.updateOrderStateTwo(order);
+						
+					}
+					
+				
+			}
+			}catch (Exception e) {
+				
 			}
 			
 		}

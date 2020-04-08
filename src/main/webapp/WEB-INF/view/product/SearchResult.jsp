@@ -236,6 +236,7 @@ footer#footer div {
 			
 			<div id="containerBox">
 				<form action="productList">
+					<input type="hidden" name="page" value="1">
 					<h4>
 						메인검색 <input type="text" name="keyword" placeholder="키워드를 입력하세요."
 							value="${keyword}" /> <input type="submit" id="btnMainSer"
@@ -258,7 +259,7 @@ footer#footer div {
 									<th>판매자</th>
 								</tr>
 							</thead>
-							<tbody>
+							<tbody id="tbody">
 								<c:choose>
 									<c:when test="${empty productList }">
 										<tr>
@@ -303,7 +304,84 @@ footer#footer div {
 
 	</div>
 
-	<script>
+<script>
+
+history.scrollRestoration = "manual";
+
+var page = 1;
+
+$(function(){
+	getList(page);
+	page++;
+})
+
+$(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+     if($(window).scrollTop() >= $(document).height() - $(window).height()){
+    	 getList(page);
+    	 console.log(page);
+    	 page++; 
+     } 
+});
+
+
+function getList(page) {
+	
+	console.log("되냐");
+	
+	 $.ajax({
+	        type : 'POST',  
+	        dataType : 'json', 
+	        data : {
+	        	page : page,
+	        	searchType : $("#searchType").val(),
+	        	sortType : $("#sortType").val(),
+	        	keyword :  $("#keyword").val(),
+	        	keyword2 : $("#keyword2").val(),
+	        	minPrice : $("#minPrice").val(),
+	        	maxPrice : $("#maxPrice").val(),
+	        	checkDelivery : $("#checkDelivery").val()
+	        	},
+	        url : '<%=request.getContextPath()%>/productListPaging',
+	        success : function(data) {
+	        	console.log("되냐1.5");
+	            /* var data = returnData.rows; */
+	            var html = "";
+	            /* if (page==1){ //페이지가 1일경우에만 id가 list인 html을 비운다.
+	                  $("#tbody").html(""); 
+	            } */
+	            if (data.startNum<=data.totCnt){
+	            	console.log("되냐2");
+	                if(data.productList.length>0){
+	                	console.log("되냐3");
+	                	// for문을 돌면서 행을 그린다.
+	                	for(var i = 0 ; i < data.productList.length ; i++) {
+	                		var product = data.productList[i];
+	                		var deliveryPrice;
+	                		if(product.deliveryPrice == 0) {
+	                			deliveryPrice = "무료배송";
+	                		} else {
+	                			deliveryPrice = product.deliveryPrice;
+	                		}
+	                		html += "<tr><td>" + product.productNum + "</td><td><img src='opload/" + product.productThumb  + "' style='width:50px;'></td><td><a href='#'onClick='productView(" + product.productNum + ")'>" + product.productName + "</a></td><td>" + product.productPrice + "</td><td> " + deliveryPrice + " </td><td>" + product.id + "</td></tr>"
+	                	}
+	                }else{
+	                //데이터가 없을경우
+	                }
+	            }
+	           /*  html = html.replace(/%20/gi, " "); */
+	            if (page==1){  //페이지가 1이 아닐경우 데이터를 붙힌다.
+	                $("#tbody").html(html); 
+	            }else{
+	                $("#tbody").append(html);
+	            }
+	       },error:function(e){
+	           if(e.status==300){
+	               alert("데이터를 가져오는데 실패하였습니다.");
+	           };
+	       }
+	    }); 
+
+}
 	
 $("#btnSearch").click(function(){
 
@@ -317,7 +395,7 @@ $("#btnSearch").click(function(){
 	var url = "${pageContext.request.contextPath}"+"/productList";
 	url = url + "?searchType=" + $("#searchType").val() + "&sortType=" + $("#sortType").val() + "&keyword=" + $("#keyword").val() 
 			  + "&keyword2=" + $("#keyword2").val() + "&minPrice=" + $("#minPrice").val() + "&maxPrice=" + $("#maxPrice").val()
-			  + "&checkDelivery=" + $("#checkDelivery").val();
+			  + "&checkDelivery=" + $("#checkDelivery").val() + "&page=1";
 	location.href = url;
 	console.log(url);
 });	

@@ -107,5 +107,11 @@ public interface ProductService {
 	
 	// 가장 최근 등록한 상품의 프로덕트넘 봅아오기
 	public abstract int selectLatelyProductNum(String id);
+	
+	// 로우넘 없이 프로덕트 리스트 뽑아오기
+	public abstract List<ProductVO> getProductListTotal (SearchVO searchVO);
+	
+	// 아이디로 프로덕트 리스트 뽑아오기(페이징용)
+	public abstract List<ProductVO> selectProductByIdPaging (ProductVO productVO);
 
 }

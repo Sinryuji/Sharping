@@ -113,5 +113,8 @@ public interface OrderService {
 	public abstract List<OrderVO> selectOrderAllState(String state);
 	
 	public abstract List<VirtualAccountVO> selectAllVirtualAccountVO(int paynum);
+	
+	// 배송 완료된 넘들 배송 완료로 바꾸기
+	public abstract int updateOrderStateTwo(OrderVO orderVO);
 
 }

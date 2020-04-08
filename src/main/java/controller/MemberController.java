@@ -1,6 +1,10 @@
 package controller;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.net.HttpURLConnection;
+import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.sql.Date;
@@ -18,9 +22,11 @@ import javax.validation.Valid;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
+import org.json.simple.parser.JSONParser;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -55,7 +61,7 @@ import vo.SellerVO;
 
 @Controller
 public class MemberController {
-
+	
 	private MemberService memberService;
 	private AdminService adminService;
 	private OrderService orderService;
@@ -80,7 +86,7 @@ public class MemberController {
 	public void setAdminService(AdminService adminService) {
 		this.adminService = adminService;
 	}
-
+	
 	// 메인
 	@RequestMapping("/main")
 	public ModelAndView main() throws Exception {
@@ -899,31 +905,8 @@ public class MemberController {
 		return mv;
 	}
 	
-	// 배송 완료 체크
-	@RequestMapping(value = "deliveryCheck")
-	public ModelAndView deliveryCheck(String trackingNum, String trackingCode) {
-		ModelAndView mv = new ModelAndView();
-		
-		mv.setViewName("mypage/DeliveryCheck");
-		
-		mv.addObject("trackingNum", trackingNum);
-		mv.addObject("trackingCode", trackingCode);
-		
-		return mv;
-	}
-	
-	// 배송 중이던 놈 배송 완료 되면 배송 완료로 변경
-	@RequestMapping(value = "deliveryStateChange")
-	public void deliveryStateChange(String values, int orderNum) {
-		
-		if(values.contains("배송 완료 ")) {
-			
-			OrderVO order = orderService.selectOrderByorderNum(orderNum);
-		}
-		
-	}
-	
 	
 
+	
 
 }

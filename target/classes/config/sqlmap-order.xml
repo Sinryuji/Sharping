@@ -199,5 +199,9 @@
 	<select id="selectOrderAllState" parameterType="string" resultType="orderVO">
 		SELECT * FROM ORDERR WHERE "state" = #{state} 
 	</select> 
+	
+	<update id="updateOrderStateTwo" parameterType="orderVO">
+		UPDATE ORDERR SET "state" = #{state} WHERE "orderNum" = #{orderNum}
+	</update>
 
 </mapper>

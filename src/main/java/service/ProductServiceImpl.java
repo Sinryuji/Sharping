@@ -255,4 +255,14 @@ public class ProductServiceImpl implements ProductService {
 	public int selectLatelyProductNum(String id) {
 		return productDAO.selectLatelyProductNum(id);
 	}
+	
+	@Override
+	public List<ProductVO> getProductListTotal(SearchVO searchVO) {
+		return productDAO.getProductListTotal(searchVO);
+	}
+	
+	@Override
+	public List<ProductVO> selectProductByIdPaging(ProductVO productVO) {
+		return productDAO.selectProductByIdPaging(productVO);
+	}
 }

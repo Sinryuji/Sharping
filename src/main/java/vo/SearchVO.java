@@ -13,7 +13,28 @@ public class SearchVO {
 	private String lowPrice;
 	private String productDate;
 	private Integer categoryNum;
-
+	private int startNum;
+	private int endNum;
+	private int page;
+	
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getStartNum() {
+		return startNum;
+	}
+	public void setStartNum(int startNum) {
+		this.startNum = startNum;
+	}
+	public int getEndNum() {
+		return endNum;
+	}
+	public void setEndNum(int endNum) {
+		this.endNum = endNum;
+	}
 	public Integer getCategoryNum() {
 		return categoryNum;
 	}
@@ -79,6 +100,14 @@ public class SearchVO {
 	}
 	public void setProductDate(String productDate) {
 		this.productDate = productDate;
+	}
+	@Override
+	public String toString() {
+		return "SearchVO [searchType=" + searchType + ", sortType=" + sortType + ", keyword=" + keyword + ", keyword2="
+				+ keyword2 + ", minPrice=" + minPrice + ", maxPrice=" + maxPrice + ", checkDelivery=" + checkDelivery
+				+ ", highPrice=" + highPrice + ", lowPrice=" + lowPrice + ", productDate=" + productDate
+				+ ", categoryNum=" + categoryNum + ", startNum=" + startNum + ", endNum=" + endNum + ", page=" + page
+				+ "]";
 	}
 	
 	

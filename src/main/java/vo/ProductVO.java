@@ -25,37 +25,51 @@ public class ProductVO {
 	private String optionTwoName;
 	private String optionThreeName;
 	private String storeName;
+	private int page;
+	private int startNum;
+	private int endNum;
 
 	public ProductVO() {
 		super();
 	}
 	
-	public ProductVO(int productNum, String productName, String productText, int productPrice, String productThumb,
-			String productImage, String productDisplay, int stock, int categoryNum, Timestamp productDate, String id,
-			String productMeterial, String manufacturer, Date mfDate, String origin, int deliveryPrice,
-			String optionOneName, String optionTwoName, String optionThreeName, String storeName) {
-		super();
-		this.productNum = productNum;
-		this.productName = productName;
-		this.productText = productText;
-		this.productPrice = productPrice;
-		this.productThumb = productThumb;
-		this.productImage = productImage;
-		this.productDisplay = productDisplay;
-		this.stock = stock;
-		this.categoryNum = categoryNum;
-		this.productDate = productDate;
-		this.id = id;
-		this.productMeterial = productMeterial;
-		this.manufacturer = manufacturer;
-		this.mfDate = mfDate;
-		this.origin = origin;
-		this.deliveryPrice = deliveryPrice;
-		this.optionOneName = optionOneName;
-		this.optionTwoName = optionTwoName;
-		this.optionThreeName = optionThreeName;
-		this.storeName = storeName;
+	
+
+	public int getPage() {
+		return page;
 	}
+
+
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+
+
+	public int getStartNum() {
+		return startNum;
+	}
+
+
+
+	public void setStartNum(int startNum) {
+		this.startNum = startNum;
+	}
+
+
+
+	public int getEndNum() {
+		return endNum;
+	}
+
+
+
+	public void setEndNum(int endNum) {
+		this.endNum = endNum;
+	}
+
+
 
 	public String getStoreName() {
 		return storeName;
@@ -181,6 +195,8 @@ public class ProductVO {
 		this.optionThreeName = optionThreeName;
 	}
 
+
+
 	@Override
 	public String toString() {
 		return "ProductVO [productNum=" + productNum + ", productName=" + productName + ", productText=" + productText
@@ -189,9 +205,11 @@ public class ProductVO {
 				+ ", productDate=" + productDate + ", id=" + id + ", productMeterial=" + productMeterial
 				+ ", manufacturer=" + manufacturer + ", mfDate=" + mfDate + ", origin=" + origin + ", deliveryPrice="
 				+ deliveryPrice + ", optionOneName=" + optionOneName + ", optionTwoName=" + optionTwoName
-				+ ", optionThreeName=" + optionThreeName + ", storeName=" + storeName + "]";
+				+ ", optionThreeName=" + optionThreeName + ", storeName=" + storeName + ", page=" + page + ", startNum="
+				+ startNum + ", endNum=" + endNum + "]";
 	}
 
+	
 
 
 	

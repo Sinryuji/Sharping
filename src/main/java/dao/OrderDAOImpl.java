@@ -230,5 +230,10 @@ public class OrderDAOImpl implements OrderDAO{
 	public List<OrderVO> selectOrderAllState(String state) {
 		return sqlSessionTemplate.selectList("orderDAO.selectOrderAllState",state);
 	}
+	
+	@Override
+	public int updateOrderStateTwo(OrderVO orderVO) {
+		return sqlSessionTemplate.update("orderDAO.updateOrderStateTwo", orderVO);
+	}
 
 }

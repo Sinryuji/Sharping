@@ -112,7 +112,7 @@ tr:nth-child(even) {
 
 		// 배송정보와 배송추적 tracking-api
         $(document).ready(function() {
-        	var myKey = "Mptc8WkAYQqshH6Q2Zn0Ug";
+        	var myKey = "OIjx4Zjhi1fGysjpq0lfTg";
         	var t_code = "0${trackingCode}";
         	var t_invoice = "${trackingNum}";
             $.ajax({

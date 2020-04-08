@@ -110,4 +110,7 @@ public interface OrderDAO {
 	public abstract List<VirtualAccountVO> selectAllVirtualAccountVO(int paynum);
 
 	public abstract List<OrderVO> selectOrderAllState(String state);
+	
+	// 배송 완료된 넘들 배송 완료로 바꾸기
+	public abstract int updateOrderStateTwo(OrderVO orderVO);
 }

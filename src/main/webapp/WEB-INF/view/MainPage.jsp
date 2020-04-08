@@ -199,6 +199,7 @@
 	
 	<div class="sDiv">
 		<form action="productList" class="searchBox">
+			<input type="hidden" name="page" value="1">
 			<input type="text" autocomplete="off" name="keyword" id="search" placeholder="키워드를 입력하세요."/>
 			<input type="image" src="${pageContext.request.contextPath}/resources/images/search.png" value="검색" id="btn">
 		</form>

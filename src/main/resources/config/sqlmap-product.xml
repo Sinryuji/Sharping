@@ -77,6 +77,13 @@
 		SELECT * FROM PRODUCT WHERE "id" = #{id}
 	</select>
 	
+	<select id="selectProductByIdPaging" parameterType="productVO" resultType="productVO">
+		SELECT * FROM (SELECT rownum rnum, "productNum", "productName", "productText", "productPrice", "productThumb", "productImage", "productDisplay", "stock", "categoryNum", "productDate", "id",  
+		"productMeterial", "manufacturer", "mfDate", "origin", "deliveryPrice", "optionOneName", "optionTwoName", "optionThreeName" FROM PRODUCT WHERE "id" = #{id}) WHERE rnum &gt;= #{startNum} AND rnum &lt;= #{endNum}
+		
+		
+	</select>
+	
 	<select id="selectOptionByOptionNum" resultType="optionVO">
 		SELECT * FROM OPTIONN WHERE "optionNum" = #{optionNum}
 	</select>
@@ -136,8 +143,43 @@
 
 
 	
-		<select id="getProductList"  resultType="productVO">
+		 <select id="getProductListTotal"  resultType="productVO">
 		SELECT "productNum", "productName", "productThumb", "productPrice","deliveryPrice" ,"id" FROM PRODUCT WHERE "productDisplay" like 'TRUE' AND "productName" like '%'||#{keyword}||'%'	
+	
+			<if test="searchType=='productNum' and keyword2 != null and keyword2 != '' ">
+				AND "productNum" like '%'||#{keyword2}||'%'
+			</if>
+			<if test="searchType=='productName' and keyword2 != null and keyword2 != '' ">
+				AND "productName" like '%'||#{keyword2}||'%'	
+			</if>
+			<if test="searchType=='id' and keyword2 != null and keyword2 != '' ">
+				AND "id" like '%'||#{keyword2}||'%'
+			</if>						
+			<if test="minPrice != null and minPrice != '' and maxPrice != null and maxPrice != '' ">
+				AND "productPrice" BETWEEN #{minPrice} AND #{maxPrice}
+			</if>
+			<if test="checkDelivery=='on' ">
+				AND "deliveryPrice" = 0
+			</if>
+			<if test="categoryNum != null">
+				AND "categoryNum" = #{categoryNum}
+			</if>
+			<if test="sortType == 'highPrice' ">
+				order by "productPrice" desc
+			</if>
+			<if test="sortType == 'lowPrice' ">
+				order by "productPrice" asc
+			</if>	
+			<if test="sortType == 'productDate' ">
+				order by "productDate" desc
+			</if>
+			
+					
+	</select>
+	
+	
+	<select id="getProductList"  resultType="productVO">
+		SELECT * FROM (SELECT rownum rnum, "productNum", "productName", "productThumb", "productPrice","deliveryPrice" ,"id", "categoryNum", "productDate" FROM PRODUCT WHERE "productDisplay" like 'TRUE' AND "productName" like '%'||#{keyword}||'%') WHERE rnum &gt;= #{startNum} AND rnum &lt;= #{endNum}	
 	
 			<if test="searchType=='productNum' and keyword2 != null and keyword2 != '' ">
 				AND "productNum" like '%'||#{keyword2}||'%'
