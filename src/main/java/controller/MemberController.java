@@ -61,12 +61,12 @@ import vo.SellerVO;
 
 @Controller
 public class MemberController {
-	
+
 	private MemberService memberService;
 	private AdminService adminService;
 	private OrderService orderService;
 	private ProductService productService;
-	
+
 	public void setProductService(ProductService productService) {
 		this.productService = productService;
 	}
@@ -86,23 +86,23 @@ public class MemberController {
 	public void setAdminService(AdminService adminService) {
 		this.adminService = adminService;
 	}
-	
+
 	// 메인
 	@RequestMapping("/main")
 	public ModelAndView main() throws Exception {
-		
+
 		String t = "TRUE";
-		
+
 		ModelAndView mv = new ModelAndView();
-		
+
 		List<CategoryVO> categorys = adminService.selectCategoryByCategoryDepth(1);
 		List<NoticeVO> noticeList = adminService.selectNoticeByNoticePost(t);
-		
+
 		mv.setViewName("MainPage");
 		mv.addObject("categorys", categorys);
 		mv.addObject("noticeList", noticeList);
 		mv.addObject("noticeSize", noticeList.size());
-		
+
 		return mv;
 	}
 
@@ -240,20 +240,19 @@ public class MemberController {
 	// 로그인 페이지
 	@RequestMapping(value = "/login")
 	public ModelAndView login(HttpServletRequest req) {
-		
+
 		ModelAndView mv = new ModelAndView();
-		
+
 		mv.setViewName("login/Login");
-		
+
 		Cookie[] cookies = req.getCookies();
-		
+
 		String rememberId = "";
-		
-		for(Cookie cookie : cookies) {
-			
-			if(cookie.getName().equals("rememberId")) {
-				
-				
+
+		for (Cookie cookie : cookies) {
+
+			if (cookie.getName().equals("rememberId")) {
+
 				try {
 					rememberId = URLDecoder.decode(cookie.getValue(), "UTF-8");
 					System.out.println(rememberId);
@@ -262,11 +261,11 @@ public class MemberController {
 					e.printStackTrace();
 				}
 			}
-			
+
 		}
-		
+
 		mv.addObject("rememberId", rememberId);
-		
+
 		return mv;
 	}
 
@@ -275,7 +274,7 @@ public class MemberController {
 	public String loginComplete(LoginVO loginVO, HttpSession session, String rememberId, HttpServletResponse resp) {
 		String remember = rememberId;
 		try {
-			
+
 			AdminVO adminVO = adminService.login(loginVO.getId(), loginVO.getPassword());
 			if (adminVO != null) {
 				session.setAttribute("adminVO", adminVO);
@@ -285,23 +284,22 @@ public class MemberController {
 				AuthInfo authInfo = memberService.login(loginVO.getId(), loginVO.getPassword());
 
 				session.setAttribute("authInfo", authInfo);
-				
-				if(remember != null ) {
-				if(remember.equals("true")) {
-					Cookie cookie;
-					try {
-						cookie = new Cookie("rememberId", URLEncoder.encode(authInfo.getId(), "UTF-8"));
-						cookie.setMaxAge(60 * 60 * 72);
-						resp.addCookie(cookie);
-					} catch (UnsupportedEncodingException e) {
-						// TODO Auto-generated catch block
-						e.printStackTrace();
+
+				if (remember != null) {
+					if (remember.equals("true")) {
+						Cookie cookie;
+						try {
+							cookie = new Cookie("rememberId", URLEncoder.encode(authInfo.getId(), "UTF-8"));
+							cookie.setMaxAge(60 * 60 * 72);
+							resp.addCookie(cookie);
+						} catch (UnsupportedEncodingException e) {
+							// TODO Auto-generated catch block
+							e.printStackTrace();
+						}
+
 					}
-					
-					
-				}
 				} else {
-					
+
 					Cookie cookie;
 					try {
 						cookie = new Cookie("rememberId", URLEncoder.encode(authInfo.getId(), "UTF-8"));
@@ -311,13 +309,13 @@ public class MemberController {
 						// TODO Auto-generated catch block
 						e.printStackTrace();
 					}
-					
+
 				}
 				return "redirect:main";
 			}
 		} catch (IdPasswordNotMatchingException e) {
 			return "login/Login";
-		} 
+		}
 
 		return "admin/AdminPage";
 	}
@@ -432,9 +430,9 @@ public class MemberController {
 		int ran = new Random().nextInt(900000) + 100000;
 		mv.setViewName("login/ChangeSeller");
 		mv.addObject("random", ran);
-		
+
 		List<BankVO> bankVO = orderService.selectBankCodeList();
-		
+
 		mv.addObject("bankInfo", bankVO);
 		return mv;
 	}
@@ -452,16 +450,16 @@ public class MemberController {
 		 * 
 		 * sellerVO.setAddress(addressFinal);
 		 */
-		
+
 		HttpSession session = req.getSession();
-		
+
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 		authInfo.setSellerCheck("true");
-		
+
 		session.removeAttribute("authInfo");
-		
+
 		session.setAttribute("authInfo", authInfo);
-		
+
 		memberService.registSeller(sellerVO);
 		return "login/ChangeSellerResult";
 	}
@@ -605,106 +603,101 @@ public class MemberController {
 	// 마이 페이지
 	@RequestMapping(value = "/myPage")
 	@ResponseBody
-	public ModelAndView myPage(HttpServletRequest req, @RequestParam(required=false) String keywordO, @RequestParam(required=false) String state, @RequestParam(required=false) Date firstDate, @RequestParam(required=false) Date secondDate) {
+	public ModelAndView myPage(HttpServletRequest req, @RequestParam(required = false) String keywordO,
+			@RequestParam(required = false) String state, @RequestParam(required = false) Date firstDate,
+			@RequestParam(required = false) Date secondDate) {
 		ModelAndView mv = new ModelAndView();
 
 		HttpSession session = req.getSession();
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
-		
+
 		List<OrderVO> orders = new ArrayList<OrderVO>();
-		
+
 		OrderVO order = new OrderVO();
-		
-		if(keywordO == null && state == null && firstDate == null && secondDate == null) {
+
+		if (keywordO == null && state == null && firstDate == null && secondDate == null) {
 
 			System.out.println("그냥 마이페이지");
 			orders = orderService.selectOrderById(authInfo.getId());
-		
-		}
-		else {
+
+		} else {
 			order = new OrderVO();
 
 			order.setId(authInfo.getId());
-			
-			if(keywordO != null) {
-			
-			order.setKeywordO(keywordO);
-			
+
+			if (keywordO != null) {
+
+				order.setKeywordO(keywordO);
+
 			}
-			
-			if(state != null) {
-			
-			order.setState(state);
-			
+
+			if (state != null) {
+
+				order.setState(state);
+
 			}
-			
-			if(firstDate != null && secondDate != null) {
-			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
-			long firstTimestampLong = firstDate.getTime();
-			long secondTimestampLong = secondDate.getTime();
-			
-			Timestamp firstTimestamp = Timestamp.valueOf(sdf.format(firstTimestampLong));
-			Timestamp secondTimestamp = Timestamp.valueOf(sdf.format(secondTimestampLong));
-			order.setFirstDate(firstTimestamp);
-			order.setSecondDate(secondTimestamp);
-			
+
+			if (firstDate != null && secondDate != null) {
+				SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
+				long firstTimestampLong = firstDate.getTime();
+				long secondTimestampLong = secondDate.getTime();
+
+				Timestamp firstTimestamp = Timestamp.valueOf(sdf.format(firstTimestampLong));
+				Timestamp secondTimestamp = Timestamp.valueOf(sdf.format(secondTimestampLong));
+				order.setFirstDate(firstTimestamp);
+				order.setSecondDate(secondTimestamp);
+
 			}
-			
+
 			order.setId(authInfo.getId());
 			orders = orderService.selectOrderSearch(order);
 		}
-		
-		if(keywordO != null && state == null && firstDate == null && secondDate == null) {
-			
+
+		if (keywordO != null && state == null && firstDate == null && secondDate == null) {
+
 			System.out.println("검색 마이페이지");
 			order = new OrderVO();
 
 			order.setId(authInfo.getId());
 			order.setKeywordO(keywordO);
 			orders = orderService.selectOrderSearch(order);
-			
-			
+
 		}
-			
-		
-		if(keywordO == null && state != null && firstDate == null && secondDate == null) {
-			
+
+		if (keywordO == null && state != null && firstDate == null && secondDate == null) {
+
 			System.out.println("정렬 마이페이지");
 			order = new OrderVO();
 
-			if(state.equals("전체 주문 상태")) {
+			if (state.equals("전체 주문 상태")) {
 				orders = orderService.selectOrderById(authInfo.getId());
-			}
-			else {
+			} else {
 				order.setId(authInfo.getId());
-				order.setState(state);;
+				order.setState(state);
+				;
 				orders = orderService.selectOrderSort(order);
 			}
-			
+
 		}
-			
-		
-		if(keywordO == null && state == null && firstDate != null && secondDate != null) {
+
+		if (keywordO == null && state == null && firstDate != null && secondDate != null) {
 
 			System.out.println("날짜 마이페이지");
 			order = new OrderVO();
-			
+
 			SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm:ss");
 			long firstTimestampLong = firstDate.getTime();
 			long secondTimestampLong = secondDate.getTime();
-			
+
 			Timestamp firstTimestamp = Timestamp.valueOf(sdf.format(firstTimestampLong));
 			Timestamp secondTimestamp = Timestamp.valueOf(sdf.format(secondTimestampLong));
-			
+
 			order.setId(authInfo.getId());
 			order.setFirstDate(firstTimestamp);
 			order.setSecondDate(secondTimestamp);
 			orders = orderService.selectOrderDate(order);
-			
+
 		}
-			
-	
-		
 
 		JSONArray ordersJsonArray = new JSONArray();
 
@@ -718,18 +711,18 @@ public class MemberController {
 			int currentPayNum = orders.get(i).getPayNum();
 			int payNumCount = 0;
 			int payPrice = 0;
-			for(int j = 0 ; j < orders.size() ; j++) {
-				if(orders.get(j).getPayNum() == currentPayNum) {
+			for (int j = 0; j < orders.size(); j++) {
+				if (orders.get(j).getPayNum() == currentPayNum) {
 					payNumCount++;
 					payPrice += orders.get(j).getPayPrice();
 				}
 			}
 			orderJson.put("payPrice", payPrice);
 			orderJson.put("payNumCount", payNumCount);
-			if(i != 0) {
-			orderJson.put("prePayNum", orders.get(i-1).getPayNum());
+			if (i != 0) {
+				orderJson.put("prePayNum", orders.get(i - 1).getPayNum());
 			}
-			if(i == 0) {
+			if (i == 0) {
 				orderJson.put("prePayNum", orders.get(i).getPayNum());
 			}
 			List<OrderListVO> orderLists = orderService.selectOrderListByOrderNum(orders.get(i).getOrderNum());
@@ -763,8 +756,8 @@ public class MemberController {
 			orderJson.put("orderLists", orderListsJsonArray);
 			orderJson.put("orderListsSize", orderLists.size());
 			ordersJsonArray.add(orderJson);
-		};
-		
+		}
+		;
 
 		String ordersToString = ordersJsonArray.toString();
 
@@ -777,9 +770,9 @@ public class MemberController {
 		mv.addObject("ordersToString", ordersToString);
 
 		mv.addObject("ordersJsonArray", ordersJsonArray);
-		
+
 		mv.addObject("state", state);
-		
+
 		mv.addObject("keywordO", keywordO);
 
 		return mv;
@@ -890,23 +883,18 @@ public class MemberController {
 	@RequestMapping(value = "deliveryTracking")
 	public ModelAndView deliveryTracking(int orderNum) {
 		ModelAndView mv = new ModelAndView();
-		
+
 		OrderVO order = orderService.selectOrderByorderNum(orderNum);
-		
-	
+
 		mv.setViewName("mypage/DeliveryTrackingByMyPage");
-		
+
 		System.out.println(order.getTrackingCode());
 		System.out.println(order.getTrackingNum());
-		
+
 		mv.addObject("trackingCode", order.getTrackingCode());
 		mv.addObject("trackingNum", order.getTrackingNum());
-		
+
 		return mv;
 	}
-	
-	
-
-	
 
 }
