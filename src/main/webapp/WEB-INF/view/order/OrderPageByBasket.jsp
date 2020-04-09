@@ -5,7 +5,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OrderPage</title>
+
+<link rel="stylesheet"
+	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
+<script src="//code.jquery.com/jquery.min.js"></script>
+
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/styleSB.css'
+	type='text/css' media='all' />
+	
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous">
@@ -29,6 +39,43 @@
 	</script>
 
 <style>
+
+.navbar-nav {
+	width: 100%;
+	text-align: center;
+}
+
+.navbar-nav>li {
+	float: none;
+	display: inline-block;
+}
+
+.navbar-nav>li>a {
+	padding-top: 30px;
+}
+
+.navbar-nav>li.navbar-right {
+	float: right !important;
+}
+
+#container {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	padding: 20px 0;	
+}
+
+#containerBox {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+
+
+
 table {
 	border-collapse: collapse;
 	line-height: 1.5;
@@ -192,7 +239,7 @@ table {
 	margin-left: 520px;;
 }
 
-.t {
+#payment {
 	width: 220px;
 	height: 80px;
 	font-family: 'Roboto', sans-serif;
@@ -212,18 +259,18 @@ table {
 	margin: 5px;
 }
 
-.t:hover {
+#payment:hover {
 	background-color: #FFB2F5;
 	box-shadow: 0px 15px 20px hotpink;
 	color: #fff;
 	transform: translateY(-7px);
 }
 
-.a {
-	width: 70px;
-	height: 20px;
+#myDeliveryAddress {
+	width: 150px;
+	height: 30px;
 	font-family: 'Roboto', sans-serif;
-	font-size: 11px;
+	font-size: 13px;
 	text-transform: uppercase;
 	letter-spacing: 2.5px;
 	font-weight: 500;
@@ -238,33 +285,7 @@ table {
 	opacity: 0.8;
 }
 
-.a:hover {
-	background-color: #FFB2F5;
-	box-shadow: 0px 15px 20px hotpink;
-	color: #fff;
-	transform: translateY(-7px);
-}
-
-.b {
-	width: 120px;
-	height: 20px;
-	font-family: 'Roboto', sans-serif;
-	font-size: 11px;
-	text-transform: uppercase;
-	letter-spacing: 2.5px;
-	font-weight: 500;
-	color: white;
-	background-color: #6B66FF;
-	border: none;
-	border-radius: 35px;
-	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-	transition: all 0.3s ease 0s;
-	cursor: pointer;
-	outline: none;
-	opacity: 0.8;
-}
-
-.b:hover {
+#myDeliveryAddress:hover {
 	background-color: #FFB2F5;
 	box-shadow: 0px 15px 20px hotpink;
 	color: #fff;
@@ -277,53 +298,50 @@ table {
 </style>
 </head>
 <body>
-<c:forEach var="product" items="${orderListArray}" varStatus="status">
-	<c:if test="${product.cnt > product.stock} ">
-		<script>
-			alert("상품의 재고 보다 선택한 수량이 많습니다. 재고 : " + ${product.stock});
-		</script>
-	</c:if>
-</c:forEach>
-	<div>
-		<h2>주문서</h2>
-	</div>
+	<c:forEach var="product" items="${orderListArray}" varStatus="status">
+		<c:if test="${product.cnt > product.stock} ">
+			<script>
+				alert("상품의 재고 보다 선택한 수량이 많습니다. 재고 : " + ${product.stock});
+			</script>
+		</c:if>
+	</c:forEach>
+	<nav class="navbar navbar-default">
+		<div id="navBox">
+			<%@ include file="../include/Nav.jsp"%>
+		</div>
+	</nav>
+	
+	<section id="container">
+		<div id="containerBox">
+		
 	<form name="deliveryAddress" id="deliveryAddress" method="post">
 		<input type="hidden" name="id" id="id" value="${authInfo.id}">
 	</form>
-	<form name="orderForm" id="orderForm" action="orderResultByBasket"method="post">
+	
+	<form name="orderForm" id="orderForm" action="orderResultByBasket" method="post">
  			<input type="hidden" id="payPrice${stats.index}" name="payPrice"value="${totalPrice}">
- 			
-			<%-- <input type="hidden" id="memberEmail${stats.index}"name="memberEmail" value="${member.email}">
-			<input type="hidden" id="memberName${stats.index}" name="memberName"value="${member.name}">
-			<input type="hidden" id="memberPhone${stats.index}"name="memberPhone" value="${member.phone}">
-			<input type="hidden" id="memberAddress${stats.index}"name="memberAddress" value="${member.address} ${member.addressEtc}">
-			<input type="hidden" id="memberPost${stats.index}" name="memberPost"value="${member.post}">
-			<input type="hidden" id="id${stats.index}" name="id"value="${member.id}">
-			<input type="hidden" id="productName${stats.index}"name="productName" value="${product.productName}">
-			<input type="hidden" id="productThumb${stats.index}"name="productThumb" value="${product.productThumb}">
-			<input type="hidden" id="optionOneNum${stats.index}"name="optionOneNum" value="${option[status.index].optionOneNum}">
-			<input type="hidden" id="optionTwoNum${stats.index}"name="optionTwoNum" value="${option[status.index].optionTwoNum}">
-			<input type="hidden" id="optionThreeNum${stats.index}"name="optionThreeNum" value="${option[status.index].optionThreeNum}">
-			<input type="hidden" id="productPrice${stats.index}"name="productPrice" value="${product.productPrice}">
-			<input type="hidden" id="cnt${stats.index}" name="cnt" value="${cnt}">
-			<input type="hidden" id="optionNum${stats.index}" name="optionNum"value="${option[status.index].optionNum}"> --%>
+			
 			<table class="table1">
-				<colgroup>
+<%-- 				<colgroup>
 					<col style="width: auto;" />
 					<col style="width: 15%;" />
 					<col style="width: 15%;" />
-				</colgroup>
+				</colgroup> --%>
 				<thead>
+				
 					<tr>
 						<th class="mainhead">주문상품</th>
 					</tr>
+					
 					<tr class="head1">
 						<th>상품정보</th>
 						<th>판매자</th>
 						<th>배송비</th>
 						<th>금액</th>
 					</tr>
+					
 				</thead>
+				
 				<tbody>
 				<c:forEach var="product" items="${orderListArray}" varStatus="status">
 					<tr>
@@ -427,7 +445,16 @@ table {
 			</table>
 		</div>
 
-	</form>
+	</form>		
+		</div>
+	</section>
+	
+	
+	
+	
+	
+
+	
 	<script>
 var defaultInfo;
 var newInfo;

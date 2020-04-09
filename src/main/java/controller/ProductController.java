@@ -134,14 +134,35 @@ public class ProductController {
 		String thumFileName = mft.getOriginalFilename();
 		String thumSaveName = uid.toString() + "_" + thumFileName;
 		String thumbFileName = "s_" + thumSaveName;
-		File Thum = new File(ThumUploadPath, thumbFileName);
+		File Thum = new File(ThumUploadPath, thumSaveName);
+		File thumbnail = new File(ThumUploadPath, thumbFileName);
 		try {
 			FileCopyUtils.copy(mf.getBytes(), target);
+			if(target.exists()) {
+				thumbnail.getParentFile().mkdirs();
+			}
 			FileCopyUtils.copy(mft.getBytes(), Thum);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		
+		int THUMB_WIDTH = 300;
+		int THUMB_HEIGHT = 300;
+
+		
+
+			try {
+				Thumbnails.of(Thum).size(THUMB_WIDTH, THUMB_HEIGHT).toFile(thumbnail);
+				if (thumbnail.exists()) {
+					Thum.delete();
+				}
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+		
+		
 		productVO.setId(mtfRequest.getParameter("id"));
 		productVO.setCategoryNum(Integer.parseInt(mtfRequest.getParameter("categoryNum")));
 		productVO.setProductName(mtfRequest.getParameter("productName"));
@@ -186,6 +207,7 @@ public class ProductController {
 		productVO.setOptionThreeName(mtfRequest.getParameter("optionThreeName"));
 
 		String d = mtfRequest.getParameter("mfDate");
+		
 
 		if (mtfRequest.getParameter("hidden").equals("n")) {
 			productService.uploadProductDateIsNull(productVO);
@@ -201,23 +223,7 @@ public class ProductController {
 			productService.insertOption(new OptionVO(latelyProduct.getProductNum(), latelyProduct.getStock(), 0, 0, 0));
 		}
 
-		int THUMB_WIDTH = 300;
-		int THUMB_HEIGHT = 300;
-
-		File thumbnail = new File(ThumUploadPath, thumbFileName);
-
-		if (target.exists()) {
-			thumbnail.getParentFile().mkdirs();
-			try {
-				Thumbnails.of(Thum).size(THUMB_WIDTH, THUMB_HEIGHT).toFile(thumbnail);
-				if (thumbnail.exists()) {
-					Thum.delete();
-				}
-			} catch (IOException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
-		}
+		
 		return "seller/UploadResult";
 	}
  

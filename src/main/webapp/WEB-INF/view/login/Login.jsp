@@ -7,9 +7,18 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Login</title>
+
+<link rel="stylesheet"
+	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
+
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/styleSB.css'
+	type='text/css' media='all' />
+
 <script>
-  src="https://code.jquery.com/jquery-2.1.4.min.js"
+	src = "https://code.jquery.com/jquery-2.1.4.min.js"
 </script>
 <style>
 /* 
@@ -33,205 +42,256 @@ https://c.wallhere.com/photos/5d/7e/1920x1200_px_blue_eyes_brunette_face_women-6
 https://t1.daumcdn.net/cfile/tistory/994E094C5B6CFE3C19
 https://t1.daumcdn.net/cfile/tistory/1574BE2F4C67FF6E69
  */
-	body{
-   	  	background-image:url('https://images.pexels.com/photos/1470589/pexels-photo-1470589.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
-   	  	/* background-size : 1000px 1000px; */
-   	  	background-size : cover;
-   	}
+html {
+	height: 100%;
+}
 
-	#mm{
-		text-align: center;
- 		margin: 0 950px;
-	}
-	
-	.form{
-		text-align: center;
-		border : 2px solid transparent;
-		width: 800px;
-		height: 500px;
-		margin-top: 150px;
-		margin-left: 600px;
-		background: pink;
-		background-color: rgba( 255, 217, 250, 0.5 );
-	}
-	
-	.two{
-		text-align: center;
-		margin-right:20px;
-	}
-	
-	.gst{
-		text-align: center;
-		margin-left: 80px;
-	}
-	
-	.span{
-		text-align: center;
-		margin-right: 100px;
-		font-size: 20px;
-		color: #A566FF;
-	}
-	
-	a{
-		text-decoration:none;
-   	  	color:black;
-	}
-	
-	.loginBox{
-		text-align: center;
- 		margin-top: 50px;
- 		margin-left: 120px;
-		height:150px;
-	}
-		
-	.idPw{
-		float:center;
-		display:inline-block;
-		vertical-align: middle;
-	}
-	
-	.in{
-		display:inline-block;
-		align-items: center;
-		justify-content: center;
-		vertical-align: middle;
-	}
-	
-	.in2{
-		margin-right: 40px;
-	}
-	
-	#rememberId{
-		margin-right:22px;
-		margin-bottom:13px;
-	}
-	
-	.btn {
-	  width: 110px;
-	  height: 80px;
-	  font-family: 'Roboto', sans-serif;
-	  font-size: 25px;
-	  text-transform: uppercase;
-	  letter-spacing: 2.5px;
-	  font-weight: 500;
-	  color: white;
-	  background-color: #6B66FF;
-	  border: none;
-	  border-radius: 35px;
-	  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-	  transition: all 0.3s ease 0s;
-	  cursor: pointer;
-	  outline: none;
-	  opacity: 0.8;
-	}
+body {
+	background-image: url('https://images.pexels.com/photos/1470589/pexels-photo-1470589.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+	background-size: cover;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
 
-	.btn:hover {
-	  background-color: #FFB2F5;
-	  box-shadow: 0px 15px 20px hotpink;
-	  color: #fff;
-	  transform: translateY(-7px);
-	}
-	
-	.t {
-	  width: 100px;
-	  height: 40px;
-	  font-family: 'Roboto', sans-serif;
-	  font-size: 13px;
-	  text-transform: uppercase;
-	  letter-spacing: 2.5px;
-	  font-weight: 500;
-	  color: white;
-	  background-color: #6B66FF;
-	  border: none;
-	  border-radius: 35px;
-	  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-	  transition: all 0.3s ease 0s;
-	  cursor: pointer;
-	  outline: none;
-	  opacity: 0.8;
-	}
+.navbar-nav {
+	width: 100%;
+	text-align: center;
+}
 
-	.t:hover {
-	  background-color: #FFB2F5;
-	  box-shadow: 0px 15px 20px hotpink;
-	  color: #fff;
-	  transform: translateY(-7px);
-	}
-	
-	.pad{
-		color: white;
-		height: 35px;
-		vertical-align: middle;
-		font-size: 16px;
-   	  	border: none;
-	    padding: 10px;
-	    text-align: left;
-	    outline: none;
-	    width: 250px;
-	    background: #D1B2FF;
-	    opacity: 0.8;
-	}
-	
-	.pad2{
-		color: black;
-		height: 25px;
-		vertical-align: middle;
-		font-size: 16px;
-   	  	border: none;
-	    padding: 10px;
-	    text-align: left;
-	    outline: none;
-	    width: 150px;
-	    background: #D1B2FF;
-	     /* background: transparent; */
-	}
-	
-	input::-ms-input-placeholder { color: gray; }
-	input::-webkit-input-placeholder { color: gray; }
-	input::-moz-placeholder { color: gray; }
+.navbar-nav>li {
+	float: none;
+	display: inline-block;
+}
 
-	
+.navbar-nav>li>a {
+	padding-top: 30px;
+}
+
+.navbar-nav>li.navbar-right {
+	float: right !important;
+}
+
+#container {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	padding: 20px 0;
+}
+
+#containerBox {
+	display: inline-block;
+	vertical-align: middle;
+	text-align: center;
+	border: 2px solid transparent;
+	width: 800px;
+	background: pink;
+	background-color: rgba(255, 217, 250, 0.5);
+}
+
+.blank {
+	display: inline-block;
+	width: 0;
+	height: 100%;
+	vertical-align: middle;
+}
+
+.loginBox {
+	text-align: center;
+	margin-top: 50px;
+	margin-left: 120px;
+	height: 120px;
+}
+
+.pad {
+	color: white;
+	height: 35px;
+	vertical-align: middle;
+	font-size: 16px;
+	border: none;
+	padding: 10px;
+	text-align: left;
+	outline: none;
+	width: 250px;
+	background: #D1B2FF;
+	opacity: 0.8;
+}
+
+.in {
+	display: inline-block;
+	align-items: center;
+	justify-content: center;
+	vertical-align: middle;
+}
+
+.idPw {
+	float: center;
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#rememberId {
+	margin-right: 22px;
+	margin-bottom: 13px;
+}
+
+.gst {
+	text-align: center;
+	margin-left: 80px;
+}
+
+.span {
+	text-align: center;
+	margin-right: 100px;
+	font-size: 20px;
+	color: #A566FF;
+}
+
+.in2 {
+	margin-right: 40px;
+	margin-bottom: 30px;
+}
+
+.pad2 {
+	color: black;
+	height: 25px;
+	vertical-align: middle;
+	font-size: 16px;
+	border: none;
+	padding: 10px;
+	text-align: left;
+	outline: none;
+	width: 150px;
+	background: #D1B2FF;
+}
+
+#login {
+	width: 130px;
+	height: 90px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 25px;
+	text-transform: uppercase;
+	letter-spacing: 2.5px;
+	font-weight: 500;
+	color: white;
+	background-color: #6B66FF;
+	border: none;
+	border-radius: 35px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease 0s;
+	cursor: pointer;
+	outline: none;
+	opacity: 0.8;
+}
+
+#login:hover {
+	background-color: #FFB2F5;
+	box-shadow: 0px 15px 20px hotpink;
+	color: #fff;
+	transform: translateY(-7px);
+}
+
+#t {
+	width: 120px;
+	height: 40px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 2.5px;
+	font-weight: 500;
+	color: white;
+	background-color: #6B66FF;
+	border: none;
+	border-radius: 35px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease 0s;
+	cursor: pointer;
+	outline: none;
+	opacity: 0.8;
+}
+
+#t:hover {
+	background-color: #FFB2F5;
+	box-shadow: 0px 15px 20px hotpink;
+	color: #fff;
+	transform: translateY(-7px);
+}
+
+input::-ms-input-placeholder {
+	color: gray;
+}
+
+input::-webkit-input-placeholder {
+	color: gray;
+}
+
+input::-moz-placeholder {
+	color: gray;
+}
+
 </style>
 </head>
 <body>
-	<div id="mm">
-		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
-	</div>
-	<div class="form">
-		<form action="loginComplete">
-		<div class="loginBox">
-				<div class="idPw">
-					<input type="text" autocomplete="off" class="pad" name="id" placeholder="ID" value="${rememberId}"/><br><br>
-					<input type="Password" autocomplete="off" class="pad" name="password" value="" placeholder="Password"/>
+
+	<nav class="navbar navbar-default">
+		<div id="navBox">
+			<%@ include file="../include/Nav.jsp"%>
+		</div>
+	</nav>
+
+	<section id="container">
+		<div id="containerBox">
+
+			<form action="loginComplete">
+				<div class="loginBox">
+					<div class="idPw">
+						<input type="text" autocomplete="off" class="pad" name="id" placeholder="ID" value="${rememberId}" />
+						<br><br>
+						<input type="Password" autocomplete="off" class="pad" name="password" value="" placeholder="Password" />
+					</div>
+					&nbsp;&nbsp;
+					<div class="in">
+						<input type="submit" id="login" value="LOGIN">
+					</div>
 				</div>
-				&nbsp;&nbsp;
-				<div class="in">
-					<input type="submit" class="btn" id="login" value="LOGIN">
-				</div><br><br>
-		</div>
-		<div id="rememberId">
-			<input type="checkbox" name="rememberId" value="true" ${rememberId != "" ? "checked" : "" }>&nbsp;아이디 기억하기
-		</div>
-		</form>
-		<div class="two">
-			<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/regist'" value="회원가입">&nbsp;&nbsp;
-			<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/searchIdChangePw'" value="ID/PW찾기">
-		</div>
-	<br><br><hr color="gray" width="60%" size="2px" noshade><br>
-	<div class="gst">
-	<div class="span">
-		<b>비회원 주문 조회</b>
-	</div>		<br>
-		<form action="selectGuest">
-			<div class="in2">
-				<input type="text" class="pad2" name="guestName" value="${guestName }" placeholder="비회원 이름" onfocus="this.value=''" /> 
-				<input type="text" class="pad2" name="guestPhone" value="${guestPhone }" placeholder="비회원 전화번호" onfocus="this.value=''" /> 
-				<input type="text" class="pad2" name="guestPassword" value="${guestPassword }" placeholder="비회원 비밀번호" onfocus="this.value=''" />&nbsp;&nbsp;
-				<input type="submit" class="t" name="selectGuest" value="조회하기"/>
+				
+				<div id="rememberId">
+					<input type="checkbox" name="rememberId" value="true"
+						${rememberId != "" ? "checked" : "" }>&nbsp;아이디 기억하기
+				</div>
+				
+			</form>
+			
+			<div class="two">
+				<input type="button" id="t" onclick="location.href='${pageContext.request.contextPath}/regist'" value="회원가입">&nbsp; 
+				<input type="button" id="t" onclick="location.href='${pageContext.request.contextPath}/searchIdChangePw'" value="ID/PW찾기">
 			</div>
-		</form>
-	</div>
-	
-	</div>
+			
+			<hr color="gray" width="60%" size="2px" noshade>
+
+			<div class="gst">
+				<div class="span">
+					<b>비회원 주문 조회</b>
+				</div>
+				
+				<form action="selectGuest">
+					<div class="in2">
+						<input type="text" class="pad2" name="guestName" value="${guestName }" placeholder="비회원 이름" onfocus="this.value=''" />
+						<input type="text" class="pad2" name="guestPhone" value="${guestPhone }" placeholder="비회원 전화번호" onfocus="this.value=''" /> 
+						<input type="text" class="pad2" name="guestPassword" value="${guestPassword }" placeholder="비회원 비밀번호" onfocus="this.value=''" />&nbsp; 
+						<input type="submit" id="t" name="selectGuest" value="조회하기" />
+					</div>
+				</form>
+			</div>
+
+
+		</div>
+		<span class="blank"></span>
+	</section>
+
+
 </body>
 </html>

@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width" initial-scale="1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MainPage</title>
 
 <link rel="stylesheet"
@@ -13,26 +13,26 @@
 <script src="//code.jquery.com/jquery.min.js"></script>
 
 <link rel='stylesheet'
-   href='${pageContext.request.contextPath}/resources/css/woocommerce-layout.css'
-   type='text/css' media='all' />
+	href='${pageContext.request.contextPath}/resources/css/woocommerce-layout.css'
+	type='text/css' media='all' />
 <link rel='stylesheet'
-   href='${pageContext.request.contextPath}/resources/css/woocommerce-smallscreen.css'
-   type='text/css' media='only screen and (max-width: 768px)' />
+	href='${pageContext.request.contextPath}/resources/css/woocommerce-smallscreen.css'
+	type='text/css' media='only screen and (max-width: 768px)' />
 <link rel='stylesheet'
-   href='${pageContext.request.contextPath}/resources/css/woocommerce.css'
-   type='text/css' media='all' />
+	href='${pageContext.request.contextPath}/resources/css/woocommerce.css'
+	type='text/css' media='all' />
 <link rel='stylesheet'
-   href='${pageContext.request.contextPath}/resources/css/font-awesome.min.css'
-   type='text/css' media='all' />
+	href='${pageContext.request.contextPath}/resources/css/font-awesome.min.css'
+	type='text/css' media='all' />
 <link rel='stylesheet'
-   href='${pageContext.request.contextPath}/resources/css/styleSB.css'
-   type='text/css' media='all' />
+	href='${pageContext.request.contextPath}/resources/css/styleSB.css'
+	type='text/css' media='all' />
 <link rel='stylesheet'
-   href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700'
-   type='text/css' media='all' />
+	href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700'
+	type='text/css' media='all' />
 <link rel='stylesheet'
-   href='${pageContext.request.contextPath}/resources/css/easy-responsive-shortcodes.css'
-   type='text/css' media='all' />
+	href='${pageContext.request.contextPath}/resources/css/easy-responsive-shortcodes.css'
+	type='text/css' media='all' />
 
 <style>
 
@@ -41,21 +41,21 @@ html {
 }
 
 body {
-   background-image: url('https://paulhueman.co.kr:443/bbs/data/file/banner/2009714319_4Qzoxjug_20544c1b6b40a4acc5de0a9c3bde79bbdb7d68db.jpg');
-   background-size: cover;
-   padding: 0;
-   margin: 0;
-   height: 100%;
+	background-image: url('https://paulhueman.co.kr:443/bbs/data/file/banner/2009714319_4Qzoxjug_20544c1b6b40a4acc5de0a9c3bde79bbdb7d68db.jpg');
+	background-size: cover;
+	padding: 0;
+	margin: 0;
+	height: 100%;
 }
 
 .wrap {
-   min-height: 100%;
-   position: relative;
+	min-height: 100%;
+	position: relative;
 }
 
 .navbar-nav {
-   width: 100%;
-   text-align: center;
+	width: 100%;
+	text-align: center;
 }
 
 .navbar-nav>li {
@@ -67,23 +67,27 @@ body {
    padding-top: 30px;
 }
 
+.navbar-nav>li>a {
+	padding-top: 30px;
+}
+
 .navbar-nav>li.navbar-right {
    float: right !important;
 }
 
 #container {
-   position:realtive;
-   top:0;
-   left:0;
-   width:100%;
-    height:100%;
-   text-align:center;   
-   padding: 20px 0;
+	position: relative;
+	top:0;
+	left:0;
+	width:100%;
+ 	height:100%;
+	text-align:center;	
+	padding: 20px 0;
 }
 
 #containerBox {
-   display:inline-block;
-   vertical-align:middle;
+	display:inline-block;
+	vertical-align:middle;
 
 }
 
@@ -94,18 +98,11 @@ body {
    vertical-align:middle;
 }
 
-section#container::after {
-   content: "";
-   display: block;
-   clear: both;
-}
-
-
 .sDiv{
-   text-align: center;
-   background: transparent;
+	text-align: center;
+	background: transparent;
 } 
-           
+   	  	
 #search {
    font-size: 17px;
    font-weight: bold;
@@ -120,14 +117,14 @@ section#container::after {
 }
 
 #btn {
-   background: transparent;
-   ouline: none;
-   color: black;
-   background-position: 0px 0px;
-   background-repeat: no-repeat;
-   border: 0px;
-   cursor: pointer;
-   outline: 0;
+	background: transparent;
+	ouline: none;
+	color: black;
+	background-position: 0px 0px;
+	background-repeat: no-repeat;
+	border: 0px;
+	cursor: pointer;
+	outline: 0;
 }
 
 .searchBox{
@@ -136,7 +133,7 @@ section#container::after {
 } 
          
 .mainCategory {
-   background: transparent;
+	background: transparent;
 }  
 
 .mainCategoryScroll {
@@ -155,19 +152,19 @@ section#container::after {
 } 
 
 .cate {
-   float: left;
-   width: 33.33%;
-   height: 400px;
-   background: white;
-   background-color: rgba(255, 255, 255, 0.5);
+	float: left;
+	width: 33.33%;
+	height: 400px;
+	background: white;
+	background-color: rgba(255, 255, 255, 0.5);
 } 
 
 .cate h2 {
-   text-align: center;
+	text-align: center;
 }
 
 #DepthOneSpace h4, #DepthTwoSpace h4, #DepthThreeSpace h4 {
-   text-align: center;
+	text-align: center;
 }
 
 #medium {
@@ -178,70 +175,84 @@ section#container::after {
 
 </head>
 <body>
+	<div class="wrap">
 
-<div class="wrap">
+		<nav class="navbar navbar-default">
+			<div id="navBox">
+				<%@ include file="include/Nav.jsp"%>
+			</div>
+		</nav>
 
-	<nav class="navbar navbar-default">
-	<!-- <nav class="navbar"> -->
-		<div id="navBox">
-			<%@ include file="./include/Nav.jsp"%>
-		</div>
-	</nav>
-	
-	
-	<div class="sDiv">
-		<form action="productList" class="searchBox">
-			<input type="hidden" name="page" value="1">
-			<input type="text" autocomplete="off" name="keyword" id="search" placeholder="키워드를 입력하세요."/>
-			<input type="image" src="${pageContext.request.contextPath}/resources/images/search.png" value="검색" id="btn">
+			<section id="container">
+				<div id="containerBox">
+					<div class="sDiv">
+						<form action="productList" class="searchBox">
+							<input type="text" autocomplete="off" name="keyword" id="search" placeholder="키워드를 입력하세요." > 
+							<input type="image" src="${pageContext.request.contextPath}/resources/images/검색버튼.png"
+								value="검색" id="btn">
+						</form>
+					</div>
+					<%-- <br><br><br><h1><a href="<c:url value='/deliveryTracker'/>" > DeliveryTracker </a></h1> --%>
+
+					<div class="mainCategory">
+						<div class="mainCategoryButton">
+							<button type="button" id="mainCategoryView"
+								class="mainCategoryView">
+								<img src="${pageContext.request.contextPath}/resources/images/cate.png"
+									style="width: 60px; height: 50px;">
+							</button>
+						</div>
+						<div class="mainCategoryScroll">
+							<br>
+							<div class="cate" id="large">
+								<h2>
+									<b>대분류</b>
+								</h2>
+								<div id="DepthOneSpace">
+									<c:forEach var="category" items="${categorys}"
+										varStatus="status">
+										<div id="categoryName${category.categoryNum}">
+											<h4>
+												<a href="#" class="depthOne"
+													data-type="${category.categoryNum}">${category.categoryName}</a>
+											</h4>
+										</div>
+									</c:forEach>
+								</div>
+							</div>
+							<div class="cate" id="medium">
+								<h2>
+									<b>중분류</b>
+								</h2>
+								<div id="DepthTwoSpace"></div>
+							</div>
+							<div class="cate">
+								<h2>
+									<b>소분류</b>
+								</h2>
+								<div id="DepthThreeSpace"></div>
+							</div>
+						</div>
+					</div>
+
+				</div>
+				
+				<span class="blank"></span>
+			</section>
+	</div>
+
+	<c:forEach var="notice" items="${noticeList}" varStatus="status">
+		<form id="noticeForm${status.index}">
+			<input type="hidden" id="noticeNum${status.index}"
+				value="${notice.noticeNum}"> <input type="hidden"
+				id="noticeSubject${status.index}" name="noticeSubject"
+				value="${notice.noticeSubject}"> <input type="hidden"
+				id="noticeDate${status.index}" name="noticeDate"
+				value="${notice.noticeDate}"> <input type="hidden"
+				id="noticeText${status.index}" name="noticeText"
+				value="${notice.noticeText}">
 		</form>
-	</div>
-	<%-- <br><br><br><h1><a href="<c:url value='/deliveryTracker'/>" > DeliveryTracker </a></h1> --%>
-	
-	
-	<section id="container">
-		<div class="mainCategory">
-		<div class="mainCategoryButton">
-			<button type="button" id="mainCategoryView" class="mainCategoryView">
-				<img src="${pageContext.request.contextPath}/resources/images/cate.png" style="width:60px; height:50px;">
-			</button>
-		</div>
-		<div class="mainCategoryScroll">
-		<br>
-			<div class="cate" id="large">
-				<h2><b>대분류</b></h2><br><br>
-			<div id="DepthOneSpace">
-				<c:forEach var="category" items="${categorys}" varStatus="status">
-					<div id="categoryName${category.categoryNum}"><h4><a href="#" class="depthOne" data-type="${category.categoryNum}">${category.categoryName}</a></h4></div>
-				</c:forEach>
-			</div>
-			</div>
-			<div class="cate" id="medium">
-				<h2><b>중분류</b></h2><br><br>
-				<div id="DepthTwoSpace">
-				</div>
-			</div>
-			<div class="cate">
-				<h2><b>소분류</b></h2><br><br>
-				<div id="DepthThreeSpace">
-				</div>
-			</div>
-		</div>
-	</div>
-	</section>
-	
-
-
-
-</div>
-<c:forEach var="notice" items="${noticeList}" varStatus="status">
-	<form id="noticeForm${status.index}">
-	<input type="hidden" id="noticeNum${status.index}" value="${notice.noticeNum}">
-	<input type="hidden" id="noticeSubject${status.index}" name="noticeSubject" value="${notice.noticeSubject}">
-	<input type="hidden" id="noticeDate${status.index}" name="noticeDate" value="${notice.noticeDate}">
-	<input type="hidden" id="noticeText${status.index}"name="noticeText" value="${notice.noticeText}">
-	</form>
-</c:forEach>
+	</c:forEach>
 
 <script>
 var size = '${noticeSize}';

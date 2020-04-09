@@ -222,9 +222,10 @@ CREATE TABLE DETAILOPTION (
 
 /*멤버아이디 프로덕트넘 참조*/
 CREATE TABLE WISHLIST (
-	"wishNum"	NUMBER		PRIMARY KEY,
-	"id"	VARCHAR2(30)		NOT NULL,
-	"productNum"	NUMBER		NOT NULL,
+	"wishNum"	NUMBER ,
+	"id"	VARCHAR2(30) ,
+	"productNum"	NUMBER ,
+  CONSTRAINT "WISH" PRIMARY KEY ("id", "productNum"),
   FOREIGN KEY ("id") REFERENCES MEMBER("id") ON DELETE CASCADE,
   FOREIGN KEY ("productNum") REFERENCES PRODUCT("productNum") ON DELETE CASCADE
 );
@@ -291,6 +292,7 @@ CREATE TABLE CSQACOMMENT (
 CREATE TABLE DECLPRODUCT (
 	"declNum"	NUMBER		PRIMARY KEY,
 	"declReason"	VARCHAR2(50) CHECK ( "declReason" IN ('상품정보 다름', '가품/이미테이션', '청소년유해상품 및 이미지', '불법상품', '부적합 판매행위', '개인정보 침해', '결제도용신고', '배송환불분쟁/연락두절', '저작권 위반'))		NOT NULL,
+  "declText" VARCHAR2(1000)   NOT NULL,
 	"productNum"	NUMBER		NOT NULL,
 	"declDate"	TIMESTAMP		DEFAULT SYSDATE,
 	"sellerId"	VARCHAR2(30)		NOT NULL,

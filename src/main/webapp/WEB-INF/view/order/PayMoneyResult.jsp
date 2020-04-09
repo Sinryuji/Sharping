@@ -116,9 +116,8 @@ h1 {
 	<section id="container">
 		<div id="containerBox">
 	
-			<h1><span class="updateComplete">[${authInfo.name}] 정보가 수정되었습니다!</span></h1>
-			<input type="button" id="t" class="t" onclick="location.href='${pageContext.request.contextPath}/main'" value="메인으로 이동">	
-			<input type="button" id="t" class="t" onclick="location.href='${pageContext.request.contextPath}/logout'" value="로그아웃">		
+			<h1><span class="updateComplete">[${authInfo.name}]님! 입금이 완료되었습니다!</span></h1>
+			<input type="button" id="t" class="t" onclick="location.href='${pageContext.request.contextPath}/main'" value="메인으로 이동">		
 		</div>
 		<span class="blank"></span>
 	</section>
