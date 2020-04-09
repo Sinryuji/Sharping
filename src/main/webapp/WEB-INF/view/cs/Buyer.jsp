@@ -8,10 +8,12 @@
 <meta name="viewport" content="width=device-width" initial-scale="1">
 
 
-<title>cs</title>
+<title>Buyer</title>
 
 <script src="https://code.jquery.com/jquery-3.1.1.min.js"></script>
 
+<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/member_customer.css' type='text/css' media='all' />
+<script language="JavaScript" type="text/javascript" src="http://script.auction.co.kr/style/js/common.js"></script>
 <link rel="stylesheet" href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
 <script src="//code.jquery.com/jquery.min.js"></script>
     <style>
@@ -106,7 +108,6 @@
    	  		text-align: center;
       		background: transparent;
       		width: 200px;
-      		padding: 20px;
    	  	}
    	  	
    	  	#search{
@@ -138,7 +139,6 @@
       	.searchBox{
       		margin-top: 70px;
       		margin-left: 40px;
-      		margin-bottom: 40px;
       	}
       	
       	#who{
@@ -184,36 +184,8 @@
 			border-right: 2px solid black;
 			border-left: 2px solid black;
 		}
-		ul{
-			list-style: none;
-			margin: auto;
-		}
-		.t {
-		    width: 160px;
-		    height: 100px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 18px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #A6A6A6;
-		    border: none;
-		    /* border-radius: 35px; */
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		}
-
-		.t:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
 		
+  	  	
    	  	
     </style>
 </head>
@@ -226,50 +198,50 @@
 		<div id="navBox">
 			<%@ include file="../include/Nav.jsp"%>
 		</div>
-		</nav>
-		<section id="container">
-		<aside>
-			<%@ include file="../include/CSAside.jsp"%>
-		</aside>
-		<div id="containerBox"></div>
-		</section>
-		<div class="sDiv">
-		<form action="productList" class="searchBox">
-			<input type="text" autocomplete="off" name="keyword" id="search" placeholder="키워드를 입력하세요."/>
-			<input type="image" src="${pageContext.request.contextPath}/resources/images/search.png" value="검색" id="btn">
-		</form>
+	</nav>
+		<div id="header">
+		
+		<h1>
+			고객센터
+		</h1>
+			<div class="guest-header">
+					<ul class="guest-tap">
+						<li><a id="t1" href="#tab01">구매회원</a></li>
+						
+						<li><a id="t2" href="#tab02">판매회원</a></li>
+					</ul>
+				</div>
 		</div>
+				<div id="tab01" class="tab-contents">
+				<%-- 	<form action="memberList">
+						<input type="text" name="keywordM" placeholder="키워드를 입력하세요."
+							value="${keywordM}" /> <input type="submit" id="btnSearch" value="검색">
+					</form> --%>
+				</div>
 <!--     고객센터 해더           -->		
 		
 		
 		
-		
-					<div class="buyer_quick" style="margin-left:500px;">
-						<div class="qiocl-menu-lick" style="margin: auto;">
-							<button id="regiInfo" class="t">고객문의<br> 처리절차</button>
-							<button id="cancle" class="t">반품/취소요청<br></button>
-							<button id="csqa" class="t">고객센터<br> 문의내역</button>
-							<button id="one-on-one" class="t">1:1문의하기<br></button>
-							<button id="one-on-chat" class="t">1:1채팅문의<br></button>
-						</div>
-						<!-- class buyer_quick -->
+		<div class="body">
+			
+			<div id="contents">
+			
+				<div id="cont">
+				
+					<h1 id="buyer_title" class="title" style="display:none"> 구매 고객센터 </h1>
+					<h1 id="seller_title" class="title" style="display:none"> 판매 고객센터 </h1>
+					
+					<div class="buyer_quick">
+						<ul class="qiocl-menu-lick">
+							<li id="regiInfo" class="on"><a href="#">고객문의 처리절차</a></li>
+							<li id="cancle"> <a href="#">반품/취소요청</a></li>
+							<li id="csqa"><a href="#">고객센터 문의내역</a></li>
+							<li id="one-on-one"><a href="#">1:1문의하기</a></li>
+							<li id="one-on-chat"><a href=#>1:1채팅문의</a>
+						</ul>
 					</div>
-<!-- wrap -->
-</div>
-
 					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					
-					<%-- <div class="one-tab-area">
+					<div class="one-tab-area">
 						<span class="all-view-btn">전체보기</span>
 						<div class="all-view-layer">
 						<ul class="all-one-depth">
@@ -579,7 +551,7 @@
 					</div>
 					</div>
 					</div>
-					</div> --%>
+					</div>
 <script>
 var size = '${noticeSize}';
 

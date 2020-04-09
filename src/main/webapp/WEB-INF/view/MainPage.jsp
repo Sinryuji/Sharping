@@ -241,18 +241,15 @@ body {
 			</section>
 	</div>
 
-	<c:forEach var="notice" items="${noticeList}" varStatus="status">
-		<form id="noticeForm${status.index}">
-			<input type="hidden" id="noticeNum${status.index}"
-				value="${notice.noticeNum}"> <input type="hidden"
-				id="noticeSubject${status.index}" name="noticeSubject"
-				value="${notice.noticeSubject}"> <input type="hidden"
-				id="noticeDate${status.index}" name="noticeDate"
-				value="${notice.noticeDate}"> <input type="hidden"
-				id="noticeText${status.index}" name="noticeText"
-				value="${notice.noticeText}">
-		</form>
-	</c:forEach>
+</div>
+<c:forEach var="notice" items="${noticeList}" varStatus="status">
+	<form id="noticeForm${status.index}">
+	<input type="hidden" id="noticeNum${status.index}" value="${notice.noticeNum}">
+	<input type="hidden" id="noticeSubject${status.index}" name="noticeSubject" value="${notice.noticeSubject}">
+	<input type="hidden" id="noticeDate${status.index}" name="noticeDate" value="${notice.noticeDate}">
+	<input type="hidden" id="noticeText${status.index}"name="noticeText" value="${notice.noticeText}">
+	</form>
+</c:forEach>
 
 <script>
 var size = '${noticeSize}';
