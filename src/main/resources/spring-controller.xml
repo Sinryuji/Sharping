@@ -2,10 +2,12 @@
 <beans xmlns="http://www.springframework.org/schema/beans"
 	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
 	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:task="http://www.springframework.org/schema/task"
 	xsi:schemaLocation="http://www.springframework.org/schema/beans 
 	http://www.springframework.org/schema/beans/spring-beans.xsd
 	http://www.springframework.org/schema/mvc
-	http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd">
+	http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd"
+	>
 
 	<mvc:interceptors>
 
@@ -51,12 +53,20 @@
 		<property name="orderService" ref="orderServiceImpl"></property>
 		<property name="productService" ref="productServiceImpl"></property>
 		<property name="memberService" ref="memberServiceImpl"></property>
+		
 	</bean>
 
 	<bean id="adminController" class="controller.AdminController">
 		<property name="adminService" ref="adminServiceImpl" />
 		<property name="memberService" ref="memberServiceImpl" />
 		<property name="productService" ref="productServiceImpl"></property>
+	</bean>
+	
+	<bean id="csController" class="controller.CsController">
+		<property name="memberService" ref="memberServiceImpl" />
+		<property ref="adminServiceImpl" name="adminService" />
+		<property name="orderService" ref="orderServiceImpl"/>
+		<property name="productService" ref="productServiceImpl"/>
 	</bean>
 
 </beans>

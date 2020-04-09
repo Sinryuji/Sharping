@@ -1,5 +1,6 @@
 package vo;
 
+import java.security.Timestamp;
 import java.sql.Date;
 
 public class VirtualAccountVO {

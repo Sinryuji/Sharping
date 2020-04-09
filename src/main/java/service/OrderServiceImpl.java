@@ -1,10 +1,13 @@
 package service;
 
 
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 
 import dao.OrderDAO;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.List;
 
 import vo.BankVO;
@@ -231,14 +234,54 @@ public class OrderServiceImpl implements OrderService{
 		return orderDAO.selectOrderAll();
 	}
 
-	@Override
-	public List<VirtualAccountVO> selectAllVirtualAccountVO(int paynum) {
-		return orderDAO.selectAllVirtualAccountVO(paynum);
-	}
+//	@Override
+//	public List<VirtualAccountVO> selectAllVirtualAccountVO(int paynum) {
+//		return orderDAO.selectAllVirtualAccountVO(paynum);
+//	}
 
-	@Override
-	public List<OrderVO> selectOrderAllState(String state) {
-		return orderDAO.selectOrderAllState(state);
+//	@Override
+//	public List<OrderVO> selectOrderAllState(String state) {
+//		return orderDAO.selectOrderAllState(state);
+//	}
+	
+	@Scheduled(cron = "* * */24 * * * ")
+	public void stateChange() {
+		List<VirtualAccountVO> virList = null;
+		String stateName = "입금 대기";
+		String stateCancle = "주문 취소";
+		//"입금 대기" 오더리스트 뽑아오기
+		List<OrderVO> state = orderDAO.selectOrderAllState(stateName); 
+		//날자 변환 포맷
+		SimpleDateFormat format1 = new SimpleDateFormat("yyyy-MM-dd");
+		Date time = new Date();
+		// 현재 시간 포맷
+		String time1 = format1.format(time);
+		System.out.println("현재시간:" + time1);
+		for(int i = 0 ; i < state.size() ; i++) {
+			//오더리스트의 결제번호로 가상계좌 셀렉트
+			virList = orderDAO.selectAllVirtualAccountVO(state.get(i).getPayNum());
+			System.out.println(virList.toString());
+			//가상계좌의 입금마감일 뽑아오기
+			String depositDate = format1.format(virList.get(0).getDepositDate());
+			System.out.println(virList.get(0).getDepositDate());
+			
+			System.out.println("depositDate:" + depositDate);
+			//현재 시간이랑 가상계좌의 입금마감일 비교
+			int compare = depositDate.compareTo(time1);
+			System.out.println("compare :" + compare);
+			if(compare > 0) { // 입금마감일이 현재시간보다 크면 
+				
+			}else if(compare < 0){ // 입금마감일이 현재시간보다 작으면 
+				//주문취소 들어가
+				orderDAO.updateOrderByOrderNum(state.get(i).getOrderNum());
+				
+			}else { // 입금마감일이 현재시간과 같으면 
+				//이것도 주문취소 들어가
+				orderDAO.updateOrderByOrderNum(state.get(i).getOrderNum());
+			}
+			
+		}
+		
 	}
 
 

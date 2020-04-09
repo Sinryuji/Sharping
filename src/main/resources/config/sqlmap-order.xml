@@ -5,7 +5,7 @@
 <mapper namespace="orderDAO">
 	
 	<insert id="insertVirtualAccount" parameterType="virtualAccountVO">
-		INSERT INTO VIRTUALACCOUNT VALUES(#{vaNum},#{payNum},#{bankCode},#{payPrice},#{respCode},sysdate + (3/1440))
+		INSERT INTO VIRTUALACCOUNT VALUES(#{vaNum},#{payNum},#{bankCode},#{payPrice},#{respCode},sysdate + 7)
 	
 	</insert>
 	
@@ -196,7 +196,7 @@
 		SELECT * FROM VIRTUALACCOUNT WHERE "payNum" = #{payNum}
 	</select>
 	
-	<select id="selectOrderAll" parameterType="string" resultType="orderVO">
+	<select id="selectOrderAllState" parameterType="string" resultType="orderVO">
 		SELECT * FROM ORDERR WHERE "state" = #{state} 
 	</select> 
 
