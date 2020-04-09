@@ -190,5 +190,14 @@ public class AdminServiceImpl implements AdminService {
 	public int deleteDeclProductByDeclNum(DeclProductVO declProductVO) {
 		return adminDAO.deleteDeclProductByDeclNum(declProductVO);
 	}
+	
+	@Override
+	public List<NoticeVO> getNoticeListPaging(NoticeVO noticeVO) {
+		return adminDAO.getNoticeListPaging(noticeVO);
+	}
 		
+	@Override
+	public List<DeclProductVO> selectDeclProductPaging(DeclProductVO declProductVO) {
+		return adminDAO.selectDeclProductPaging(declProductVO);
+	}
 }

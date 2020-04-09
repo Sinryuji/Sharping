@@ -332,6 +332,14 @@ function getList(page) {
 	
 	console.log("되냐");
 	
+	var check = "";
+	
+	if($("#checkDelivery").is(":checked")) {
+		check = "on";
+	} else{
+		check = "off";
+	}
+	
 	 $.ajax({
 	        type : 'POST',  
 	        dataType : 'json', 
@@ -354,6 +362,8 @@ function getList(page) {
 	            /* if (page==1){ //페이지가 1일경우에만 id가 list인 html을 비운다.
 	                  $("#tbody").html(""); 
 	            } */
+	            
+	            
 	            if (data.startNum<=data.totCnt){
 	            	console.log("되냐2");
 	                if(data.productList.length>0){
@@ -375,7 +385,11 @@ function getList(page) {
 	            }
 	           /*  html = html.replace(/%20/gi, " "); */
 	            if (page==1){  //페이지가 1이 아닐경우 데이터를 붙힌다.
+	            	if(data.productList.length != 0) {
 	                $("#tbody").html(html); 
+	            	} else {
+	            		$("#tbody").html("<tr><td colspan='10' align='center'><b>검색결과가 없습니다.</b></td></tr>"); 
+	            	}
 	            }else{
 	                $("#tbody").append(html);
 	            }

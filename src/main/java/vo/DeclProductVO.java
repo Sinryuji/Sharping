@@ -11,13 +11,16 @@ public class DeclProductVO {
 	private String sellerId;
 	private String declId;
 	private String search;
+	private int page;
+	private int startNum;
+	private int endNum;
 	
 	public DeclProductVO() {
 		super();
 	}
-
+	
 	public DeclProductVO(int declNum, String declReason, String declText, int productNum, Timestamp declDate,
-			String sellerId, String declId, String search) {
+			String sellerId, String declId, String search, int page, int startNum, int endNum) {
 		super();
 		this.declNum = declNum;
 		this.declReason = declReason;
@@ -27,6 +30,33 @@ public class DeclProductVO {
 		this.sellerId = sellerId;
 		this.declId = declId;
 		this.search = search;
+		this.page = page;
+		this.startNum = startNum;
+		this.endNum = endNum;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getStartNum() {
+		return startNum;
+	}
+
+	public void setStartNum(int startNum) {
+		this.startNum = startNum;
+	}
+
+	public int getEndNum() {
+		return endNum;
+	}
+
+	public void setEndNum(int endNum) {
+		this.endNum = endNum;
 	}
 
 	public int getDeclNum() {
@@ -97,7 +127,8 @@ public class DeclProductVO {
 	public String toString() {
 		return "DeclProductVO [declNum=" + declNum + ", declReason=" + declReason + ", declText=" + declText
 				+ ", productNum=" + productNum + ", declDate=" + declDate + ", sellerId=" + sellerId + ", declId="
-				+ declId + ", search=" + search + "]";
+				+ declId + ", search=" + search + ", page=" + page + ", startNum=" + startNum + ", endNum=" + endNum
+				+ "]";
 	}
 
 }

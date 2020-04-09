@@ -354,6 +354,7 @@ history.scrollRestoration = "manual";
 		            /* if (page==1){ //페이지가 1일경우에만 id가 list인 html을 비운다.
 		                  $("#tbody").html(""); 
 		            } */
+		            
 		            if (data.startNum<=data.totCnt){
 		            	console.log("되냐2");
 		                if(data.productList.length>0){
@@ -376,31 +377,6 @@ history.scrollRestoration = "manual";
 		                		}
 		                		
 		                		html += "<tr><td><input type='checkbox' class='select' data-productNum='" + product.productNum + "'></td><td><span style='float:left'><img src='opload/" + product.productThumb  + "' style='width:50px;'>&nbsp;&nbsp;</span><span style='float:left'>" + product.productName + "<br>상품번호 : " + product.productNum + "&nbsp;&nbsp;</span></td><td>" + product.productPrice + "</td><td>" + deliveryPrice + "</td><td>" + product.buyCount + "</td><td>매출총액 : " + product.sales + "</td><td><label class='switch'><input type='checkbox' class='display' data-productNum='" + product.productNum + "' " + checked + "> <span class='slider round'></span></label></td><td><button type='button' class='updateProduct' value='" + product.productNum + "'>수정</button>&nbsp;<button type='button' class='deleteProduct' value='" + product.productNum  + "'>삭제</button></td></tr>";
-		                		/* <tr>
-		                         <td><input type="checkbox" class="select" id="chk${status.index}" data-productNum="${list.productNum}"></td>
-		                         <td><span style="float:left"><img src="opload/${list.productThumb}" style="width:50px;">&nbsp;&nbsp;</span>
-		                            <span style="float:left"><c:out value="${list.productName}"/><br>
-		                            <c:out value="상품번호 : ${list.productNum}"/>&nbsp;&nbsp;</span></td>
-		                         <td><c:out value="${list.productPrice}"/></td>
-		                         <td>
-		                            <c:if test="${list.deliveryPrice eq 0}">
-		                               <c:out value="무료"/>
-		                            </c:if>                        
-		                            <c:if test="${list.deliveryPrice ne 0}">
-		                               <c:out value="${list.deliveryPrice}"/>
-		                            </c:if>
-		                         </td>
-		                         <td><c:out value="${list.butCount}"/></td>
-		                         <td><c:out value="매출총액 : ${list.sales}원"/></td>
-		                         <td><label class="switch">
-		                              <input type="hidden" id="dis${status.index}" value="${status.index}" >
-		                              <input type="checkbox" class="display" data-productNum="${list.productNum}" ${list.productDisplay == "TRUE" ? "checked" : ""}>
-		                              <span class="slider round"></span>
-		                            </label>
-		                         </td>
-		                         <td><input type="hidden" id="productNum${status.index}" value="${list.productNum}">
-		                         <button type="button" class="updateProduct" value="${list.productNum}">수정</button>&nbsp;<button type="button" class="deleteProduct" value="${list.productNum}">삭제</button></td>
-		                      </tr> */
 		                             	
 		                	}
 		                }else{
@@ -409,7 +385,11 @@ history.scrollRestoration = "manual";
 		            }
 		           /*  html = html.replace(/%20/gi, " "); */
 		            if (page==1){  //페이지가 1이 아닐경우 데이터를 붙힌다.
-		                $("#tbody").html(html); 
+		            	if(data.productList.length != 0){
+		                	$("#tbody").html(html); 
+		                } else {
+		                	$("#tbody").html("<tr><td colspan='10' align='center'><b>등록된 상품이 없습니다.</b></td></tr>"); 
+		                }
 		            }else{
 		            	console.log("안함?");
 		                $("#tbody").append(html);

@@ -5,6 +5,9 @@ public class AdminVO {
 	private String adminId;
 	private String adminPassword;
 	public String keywordM;
+	private int page;
+	private int startNum;
+	private int endNum;
 	
 	
 	public AdminVO() {
@@ -21,6 +24,30 @@ public class AdminVO {
 		super();
 		this.adminId = adminId;
 		this.adminPassword = adminPassword;
+	}
+
+	public int getPage() {
+		return page;
+	}
+
+	public void setPage(int page) {
+		this.page = page;
+	}
+
+	public int getStartNum() {
+		return startNum;
+	}
+
+	public void setStartNum(int startNum) {
+		this.startNum = startNum;
+	}
+
+	public int getEndNum() {
+		return endNum;
+	}
+
+	public void setEndNum(int endNum) {
+		this.endNum = endNum;
 	}
 
 	public String getAdminId() {
@@ -46,9 +73,11 @@ public class AdminVO {
 	public void setKeywordM(String keywordM) {
 		this.keywordM = keywordM;
 	}
-	
-	
-	
-	
+
+	@Override
+	public String toString() {
+		return "AdminVO [adminId=" + adminId + ", adminPassword=" + adminPassword + ", keywordM=" + keywordM + ", page="
+				+ page + ", startNum=" + startNum + ", endNum=" + endNum + "]";
+	}
 	
 }

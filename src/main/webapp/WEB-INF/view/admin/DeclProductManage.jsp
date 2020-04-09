@@ -11,7 +11,7 @@
 <script src="//code.jquery.com/jquery.min.js"></script>
 
 
-<title>NoticeManage</title>
+<title>DeclProductManage</title>
 
 <link rel='stylesheet'
 	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
@@ -294,7 +294,7 @@ footer#footer div {
 							<th>신고자</th>
 						</tr>
 					</thead>
-					<tbody>
+					<tbody id="tbody">
 						<c:choose>
 							<c:when test="${empty declList }">
 								<tr>
@@ -304,7 +304,7 @@ footer#footer div {
 							<c:when test="${!empty declList}">
 								<c:forEach var="list" items="${declList}" varStatus="status">
 									<tr>
-										<td><input type="checkbox" class="select" id="chk${status.index}" data-productNum="${list.productNum}" data-declNum="${list.declNum}"></td>
+										<td><input type="checkbox" class="select"  data-productNum="${list.productNum}" data-declNum="${list.declNum}"></td>
 										<td><c:out value="${list.declNum}" /></td>
 										<td><c:out value="${list.declReason}" /></td>
 										<td>
@@ -343,6 +343,80 @@ footer#footer div {
 
 </div>
 	<script>
+	
+	history.scrollRestoration = "manual";
+
+	   var page = 1;
+
+	   $(function(){
+	   	getList(page);
+	   	page++;
+	   })
+
+	   $(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+	        if($(window).scrollTop() >= $(document).height() - $(window).height()){
+	       	 getList(page);
+	       	 console.log(page);
+	       	 page++; 
+	        } 
+	   });
+	   
+	   function getList(page) {
+			
+			console.log("되냐");
+			
+			 $.ajax({
+			        type : 'GET',  
+			        data : {
+			        	page : page,
+			        	search : $("#search").val(),
+			        	declReason : $("select[name=delctReason]").val()
+			        	},
+			        url : '<%=request.getContextPath()%>/admin/declProductManagePaging',
+			        success : function(data) {
+			        	console.log("되냐1.5");
+			            /* var data = returnData.rows; */
+			            var html = "";
+			            /* if (page==1){ //페이지가 1일경우에만 id가 list인 html을 비운다.
+			                  $("#tbody").html(""); 
+			            } */
+			            
+			            if (data.startNum<=data.totCnt){
+			            	console.log("되냐2");
+			                if(data.declList.length>0){
+			                	console.log("되냐3");
+			                	// for문을 돌면서 행을 그린다.
+			                	for(var i = 0 ; i < data.declList.length ; i++) {
+			                		var decl = data.declList[i];
+			                		var product = data.productList[i];
+			                	
+			                		html += "<tr><td><input type='checkbox' class='select' data-productNum='" + decl.productNum + "' data-declNum='" + decl.declNum + "'></td><td>" + decl.declNum + "</td><td>" + decl.declReason + "</td><td><a href='#' onclick='productView(" + decl.productNum + ")'>" + product.productName + "</a></td><td><a href='#' onclick='declView(" + decl.declNum + ")'>내용 확인</a></td><td>" + decl.declDate + "</td><td>" + decl.sellerId + "</td><td>" + decl.declId + "</td></tr>";
+			                		  	
+			                	}
+			                	
+			                }else{
+			                //데이터가 없을경우
+			                }
+			            }
+			           /*  html = html.replace(/%20/gi, " "); */
+			            if (page==1){  //페이지가 1이 아닐경우 데이터를 붙힌다.
+			            	if(data.declList.length != 0) {
+			                	$("#tbody").html(html); 
+			            	} else {
+			            		$("#tbody").html("<tr><td colspan='10' align='center'><b>접수된 신고건이 없습니다.</b></td></tr>")
+			            	}
+			            }else{
+			            	console.log("안함?");
+			                $("#tbody").append(html);
+			            }
+			       },error:function(e){
+			           if(e.status==300){
+			               alert("데이터를 가져오는데 실패하였습니다.");
+			           };
+			       }
+			    }); 
+
+		}
 		
 		function productView(productNum){
 			var url = "${pageContext.request.contextPath}"+"/product";

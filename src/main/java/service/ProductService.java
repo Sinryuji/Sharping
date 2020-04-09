@@ -104,7 +104,7 @@ public interface ProductService {
 	public abstract int updateProductByCategoryNumZero (int productNum);
 	public abstract List<OrderProductVO> selectOrderBySellerId(OrderProductVO orderProductVO);
 	
-	public abstract OrderVO selectDeliveryInfoById(String id);
+	public abstract OrderVO selectDeliveryInfoById(OrderVO orderVO);
 	
 	// 가장 최근 등록한 상품의 프로덕트넘 봅아오기
 	public abstract int selectLatelyProductNum(String id);
