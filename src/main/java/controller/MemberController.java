@@ -163,7 +163,7 @@ public class MemberController {
 //		String addressFinal = address + " " + addressEtc;
 //
 //		memberVO.setAddress(addressFinal);
-
+ 
 		String pw = memberVO.getPassword();
 		String hashPw = BCrypt.hashpw(pw, BCrypt.gensalt());
 		memberVO.setPassword(hashPw);
