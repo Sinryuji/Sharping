@@ -67,13 +67,16 @@ body {
 	display: inline-block;
 }
 
+.navbar-nav>li>a {
+	padding-top: 30px;
+}
+
 .navbar-nav>li.navbar-right {
 	float: right !important;
 }
 
 section#container {
 	padding: 20px 0;
-	border-top: 2px solid #eee;
 	margin-bottom: 50px;	
 }
 
@@ -262,7 +265,7 @@ footer#footer div {
 								<c:choose>
 									<c:when test="${empty productList }">
 										<tr>
-											<td colspan="5" align="center"><b>검색결과가 없습니다.</b></td>
+											<td colspan="10" align="center"><b>검색결과가 없습니다.</b></td>
 										</tr>
 									</c:when>
 									<c:when test="${!empty productList}">

@@ -6,7 +6,7 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width" initial-scale="1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- jquery -->
 <script src="//code.jquery.com/jquery.min.js"></script>
 
@@ -44,8 +44,7 @@
 		window.name = "AdminPage";
 
 		// window.open("자식창 이름", "불러올 자식 창의 닉네임", "팝업창 옵션");
-		window
-				.open("registerAdmin", "새관리자등록",
+		window.open("registerAdmin", "새관리자등록",
 						"width = 500, height = 320, resizable = no, scrollbars = no, status = no");
 	}
 </script>
@@ -70,17 +69,6 @@ body {
 	min-height: 100%;
 	position: relative;
 	padding-bottom: 190px; /* footer height */
-}
-
-ul {
-	padding: 0;
-	margin: 0;
-	list-style: none;
-}
-
-div#root {
-	width: 90%;
-	margin: 0 auto;
 }
 
 .navbar-nav {
@@ -128,7 +116,9 @@ aside {
 aside ul li {
 	text-align: center;
 	margin-bottom: 10px;
+	list-style: none;
 }
+
 
 footer#footer {
 	background: #e7e7e7;

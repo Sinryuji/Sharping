@@ -14,28 +14,12 @@
 
 <title>SearchResult</title>
 
-<link rel='stylesheet'
+<link rel="stylesheet"
 	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/resources/css/woocommerce-layout.css'
-	type='text/css' media='all' />
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/resources/css/woocommerce-smallscreen.css'
-	type='text/css' media='only screen and (max-width: 768px)' />
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/resources/css/woocommerce.css'
-	type='text/css' media='all' />
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/resources/css/font-awesome.min.css'
-	type='text/css' media='all' />
+<script src="//code.jquery.com/jquery.min.js"></script>
+
 <link rel='stylesheet'
 	href='${pageContext.request.contextPath}/resources/css/styleSB.css'
-	type='text/css' media='all' />
-<link rel='stylesheet'
-	href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700'
-	type='text/css' media='all' />
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/resources/css/easy-responsive-shortcodes.css'
 	type='text/css' media='all' />
 
 <style>
@@ -44,7 +28,7 @@ html {
 }
 
 body {
-	background-image:url('https://paulhueman.co.kr:443/bbs/data/file/banner/2009714319_4Qzoxjug_20544c1b6b40a4acc5de0a9c3bde79bbdb7d68db.jpg');
+	/* background-image:url('https://paulhueman.co.kr:443/bbs/data/file/banner/2009714319_4Qzoxjug_20544c1b6b40a4acc5de0a9c3bde79bbdb7d68db.jpg'); */
 	background-size: cover;
 	padding: 0;
 	margin: 0;
@@ -66,6 +50,10 @@ body {
 .navbar-nav>li {
 	float: none;
 	display: inline-block;
+}
+
+.navbar-nav>li>a {
+	padding-top: 30px;
 }
 
 .navbar-nav>li.navbar-right {

@@ -701,7 +701,7 @@ public class OrderController {
 		} else {
 		}
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("MainPage");
+		mv.setViewName("order/PayMoneyResult");
 		return mv;
 	}
 

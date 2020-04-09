@@ -5,21 +5,43 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width" initial-scale="1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>MainPage</title>
 
 <link rel="stylesheet"
 	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
 <script src="//code.jquery.com/jquery.min.js"></script>
 
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/woocommerce-layout.css'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/woocommerce-smallscreen.css'
+	type='text/css' media='only screen and (max-width: 768px)' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/woocommerce.css'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/font-awesome.min.css'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/styleSB.css'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700'
+	type='text/css' media='all' />
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/easy-responsive-shortcodes.css'
+	type='text/css' media='all' />
+
 <style>
+
 html {
 	height: 100%;
 }
 
 body {
-	background-image:
-		url('https://paulhueman.co.kr:443/bbs/data/file/banner/2009714319_4Qzoxjug_20544c1b6b40a4acc5de0a9c3bde79bbdb7d68db.jpg');
+	background-image: url('https://paulhueman.co.kr:443/bbs/data/file/banner/2009714319_4Qzoxjug_20544c1b6b40a4acc5de0a9c3bde79bbdb7d68db.jpg');
 	background-size: cover;
 	padding: 0;
 	margin: 0;
@@ -29,13 +51,11 @@ body {
 .wrap {
 	min-height: 100%;
 	position: relative;
-	padding-bottom: 150px; /* footer height */
 }
 
 .navbar-nav {
 	width: 100%;
 	text-align: center;
-	height: 100%;
 }
 
 .navbar-nav>li {
@@ -43,24 +63,28 @@ body {
 	display: inline-block;
 }
 
+.navbar-nav>li>a {
+	padding-top: 30px;
+}
+
 .navbar-nav>li.navbar-right {
 	float: right !important;
 }
 
 #container {
-	position:absolute;
+	position: relative;
 	top:0;
 	left:0;
 	width:100%;
-	height:100%;
-	text-align:center;
+ 	height:100%;
+	text-align:center;	
+	padding: 20px 0;
 }
 
 #containerBox {
-	float: right;
-	width: calc(100% - 200px - 20px);
 	display:inline-block;
 	vertical-align:middle;
+
 }
 
 .blank {
@@ -70,19 +94,10 @@ body {
 	vertical-align:middle;
 }
 
-section#container::after {
-	content: "";
-	display: block;
-	clear: both;
-}
-
-
-/*    	  	.sDiv{
-   	  		height: 40px;
-   	  		text-align: center;
-      		background: transparent;
-      		width: 200px;
-   	  	} */
+.sDiv{
+	text-align: center;
+	background: transparent;
+} 
    	  	
 #search {
 	font-size: 17px;
@@ -98,7 +113,6 @@ section#container::after {
 }
 
 #btn {
-	width: 20px;
 	background: transparent;
 	ouline: none;
 	color: black;
@@ -115,8 +129,6 @@ section#container::after {
 } 
       	
 .mainCategory {
-	margin-left: 900px;
-	width: 300px;
 	background: transparent;
 }  
 
@@ -137,14 +149,19 @@ section#container::after {
 
 .cate {
 	float: left;
-	width: 20%;
+	width: 33.33%;
 	height: 400px;
-	text-align: center;
 	background: white;
-	background-color: rgba(255, 255, 255, 0.3);
+	background-color: rgba(255, 255, 255, 0.5);
 } 
 
+.cate h2 {
+	text-align: center;
+}
 
+#DepthOneSpace h4, #DepthTwoSpace h4, #DepthThreeSpace h4 {
+	text-align: center;
+}
 
 #medium {
 	border-right: 2px solid black;
@@ -159,18 +176,16 @@ section#container::after {
 
 		<nav class="navbar navbar-default">
 			<div id="navBox">
-				<%@ include file="./include/Nav.jsp"%>
+				<%@ include file="include/Nav.jsp"%>
 			</div>
 		</nav>
 
-		<article>
 			<section id="container">
 				<div id="containerBox">
 					<div class="sDiv">
 						<form action="productList" class="searchBox">
-							<input type="text" autocomplete="off" name="keyword" id="search"
-								placeholder="키워드를 입력하세요." /> <input type="image"
-								src="${pageContext.request.contextPath}/resources/images/search.png"
+							<input type="text" autocomplete="off" name="keyword" id="search" placeholder="키워드를 입력하세요." > 
+							<input type="image" src="${pageContext.request.contextPath}/resources/images/검색버튼.png"
 								value="검색" id="btn">
 						</form>
 					</div>
@@ -180,8 +195,7 @@ section#container::after {
 						<div class="mainCategoryButton">
 							<button type="button" id="mainCategoryView"
 								class="mainCategoryView">
-								<img
-									src="${pageContext.request.contextPath}/resources/images/cate.png"
+								<img src="${pageContext.request.contextPath}/resources/images/cate.png"
 									style="width: 60px; height: 50px;">
 							</button>
 						</div>
@@ -191,8 +205,6 @@ section#container::after {
 								<h2>
 									<b>대분류</b>
 								</h2>
-								<br>
-								<br>
 								<div id="DepthOneSpace">
 									<c:forEach var="category" items="${categorys}"
 										varStatus="status">
@@ -209,16 +221,12 @@ section#container::after {
 								<h2>
 									<b>중분류</b>
 								</h2>
-								<br>
-								<br>
 								<div id="DepthTwoSpace"></div>
 							</div>
 							<div class="cate">
 								<h2>
 									<b>소분류</b>
 								</h2>
-								<br>
-								<br>
 								<div id="DepthThreeSpace"></div>
 							</div>
 						</div>
@@ -228,51 +236,6 @@ section#container::after {
 				
 				<span class="blank"></span>
 			</section>
-		</article>
-
-
-		<%-- 	<div class="sDiv">
-		<form action="productList" class="searchBox">
-			<input type="text" autocomplete="off" name="keyword" id="search" placeholder="키워드를 입력하세요."/>
-			<input type="image" src="${pageContext.request.contextPath}/resources/images/search.png" value="검색" id="btn">
-		</form>
-	</div>
-	<br><br><br><h1><a href="<c:url value='/deliveryTracker'/>" > DeliveryTracker </a></h1>
-	
-	
-	<section id="container">
-		<div class="mainCategory">
-		<div class="mainCategoryButton">
-			<button type="button" id="mainCategoryView" class="mainCategoryView">
-				<img src="${pageContext.request.contextPath}/resources/images/cate.png" style="width:60px; height:50px;">
-			</button>
-		</div>
-		<div class="mainCategoryScroll">
-		<br>
-			<div class="cate" id="large">
-				<h2><b>대분류</b></h2><br><br>
-			<div id="DepthOneSpace">
-				<c:forEach var="category" items="${categorys}" varStatus="status">
-					<div id="categoryName${category.categoryNum}"><h4><a href="#" class="depthOne" data-type="${category.categoryNum}">${category.categoryName}</a></h4></div>
-				</c:forEach>
-			</div>
-			</div>
-			<div class="cate" id="medium">
-				<h2><b>중분류</b></h2><br><br>
-				<div id="DepthTwoSpace">
-				</div>
-			</div>
-			<div class="cate">
-				<h2><b>소분류</b></h2><br><br>
-				<div id="DepthThreeSpace">
-				</div>
-			</div>
-		</div>
-	</div>
-	</section> --%>
-
-
-
 	</div>
 
 	<c:forEach var="notice" items="${noticeList}" varStatus="status">

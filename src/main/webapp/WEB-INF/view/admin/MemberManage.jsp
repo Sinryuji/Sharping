@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width" initial-scale="1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>MemberManage</title>
 
@@ -70,18 +70,6 @@ body {
 	padding-bottom: 190px; /* footer height */
 }
 
-ul {
-	padding: 0;
-	margin: 0;
-	list-style: none;
-	 
-}
-
-div#root {
-	width: 90%;
-	margin: 0 auto;
-}
-
 .navbar-nav {
     width: 100%;
     text-align: center;
@@ -121,6 +109,7 @@ div#containerBox {
 aside ul li {
 	text-align: center;
 	margin-bottom: 10px;
+	list-style: none;	
 }
 
 footer#footer {

@@ -518,7 +518,7 @@ public class MemberController {
 //		changeMemberVO.setNewAddress(addressFinal);
 
 		memberService.updateMemberInfoById(changeMemberVO);
-		return "redirect:/main";
+		return "mypage/InfoChangeMemberResult";
 	}
 
 	// 판매자 회원 정보 수정
@@ -535,7 +535,7 @@ public class MemberController {
 
 		memberService.updateMemberInfoById(changeMemberVO);
 		memberService.updateSellerInfoById(changeMemberVO);
-		return "redirect:/main";
+		return "mypage/InfoChangeMemberResult";
 	}
 
 	// 회원 탈퇴 페이지
@@ -549,7 +549,7 @@ public class MemberController {
 	public String infoDeleteComplete(DeleteVO deleteVO, HttpSession session) {
 		memberService.deleteMemberByIdPw(deleteVO);
 		session.invalidate();
-		return "redirect:/main";
+		return "mypage/InfoDeleteResult";
 	}
 
 	@RequestMapping(value = "/phoneCheck")

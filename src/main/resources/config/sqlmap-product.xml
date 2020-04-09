@@ -176,8 +176,7 @@
 	      "productThumb" = #{productThumb} , "productImage" = #{productImage} ,"productDisplay" = #{productDisplay} ,
 	      "stock" = #{stock} , "categoryNum" = #{categoryNum} ,"productMeterial" = #{productMeterial} , 
 	      "manufacturer" = #{manufacturer}  , "mfDate" = #{mfDate} , "origin" = #{origin} , 
-		  "deliveryPrice" = #{deliveryPrice} ,"optionOneName" = #{optionOneName} , 
-		  "optionTwoName" = #{optionTwoName} , "optionThreeName" = #{optionThreeName}
+		  "deliveryPrice" = #{deliveryPrice} 
 	  WHERE "productNum" = #{productNum}
    </update>
    
@@ -187,8 +186,7 @@
 	      "productThumb" = #{productThumb} , "productImage" = #{productImage} ,"productDisplay" = #{productDisplay} ,
 	      "stock" = #{stock} , "categoryNum" = #{categoryNum} ,"productMeterial" = #{productMeterial} , 
 	      "manufacturer" = #{manufacturer}  , "origin" = #{origin} , 
-		  "deliveryPrice" = #{deliveryPrice} ,"optionOneName" = #{optionOneName} , 
-		  "optionTwoName" = #{optionTwoName} , "optionThreeName" = #{optionThreeName}
+		  "deliveryPrice" = #{deliveryPrice} 
 	  WHERE "productNum" = #{productNum}
    </update>
    

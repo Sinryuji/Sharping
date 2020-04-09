@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width" initial-scale="1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 
 <title>DeliveryAddress</title>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
@@ -56,18 +56,22 @@ body {
 }
 
 .navbar-nav {
-    width: 100%;
-    text-align: center;
+	width: 100%;
+	text-align: center;
 }
 
-.navbar-nav > li {
-    float: none;
-    display: inline-block;
+.navbar-nav>li {
+	float: none;
+	display: inline-block;
 }
 
-.navbar-nav > li.navbar-right {
-    float: right !important;
-} 
+.navbar-nav>li>a {
+	padding-top: 30px;
+}
+
+.navbar-nav>li.navbar-right {
+	float: right !important;
+}
 
 section#container {
 	padding: 20px 0;

@@ -278,7 +278,7 @@
       <tbody>
          <c:choose>
             <c:when test="${empty productList }" >
-               <tr><td colspan="5" align="center"><b>등록된 상품이 없습니다.</b></td></tr>
+               <tr><td colspan="10" align="center"><b>등록된 상품이 없습니다.</b></td></tr>
             </c:when> 
             <c:when test="${!empty productList}">
                <c:forEach var="list" items="${productList}" varStatus="status">
