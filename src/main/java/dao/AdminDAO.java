@@ -4,6 +4,7 @@ import java.util.List;
 
 import vo.AdminVO;
 import vo.CategoryVO;
+import vo.DeclProductVO;
 import vo.MemberVO;
 import vo.NoticeVO;
 import vo.SellerVO;
@@ -69,8 +70,20 @@ public interface AdminDAO {
 	
 	//카테고리 삭제
 	public abstract int deleteCategory(int categoryNum);
+	
 	//공지사항 진열여부
 	public abstract int updateNoticePostByNoticeNum(NoticeVO noticeVO) throws Exception;
+	
 	//공지사항 진열여부 값'TRUE' 가져오기
 	public abstract List<NoticeVO> selectNoticeByNoticePost(String t) throws Exception;
+	
+	//신고상품 리스트
+	public abstract List<DeclProductVO> selectDeclProduct(DeclProductVO declProductVO);
+	
+	//신고번호로 신고내용 가져오기
+	public abstract DeclProductVO selectDeclProductByDeclNum(int declNum);
+	
+	//신고번호로 신고 삭제하기
+	public abstract int deleteDeclProductByDeclNum(DeclProductVO declProductVO);
+	
 }

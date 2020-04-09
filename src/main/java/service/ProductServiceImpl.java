@@ -8,6 +8,7 @@ import org.springframework.stereotype.Service;
 import dao.ProductDAO;
 import vo.BasketListVO;
 import vo.BasketVO;
+import vo.DeclProductVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
 import vo.OrderListVO;
@@ -264,5 +265,8 @@ public class ProductServiceImpl implements ProductService {
 	@Override
 	public List<ProductVO> selectProductByIdPaging(ProductVO productVO) {
 		return productDAO.selectProductByIdPaging(productVO);
+	}
+	public int insertDeclProduct(DeclProductVO declProductVO) {
+		return productDAO.insertDeclProduct(declProductVO);
 	}
 }

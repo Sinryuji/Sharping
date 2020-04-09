@@ -3,10 +3,12 @@ package controller;
 import java.sql.Date;
 import java.sql.Timestamp;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -25,7 +27,9 @@ import service.AdminService;
 import service.MemberService;
 import service.ProductService;
 import vo.AdminVO;
+import vo.AuthInfo;
 import vo.CategoryVO;
+import vo.DeclProductVO;
 import vo.MemberVO;
 import vo.NoticeVO;
 import vo.ProductVO;
@@ -445,6 +449,90 @@ public class AdminController {
 		
 
 		return "/admin/Notice";
+	}
+	
+	// 신고상품 관리
+	@RequestMapping(value = "/admin/declProductManage")
+	public ModelAndView declProductManage(
+			@RequestParam(required=false) String declReason,
+			@RequestParam(required=false) String search) {
+		
+		DeclProductVO declProductVO = new DeclProductVO();
+		
+		declProductVO.setDeclReason(declReason);
+		declProductVO.setSearch(search);
+		
+		List<DeclProductVO> declList = adminService.selectDeclProduct(declProductVO);
+		
+		List<ProductVO> productList = new ArrayList<ProductVO>();
+		
+		for(int i = 0 ; i<declList.size() ; i++) {
+			productList.add(productService.selectProduct(declList.get(i).getProductNum()));
+		}
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("/admin/DeclProductManage");
+		
+		mv.addObject("declList", declList);
+		
+		mv.addObject("productList", productList);
+		
+		mv.addObject("currentReason", declReason);
+		
+		mv.addObject("search", search);
+		
+		return mv;
+	}
+	
+	// 신고 내용 확인
+	@RequestMapping(value = "/admin/declText")
+	@ResponseBody
+	public ModelAndView declText(int declNum) {
+
+		DeclProductVO decl = adminService.selectDeclProductByDeclNum(declNum);
+		
+		ProductVO product = productService.selectProduct(decl.getProductNum());
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("admin/DeclContent");
+		
+		mv.addObject("decl", decl);
+		
+		mv.addObject("product", product);
+		
+		return mv;
+	}
+	
+	// 신고 상품 관리 (상품 선택 삭제)
+	@RequestMapping(value = "deleteSelectDeclProductByProductNum")
+	@ResponseBody
+	public void deleteSelectDeclProductByProductNum(
+		@RequestParam(value = "chk[]") List<String> selArr, ProductVO productVO) {
+
+		int productNum = 0;
+		
+		for (String i : selArr) {
+			productNum = Integer.parseInt(i);
+			productVO.setProductNum(productNum);
+			productService.deleteProductByProductNum(productVO);
+		}
+	}
+	
+	// 신고 상품 관리 (신고 선택 삭제)
+	@RequestMapping(value = "deleteSelectDeclProductByDeclNum")
+	@ResponseBody
+	public void deleteSelectDeclProductByDeclNum(
+		@RequestParam(value = "chk[]") List<String> selArr, DeclProductVO declProductVO) {
+
+		int declNum = 0;
+		
+		for (String i : selArr) {
+			declNum = Integer.parseInt(i);
+			declProductVO.setDeclNum(declNum);
+			adminService.deleteDeclProductByDeclNum(declProductVO);
+		}
 	}
 
 

@@ -10,6 +10,7 @@ import vo.DeleteVO;
 import vo.DeliveryAddressVO;
 import vo.MemberVO;
 import vo.SellerVO;
+import vo.WishListVO;
 
 public class MemberDAOImpl implements MemberDAO{
 	
@@ -118,6 +119,25 @@ public class MemberDAOImpl implements MemberDAO{
 	public List<SellerVO> searchSellerByIds(String[] proId) {
 		return sqlSessionTemplate.selectList("memberDAO.searchSellerByIds",proId);
 	}
+	
+	@Override
+	public List<WishListVO> selectWishListByIdProductNum(WishListVO wishListVO) {
+		return sqlSessionTemplate.selectList("memberDAO.selectWishListByIdProductNum", wishListVO);
+	}
+	
+	@Override
+	public List<WishListVO> selectWishListById(WishListVO wishListVO) {
+		return sqlSessionTemplate.selectList("memberDAO.selectWishListById", wishListVO);
+	}
 
+	@Override
+	public int insertWishList(WishListVO wishListVO) {
+		return sqlSessionTemplate.insert("memberDAO.insertWishList", wishListVO);
+	}
+	
+	@Override
+	public int deleteWishListByIdProductNum(WishListVO wishListVO) {
+		return sqlSessionTemplate.delete("memberDAO.deleteWishListByIdProductNum", wishListVO);
+	}
 
 }

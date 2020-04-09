@@ -10,6 +10,7 @@ import dao.MemberDAO;
 import exception.IdPasswordNotMatchingException;
 import vo.AdminVO;
 import vo.CategoryVO;
+import vo.DeclProductVO;
 import vo.MemberVO;
 import vo.NoticeVO;
 import vo.SellerVO;
@@ -175,5 +176,19 @@ public class AdminServiceImpl implements AdminService {
 		return adminDAO.selectNoticeByNoticePost(t);
 	}
 	
+	@Override
+	public List<DeclProductVO> selectDeclProduct(DeclProductVO declProductVO) {
+		return adminDAO.selectDeclProduct(declProductVO);
+	}
+	
+	@Override
+	public DeclProductVO selectDeclProductByDeclNum(int declNum) {
+		return adminDAO.selectDeclProductByDeclNum(declNum);
+	}
+	
+	@Override
+	public int deleteDeclProductByDeclNum(DeclProductVO declProductVO) {
+		return adminDAO.deleteDeclProductByDeclNum(declProductVO);
+	}
 		
 }

@@ -17,6 +17,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
+import javax.validation.Valid;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
@@ -39,6 +40,7 @@ import vo.AuthInfo;
 import vo.BasketListVO;
 import vo.BasketVO;
 import vo.CategoryVO;
+import vo.DeclProductVO;
 import vo.DetailOptionVO;
 import vo.MemberVO;
 import vo.OptionVO;
@@ -48,6 +50,7 @@ import vo.OrderVO;
 import vo.ProductVO;
 import vo.SearchVO;
 import vo.SellerVO;
+import vo.WishListVO;
 
 @Controller
 public class ProductController {
@@ -221,7 +224,7 @@ public class ProductController {
 	
 	// 상품 페이지
 	@RequestMapping("/product")
-	public ModelAndView product(int productNum, HttpServletResponse resp) {
+	public ModelAndView product(int productNum, HttpServletResponse resp, HttpServletRequest req) {
 		Cookie cookie = null;
 		try {
 			cookie = new Cookie("latelyViewProduct"+productNum, URLEncoder.encode(String.valueOf(productNum), "UTF-8"));
@@ -233,6 +236,23 @@ public class ProductController {
 		}
 		
 		resp.addCookie(cookie);
+		
+		HttpSession session = req.getSession();
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		WishListVO wishListVO = new WishListVO();
+		
+		int result = 0;
+		
+		if(authInfo != null) {
+			wishListVO.setId(authInfo.getId());
+			wishListVO.setProductNum(productNum);
+			
+			List<WishListVO> list = memberService.selectWishListByIdProductNum(wishListVO);
+			if(list != null) {
+				result = list.size();
+			}
+		}
 	
 		ProductVO productVO = productService.selectProduct(productNum);
 		SellerVO sellerVO = memberService.searchSellerById(productVO.getId());
@@ -276,6 +296,8 @@ public class ProductController {
 		mv.addObject("detailOptionList", detailOptionList);
 
 		mv.addObject("maxOptionLevel", maxOptionLevel);
+		
+		mv.addObject("result", result);
 
 		return mv;
 	}
@@ -474,7 +496,7 @@ public class ProductController {
 		return "complete";
 	}
 
-	// 상품 관리 탭 상품 전체 삭제
+	// 상품 관리 탭 상품 선택 삭제
 	@RequestMapping(value = "deleteSelectProductByProductNum")
 	@ResponseBody
 	public ModelAndView deleteSelectProductByProductNum(HttpServletRequest req,
@@ -483,7 +505,6 @@ public class ProductController {
 
 		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 
-		int result = 0;
 		int productNum = 0;
 
 		if (authInfo != null) {
@@ -1300,6 +1321,24 @@ public class ProductController {
 		mv.addObject("products", products);
 		
 		return mv;
+	}
+	
+	// 상품 신고 페이지
+	@RequestMapping(value = "/decl")
+	public String decl() {
+		return "product/Decl";
+	}
+	
+	// 상품 신고 
+	@RequestMapping(value = "/insertDeclProduct")
+	public void insertDeclProduct( HttpServletRequest req, @Valid DeclProductVO declProductVO) {
+		HttpSession session = req.getSession();
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		declProductVO.setDeclId(authInfo.getId());
+		
+		productService.insertDeclProduct(declProductVO);
+		
 	}
 
 }

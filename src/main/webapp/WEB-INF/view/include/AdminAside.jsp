@@ -9,4 +9,6 @@
 			MemberManage </a>
 	<li><a href="<c:url value='/admin/noticeManage'/>">
 			NoticeManage </a>
+	<li><a href="<c:url value='/admin/declProductManage'/>">
+			DeclProductManage </a>
 </ul>

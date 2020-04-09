@@ -5,6 +5,7 @@ import java.util.List;
 
 import vo.BasketListVO;
 import vo.BasketVO;
+import vo.DeclProductVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
 import vo.OrderListVO;
@@ -113,5 +114,7 @@ public interface ProductService {
 	
 	// 아이디로 프로덕트 리스트 뽑아오기(페이징용)
 	public abstract List<ProductVO> selectProductByIdPaging (ProductVO productVO);
+	// 상품 신고하기
+	public abstract int insertDeclProduct(DeclProductVO declProductVO);
 
 }

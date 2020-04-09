@@ -44,6 +44,7 @@ import vo.DeleteVO;
 import vo.DeliveryAddressVO;
 import vo.MemberVO;
 import vo.SellerVO;
+import vo.WishListVO;
 
 @Service
 public class MemberServiceImpl implements MemberService {
@@ -306,6 +307,26 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<SellerVO> searchSellerByIds(String[] proId) {
 		return memberDAO.searchSellerByIds(proId);
+	}
+	
+	@Override
+	public List<WishListVO> selectWishListByIdProductNum(WishListVO wishListVO) {
+		return memberDAO.selectWishListByIdProductNum(wishListVO);
+	}
+	
+	@Override
+	public List<WishListVO> selectWishListById(WishListVO wishListVO) {
+		return memberDAO.selectWishListById(wishListVO);
+	}
+	
+	@Override
+	public int insertWishList(WishListVO wishListVO) {
+		return memberDAO.insertWishList(wishListVO);
+	}
+	
+	@Override
+	public int deleteWishListByIdProductNum(WishListVO wishListVO) {
+		return memberDAO.deleteWishListByIdProductNum(wishListVO);
 	}
 
 }

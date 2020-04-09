@@ -64,7 +64,7 @@
 		
 		.in{
 			position: absolute;
-			left:40%;
+			left:45%;
 			top:35%;
 		}
 </style>
@@ -73,12 +73,25 @@
 <div id="mm">
 		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
 	</div><br><br>
-	<div class="reg">
+	<c:if test="${authInfo.sellerCheck == 'false' }">
+		<div class="reg">
+			<div class="in">
+					<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/infoChangeMember'" value="구매자">
+			</div>
+		</div>
+	</c:if>
+	<c:if test="${authInfo.sellerCheck == 'true' }">
+		<div class="reg">
+			<div class="in">
+				<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/infoChangeSeller'" value="판매자">	
+			</div>
+		</div>
+	</c:if>
+	<%-- <div class="reg">
 		<div class="in">
-			<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/infoChangeMember'" value="구매자">
-			&nbsp;&nbsp;
+			<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/infoChangeMember'" value="구매자">&nbsp;&nbsp;
 			<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/infoChangeSeller'" value="판매자">
 		</div>
-	</div>
+	</div> --%>
 </body>
 </html>

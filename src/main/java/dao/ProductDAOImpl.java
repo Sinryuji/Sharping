@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import vo.BasketListVO;
 import vo.BasketVO;
+import vo.DeclProductVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
 import vo.OrderListVO;
@@ -247,6 +248,9 @@ public class ProductDAOImpl implements ProductDAO{
 	@Override
 	public List<ProductVO> getProductListTotal(SearchVO searchVO) {
 		return sqlSessionTemplate.selectList("productDAO.getProductListTotal", searchVO);
+	}
+	public int insertDeclProduct(DeclProductVO declProductVO) {
+		return sqlSessionTemplate.insert("productDAO.insertDeclProduct", declProductVO);
 	}
 	
 	@Override

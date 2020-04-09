@@ -324,4 +324,8 @@
  		SELECT MAX("productNum") FROM PRODUCT WHERE "id" = #{id}
  	</select>
  	
+ 	<insert id="insertDeclProduct" parameterType="declProductVO">
+		INSERT INTO DECLPRODUCT VALUES(DECLPRODUCT_SEQ.NEXTVAL , #{declReason}, #{declText} , #{productNum} , SYSDATE , #{sellerId} , #{declId})
+	</insert>
+ 	
 </mapper>

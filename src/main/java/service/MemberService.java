@@ -12,6 +12,7 @@ import vo.DeleteVO;
 import vo.DeliveryAddressVO;
 import vo.MemberVO;
 import vo.SellerVO;
+import vo.WishListVO;
 
 public interface MemberService {
 	
@@ -58,4 +59,12 @@ public interface MemberService {
 	public abstract DeliveryAddressVO selectDeliveryAddressBydaaNameId(DeliveryAddressVO deliveryAddressVO);
 	
 	public abstract List<SellerVO> searchSellerByIds(String[] proId);
+	
+	public abstract List<WishListVO> selectWishListByIdProductNum(WishListVO wishListVO);
+	
+	public abstract List<WishListVO> selectWishListById(WishListVO wishListVO);
+	
+	public abstract int insertWishList(WishListVO wishListVO);
+	
+	public abstract int deleteWishListByIdProductNum(WishListVO wishListVO);
 }
