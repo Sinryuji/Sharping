@@ -111,7 +111,7 @@ select, #firstDate, #secondDate {
 	margin-bottom: 10px;
 }
 
-#submit, #deposit, #cancel, #deliveryTracking {
+#submit, #deposit, #cancel, #deliveryTracking, #buyConfirm {
 	width: 100px;
 	height: 30px;
 	font-family: 'Roboto', sans-serif;
@@ -130,7 +130,7 @@ select, #firstDate, #secondDate {
 	opacity: 0.8;
 }
 
-#submit:hover, #deposit:hover, #cancel:hover, #deliveryTracking:hover {
+#submit:hover, #deposit:hover, #cancel:hover, #deliveryTracking:hover, #buyConfirm:hover {
 	background-color: #FFB2F5;
 	box-shadow: 0px 15px 20px hotpink;
 	color: #fff;
@@ -268,8 +268,13 @@ footer#footer div {
 													<input type="submit" id="cancel" value="주문 취소">
 												</form>
 											</c:if> <c:if
-												test="${order.state == '배송 중' || order.state == '배송 완료'}">
+												test="${order.state == '배송 중'}">
 												<button type="button" id="deliveryTracking" class="deliveryTracking" value="${order.orderNum}">배송조회</button>
+											</c:if>
+											<c:if
+												test="${order.state == '배송 완료'}">
+												<button type="button" id="deliveryTracking" class="deliveryTracking" value="${order.orderNum}">배송조회</button>
+												<button type="button" id="buyConfirm" class="buyConfirm" value="${order.orderNum}">구매확정</button>
 											</c:if>
 										</td>
 									</tr>

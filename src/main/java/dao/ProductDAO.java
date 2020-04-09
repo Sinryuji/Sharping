@@ -121,4 +121,7 @@ public interface ProductDAO {
 	public abstract List<ProductVO> selectProductByIdPaging (ProductVO productVO);
 	// 상품 신고하기
 	public abstract int insertDeclProduct(DeclProductVO declProductVO);
+	
+	// 주문 관리 로우넘 없이 뽑아오기
+	public abstract List<OrderProductVO> selectOrderBySellerIdTotal(OrderProductVO orderProductVO);
 }

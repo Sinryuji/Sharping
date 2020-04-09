@@ -310,6 +310,7 @@ footer#footer div {
 <script>
 
 history.scrollRestoration = "manual";
+var categoryNum = "${categoryNum}";
 
 var page = 1;
 
@@ -342,7 +343,8 @@ function getList(page) {
 	        	keyword2 : $("#keyword2").val(),
 	        	minPrice : $("#minPrice").val(),
 	        	maxPrice : $("#maxPrice").val(),
-	        	checkDelivery : $("#checkDelivery").val()
+	        	checkDelivery : $("#checkDelivery").val(),
+	        	categoryNum : categoryNum
 	        	},
 	        url : '<%=request.getContextPath()%>/productListPaging',
 	        success : function(data) {

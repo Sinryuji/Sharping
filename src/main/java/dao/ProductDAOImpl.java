@@ -257,4 +257,9 @@ public class ProductDAOImpl implements ProductDAO{
 	public List<ProductVO> selectProductByIdPaging(ProductVO productVO) {
 		return sqlSessionTemplate.selectList("productDAO.selectProductByIdPaging", productVO);
 	}
+	
+	@Override
+	public List<OrderProductVO> selectOrderBySellerIdTotal(OrderProductVO orderProductVO) {
+		return sqlSessionTemplate.selectList("productDAO.selectOrderBySellerIdTotal", orderProductVO);
+	}
 }

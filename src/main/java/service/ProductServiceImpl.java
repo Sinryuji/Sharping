@@ -269,4 +269,9 @@ public class ProductServiceImpl implements ProductService {
 	public int insertDeclProduct(DeclProductVO declProductVO) {
 		return productDAO.insertDeclProduct(declProductVO);
 	}
+	
+	@Override
+	public List<OrderProductVO> selectOrderBySellerIdTotal(OrderProductVO orderProductVO) {
+		return productDAO.selectOrderBySellerIdTotal(orderProductVO);
+	}
 }

@@ -533,7 +533,7 @@ public class ProductController {
 
 	// 주문 관리 탭
 	@RequestMapping("/orderManage")
-	public ModelAndView orderManage(HttpServletRequest req, String id, @RequestParam(required=false) String search, @RequestParam(required=false) String dSearch) {
+	public ModelAndView orderManage(HttpServletRequest req, String id, @RequestParam(required=false) String search, @RequestParam(required=false) String dSearch, int page) {
 
 		HttpSession session = req.getSession();
 
@@ -562,6 +562,38 @@ public class ProductController {
 
 		return mv;
 	}
+	
+	// 주문 관리 탭 스크롤
+		@RequestMapping("/orderManageScroll")
+		public ModelAndView orderManageScroll(HttpServletRequest req, String id, @RequestParam(required=false) String search, @RequestParam(required=false) String dSearch, int page) {
+
+			HttpSession session = req.getSession();
+
+			AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+
+			id = authInfo.getId();
+			
+			OrderProductVO orderProduct = new OrderProductVO();
+			
+			orderProduct.setId(id);
+			orderProduct.setSearch(search);
+			orderProduct.setState(dSearch);
+			
+
+			List<OrderProductVO> orderList = productService.selectOrderBySellerId(orderProduct);
+
+			ModelAndView mv = new ModelAndView();
+
+			mv.setViewName("seller/OrderManage");
+
+			mv.addObject("orderList", orderList);
+			
+			mv.addObject("currentState", dSearch);
+			
+			mv.addObject("search", search);
+
+			return mv;
+		}
 
 	// 구매자 정보 조회
 	@RequestMapping("/buyerInfo")
@@ -787,6 +819,8 @@ public class ProductController {
 		search.setProductDate(productDate);
 		search.setCategoryNum(categoryNum);
 		
+		System.out.println("@@@@@@@@@@" + categoryNum);
+		
 		int totCnt = productService.getProductListTotal(search).size();
 		
 		if(page == 1) {
@@ -809,6 +843,7 @@ public class ProductController {
 		model.addAttribute("keyword2", keyword2);
 		model.addAttribute("minPrice", minPrice);
 		model.addAttribute("maxPrice", maxPrice);
+		model.addAttribute("categoryNum", categoryNum);
 		return "product/SearchResult";
 	}
 	
@@ -863,6 +898,7 @@ public class ProductController {
 			map.put("keyword2", keyword2);
 			map.put("minPrice", minPrice);
 			map.put("maxPrice", maxPrice);
+			map.put("categoryNum", categoryNum);
 			return map;
 		}
 	

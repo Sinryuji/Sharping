@@ -179,7 +179,7 @@
 	
 	
 	<select id="getProductList"  resultType="productVO">
-		SELECT * FROM (SELECT rownum rnum, "productNum", "productName", "productThumb", "productPrice","deliveryPrice" ,"id", "categoryNum", "productDate" FROM PRODUCT WHERE "productDisplay" like 'TRUE' AND "productName" like '%'||#{keyword}||'%') WHERE rnum &gt;= #{startNum} AND rnum &lt;= #{endNum}	
+		SELECT * FROM (SELECT rownum rnum, "productNum", "productName", "productThumb", "productPrice","deliveryPrice" ,"id", "categoryNum", "productDate" FROM PRODUCT WHERE "productDisplay" like 'TRUE' AND "productName" like '%'||#{keyword}||'%'	
 	
 			<if test="searchType=='productNum' and keyword2 != null and keyword2 != '' ">
 				AND "productNum" like '%'||#{keyword2}||'%'
@@ -208,6 +208,7 @@
 			<if test="sortType == 'productDate' ">
 				order by "productDate" desc
 			</if>
+			) WHERE rnum &gt;= #{startNum} AND rnum &lt;= #{endNum}
 			
 					
 	</select>
@@ -300,6 +301,23 @@
  	</update>
 
  	<select id="selectOrderBySellerId" parameterType="orderProductVO" resultType="orderProductVO">
+ 		SELECT *
+		FROM (SELECT O."orderNum", O."orderDate", O."state", O."payCase", O."payPrice", O."trackingNum", O."toName", O."toPhone", O."toPost", O."toAddress", O."id", O."deliveryMessage", O."payNum", O."trackingCode", OL."olNum", OL."productName", OL."productThumb", OL."optionOneNum", OL."optionTwoNum", OL."optionThreeNum", OL."productPrice", OL."cnt", OL."optionNum", PR."productText", PR."productImage", PR."productDisplay", PR."categoryNum", PR."productDate", PR."productMeterial", PR."manufacturer", PR."mfDate", PR."origin", PR."deliveryPrice", PR."optionOneName", PR."optionTwoName", PR."optionThreeName" 
+		FROM ORDERR O, ORDERLIST OL, OPTIONN OP, PRODUCT PR 
+		WHERE PR."id" = '#{id}' 
+		AND O."orderNum" = OL."orderNum" 
+		AND OL."optionNum" = OP."optionNum" 
+		AND OP."productNum" = PR."productNum"
+		<if test=" state != null and state != '' ">
+			AND O."state" = #{state}
+		</if>	
+		<if test=" search != null and search != '' ">
+			AND OL."productName" like '%'||#{search}||'%'	
+		</if>
+		) WHERE rnum &gt;= #{startNum} AND rnum &lt;= #{endNum}
+ 	</select>
+ 	
+ 	<select id="selectOrderBySellerIdTotal" parameterType="orderProductVO" resultType="orderProductVO">
  		SELECT * 
 		FROM ORDERR O, ORDERLIST OL, OPTIONN OP, PRODUCT P 
 		WHERE P."id" = #{id} 
