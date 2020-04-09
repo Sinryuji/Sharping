@@ -85,5 +85,21 @@
 	<update id="updateDeliveryAddress" parameterType="deliveryAddressVO">
 		UPDATE DELIVERYADDRESS SET "id" = #{id}, "daPost" = #{daPost}, "daAddress" = #{daAddress}, "daaName" = #{newDaaName}, "daName" = #{daName}, "daPhone" = #{daPhone}, "daAddressEtc" = #{daAddressEtc} WHERE "daaName" = #{daaName} AND "id" = #{id}
 	</update>
+	
+	<select id="selectWishListByIdProductNum" parameterType="wishListVO" resultType="wishListVO">
+		SELECT * FROM WISHLIST WHERE "id" = #{id} AND "productNum" = #{productNum}
+	</select>
+	
+	<select id="selectWishListById" parameterType="wishListVO" resultType="wishListVO">
+		SELECT "productNum" FROM WISHLIST WHERE "id" = #{id}
+	</select>
+	
+	<insert id="insertWishList" parameterType="wishListVO">
+		INSERT INTO WISHLIST VALUES(WISHLIST_SEQ.NEXTVAL , #{id} , #{productNum})
+	</insert>
+	
+	<delete id="deleteWishListByIdProductNum" parameterType="wishListVO">
+		DELETE FROM WISHLIST WHERE "id" = #{id} AND "productNum" = #{productNum}
+	</delete>
 
 </mapper>

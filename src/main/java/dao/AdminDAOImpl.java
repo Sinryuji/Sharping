@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 
 import vo.AdminVO;
 import vo.CategoryVO;
+import vo.DeclProductVO;
 import vo.MemberVO;
 import vo.NoticeVO;
 import vo.SellerVO;
@@ -134,5 +135,19 @@ public class AdminDAOImpl implements AdminDAO {
 		return sqlSessionTemplate.selectList("adminDAO.selectNoticeByNoticePost", t);
 	}
 	
+	@Override
+	public List<DeclProductVO> selectDeclProduct(DeclProductVO declProductVO) {
+		return sqlSessionTemplate.selectList("adminDAO.selectDeclProduct", declProductVO);
+	}
+	
+	@Override
+	public DeclProductVO selectDeclProductByDeclNum(int declNum) {
+		return sqlSessionTemplate.selectOne("adminDAO.selectDeclProductByDeclNum", declNum);
+	}
+	
+	@Override
+	public int deleteDeclProductByDeclNum(DeclProductVO declProductVO) {
+		return sqlSessionTemplate.delete("adminDAO.deleteDeclProductByDeclNum", declProductVO);
+	}
 	
 }

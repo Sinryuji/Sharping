@@ -5,6 +5,7 @@ import java.util.List;
 
 import vo.BasketListVO;
 import vo.BasketVO;
+import vo.DeclProductVO;
 import vo.DetailOptionVO;
 import vo.OptionVO;
 import vo.OrderListVO;
@@ -107,5 +108,8 @@ public interface ProductService {
 	
 	// 가장 최근 등록한 상품의 프로덕트넘 봅아오기
 	public abstract int selectLatelyProductNum(String id);
+	
+	// 상품 신고하기
+	public abstract int insertDeclProduct(DeclProductVO declProductVO);
 
 }

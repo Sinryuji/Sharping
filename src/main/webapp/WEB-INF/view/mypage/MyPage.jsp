@@ -185,6 +185,9 @@
       value="배송주소록">
    <br>
    <br>
+   <input type="button" class="a"
+      onclick="location.href='${pageContext.request.contextPath}/wishList'"
+      value="관심 상품">
    <div class="filterBox">
       <form action="myPage" id="submitInfo" onsubmit="return false">
          <input type="date" name="firstDate" id="firstDate">&nbsp;&nbsp;&nbsp;~&nbsp;&nbsp;&nbsp;

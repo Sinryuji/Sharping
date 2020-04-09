@@ -10,7 +10,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
-import javax.annotation.Resource;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -22,7 +21,6 @@ import org.json.simple.JSONObject;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.concurrent.ThreadPoolTaskExecutor;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -54,6 +52,7 @@ import vo.OrderListVO;
 import vo.OrderVO;
 import vo.ProductVO;
 import vo.SellerVO;
+import vo.WishListVO;
 
 @Controller
 public class MemberController {
@@ -892,7 +891,92 @@ public class MemberController {
 		return mv;
 	}
 	
+	// 관심상품
+	@RequestMapping("/wishControl")
+	@ResponseBody
+	public String wishControl(@RequestParam int productNum , @RequestParam String result , HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		WishListVO wishListVO = new WishListVO();
+
+		wishListVO.setId(authInfo.getId());
+		wishListVO.setProductNum(productNum);
+		int rs = Integer.parseInt(result);
+		if(rs == 0) {
+			memberService.deleteWishListByIdProductNum(wishListVO);
+		}else {
+			memberService.insertWishList(wishListVO);
+		}
+		return "complete";
+	}
 	
+	// 관심상품 목록
+	@RequestMapping("/wishList")
+	public ModelAndView wishList(HttpServletRequest req) {
+		
+		HttpSession session = req.getSession();
+
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		WishListVO wishListVO = new WishListVO();
+		
+		wishListVO.setId(authInfo.getId());
+		
+		List<ProductVO> productList = new ArrayList<ProductVO>();
+		
+		List<WishListVO> list = memberService.selectWishListById(wishListVO);
+		
+		for(int i = 0 ; i<list.size() ; i++) {
+			productList.add(productService.selectProduct(list.get(i).getProductNum()));
+		}
+		
+		ModelAndView mv = new ModelAndView();
+		
+		mv.setViewName("mypage/WishList");
+		
+		mv.addObject("productList", productList);
+	
+		return mv;
+	}
+	
+	// 상품 관리 탭 상품 선택 삭제
+		@RequestMapping(value = "deleteSelectWishByProductNum")
+		@ResponseBody
+		public ModelAndView deleteSelectWishByProductNum(HttpServletRequest req,
+			@RequestParam(value = "chk[]") List<String> selArr, WishListVO wishListVO) {
+		HttpSession session = req.getSession();
+
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		wishListVO.setId(authInfo.getId());
+
+		int productNum = 0;
+
+		if (authInfo != null) {
+			for (String i : selArr) {
+				productNum = Integer.parseInt(i);
+				wishListVO.setProductNum(productNum);
+				memberService.deleteWishListByIdProductNum(wishListVO);
+			}
+		}
+		
+		ModelAndView mv = new ModelAndView();
+
+		List<ProductVO> productList = new ArrayList<ProductVO>();
+		
+		List<WishListVO> list = memberService.selectWishListById(wishListVO);
+		
+		for(int i = 0 ; i<list.size() ; i++) {
+			productList.add(productService.selectProduct(list.get(i).getProductNum()));
+		}
+		
+		mv.setViewName("mypage/WishList");
+		
+		mv.addObject("productList", productList);
+	
+		return mv;
+	}
 
 
 }

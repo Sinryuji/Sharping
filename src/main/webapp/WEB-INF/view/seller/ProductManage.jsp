@@ -97,7 +97,7 @@
       
       #mm {
     		text-align: center;
- 			margin: 0 950px;
+ 			margin: 0 910px;
     	}
     	
     	a{
@@ -412,29 +412,32 @@
      
      
      $("#selDelete").click(function(){
-        var sDel = confirm('선택된 상품을 삭제합니다.\n삭제 이후에는 복구가 불가능 합니다.\n 정말 삭제 하시겠습니까?');
-        if(sDel == true){
-           var selArr = new Array();
-           
-           $("input[class='select']:checked").each(function(){
-              selArr.push($(this).attr("data-productNum"));
-           });
-           
-           $.ajax({
-              url : "<%=request.getContextPath()%>/deleteSelectProductByProductNum",
-                 type : "post",
-                 data : { chk : selArr }, 
-                 
-                 success: function(data) {
-                    setTimeout(function() {
-                       history.go(0);
-                    }, 800);
-                 }
-           });
-        } else {
-           return false;
-        }
-        
+    	if($("#allSelect").is(":checked") || $(".select").is(":checked")){
+	        var sDel = confirm('선택된 상품을 삭제합니다.\n삭제 이후에는 복구가 불가능 합니다.\n 정말 삭제 하시겠습니까?');
+	        if(sDel == true){
+	           var selArr = new Array();
+	           
+	           $("input[class='select']:checked").each(function(){
+	              selArr.push($(this).attr("data-productNum"));
+	           });
+	           
+	           $.ajax({
+	              url : "<%=request.getContextPath()%>/deleteSelectProductByProductNum",
+	                 type : "post",
+	                 data : { chk : selArr }, 
+	                 
+	                 success: function(data) {
+	                    setTimeout(function() {
+	                       history.go(0);
+	                    }, 800);
+	                 }
+	           });
+	        } else {
+	           return false;
+	        }
+    	} else {
+    		alert('선택된 상품이 없습니다.')
+    	}
      });
    
    </script>

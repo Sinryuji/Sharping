@@ -35,6 +35,8 @@
 		<typeAlias alias="categoryVO" type="vo.CategoryVO"></typeAlias>
 		<typeAlias alias="orderProductVO" type="vo.OrderProductVO"></typeAlias>
 		<typeAlias alias="guestVO" type="vo.GuestVO"></typeAlias>
+		<typeAlias alias="wishListVO" type="vo.WishListVO"></typeAlias>
+		<typeAlias alias="declProductVO" type="vo.DeclProductVO"></typeAlias>
 	</typeAliases>
 	
 </configuration> 

@@ -13,7 +13,7 @@
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/woocommerce-smallscreen.css' type='text/css' media='only screen and (max-width: 768px)'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/woocommerce.css' type='text/css' media='all'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font-awesome.min.css' type='text/css' media='all'/>
-<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/style.css' type='text/css' media='all'/>
+<%-- <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/styleSB.css' type='text/css' media='all'/> --%>
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700' type='text/css' media='all'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/easy-responsive-shortcodes.css' type='text/css' media='all'/>
 	
@@ -31,6 +31,53 @@
    	  	h1{
    	  		display:inline;
    	  	}
+   	  	
+   	  	.chk input[type="checkbox"]{
+   	  		display:none;
+   	  	}
+   	  	
+   	  	.chk label{
+   	  		width: 20px;
+   	  		height:20px;
+   	  	}
+   	  	
+   	  	.chk_img{
+   	  		width: 22px;
+   	  	}
+   	  	
+   	  	.chk input[type="checkbox"] + label .chk_img{
+   	  		padding: 0 0 0 30px;
+   	  		width: 20px;
+   	  		height: 20px;
+   	  		cursor: pointer;
+   	  		background: url('${pageContext.request.contextPath}/resources/images/off.png') no-repeat;
+   	  		background-size:20px;
+   	  	}
+   	  	
+   	  	.chk input[type="checkbox"]:checked + label .chk_img{
+   	  		padding: 0 0 0 30px;
+   	  		width: 20px;
+   	  		height: 20px;
+   	  		cursor: pointer;
+   	  		background: url('${pageContext.request.contextPath}/resources/images/on.png') no-repeat;
+   	  		background-size:20px;
+   	  	}
+   	  	
+   	  	.chk, .decl{
+   	  		float:left;
+   	  	}
+   	  	
+   	  	input.decl_btn{
+   	  		background: url('${pageContext.request.contextPath}/resources/images/신고.png') no-repeat;
+   	  		background-size:25px;
+   	  		border: none;
+   	  		width: 25px;
+   	  		height: 25px;
+   	  		cursor: pointer;
+   	  		outline: none;
+   	  		vertical-align: middle;
+   	  	}
+
     </style>
 	
 
@@ -57,6 +104,20 @@
 								<b><img src="opload/${product.productImage}" width="250" height="250"></b>
 							</div>
 							<div class="summary entry-summary">
+								<c:if test="${!empty authInfo}">
+									<div class="chk">
+										<input type="checkbox" id="wish" class="wish" ${result == 1 ? "checked" : "" }>
+										<label for="wish">
+											<div class="chk_img"></div>
+										</label>
+									</div>
+									<div class="decl">
+										<input type="button" class="decl_btn" onclick="popup()">
+										<input type="hidden" name="sellerId" id="sellerId" value="${product.id}">
+									</div>
+									<br>
+									<br>
+								</c:if>
 								<form action="orderPage" id="orderPage">
 								<input type="hidden" name="productNum" id="productNum" value="${product.productNum}">
 								<h1 itemprop="name" class="product_title entry-title">${product.productName}</h1><!-- 상품명 -->
@@ -216,6 +277,45 @@ $('#cnt').change(function(){
 			
 		});
 	});
+	
+	/* 관심상품 */
+	
+	$(function(){
+      if(document.getElementById("wish").checked == true){
+    	  document.getElementById("wish").value = '1';
+      } else {
+    	  document.getElementById("wish").value = '0';
+      }               
+   });
+	
+ 	$("#wish").click(function(){
+	      if($(this).is(":checked")){
+	         document.getElementById("wish").value = '1';
+	      } else {
+	         document.getElementById("wish").value = '0';
+	      }
+	      
+	      $.ajax({
+	         url : "<%=request.getContextPath()%>/wishControl",
+	            type : "post",
+	            data : {
+	               productNum : $("#productNum").val(),
+	               result : $("#wish").val(),
+	            }, 
+	            success: function(data) {
+	               
+	            }
+	      });
+	   });
+ 	
+ 	var pop;
+ 	function popup(){
+ 		var url = "decl";
+ 		var name = "decl";
+ 		var option = "width = 500, height = 350, top = 100, left = 800";
+ 		pop = window.open(url, name, option);
+ 	}
+	
 </script>
 
 </body>
