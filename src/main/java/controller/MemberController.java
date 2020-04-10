@@ -149,7 +149,7 @@ public class MemberController {
 			throw new AlreadyExistingIdException();
 		}
 		memberService.registMember(memberVO);
-		return "redirect:/main";
+		return "login/RegistResult";
 	}
 
 	// 판매자 회원 가입 완료
@@ -173,7 +173,7 @@ public class MemberController {
 		}
 		memberService.registMember(memberVO);
 		memberService.registSeller(sellerVO);
-		return "redirect:/main";
+		return "login/RegistResult";
 	}
 
 	// 아이디 찾기/비밀번호 재설정 페이지

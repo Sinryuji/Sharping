@@ -5,10 +5,20 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SearchId</title>
+
+<link rel="stylesheet"
+	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
+
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/styleSB.css'
+	type='text/css' media='all' />
+	
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous"></script>
+	
 <script>
 /* 인증번호 발송 */
 function sendSms() {
@@ -122,186 +132,185 @@ $(function(){
 	
 </script>
 <style>
-		#mm {
-    		 text-align: center;
- 			 margin: 0 910px;
-    	}
-    	
-    	body{
-   	  		background-image:url('https://images.pexels.com/photos/1470589/pexels-photo-1470589.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
-   	  		overflow:hidden;
-   	  	}
-   	  	
-   	  	a{
-   	  		text-decoration:none;
-   	  		color:black;
-   	  	}
-   	  	
-   	  	h1{
-   	  		display:inline;
-   	  	}
-   	  	
-   	   .t {
-		    width: 200px;
-		    height: 100px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 18px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 35px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		}
 
-		.t:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
-		
-		.reg{
-			text-align: center;
-			/* background: white; */
-			margin: 0 650px;;
-			width: 600px;
-			height: 300px;
-			/* background-color: rgba( 255, 255, 255, 0.6 ); */
-			margin-top: 150px;
-		}
-		
-		.in{
-			position: absolute;
-			left:38.5%;
-			top:35%;
-		}
-		
-		table{
-		    border-collapse: collapse;
-		    line-height: 1.5;
-			width:600px;
-			margin-left:680px;
-		}
-		table thead th {
-		    padding: 10px;
-		    font-weight: bold;
-		    vertical-align: top;
-		    color: #369;
-		    border-bottom: 3px solid #036;
-		}
-		table tbody th {
-		    width: 150px;
-		    padding: 10px;
-		    font-weight: bold;
-		    vertical-align: top;
-		    border-bottom: 1px solid #ccc;
-		    background: #f3f6f7;
-		}
-		table td {
-		    width: 350px;
-		    padding: 10px;
-		    vertical-align: top;
-		    border-bottom: 1px solid #ccc;
-		}
-		
-		.td1{
-			background: silver;
-			text-align:center;
-			vertical-align:middle;
-		}
-		
-		.td2{
-			text-align:left;
-		}
-		
-		.btn{
-			text-align:center;
-			margin-left: 50px;
-		}
-		
-		.e_slide{
-			display:none;
-		}
-		
-		.p_slide{
-			display:none;
-		}
-		/* value에 문자열이 2~3글자 정도인 버튼 */
-		.b {
-		    width: 90px;
-		    height: 30px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 14px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 35px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		}
+html {
+	height: 100%;
+}
 
-		.b:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
-		
-		/* value에 문자열이 5~6글자 정도인 버튼 */
-		.a {
-		    width: 130px;
-		    height: 30px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 14px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 35px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		}
+body {
+	background-image: url('https://images.pexels.com/photos/1470589/pexels-photo-1470589.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+	background-size: cover;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
 
-		.a:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
+.navbar-nav {
+	width: 100%;
+	text-align: center;
+}
+
+.navbar-nav>li {
+	float: none;
+	display: inline-block;
+}
+
+.navbar-nav>li>a {
+	padding-top: 30px;
+}
+
+.navbar-nav>li.navbar-right {
+	float: right !important;
+}
+
+#container {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	padding: 20px 0;	
+}
+
+#containerBox {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+#containerBox h2 {
+	text-align: center;
+	padding-bottom: 10px;
+}
+
+.blank {
+	display: inline-block;
+	width: 0;
+	height: 100%;
+	vertical-align: middle;
+}
+
+#e_btn, #p_btn {
+	width: 200px;
+	height: 150px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+	text-transform: uppercase;
+	letter-spacing: 2.5px;
+	font-weight: 500;
+	color: white;
+	background-color: #6B66FF;
+	border: none;
+	border-radius: 35px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease 0s;
+	cursor: pointer;
+	outline: none;
+	opacity: 0.8;
+	margin-left: 15px;
+}
+
+#e_btn:hover, #p_btn:hover {
+	background-color: #FFB2F5;
+	box-shadow: 0px 15px 20px hotpink;
+	color: #fff;
+	transform: translateY(-7px);
+}
+		
+table{
+	margin-top: 30px;
+    border-collapse: collapse;
+	width:600px;
+}
+
+table thead th {
+    padding: 10px;
+    color: #369;
+    border-bottom: 3px solid #036;
+}
+
+table tbody th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #f3f6f7;
+}
+
+table td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
+		
+.td1{
+	background: silver;
+	text-align:center;
+	vertical-align:middle;
+}
+		
+.td2{
+	text-align:left;
+}
+		
+.e_slide{
+	display:none;
+}
+
+.p_slide{
+	display:none;
+}
+		
+		
+/* value에 문자열이 2~3글자 정도인 버튼 */
+#send, #check, 
+#searchIdPhone, #searchIdEmail,
+#emailBtn, #emailCheckBtn {
+	width: 90px;
+	height: 30px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 2.5px;
+	font-weight: 500;
+	color: white;
+	background-color: #6B66FF;
+	border: none;
+	border-radius: 35px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease 0s;
+	cursor: pointer;
+	outline: none;
+	opacity: 0.8;
+}
+
+#send:hover, #check:hover, 
+#searchIdPhone:hover, #searchIdEmail:hover,
+#emailBtn:hover, #emailCheckBtn:hover {
+	background-color: #FFB2F5;
+	box-shadow: 0px 15px 20px hotpink;
+	color: #fff;
+	transform: translateY(-7px);
+}
 		
 </style>
 </head>
 <body>
 	
-	<div id="mm">
-		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
-	</div>
-	<br><br>
-	<div class="reg">
-		<h2>아이디 찾기 방법을 선택해주세요</h2>
-		<div class="in">
-			<input type="button" class="t" id="e_btn" value="이메일">&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-			<input type="button" class="t" id="p_btn" value="문자 인증">
+	<nav class="navbar navbar-default">
+		<div id="navBox">
+			<%@ include file="../include/Nav.jsp"%>
 		</div>
-	</div>
+	</nav>
+	
+	<section id="container">	
+		<div id="containerBox">
+		<h2>아이디 찾기 방법을 선택해주세요</h2>		
+			<input type="button" class="t" id="e_btn" value="이메일">
+			<input type="button" class="t" id="p_btn" value="문자 인증">	
+			
 	<div class="e_slide">
 		<form action="searchIdEmail" method="get">
 			<table>
@@ -319,15 +328,15 @@ $(function(){
 			    	<tr>
 			    		<td class="td1">이메일</td>
 			    		<td class="td2">
-			    			<input type="text" id="email" name="email" placeholder="회원가입시 입력한 이메일"/>
-							<button type="button" class="a" id="emailBtn">이메일발송</button>
+			    			<input type="text" id="email" name="email"/>
+							<button type="button" id="emailBtn">발송</button>
 			    		</td>
 			    	</tr>
 			    	<tr>
 			    		<td class="td1">인증번호</td>
 			    		<td class="td2">
-			    			<input type="text" id="emailCheck" placeholder="인증번호입력">
-							<button type="button" class="a" id="emailCheckBtn">이메일인증</button>
+			    			<input type="text" id="emailCheck">
+							<button type="button" id="emailCheckBtn">인증</button>
 			    		</td>
 			    	</tr>
 			    </tbody>
@@ -335,7 +344,7 @@ $(function(){
 			<input type="hidden" path="random" id="random" value="${random}"/>
 			<br>
 			<div class="btn">
-				<input type="submit" id="searchIdEmail" class="b" name="searchIdEmail" value="찾기" disabled="true">
+				<input type="submit" id="searchIdEmail" name="searchIdEmail" value="찾기" disabled="true">
 			</div>
 		</form>
 	</div>
@@ -357,14 +366,14 @@ $(function(){
 			    		<td class="td1">휴대폰번호</td>
 			    		<td class="td2">
 			    			<input type="text" name="phone" id="phone" />
-							<button type="button" class="b" onclick="sendSms();">전송</button>
+							<button type="button" id="send" onclick="sendSms();">전송</button>
 			    		</td>
 			    	</tr>
 			    	<tr>
 			    		<td class="td1">인증번호</td>
 			    		<td class="td2">
 			    			<input type="text" name="confirmNumber" id="confirmNumber" />
-							<button type="button" class="b" onclick="phoneCheck();">인증</button>
+							<button type="button" id="check" onclick="phoneCheck();">인증</button>
 			    		</td>
 			    	</tr>
 			    </tbody>
@@ -372,28 +381,14 @@ $(function(){
 			<input type="hidden" path="random" id="random" value="${random }"/>
 			<br>
 			<div class="btn">
-				<input type="submit" id="searchIdPhone" class="b" name="searchIdPhone" value="찾기" disabled="true">
+				<input type="submit" id="searchIdPhone" name="searchIdPhone" value="찾기" disabled="true">
 			</div>
 		</form>
-	</div>
-
-<%-- 	<form action="searchIdEmail" method="get">
-		<input type="text" id="email" name="email" placeholder="이메일을 입력하세요"/>
-		<button type="button" id="emailBtn">이메일발송</button>
-		<input type="text" id="emailCheck" placeholder="인증번호입력">
-		<button type="button" id="emailCheckBtn">이메일인증</button>
-		<input type="hidden" path="random" id="random" value="${random}"/>
-		<input type="submit" id="searchIdEmail" name="searchIdEmail" value="찾기" disabled="true">
-	</form> --%>
-
-	<%-- <form action="searchIdPhone" method="get">
-		휴대폰번호:<input type="text" name="phone" id="phone" />
-		<button type="button" onclick="sendSms();">전송</button><br> 
-		인증번호:<input type="text" name="confirmNumber" id="confirmNumber" />
-		<button type="button" onclick="phoneCheck();">인증</button><br>
-		<input type="hidden" path="random" id="random" value="${random }"/>
-		<input type="submit" id="searchIdPhone" name="searchIdPhone" value="찾기" disabled="true">
-	</form> --%>
+	</div>				
+		</div>
+		<span class="blank"></span>
+	</section>
 	
+	<script src="${pageContext.request.contextPath}/asset/js/bootstrap.js"></script>
 </body>
 </html>

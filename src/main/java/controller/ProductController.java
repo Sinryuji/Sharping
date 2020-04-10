@@ -224,7 +224,7 @@ public class ProductController {
 		}
 
 		
-		return "seller/UploadResult";
+		return "redirect:/productManage?page=1";
 	}
  
 	
@@ -809,6 +809,7 @@ public class ProductController {
 		model.addAttribute("keyword2", keyword2);
 		model.addAttribute("minPrice", minPrice);
 		model.addAttribute("maxPrice", maxPrice);
+		model.addAttribute("categoryNum", categoryNum);
 		return "product/SearchResult";
 	}
 	
@@ -863,6 +864,7 @@ public class ProductController {
 			map.put("keyword2", keyword2);
 			map.put("minPrice", minPrice);
 			map.put("maxPrice", maxPrice);
+			map.put("categoryNum", categoryNum);
 			return map;
 		}
 	
@@ -1030,7 +1032,7 @@ public class ProductController {
 					e.printStackTrace();
 				}
 			}
-			mv.setViewName("redirect:/productManage");
+			mv.setViewName("redirect:/productManage?page=1");
 		} else { // 새로운 파일이 등록되지 않았다면
 			// 기존 이미지를 그대로 사용
 			productVO.setProductNum(Integer.parseInt(mtfRequest.getParameter("productNum")));
@@ -1087,7 +1089,7 @@ public class ProductController {
 			}
 
 		}
-		mv.setViewName("redirect:/productManage");
+		mv.setViewName("redirect:/productManage?page=1");
 		return mv;
 	}
 

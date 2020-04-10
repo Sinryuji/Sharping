@@ -125,6 +125,7 @@ div#containerBox {
 aside {
 	float: left;
 	width: 200px;
+	border-right: 2px solid #eee;
 }
 
 aside ul li {

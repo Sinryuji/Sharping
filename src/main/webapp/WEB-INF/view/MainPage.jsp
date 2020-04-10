@@ -188,6 +188,7 @@ body {
 					<div class="sDiv">
 						<form action="productList" class="searchBox">
 							<input type="text" autocomplete="off" name="keyword" id="search" placeholder="키워드를 입력하세요." > 
+							<input type="hidden" name="page" value="1">
 							<input type="image" src="${pageContext.request.contextPath}/resources/images/검색버튼.png"
 								value="검색" id="btn">
 						</form>
@@ -394,10 +395,17 @@ $(document).ready(function(){
       elem2.setAttribute("type", "hidden");
       elem2.setAttribute("name", "keyword");
       elem2.setAttribute("value", "");
+      
+	  var elem3 = document.createElement("input");
+      
+      elem3.setAttribute("type", "hidden");
+      elem3.setAttribute("name", "page");
+      elem3.setAttribute("value", "1");
 
       
       f.appendChild(elem);
       f.appendChild(elem2);
+      f.appendChild(elem3);
       
       document.body.appendChild(f);
       

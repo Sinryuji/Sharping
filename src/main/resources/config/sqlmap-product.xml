@@ -179,7 +179,7 @@
 	
 	
 	<select id="getProductList"  resultType="productVO">
-		SELECT * FROM (SELECT rownum rnum, "productNum", "productName", "productThumb", "productPrice","deliveryPrice" ,"id", "categoryNum", "productDate" FROM PRODUCT WHERE "productDisplay" like 'TRUE' AND "productName" like '%'||#{keyword}||'%') WHERE rnum &gt;= #{startNum} AND rnum &lt;= #{endNum}	
+		SELECT * FROM (SELECT rownum rnum, "productNum", "productName", "productThumb", "productPrice","deliveryPrice" ,"id", "categoryNum", "productDate" FROM PRODUCT WHERE "productDisplay" like 'TRUE' AND "productName" like '%'||#{keyword}||'%'	
 	
 			<if test="searchType=='productNum' and keyword2 != null and keyword2 != '' ">
 				AND "productNum" like '%'||#{keyword2}||'%'
@@ -208,7 +208,7 @@
 			<if test="sortType == 'productDate' ">
 				order by "productDate" desc
 			</if>
-			
+			) WHERE rnum &gt;= #{startNum} AND rnum &lt;= #{endNum}
 					
 	</select>
 	

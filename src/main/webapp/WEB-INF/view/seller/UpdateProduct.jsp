@@ -606,6 +606,7 @@
 			<br><br><input type="submit" value="저장">&nbsp;&nbsp;
 			<input type="reset" value="초기화"><br><br><br>
 		</div>
+		<input type="hidden" name="page" value="1">
 	</form>
 <%-- <div id="optionBox">
   <span id="op1">

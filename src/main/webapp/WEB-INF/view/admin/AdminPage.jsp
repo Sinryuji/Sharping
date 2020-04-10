@@ -39,7 +39,7 @@
 
 		// window.open("자식창 이름", "불러올 자식 창의 닉네임", "팝업창 옵션");
 		window.open("admin/registerAdmin", "새관리자등록",
-						"width = 500, height = 320, resizable = no, scrollbars = no, status = no");
+						"width = 800, height = 320, resizable = no, scrollbars = no, status = no");
 	}
 </script>
 
@@ -64,18 +64,6 @@ body {
 	padding-bottom: 190px; /* footer height */
 }
 
-ul {
-	padding: 0;
-	margin: 0;
-	list-style: none;
-	 
-}
-
-div#root {
-	width: 90%;
-	margin: 0 auto;
-}
-
 .navbar-nav {
     width: 100%;
     text-align: center;
@@ -97,26 +85,22 @@ section#container {
 	margin-bottom: 50px;	
 }
 
-section#container::after {
-	content: "";
-	display: block;
-	clear: both;
-}
-
-aside {
-	float: left;
-	width: 200px;
-}
-
 div#containerBox {
 	height: 500px;
  	float: right;
 	width: calc(100% - 200px - 20px);
 }
 
+aside {
+	float: left;
+	width: 200px;
+	border-right: 2px solid #eee;
+}
+
 aside ul li {
 	text-align: center;
 	margin-bottom: 10px;
+	list-style: none;
 }
 
 footer#footer {

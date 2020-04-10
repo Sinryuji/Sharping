@@ -273,7 +273,6 @@ footer#footer div {
 										<c:forEach var="list" items="${productList}">
 											<tr>
 												<td><c:out value="${list.productNum}" /></td>
-												<%-- <td><c:out value="${list.productThumb}" /></td> --%>
 												<td><img src="opload/${list.productThumb}" style="width:50px;"></td>
 												<td><a href="#"
 													onClick="productView(<c:out value="${list.productNum}"/>)">
@@ -313,9 +312,16 @@ history.scrollRestoration = "manual";
 
 var page = 1;
 
+var categoryNum = "${catgoryNum}";
+
 $(function(){
 	getList(page);
 	page++;
+	if($("#checkDelivery").is(":checked")){
+		$("#checkDelivery").val("on");
+	}else{
+		$("#checkDelivery").val("off");
+	}
 })
 
 $(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
@@ -331,6 +337,12 @@ function getList(page) {
 	
 	console.log("되냐");
 	
+	if($("#checkDelivery").is(":checked")){
+		var check = "on";
+	}else{
+		var check = "off";
+	}
+	
 	 $.ajax({
 	        type : 'POST',  
 	        dataType : 'json', 
@@ -342,7 +354,8 @@ function getList(page) {
 	        	keyword2 : $("#keyword2").val(),
 	        	minPrice : $("#minPrice").val(),
 	        	maxPrice : $("#maxPrice").val(),
-	        	checkDelivery : $("#checkDelivery").val()
+	        	checkDelivery : check,
+	        	categoryNum : categoryNum
 	        	},
 	        url : '<%=request.getContextPath()%>/productListPaging',
 	        success : function(data) {

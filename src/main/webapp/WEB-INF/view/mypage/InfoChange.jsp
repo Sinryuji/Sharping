@@ -109,16 +109,23 @@ body {
 			<%@ include file="../include/Nav.jsp"%>
 		</div>
 	</nav>
-
-	<section id="container">
-		<div id="containerBox">
-			<input type="button" id="t" class="t" onclick="location.href='${pageContext.request.contextPath}/infoChangeMember'" value="구매자">
-			<input type="button" id="t" class="t" onclick="location.href='${pageContext.request.contextPath}/infoChangeSeller'" value="판매자">
-		</div>
-		<span class="blank"></span>
-	</section>
-
+	<c:if test="${authInfo.sellerCheck == 'false' }">
+		<section id="container">
+			<div id="containerBox">
+				<input type="button" id="t" class="t" onclick="location.href='${pageContext.request.contextPath}/infoChangeMember'" value="구매자">
+			</div>
+			<span class="blank"></span>
+		</section>
+	</c:if>
+	<c:if test="${authInfo.sellerCheck == 'true' }">	
+		<section id="container">
+			<div id="containerBox">
+				<input type="button" id="t" class="t" onclick="location.href='${pageContext.request.contextPath}/infoChangeSeller'" value="판매자">
+			</div>
+			<span class="blank"></span>
+		</section>
+	</c:if>
 	<script src="${pageContext.request.contextPath}/asset/js/bootstrap.js"></script>
->>>>>>> branSB
+
 </body>
 </html>

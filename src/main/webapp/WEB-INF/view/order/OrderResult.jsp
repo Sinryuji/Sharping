@@ -117,8 +117,14 @@ h1 {
 		<div id="containerBox">
 	
 			<h1><span class="updateComplete">주문이 완료되었습니다!</span></h1>
-			<input type="button" id="t" class="t" onclick="location.href='${pageContext.request.contextPath}/main'" value="메인으로 이동">
-			<input type="button" id="t" class="t" onclick="location.href='${pageContext.request.contextPath}/myPage'" value="마이 페이지">		
+			<c:if test="${empty authInfo}">
+				<input type="button" id="t" class="t" onclick="location.href='${pageContext.request.contextPath}/main'" value="메인으로 이동">
+			</c:if>
+			<c:if test="${!empty authInfo}">
+				<input type="button" id="t" class="t" onclick="location.href='${pageContext.request.contextPath}/main'" value="메인으로 이동">
+				<input type="button" id="t" class="t" onclick="location.href='${pageContext.request.contextPath}/myPage'" value="마이 페이지">		
+			</c:if>
+			
 		</div>
 		<span class="blank"></span>
 	</section>
