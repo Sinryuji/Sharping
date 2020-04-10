@@ -49,9 +49,9 @@ public class CsController {
 	}
 	
 	// 고객센터
-	@RequestMapping(value = "/csqa")
-	public String caqa() {
-		return "cs/Csqa";
+	@RequestMapping(value = "/csCenter")
+	public String cs() {
+		return "cs/CsCenter";
 	}
 	
 }
