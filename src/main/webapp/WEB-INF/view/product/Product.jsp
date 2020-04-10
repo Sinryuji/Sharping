@@ -11,7 +11,7 @@
 <script src="https://code.jquery.com/jquery-2.2.4.min.js" integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44=" crossorigin="anonymous"></script>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/woocommerce-layout.css' type='text/css' media='all'/>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/woocommerce-smallscreen.css' type='text/css' media='only screen and (max-width: 768px)'/>
-<link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/woocommerce.css' type='text/css' media='all'/>
+<%-- <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/woocommerce.css' type='text/css' media='all'/> --%>
 <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/font-awesome.min.css' type='text/css' media='all'/>
 <%-- <link rel='stylesheet' href='${pageContext.request.contextPath}/resources/css/styleSB.css' type='text/css' media='all'/> --%>
 <link rel='stylesheet' href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700' type='text/css' media='all'/>
@@ -77,6 +77,96 @@
    	  		outline: none;
    	  		vertical-align: middle;
    	  	}
+   	  	
+   	  	img{
+   	  		width:500px;
+   	  		height:500px;
+   	  	}
+   	  	
+   	  	div.images{
+   	  		text-align: center;
+   	  	}
+   	  	
+   	  	#star_grade a{
+	        text-decoration: none;
+	        color: gray;
+	    }
+	    
+	    #star_grade a.on{
+	        color: #FAED7D;
+	    }
+	    
+	    p{
+	    	margin: 0;
+	    }
+	    
+	    .reviewImg{
+	    	width: 100px;
+	    	height: 100px;
+	    }
+	    
+	    textarea{
+			min-width: 350px;
+			min-height: 150px;
+			resize: none;
+			overflow: hidden;
+			outline: none;
+		}
+		
+		.r_title{
+			outline: none;
+			text-decoration: none;
+		}
+		
+		table{
+		    border-collapse: collapse;
+		    line-height: 1.5;
+			margin:auto;
+			width: 1000px;
+		}
+		table thead th {
+		    padding: 10px;
+		    font-weight: bold;
+		    vertical-align: top;
+		    color: #369;
+		    border-bottom: 3px solid #036;
+		}
+		table tbody th {
+		    width: 150px;
+		    padding: 10px;
+		    font-weight: bold;
+		    vertical-align: top;
+		    border-bottom: 1px solid #ccc;
+		    background: #f3f6f7;
+		}
+		table td {
+		    width: 350px;
+		    padding: 10px;
+		    vertical-align: middle;
+		    border-bottom: 1px solid #ccc;
+		}
+		
+		.td1{
+			background: silver;
+			text-align:center;
+			vertical-align:middle;
+		}
+		
+		.td2{
+			text-align:left;
+		}
+		
+		h2{
+			display: inline;
+		}
+		
+		.productReview{
+			text-align: center;
+		}
+		
+		#underline{
+			border-bottom: 3px solid #036;
+		}
 
     </style>
 	
@@ -101,7 +191,7 @@
 						<nav class="woocommerce-breadcrumb" itemprop="breadcrumb">상품번호:</nav>
 						<div itemscope itemtype="http://schema.org/Product" class="product"><!-- 사진 및 상품옵션 보는 묶음 -->
 							<div class="images">
-								<b><img src="opload/${product.productImage}" width="250" height="250"></b>
+								<img src="opload/${product.productImage}">
 							</div>
 							<div class="summary entry-summary">
 								<c:if test="${!empty authInfo}">
@@ -219,6 +309,72 @@
 								<input type="button" class="orderBtn" id="t" style="margin: 0;" value="주문">
 								</form>
 							</div>
+							<!-- 후기 목록 -->
+							<div class="woocommerce-tabs wc-tabs-wrapper">
+								<div class="productReview">
+									<h2>상품 구매 후기</h2>
+								</div>
+								<div>
+									<div id="reviews">
+										<table>
+											<colgroup>
+												<col style="width:10%;" />
+												<col style="width:20%;" />
+												<col style="width:10%;" />
+												<col style="width:auto;" />
+											</colgroup>
+											<thead>
+												<tr>
+													<th colspan="4">상품 후기</th>
+												</tr>
+											</thead>
+											<tbody>
+												<c:if test="${empty reviewList }">
+													<tr>
+														<td>등록된 후기가 없습니다.</td>
+													</tr>
+												</c:if>
+												<c:if test="${!empty reviewList }">
+													<c:forEach var="review" items="${reviewList }" varStatus="status">
+														<tr>
+															<td class="td1">작성자</td>
+															<td class="td2">${review.id }</td>
+															<td class="td1">평점</td>
+															<td class="td2">
+																<input type="hidden" id="score" value="${review.score }">
+																<p id="star_grade">
+															        <a data-num="1" href="#">★</a>
+															        <a data-num="2" href="#">★</a>
+															        <a data-num="3" href="#">★</a>
+															        <a data-num="4" href="#">★</a>
+															        <a data-num="5" href="#">★</a>
+																</p>
+															</td>
+														</tr>
+														<tr>
+															<td class="td1" id="underline">포토 리뷰</td>
+															<td class="td2" id="underline">
+																<c:if test="${review.reviewImage eq '없음'}">
+																	<c:out value="사진 없음"/>
+																</c:if>
+																<c:if test="${review.reviewImage ne '없음'}">
+																	<img class="reviewImg" src="opload/${review.reviewImage }">
+																</c:if>
+															</td>
+															<td class="td1" id="underline">후기</td>
+															<td class="td2" id="underline">
+																제목 : <input type="text" value="${review.reviewTitle }" class="r_title" readonly><br>
+																<textarea readonly>${review.reviewText }</textarea>
+															</td>
+														</tr>
+													</c:forEach>		
+												</c:if>
+											</tbody>
+										</table>
+									</div>
+								</div>
+							</div>
+							<!-- 후기 목록 -->
 						</div>
 					</div>
 				</div>
@@ -472,6 +628,7 @@ $('#cnt').change(function(){
 	      });
 	   });
  	
+ 	/* 상품 신고 팝업창 */
  	var pop;
  	function popup(){
  		var url = "decl";
@@ -479,6 +636,21 @@ $('#cnt').change(function(){
  		var option = "width = 500, height = 350, top = 100, left = 800";
  		pop = window.open(url, name, option);
  	}
+ 	
+ 	/* 불러온 평점으로 별 체크 */
+ 	$(document).ready(function(){
+ 		if($("#score").val() == 1){
+ 			$('a[data-num="1"]').addClass("on");
+ 		}else if($("#score").val() == 2){
+ 			$('a[data-num="2"]').addClass("on").prevAll("a").addClass("on");
+ 		}else if($("#score").val() == 3){
+ 			$('a[data-num="3"]').addClass("on").prevAll("a").addClass("on");
+ 		}else if($("#score").val() == 4){
+ 			$('a[data-num="4"]').addClass("on").prevAll("a").addClass("on");
+ 		}else if($("#score").val() == 5){
+ 			$('a[data-num="5"]').addClass("on").prevAll("a").addClass("on");
+ 		}
+ 	});
 	
 </script>
 

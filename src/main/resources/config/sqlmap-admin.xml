@@ -121,6 +121,7 @@
 		<if test=" search != null and search != '' ">
 			AND "productName" like '%'||#{search}||'%'
 		</if>
+		ORDER BY "declNum" DESC
 	</select>
 	
 	<select id="selectDeclProductPaging" resultType="declProductVO">

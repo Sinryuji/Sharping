@@ -5,8 +5,10 @@
 <ul>
 	<li><a href="<c:url value='/infoChange'/>">
 			회원정보수정 </a>
-	<li><a href="<c:url value='/changeSeller'/>">
-			판매자전환 </a>
+	<c:if test="${authInfo.sellerCheck == 'false' }">
+		<li><a href="<c:url value='/changeSeller'/>">
+				판매자전환 </a>
+	</c:if>
 	<li><a href="<c:url value='/deliveryAddress'/>">
 			배송주소록 </a>
 </ul>

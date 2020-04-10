@@ -13,6 +13,7 @@ import vo.OrderListVO;
 import vo.OrderProductVO;
 import vo.OrderVO;
 import vo.ProductVO;
+import vo.ReviewVO;
 import vo.SearchVO;
 
 public class ProductDAOImpl implements ProductDAO{
@@ -261,5 +262,8 @@ public class ProductDAOImpl implements ProductDAO{
 	@Override
 	public List<OrderProductVO> selectOrderBySellerIdTotal(OrderProductVO orderProductVO) {
 		return sqlSessionTemplate.selectList("productDAO.selectOrderBySellerIdTotal", orderProductVO);
+	}
+	public List<ReviewVO> selectReviewByProductNum(int productNum) {
+		return sqlSessionTemplate.selectList("productDAO.selectReviewByProductNum", productNum);
 	}
 }

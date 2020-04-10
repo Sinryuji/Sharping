@@ -40,6 +40,10 @@
 	<bean class="java.lang.String" id="ThumUploadPath">
 		<constructor-arg value="D:\dev\opload\thum\" />
 	</bean>
+	
+	<bean class="java.lang.String" id="ReviewUploadPath">
+		<constructor-arg value="D:\dev\opload\review\" />
+	</bean>
 
 	<!-- 일반 파일 업로드 경로 -->
 	<mvc:resources mapping="/opload/**" location="file:///D:/dev/opload" />

@@ -7,6 +7,7 @@ import vo.ChangePwVO;
 import vo.DeleteVO;
 import vo.DeliveryAddressVO;
 import vo.MemberVO;
+import vo.ReviewVO;
 import vo.SellerVO;
 import vo.WishListVO;
 
@@ -58,5 +59,9 @@ public interface MemberDAO {
 	public abstract int insertWishList(WishListVO wishListVO);
 	
 	public abstract int deleteWishListByIdProductNum(WishListVO wishListVO);
+	
+	public abstract int insertReview(ReviewVO reviewVO);
+	
+	public abstract List<ReviewVO> selectReviewByOrderNumId(ReviewVO reviewVO);
 
 }

@@ -10,6 +10,7 @@ import vo.OptionVO;
 import vo.OrderProductVO;
 import vo.OrderVO;
 import vo.ProductVO;
+import vo.ReviewVO;
 import vo.SearchVO;
 
 public interface ProductDAO {
@@ -124,4 +125,6 @@ public interface ProductDAO {
 	
 	// 주문 관리 로우넘 없이 뽑아오기
 	public abstract List<OrderProductVO> selectOrderBySellerIdTotal(OrderProductVO orderProductVO);
+	// 해당 상품에 대한 후기 리스트 불러오기
+	public abstract List<ReviewVO> selectReviewByProductNum(int productNum);
 }

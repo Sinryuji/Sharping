@@ -48,6 +48,7 @@ import vo.OrderListVO;
 import vo.OrderProductVO;
 import vo.OrderVO;
 import vo.ProductVO;
+import vo.ReviewVO;
 import vo.SearchVO;
 import vo.SellerVO;
 import vo.WishListVO;
@@ -259,6 +260,8 @@ public class ProductController {
 				result = list.size();
 			}
 		}
+		
+		List<ReviewVO> reviewList = productService.selectReviewByProductNum(productNum);
 	
 		ProductVO productVO = productService.selectProduct(productNum);
 		SellerVO sellerVO = memberService.searchSellerById(productVO.getId());
@@ -304,6 +307,8 @@ public class ProductController {
 		mv.addObject("maxOptionLevel", maxOptionLevel);
 		
 		mv.addObject("result", result);
+		
+		mv.addObject("reviewList", reviewList);
 
 		return mv;
 	}

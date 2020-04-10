@@ -37,6 +37,7 @@
 		<typeAlias alias="guestVO" type="vo.GuestVO"></typeAlias>
 		<typeAlias alias="wishListVO" type="vo.WishListVO"></typeAlias>
 		<typeAlias alias="declProductVO" type="vo.DeclProductVO"></typeAlias>
+		<typeAlias alias="reviewVO" type="vo.ReviewVO"></typeAlias>
 	</typeAliases>
 	
 </configuration> 

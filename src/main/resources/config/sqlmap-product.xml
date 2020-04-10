@@ -209,7 +209,6 @@
 				order by "productDate" desc
 			</if>
 			) WHERE rnum &gt;= #{startNum} AND rnum &lt;= #{endNum}
-			
 					
 	</select>
 	
@@ -345,5 +344,15 @@
  	<insert id="insertDeclProduct" parameterType="declProductVO">
 		INSERT INTO DECLPRODUCT VALUES(DECLPRODUCT_SEQ.NEXTVAL , #{declReason}, #{declText} , #{productNum} , SYSDATE , #{sellerId} , #{declId})
 	</insert>
+	
+	<select id="selectReviewByProductNum" parameterType="int" resultType="reviewVO">
+		SELECT *
+		FROM REVIEW R, ORDERR O, ORDERLIST OL, OPTIONN OP, PRODUCT P
+		WHERE R."orderNum" = O."orderNum"
+		AND O."orderNum" = OL."orderNum"
+		AND OL."optionNum" = OP."optionNum"
+		AND OP."productNum" = P."productNum"
+		AND P."productNum" = #{productNum}
+	</select>
  	
 </mapper>

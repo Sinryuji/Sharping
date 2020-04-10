@@ -101,5 +101,13 @@
 	<delete id="deleteWishListByIdProductNum" parameterType="wishListVO">
 		DELETE FROM WISHLIST WHERE "id" = #{id} AND "productNum" = #{productNum}
 	</delete>
+	
+	<insert id="insertReview" parameterType="reviewVO">
+		INSERT INTO REVIEW VALUES(REVIEW_SEQ.NEXTVAL , #{orderNum}, #{id}, #{reviewText}, #{score}, #{reviewImage} , #{reviewTitle})
+	</insert>
+	
+	<select id="selectReviewByOrderNumId" parameterType="reviewVO" resultType="reviewVO">
+		SELECT * FROM REVIEW WHERE "orderNum" = #{orderNum} AND "id" = #{id}
+	</select>
 
 </mapper>

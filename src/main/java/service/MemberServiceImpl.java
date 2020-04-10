@@ -43,6 +43,7 @@ import vo.ChangePwVO;
 import vo.DeleteVO;
 import vo.DeliveryAddressVO;
 import vo.MemberVO;
+import vo.ReviewVO;
 import vo.SellerVO;
 import vo.WishListVO;
 
@@ -327,6 +328,16 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public int deleteWishListByIdProductNum(WishListVO wishListVO) {
 		return memberDAO.deleteWishListByIdProductNum(wishListVO);
+	}
+	
+	@Override
+	public int insertReview(ReviewVO reviewVO) {
+		return memberDAO.insertReview(reviewVO);
+	}
+	
+	@Override
+	public List<ReviewVO> selectReviewByOrderNumId(ReviewVO reviewVO) {
+		return memberDAO.selectReviewByOrderNumId(reviewVO);
 	}
 
 }

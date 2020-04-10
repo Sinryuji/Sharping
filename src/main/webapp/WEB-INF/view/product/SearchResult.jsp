@@ -314,6 +314,8 @@ var categoryNum = "${categoryNum}";
 
 var page = 1;
 
+var categoryNum = "${categoryNum}";
+
 $(function(){
 	getList(page);
 	page++;
