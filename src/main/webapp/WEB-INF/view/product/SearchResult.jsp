@@ -313,6 +313,8 @@ history.scrollRestoration = "manual";
 
 var page = 1;
 
+var categoryNum = "${categoryNum}";
+
 $(function(){
 	getList(page);
 	page++;
@@ -342,7 +344,8 @@ function getList(page) {
 	        	keyword2 : $("#keyword2").val(),
 	        	minPrice : $("#minPrice").val(),
 	        	maxPrice : $("#maxPrice").val(),
-	        	checkDelivery : $("#checkDelivery").val()
+	        	checkDelivery : $("#checkDelivery").val(),
+	        	categoryNum : categoryNum
 	        	},
 	        url : '<%=request.getContextPath()%>/productListPaging',
 	        success : function(data) {

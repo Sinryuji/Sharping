@@ -9,6 +9,7 @@ import vo.ChangePwVO;
 import vo.DeleteVO;
 import vo.DeliveryAddressVO;
 import vo.MemberVO;
+import vo.ReviewVO;
 import vo.SellerVO;
 import vo.WishListVO;
 
@@ -138,6 +139,16 @@ public class MemberDAOImpl implements MemberDAO{
 	@Override
 	public int deleteWishListByIdProductNum(WishListVO wishListVO) {
 		return sqlSessionTemplate.delete("memberDAO.deleteWishListByIdProductNum", wishListVO);
+	}
+	
+	@Override
+	public int insertReview(ReviewVO reviewVO) {
+		return sqlSessionTemplate.insert("memberDAO.insertReview", reviewVO);
+	}
+	
+	@Override
+	public List<ReviewVO> selectReviewByOrderNumId(ReviewVO reviewVO) {
+		return sqlSessionTemplate.selectList("memberDAO.selectReviewByOrderNumId", reviewVO);
 	}
 
 }

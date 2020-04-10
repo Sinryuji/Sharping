@@ -111,7 +111,7 @@ select, #firstDate, #secondDate {
 	margin-bottom: 10px;
 }
 
-#submit, #deposit, #cancel, #deliveryTracking {
+#submit, #deposit, #cancel, #deliveryTracking, #review, #buyConfirmButton {
 	width: 100px;
 	height: 30px;
 	font-family: 'Roboto', sans-serif;
@@ -130,7 +130,7 @@ select, #firstDate, #secondDate {
 	opacity: 0.8;
 }
 
-#submit:hover, #deposit:hover, #cancel:hover, #deliveryTracking:hover {
+#submit:hover, #deposit:hover, #cancel:hover, #deliveryTracking:hover, #review:hover, #buyConfirmButton:hover {
 	background-color: #FFB2F5;
 	box-shadow: 0px 15px 20px hotpink;
 	color: #fff;
@@ -256,20 +256,30 @@ footer#footer div {
 										</td>
 										<td class="td3">${orderList.storeName}</td>
 										<td class="td4">${order.state}
-										
-										<c:if test="${order.state == '입금 대기'}">
+											<c:if test="${order.state == '입금 대기'}">
 												<form action="insertMoney">
 													<input type="hidden" name="payNum" value="${order.payNum}">
 													<input type="submit" id="deposit" value="입금">
 												</form>
-												
 												<form action="orderCancle" name="cancleInfo" method="post">
 													<input type="hidden" name="orderNum" value="${order.orderNum}"> 
 													<input type="submit" id="cancel" value="주문 취소">
 												</form>
-											</c:if> <c:if
-												test="${order.state == '배송 중' || order.state == '배송 완료'}">
+											</c:if> 
+											<c:if test="${order.state == '배송 중'}">
 												<button type="button" id="deliveryTracking" class="deliveryTracking" value="${order.orderNum}">배송조회</button>
+											</c:if>
+											<c:if test="${order.state == '배송 완료'}">
+												<br>
+												<button type="button" id="deliveryTracking" class="deliveryTracking" value="${order.orderNum}">배송조회</button>
+												<form id="buyConfirm${order.orderNum}" action="buyConfirm">
+												<input type="hidden" name="orderNum" value="${order.orderNum}">
+												<button type="button" id="buyConfirmButton" class="buyConfirm" value="${order.orderNum}">구매확정</button>
+												</form>
+											</c:if>
+											<c:if test="${order.state == '구매 확정'}">
+												<button type="button" id="review" class="review" onclick="popup()" value="${order.orderNum}">상품후기</button>
+												<input type="hidden" id="on" value=""> 
 											</c:if>
 										</td>
 									</tr>
@@ -383,12 +393,40 @@ $('.buyConfirm').click(function(){
 		$(str).submit();
 	}
 	
-	else if (counfirmResult == false) {
+	else if (confirmResult == false) {
 		
 		alert("구매 확정이 취소 되었습니다!");
 	}
 	
 })
+
+	/* 해당 주문건에 대한 후기가 작성되어있는지 확인 */
+ 	$('.review').click(function(){
+ 		$("#on").val($(this).val());
+ 		var on = $(this).val();
+	 	$.ajax({
+	        url : "<%=request.getContextPath()%>/reviewChk",
+	           type : "post",
+	           data : {
+	              orderNum : on
+	           }, 
+	           success: function(result) {
+	              if(result == 1){
+	            	  alert('이미 후기가 등록되어있습니다.');
+	            	  return false;
+	              } else {
+	           		/* 해당 주문에 대한 후기가 없다면 */
+            	  /* 상품 후기 팝업창 */
+            	  	var pop;
+           	   		var url = "review";
+           	   		var name = "review";
+           	   		var option = "width = 600, height = 550, top = 100, left = 800";
+           	   		pop = window.open(url, name, option);
+	              }
+	           }
+	     });
+ 	});
+
 </script>
 
 	<script src="${pageContext.request.contextPath}/asset/js/bootstrap.js"></script>

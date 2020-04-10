@@ -15,6 +15,7 @@ import vo.OrderListVO;
 import vo.OrderProductVO;
 import vo.OrderVO;
 import vo.ProductVO;
+import vo.ReviewVO;
 import vo.SearchVO;
 
 @Service
@@ -266,7 +267,15 @@ public class ProductServiceImpl implements ProductService {
 	public List<ProductVO> selectProductByIdPaging(ProductVO productVO) {
 		return productDAO.selectProductByIdPaging(productVO);
 	}
+	
+	@Override
 	public int insertDeclProduct(DeclProductVO declProductVO) {
 		return productDAO.insertDeclProduct(declProductVO);
 	}
+	
+	@Override
+	public List<ReviewVO> selectReviewByProductNum(int productNum) {
+		return productDAO.selectReviewByProductNum(productNum);
+	}
+	
 }

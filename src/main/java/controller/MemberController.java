@@ -1,10 +1,8 @@
 package controller;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
+import java.io.File;
+import java.io.IOException;
 import java.io.UnsupportedEncodingException;
-import java.net.HttpURLConnection;
-import java.net.URL;
 import java.net.URLDecoder;
 import java.net.URLEncoder;
 import java.sql.Date;
@@ -13,6 +11,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
+import java.util.UUID;
 
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
@@ -22,16 +21,17 @@ import javax.validation.Valid;
 
 import org.json.simple.JSONArray;
 import org.json.simple.JSONObject;
-import org.json.simple.parser.JSONParser;
 import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.util.FileCopyUtils;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import exception.AlreadyExistingIdException;
@@ -57,6 +57,7 @@ import vo.OptionVO;
 import vo.OrderListVO;
 import vo.OrderVO;
 import vo.ProductVO;
+import vo.ReviewVO;
 import vo.SellerVO;
 import vo.WishListVO;
 
@@ -983,6 +984,79 @@ public class MemberController {
 		mv.addObject("productList", productList);
 	
 		return mv;
+	}
+		
+	// 후기 작성 팝업
+	@RequestMapping("/review")
+	public String review() {
+		return "mypage/Review";
+	}
+	
+	// 후기 등록
+	@RequestMapping("/insertReview")
+	@ResponseBody
+	public void insertReview(MultipartHttpServletRequest mtfRequest) {
+		ReviewVO reviewVO = new ReviewVO();
+		
+		String uploadPath = "d:\\dev\\opload\\review";
+		File dir = new File(uploadPath);
+		if (!dir.exists()) {
+			dir.mkdir();
+		}
+		UUID uid = UUID.randomUUID();
+		if(mtfRequest.getFile("reviewImage").getOriginalFilename().equals("")) {
+			reviewVO.setReviewImage("없음");
+		} else {
+			MultipartFile mf = mtfRequest.getFile("reviewImage");
+			String fileName = mf.getOriginalFilename();
+			String saveName = "r_" + uid.toString() + "_" + fileName;
+			File target = new File(uploadPath, saveName);
+			try {
+				FileCopyUtils.copy(mf.getBytes(), target);
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
+			reviewVO.setReviewImage(File.separator + "opload" + File.separator + "review" + File.separator + saveName);
+		}
+		
+		reviewVO.setOrderNum(Integer.parseInt(mtfRequest.getParameter("orderNum")));
+		
+		reviewVO.setId(mtfRequest.getParameter("id"));
+		
+		reviewVO.setReviewText(mtfRequest.getParameter("reviewText"));
+		
+		if(Integer.parseInt(mtfRequest.getParameter("score")) == 0) {
+			reviewVO.setScore(1);
+		} else {
+			reviewVO.setScore(Integer.parseInt(mtfRequest.getParameter("score")));
+		}
+		
+		reviewVO.setReviewTitle(mtfRequest.getParameter("reviewTitle"));
+		
+		memberService.insertReview(reviewVO);
+		
+	}
+	
+	// 해당 주문에 대한 후기가 있는지 체크
+	@RequestMapping("/reviewChk")
+	@ResponseBody
+	public int reviewChk(@RequestParam int orderNum, HttpServletRequest req) {
+		HttpSession session = req.getSession();
+		AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
+		
+		ReviewVO reviewVO = new ReviewVO();
+
+		reviewVO.setId(authInfo.getId());
+		reviewVO.setOrderNum(orderNum);
+		
+		int result = 0;
+		
+		List<ReviewVO> list = memberService.selectReviewByOrderNumId(reviewVO);
+		if(list != null) {
+			result = list.size();
+		}
+		
+		return result;
 	}
 
 

@@ -10,6 +10,7 @@ import vo.OptionVO;
 import vo.OrderProductVO;
 import vo.OrderVO;
 import vo.ProductVO;
+import vo.ReviewVO;
 import vo.SearchVO;
 
 public interface ProductDAO {
@@ -121,4 +122,6 @@ public interface ProductDAO {
 	public abstract List<ProductVO> selectProductByIdPaging (ProductVO productVO);
 	// 상품 신고하기
 	public abstract int insertDeclProduct(DeclProductVO declProductVO);
+	// 해당 상품에 대한 후기 리스트 불러오기
+	public abstract List<ReviewVO> selectReviewByProductNum(int productNum);
 }
