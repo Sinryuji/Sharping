@@ -5,7 +5,17 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>OrderPage</title>
+
+<link rel="stylesheet"
+	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
+<script src="//code.jquery.com/jquery.min.js"></script>
+
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/styleSB.css'
+	type='text/css' media='all' />
+	
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous">
@@ -29,371 +39,365 @@
 	</script>
 
 <style>
-	
-		table{
-		    border-collapse: collapse;
-		    line-height: 1.5;
-			width:800px;
-			margin:auto;
-		}
-		
-		.table1{
-			margin-top: 100px;
-		}
-		
-		.img{
-			width:50px; 
-			height:50px;
-			float:left;
-		}
-		
-		.proInfo{
-			float:left;
-			margin-left:10px;
-		}
-		
-		.mainhead{
-			text-align:left;
-		}
-		
-		.head1{
-			border:1px solid black;
-			border-left:0;
-			border-right:0;
-			background: #EAEAEA;
-		}
-		
-		.table1 tbody tr{
-			border-bottom:3px solid gray;
-		}
-		
-		.table1 tbody td{
-			text-align:center;
-		}
-		
-		.t1_td{
-			border-right: 0.2px solid gray;
-			border-left: 0.2px solid gray;
-		}
-		
-		.table2{
-			border:0.2px solid gray;
-		}
-		
-		.table2 thead tr{
-			text-align: left;
-			border:0.2px solid gray;
-			background: #EAEAEA;
-		}
-		
-		.table2 thead tr span{
-			font-size: 13px;
-			color: #F15F5F;
-		}
-		
-		.table2 td span{
-			font-size: 13px;
-			color: #F15F5F;
-		}
-		
-		.table2 thead th{
-			padding: 10px;
-		}
-		
-		.table2 tbody tr, .table2 tbody td{
-			padding: 10px;
-			/* border: 0.2px solid gray; */
-		}
-		
-		.td1{
-			background: #EAEAEA;
-			/* border-right:0; */
-		}
-		
-		.td2{
-			/* border-left:0; */
-		}
-		
-		#dc{
-			border-bottom: 0.2px solid gray;
-		}
-		
-		#dm{
-			border-top: 0.2px solid gray;
-		}
-		
-		.table3{
-			border:0.2px solid gray;
-		}
-		
-		.table3 thead tr{
-			text-align: left;
-			border:0.2px solid gray;
-			background: #EAEAEA;
-		}
-		
-		.table3 tr{
-			border:0.2px solid gray;
-		}
-		
-		.right{
-			border-right: 0.2px solid gray
-		}
-		
-		#rowspan{
-			text-align:center;
-		}
-		
-		.s1{
-			color:red;
-			font-size:30px
-		}
-		
-		.s2{
-			font-size:26px;
-		}
-		
-		.div1, .div2{
-			float:left;
-			display:inline-block;
-		}
-		
-		.boss{
-			clear:both;
-			margin-left:510px;
-			display:block;
-			padding:40px;
-			width:50%;
-		}
-		
-		#no1, #no2{
-			width:400px;	
-		}
-		
-		#no1{
-			border-right:0;
-		}
-		
-		#no1 thead tr{
-			border-right:0;
-		}
-		
-		#no2 thead tr{
-			border-left:0;
-		}
-		
- 		#no1 td{
-			padding:19px;
-		}
-		
-		.tb3{
-			padding:30px;
-			display:inline-block;
-			margin-left: 520px;;
-		}
-		
-		.t {
-		    width: 220px;
-		    height: 80px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 18px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 35px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		    margin:5px;
-		}
 
-		.t:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
-		
-		.a {
-		    width: 70px;
-		    height: 20px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 11px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 35px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		}
+.navbar-nav {
+	width: 100%;
+	text-align: center;
+}
 
-		.a:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
-		
-		.b {
-		    width: 120px;
-		    height: 20px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 11px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 35px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		}
+.navbar-nav>li {
+	float: none;
+	display: inline-block;
+}
 
-		.b:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
-		
-		.t1_td {
-			border-rigth : 1px solid black;
-		}
-	
+.navbar-nav>li>a {
+	padding-top: 30px;
+}
+
+.navbar-nav>li.navbar-right {
+	float: right !important;
+}
+
+#container {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	padding: 20px 0;	
+}
+
+#containerBox {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+.mainhead {
+	font-weight: bold;
+	font-size: 30px;
+}
+
+.img {
+	float: left;
+	padding-left: 10px;
+	vertical-align: middle;
+}
+
+.proInfo {
+	float: center;
+	vertical-align: middle;
+}
+
+.t1_td {
+	border-right: 0.2px solid gray;
+	border-left: 0.2px solid gray;
+	padding-left: 10px;
+	vertical-align: middle;
+}
+
+.pricetd {
+	vertical-align: middle;
+	border-rigth : 1px solid black;
+}
+
+.table1 tbody tr {
+	border-bottom: 3px solid gray;
+}
+
+.table2 {
+	border: 0.2px solid gray;
+}
+
+.table2 thead tr {
+	text-align: left;
+	border: 0.2px solid gray;
+	background: #EAEAEA;
+}
+
+
+.table2 thead tr span {
+	font-size: 13px;
+	color: #F15F5F;
+}
+
+.table2 td span {
+	font-size: 13px;
+	color: #F15F5F;
+}
+
+.table2 thead th {
+	padding: 10px;
+}
+
+.table2 tbody tr, .table2 tbody td {
+	padding: 10px;
+}
+
+.td1 {
+	background: #EAEAEA;
+	vertical-align: middle;
+}
+
+.td2 {
+	text-align: left;
+}
+
+#toPost, #toAddress {
+	margin-bottom: 10px;
+}
+
+#dc {
+	border-bottom: 0.2px solid gray;
+}
+
+#dm {
+	border-top: 0.2px solid gray;
+}
+
+#deliveryMessage {
+	width: 300px;
+}
+
+.table3 {
+	border: 0.2px solid gray;
+}
+
+.table3 thead tr {
+	text-align: left;
+	border: 0.2px solid gray;
+	background: #EAEAEA;
+}
+
+.table3 tr {
+	border: 0.2px solid gray;
+}
+
+.right {
+	border-right: 0.2px solid gray;
+	text-align: center;
+	vertical-align: middle;
+}
+
+#rowspan {
+	text-align: center;
+	padding-left: 10px;
+}
+
+.s1 {
+	color: red;
+	font-size: 30px
+}
+
+.s2 {
+	font-size: 26px;
+}
+
+.tb3 {
+	padding-top: 30px;
+	display: inline-block;
+}
+
+select {
+	border: 1px solid #ccc;
+	border-radius: 50px;
+	color: #666;
+	text-align: center;
+	padding: 6px;
+}
+
+#payment {
+	width: 220px;
+	height: 80px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 18px;
+	text-transform: uppercase;
+	letter-spacing: 2.5px;
+	font-weight: 500;
+	color: white;
+	background-color: #6B66FF;
+	border: none;
+	border-radius: 35px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease 0s;
+	cursor: pointer;
+	outline: none;
+	opacity: 0.8;
+	margin: 5px;
+}
+
+#payment:hover {
+	background-color: #FFB2F5;
+	box-shadow: 0px 15px 20px hotpink;
+	color: #fff;
+	transform: translateY(-7px);
+}
+
+#a {
+	width: 100px;
+	height: 30px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 2.5px;
+	font-weight: 500;
+	color: white;
+	background-color: #6B66FF;
+	border: none;
+	border-radius: 35px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease 0s;
+	cursor: pointer;
+	outline: none;
+	opacity: 0.8;
+	margin: 5px;
+}
+
+#a:hover {
+	background-color: #FFB2F5;
+	box-shadow: 0px 15px 20px hotpink;
+	color: #fff;
+	transform: translateY(-7px);
+}
+
+#myDeliveryAddress {
+	width: 150px;
+	height: 30px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 2.5px;
+	font-weight: 500;
+	color: white;
+	background-color: #6B66FF;
+	border: none;
+	border-radius: 35px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease 0s;
+	cursor: pointer;
+	outline: none;
+	opacity: 0.8;
+}
+
+#myDeliveryAddress:hover {
+	background-color: #FFB2F5;
+	box-shadow: 0px 15px 20px hotpink;
+	color: #fff;
+	transform: translateY(-7px);
+}
+
+
 </style>
-
 </head>
 <body>
+
 	<c:if test="${cnt > option.stock}">
 		<script>
-alert("상품의 재고 보다 선택한 수량이 많습니다. 재고 : " + ${option.stock});
-history.go(-1);
-</script>
+			alert("상품의 재고 보다 선택한 수량이 많습니다. 재고 : " + ${option.stock});
+			history.go(-1);
+		</script>
 	</c:if>
+	
+	<nav class="navbar navbar-default">
+		<div id="navBox">
+			<%@ include file="../include/Nav.jsp"%>
+		</div>
+	</nav>
+	
+	<section id="container">
+		<div id="containerBox">
+		
 	<form name="deliveryAddress" id="deliveryAddress" method="post">
 		<input type="hidden" name="id" id="id" value="${authInfo.id}">
 	</form>
-	<form name="orderForm" id="orderForm" action="orderResult" method="post">
-	<table class="table1">
-		<colgroup>
-			<col style="width:auto;" />
-			<col style="width:15%;" />
-			<col style="width:15%;" />
-		</colgroup>
-		<thead>
-			<tr>
-				<th class="mainhead">주문상품</th>
-			</tr>
-			<tr class="head1">
-				<th>상품정보</th>
-				<th>판매자</th>
-				<th>배송비</th>
-				<th>금액</th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr>
-				<td>
-				<div class="img">
-					<img src="opload/${product.productThumb}" width="50" height="50">
-				</div>
-				<div class="proInfo">
-					<b>${product.productName}&nbsp;&nbsp;${optionName}&nbsp;&nbsp;${cnt}개&nbsp;&nbsp${product.productPrice}원</b>
-				</div>
-				</td>
-				<td class="t1_td">${seller.storeName}</td>
-				<td class="t1_td">${product.deliveryPrice}</td>
-				<td>${cnt * product.productPrice + product.deliveryPrice}</td>
-			</tr>
-		</tbody>
-	</table>
-	<br><br>
-	<!-- 회원 -->
-	<c:if test="${authInfo != null }">
-	<table class="table2">
-		<colgroup>
-			<col style="width:25%;" />
-			<col style="width:auto%;" />
-		</colgroup>
-		<thead>
-			<tr>
-				<th>배송지 정보 입력</th>
-				<th><span>(*필수입력)</span></th>
-			</tr>
-		</thead>
-		<tbody>
-			<tr id="dc">
-				<td class="td1"><span>*</span>배송지 선택</td>
-				<td class="td2">
-					<label>
-						<input type="radio" name="deliveryCheck" id="default" value="${member.name}" checked>${member.name}
-					</label>
-					<label>
-						<input type="radio" id="new" name="deliveryCheck" value="">새로운 배송지
-					</label>
-					<input type="button" class="b" id="myDeliveryAddress" value="나의 배송 주소록">
-				</td>
-			</tr>
-			<tr>
-				<td class="td1">
-					<span>*</span>이름<br><br>
-					<span>*</span>주소<br><br>
-					<span>*</span>연락처
-				</td>
-				<td class="td2">
-					<p id="deliveryInfo">
-					<input type="text" id="toName" name="toName" value="${member.name}" readonly><br><br>
-					<input type="text" id="toPost" name="toPost" value="${member.post}" readonly>
-					<input type="text" id="toAddress" name="toAddress" value="${member.address} ${member.addressEtc}" style="width : 300px" readonly><br><br>
-					<input type="text" id="toPhone" name="toPhone" value="${member.phone}" readonly>
-						<%-- <input type="text" id="toName" name="toName" value="${member.name}" readonly><br><br>
-						<input type="text" id="toPost" name="toPost" value="${member.post}" readonly>
-						<input type="text" id="toAddress" name="toAddress" value="${member.address} ${member.addressEtc}" style="width: 300px" readonly><br>
-						<input type="text" id="toPhone" name="toPhone" value="${member.phone}" readonly> --%>
-					<p>
-				</td>
-			</tr>
-			<%-- <tr>
-				<td class="td1"><span>*</span>주소</td>
-				<td class="td2">
-					<input type="text" id="toPost" name="toPost" value="${member.post}" readonly>
-					<input type="text" id="toAddress" name="toAddress" value="${member.address} ${member.addressEtc}" style="width: 300px" readonly>
-				</td>
-			</tr>
-			<tr>
-				<td class="td1"><span>*</span>연락처</td>
-				<td class="td2">
-					<input type="text" id="toPhone" name="toPhone" value="${member.phone}" readonly>
-				</td>
-			</tr> --%>
-			<tr id="dm">
-				<td class="td1">배송 메시지</td>
-				<td class="td2">
-					<input type="text" id="deliveryMessage" name="deliveryMessage" maxlength="50">
-				</td>
-			</tr>
-		</tbody>
-	</table>
-	</c:if>
 	
-	<!-- 비회원 -->
+	<form name="orderForm" id="orderForm" action="orderResult" method="post">
+			
+			<span class="mainhead">주문상품</span>
+			
+			<table class="table1">
+ 				<colgroup>
+					<col style="width: auto;" />
+					<col style="width: 15%;" />
+					<col style="width: 15%;" />
+				</colgroup> 
+				<thead>
+
+					<tr class="head1">
+						<th>상품정보</th>
+						<th>판매자</th>
+						<th>배송비</th>
+						<th>금액</th>
+					</tr>
+					
+				</thead>
+				
+				<tbody>					
+					<tr>
+						<td>
+							<div class="img">
+								<img src="opload/${product.productThumb}" width="50" height="50">
+							</div>
+							<div class="proInfo">
+								<b>${product.productName}&nbsp;&nbsp;${optionName}&nbsp;&nbsp;${cnt}개&nbsp;&nbsp;${product.productPrice}원</b>
+							</div>
+						</td>
+						<td class="t1_td">${seller.storeName}</td>
+						<td class="pricetd">${product.deliveryPrice}</td>
+						<td class="pricetd">${cnt * product.productPrice + product.deliveryPrice}</td>
+					</tr>
+				</tbody>
+			</table>
+			<br>
+
+<!-- 회원인 경우 -->
+	<c:if test="${authInfo != null }">
+		<table class="table2">
+			<colgroup>
+				<col style="width: 25%;" />
+				<col style="width: auto;" />
+			</colgroup>
+			<thead>
+				<tr>
+					<th>배송지 정보 입력</th>
+					<th><span>(*필수입력)</span></th>
+				</tr>
+			</thead>
+			<tbody>
+				<tr id="dc">
+					<td class="td1"><span>*</span>배송지 선택</td>
+					<td class="td2">
+						<label> <input type="radio"name="deliveryCheck" id="default" value="${member.name}" checked>${member.name}</label>
+						<label> <input type="radio" id="new" name="deliveryCheck"value="">새로운 배송지</label> 
+						<input type="button" class="b" id="myDeliveryAddress"value="나의 배송 주소록">
+					</td>
+				</tr>
+				
+				<tr>
+					<td class="td1"><span>*</span>이름
+					<td class="td2"><input type="text" id="toName" name="toName"value="${member.name}" readonly>
+				</tr>
+				<tr>	
+					<td class="td1"><span>*</span>주소
+					<td class="td2"><input type="text" id="toPost" name="toPost"value="${member.post}" readonly>
+									<input type="text"id="toAddress" name="toAddress"value="${member.address} ${member.addressEtc}"style="width: 300px" readonly>
+				</tr>					
+				<tr>
+					<td class="td1"><span>*</span>연락처
+					<td class="td2"><input type="text" id="toPhone" name="toPhone"value="${member.phone}" readonly>
+				</tr>
+
+				<tr id="dm">
+					<td class="td1">배송 메시지</td>
+					<td class="td2"><input type="text" id="deliveryMessage" name="deliveryMessage" maxlength="50"></td>
+				</tr>
+			</tbody>
+		</table>
+		</c:if>
+		
+<!-- 비회원 인 경우 -->		
 	<c:if test="${member.id == '비회원'}">
-	<div class="boss">
+	<div class="boss">		
 		<div class="div1">
 			<table class="table2" id="no1">
 				<colgroup>
@@ -402,8 +406,8 @@ history.go(-1);
 				</colgroup>
 				<thead>
 					<tr>
-						<th>주문회원정보<br><span>(*필수입력)</span></th>
-						<th></th>
+						<th>주문회원정보</th>
+						<th><span>(*필수입력)</span></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -428,13 +432,7 @@ history.go(-1);
 							<span>*</span>비밀번호
 						</td>
 						<td class="td2">
-							<input type="text" id="guestPassword" name="guestPassword" value="${guest.guestPassword }">
-						</td>
-					</tr>
-					<tr>
-						<td class="td1">
-						</td>
-						<td class="td2">
+							<input type="password" id="guestPassword" name="guestPassword" value="${guest.guestPassword }">
 						</td>
 					</tr>
 				</tbody>
@@ -448,8 +446,8 @@ history.go(-1);
 				</colgroup>
 				<thead>
 					<tr>
-						<th>배송지정보<br>입력<span>(*필수입력)</span></th>
-						<th></th>
+						<th>배송지정보입력</th>
+						<th><span>(*필수입력)</span></th>
 					</tr>
 				</thead>
 				<tbody>
@@ -466,8 +464,10 @@ history.go(-1);
 							<span>*</span>주소
 						</td>
 						<td class="td2">
-							<input type="text" id="toPost" name="toPost" value="" readonly>&nbsp;<input type="button" class="a" onClick="openDaumZipAddress();" value="주소 찾기" />
-							<input type="text" id="toAddress" name="toAddress" value="" style="width: 250px" readonly><input type="text" name="toAddressEtc" id="toAdressEtc" style="width: 250px" placeholder="상세주소를 입력해주세요."> 
+							<input type="text" id="toPost" name="toPost" value="" readonly>
+							<input type="button" id="a" onClick="openDaumZipAddress();" value="주소 찾기" /><br>
+							<input type="text" id="toAddress" name="toAddress" value="" style="width: 250px" readonly>
+							<input type="text" name="toAddressEtc" id="toAdressEtc" style="width: 250px" placeholder="상세주소를 입력해주세요."> 
 						</td>
 					</tr>
 					<tr>
@@ -492,66 +492,73 @@ history.go(-1);
 	</div>
 	</c:if>
 	
-	<br><br>
-	<div class="tb3">
-		<table class="table3">
-			<colgroup>
-				<col style="width:70%;" />
-				<col style="width:auto%;" />
-			</colgroup>
-			<thead>
-				<tr>
-					<th class="right">결제정보 입력</th>
-					<th>결제하기</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr>
-					<td class="right">결제 수단</td>
-					<td rowspan="2" id="rowspan">
-						<b><span class="s1">${payPrice}</span></b><span class="s2">원</span><br><br>
-						<input type="button" class="t" id="payment" value="결제하기">
-					</td>
-				</tr>
-				<tr>
-					<td class="right">
-						<label>
-							<input type="radio" name="payingSelect" class="payingSelect" id="payBank" checked>무통장 입금
-						</label>&nbsp;&nbsp;&nbsp;
-						<label>
-							<input type="radio" name="payingSelect" class="payingSelect" id="payCard">신용카드 결제
-						</label><br> 
-						<p id="payBankInfo">
-							입금 은행 <select name="bankCode">
-								<option value="none">은행을 선택해 주세요</option>
-								<c:forEach var="bankCode" items="${bankInfo}" varStatus="status">
-									<option value="${bankCode.bankCode}">${bankCode.bankName}</option>
-								</c:forEach>
-							</select>
-						</p>
-					</td>
-				</tr>
-			</tbody>
-		</table>
+			
+		<div class="tb3">
+			<table class="table3">
+				<colgroup>
+					<col style="width: 70%;" />
+					<col style="width: auto%;" />
+				</colgroup>
+				<thead>
+					<tr>
+						<th class="right">결제정보 입력</th>
+						<th>결제하기</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr>
+						<td class="right">결제 수단</td>
+						<td rowspan="2" id="rowspan"><b><span class="s1">
+							${payPrice}</span></b>
+							<span class="s2">원</span>
+							<br>
+							<input type="button" class="t" id="payment" value="결제하기"></td>
+					</tr>
+					<tr>
+						<td class="right">
+							<label> 
+								<input type="radio"name="payingSelect" class="payingSelect" id="payBank" checked>무통장 입금
+							</label>&nbsp;&nbsp;&nbsp; 
+							<label> 
+								<input type="radio"name="payingSelect" class="payingSelect" id="payCard">신용카드 결제
+							</label>
+
+							<p id="payBankInfo">
+								입금 은행 <select name="bankCode">
+											<option value="none">은행을 선택해 주세요</option>
+												<c:forEach var="bankCode" items="${bankInfo}" varStatus="status">
+											<option value="${bankCode.bankCode}">${bankCode.bankName}</option>
+												</c:forEach>
+										</select>
+							</p>
+							</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+				<input type="hidden" id="payPrice" name="payPrice" value="${payPrice}">
+				<input type="hidden" id="productNum" name="productNum" value="${product.productNum}"> 
+				<input type="hidden" id="memberEmail" name="memberEmail" value="${member.email}">
+				<input type="hidden" id="memberName" name="memberName" value="${member.name}"> 
+				<input type="hidden" id="memberPhone" name="memberPhone" value="${member.phone}"> 
+				<input type="hidden" id="memberAddress" name="memberAddress" value="${member.address} ${member.addressEtc}"> 
+				<input type="hidden" id="memberPost" name="memberPost" value="${member.post}">
+				<input type="hidden" id="id" name="id" value="${member.id}"> 
+				<input type="hidden" id="productName" name="productName" value="${product.productName}"> 
+				<input type="hidden" id="productThumb" name="productThumb" value="${product.productThumb}">
+				<input type="hidden" id="optionOneNum" name="optionOneNum" value="${option.optionOneNum}"> 
+				<input type="hidden" id="optionTwoNum" name="optionTwoNum" value="${option.optionTwoNum}">
+				<input type="hidden" id="optionThreeNum" name="optionThreeNum" value="${option.optionThreeNum}"> 
+				<input type="hidden" id="optionNum" name="optionNum" value="${option.optionNum}">
+				<input type="hidden" id="productPrice" name="productPrice" value="${payPrice}"> 
+				<input type="hidden" id="cnt" name="cnt" value="${cnt}"> 
+
+	</form>		
 	</div>
-		<input type="hidden" id="payPrice" name="payPrice" value="${payPrice}">
-		<input type="hidden" id="productNum" name="productNum" value="${product.productNum}"> 
-		<input type="hidden" id="memberEmail" name="memberEmail" value="${member.email}">
-		<input type="hidden" id="memberName" name="memberName" value="${member.name}"> 
-		<input type="hidden" id="memberPhone" name="memberPhone" value="${member.phone}"> 
-		<input type="hidden" id="memberAddress" name="memberAddress" value="${member.address} ${member.addressEtc}"> 
-		<input type="hidden" id="memberPost" name="memberPost" value="${member.post}">
-		<input type="hidden" id="id" name="id" value="${member.id}"> 
-		<input type="hidden" id="productName" name="productName" value="${product.productName}"> 
-		<input type="hidden" id="productThumb" name="productThumb" value="${product.productThumb}">
-		<input type="hidden" id="optionOneNum" name="optionOneNum" value="${option.optionOneNum}"> 
-		<input type="hidden" id="optionTwoNum" name="optionTwoNum" value="${option.optionTwoNum}">
-		<input type="hidden" id="optionThreeNum" name="optionThreeNum" value="${option.optionThreeNum}"> 
-		<input type="hidden" id="optionNum" name="optionNum" value="${option.optionNum}">
-		<input type="hidden" id="productPrice" name="productPrice" value="${payPrice}"> 
-		<input type="hidden" id="cnt" name="cnt" value="${cnt}"> 
-	</form>
-	<script>
+	</section>
+
+<script>
+	
 var defaultInfo;
 var newInfo;
 
@@ -571,7 +578,8 @@ $(document).on("click", "#payment", function(){
 	else {
 		$('#orderForm').submit();
 	}
-});
+	
+})
 
 $('input[name=deliveryCheck]').click(function(){
 	if($('#default').is(':checked') == true) {
@@ -580,13 +588,14 @@ $('input[name=deliveryCheck]').click(function(){
 	}
 	if($('#new').is(':checked') == true) {
 		newInfo = $('#deliveryInfo').html();
-		$('#deliveryInfo').html('<input type="text" id="toName" name="toName" value="" ><br><br> <input type="text" id="toPost" name="toPost" value="" readonly>&nbsp;<input type="button" class="a" onClick="openDaumZipAddress();" value = "주소 찾기" /><br> <input type="text" id="toAddress" name="toAddress" value="" style="width : 300px" readonly>&nbsp; <input type="text" name="toAddressEtc" id="toAdressEtc" placeholder="상세주소를 입력해주세요."><br><br> <input type="text" id="toPhone" name="toPhone" value="" ><br>');
+		$('#deliveryInfo').html('<input type="text" id="toName" name="toName" value="" ><br><br> <input type="text" id="toPost" name="toPost" value="" readonly>&nbsp;<input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /><br> <input type="text" id="toAddress" name="toAddress" value="" style="width : 300px" readonly>&nbsp; <input type="text" name="toAddressEtc" id="toAdressEtc" placeholder="상세주소를 입력해주세요."><br><br> <input type="text" id="toPhone" name="toPhone" value="" ><br>');
 	}
 });
 
+
 $('#myDeliveryAddress').click(function(){
 	var popTitle = "popupOpener"
-	window.open("",popTitle, "width=800, height=500");
+	window.open("",popTitle, "width=1500, height=500");
 	
 	var frmData = document.deliveryAddress;
 	frmData.target = popTitle;
@@ -613,13 +622,15 @@ $('.payingSelect').click(function(){
 	}
 });
 
-
 </script>
-	<!-- 이름 : <input type="text" id="name" name="name" value="" ><br>
-주소 : <input type="text" id="post" name="post" value="" readonly>&nbsp;
-<input type="text" id="address" name="address" value="" style="width : 300px" readonly>&nbsp;
-상세주소:<input type="text" name="addressEtc" id="adressEtc"> &nbsp;<input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /><br>
-연락처 : <input type="text" id="phone" name="phone" value="" ><br>
-배송 메시지 : <input type="text" id="deliveryMessage" name="deliveryMessage" maxlength="50"><br> -->
+
+
+	<script src='${pageContext.request.contextPath}/resources/js/jquery.js'></script>
+	<script
+		src='${pageContext.request.contextPath}/resources/js/plugins.js'></script>
+	<script
+		src='${pageContext.request.contextPath}/resources/js/scripts.js'></script>
+	<script
+		src='${pageContext.request.contextPath}/resources/js/masonry.pkgd.min.js'></script>
 </body>
 </html>

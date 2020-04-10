@@ -17,9 +17,9 @@
 	href='${pageContext.request.contextPath}/resources/css/styleSB.css'
 	type='text/css' media='all' />
 
-<script>
-	src = "https://code.jquery.com/jquery-2.1.4.min.js"
-</script>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+	crossorigin="anonymous"></script>
 <style>
 /* 
 형찬이를 위한 고화질 여자 배경 모음
@@ -194,7 +194,7 @@ body {
 	transform: translateY(-7px);
 }
 
-#t {
+#t, #searchGuest {
 	width: 120px;
 	height: 40px;
 	font-family: 'Roboto', sans-serif;
@@ -213,7 +213,7 @@ body {
 	opacity: 0.8;
 }
 
-#t:hover {
+#t:hover, #searchGuest:hover {
 	background-color: #FFB2F5;
 	box-shadow: 0px 15px 20px hotpink;
 	color: #fff;
@@ -277,12 +277,12 @@ input::-moz-placeholder {
 					<b>비회원 주문 조회</b>
 				</div>
 				
-				<form action="selectGuest">
+				<form id="selectGuest" action="selectGuest">
 					<div class="in2">
 						<input type="text" class="pad2" name="guestName" value="${guestName }" placeholder="비회원 이름" onfocus="this.value=''" />
 						<input type="text" class="pad2" name="guestPhone" value="${guestPhone }" placeholder="비회원 전화번호" onfocus="this.value=''" /> 
 						<input type="text" class="pad2" name="guestPassword" value="${guestPassword }" placeholder="비회원 비밀번호" onfocus="this.value=''" />&nbsp; 
-						<input type="submit" id="t" name="selectGuest" value="조회하기" />
+						<input type="button" id="searchGuest" name="selectGuest" value="조회하기" />
 					</div>
 				</form>
 			</div>
@@ -292,6 +292,18 @@ input::-moz-placeholder {
 		<span class="blank"></span>
 	</section>
 
-
+<script>
+ 	$(document).on("click", "#searchGuest", function(){		 
+		if($("input[name=guestName]").val() == ""){
+			alert("비회원 이름을 입력해주세요!");
+		} else if($("input[name=guestPhone]").val() == ""){
+			alert("비회원 전화번호를 입력해주세요!");
+		} else if($("input[name=guestPassword]").val() == "") {
+			alert("비회원 비밀번호를 입력해주세요!");
+		} else {
+			$("#selectGuest").submit();
+		}
+	});
+</script>
 </body>
 </html>

@@ -72,17 +72,6 @@ body {
 	padding-bottom: 190px; /* footer height */
 }
 
-ul {
-	padding: 0;
-	margin: 0;
-	list-style: none;
-}
-
-div#root {
-	width: 90%;
-	margin: 0 auto;
-}
-
 .navbar-nav {
     width: 100%;
     text-align: center;
@@ -103,12 +92,6 @@ section#container {
 	margin-bottom: 50px;
 }
 
-section#container::after {
-	content: "";
-	display: block;
-	clear: both;
-}
-
 div#containerBox {
 	float: right;
 	width: calc(100% - 200px - 20px);
@@ -117,11 +100,13 @@ div#containerBox {
 aside {
 	float: left;
 	width: 200px;
+	border-right: 2px solid #eee;
 }
 
 aside ul li {
 	text-align: center;
 	margin-bottom: 10px;
+	list-style: none;
 }
 
 footer#footer {

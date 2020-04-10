@@ -73,53 +73,36 @@
 	vertical-align: middle;
 }
 
-
-
-
-table {
-	border-collapse: collapse;
-	line-height: 1.5;
-	width: 800px;
-	margin: auto;
-}
-
-.table1 {
-	margin-top: 100px;
+.mainhead {
+	font-weight: bold;
+	font-size: 30px;
 }
 
 .img {
-	width: 50px;
-	height: 50px;
 	float: left;
+	padding-left: 10px;
+	vertical-align: middle;
 }
 
 .proInfo {
-	float: left;
-	margin-left: 10px;
-}
-
-.mainhead {
-	text-align: left;
-}
-
-.head1 {
-	border: 1px solid black;
-	border-left: 0;
-	border-right: 0;
-	background: #EAEAEA;
-}
-
-.table1 tbody tr {
-	border-bottom: 3px solid gray;
-}
-
-.table1 tbody td {
-	text-align: center;
+	float: center;
+	vertical-align: middle;
 }
 
 .t1_td {
 	border-right: 0.2px solid gray;
 	border-left: 0.2px solid gray;
+	padding-left: 10px;
+	vertical-align: middle;
+}
+
+.pricetd {
+	vertical-align: middle;
+	border-rigth : 1px solid black;
+}
+
+.table1 tbody tr {
+	border-bottom: 3px solid gray;
 }
 
 .table2 {
@@ -131,6 +114,7 @@ table {
 	border: 0.2px solid gray;
 	background: #EAEAEA;
 }
+
 
 .table2 thead tr span {
 	font-size: 13px;
@@ -148,17 +132,19 @@ table {
 
 .table2 tbody tr, .table2 tbody td {
 	padding: 10px;
-	/* border: 0.2px solid gray; */
 }
 
 .td1 {
 	background: #EAEAEA;
-	/* border-right:0; */
+	vertical-align: middle;
 }
 
 .td2 {
-	/* border-left:0; */
-	
+	text-align: left;
+}
+
+#toPost {
+	margin-bottom: 10px;
 }
 
 #dc {
@@ -167,6 +153,10 @@ table {
 
 #dm {
 	border-top: 0.2px solid gray;
+}
+
+#deliveryMessage {
+	width: 300px;
 }
 
 .table3 {
@@ -184,11 +174,14 @@ table {
 }
 
 .right {
-	border-right: 0.2px solid gray
+	border-right: 0.2px solid gray;
+	text-align: center;
+	vertical-align: middle;
 }
 
 #rowspan {
 	text-align: center;
+	padding-left: 10px;
 }
 
 .s1 {
@@ -200,43 +193,17 @@ table {
 	font-size: 26px;
 }
 
-.div1, .div2 {
-	float: left;
-	display: inline-block;
-}
-
-.boss {
-	clear: both;
-	margin-left: 510px;
-	display: block;
-	padding: 40px;
-	width: 50%;
-}
-
-#no1, #no2 {
-	width: 400px;
-}
-
-#no1 {
-	border-right: 0;
-}
-
-#no1 thead tr {
-	border-right: 0;
-}
-
-#no2 thead tr {
-	border-left: 0;
-}
-
-#no1 td {
-	padding: 19px;
-}
-
 .tb3 {
-	padding: 30px;
+	padding-top: 30px;
 	display: inline-block;
-	margin-left: 520px;;
+}
+
+select {
+	border: 1px solid #ccc;
+	border-radius: 50px;
+	color: #666;
+	text-align: center;
+	padding: 6px;
 }
 
 #payment {
@@ -292,9 +259,6 @@ table {
 	transform: translateY(-7px);
 }
 
-.pricetd {
-	border-rigth : 1px solid black;
-}
 </style>
 </head>
 <body>
@@ -321,18 +285,16 @@ table {
 	<form name="orderForm" id="orderForm" action="orderResultByBasket" method="post">
  			<input type="hidden" id="payPrice${stats.index}" name="payPrice"value="${totalPrice}">
 			
+			<span class="mainhead">주문상품</span>
+			
 			<table class="table1">
-<%-- 				<colgroup>
+ 				<colgroup>
 					<col style="width: auto;" />
 					<col style="width: 15%;" />
 					<col style="width: 15%;" />
-				</colgroup> --%>
+				</colgroup> 
 				<thead>
-				
-					<tr>
-						<th class="mainhead">주문상품</th>
-					</tr>
-					
+
 					<tr class="head1">
 						<th>상품정보</th>
 						<th>판매자</th>
@@ -344,29 +306,30 @@ table {
 				
 				<tbody>
 				<c:forEach var="product" items="${orderListArray}" varStatus="status">
+					<input type="hidden" name="productName" value="${product.productName}">
+					
 					<tr>
 						<td>
 							<div class="img">
 								<img src="opload/${product.productThumb}" width="50" height="50">
 							</div>
 							<div class="proInfo">
-								<b>${product.productName}&nbsp;&nbsp;${product.optionName}&nbsp;&nbsp;${product.cnt}개&nbsp;&nbsp${product.productPrice}원</b>
+								<b>${product.productName}&nbsp;&nbsp;${product.optionName}&nbsp;&nbsp;${product.cnt}개&nbsp;&nbsp;${product.productPrice}원</b>
 							</div>
 						</td>
 						<td class="t1_td">${product.storeName}</td>
 						<td class="pricetd">${product.deliveryPrice}</td>
-						<td>${product.cnt * product.productPrice + product.deliveryPrice}</td>
+						<td class="pricetd">${product.cnt * product.productPrice + product.deliveryPrice}</td>
 					</tr>
 					</c:forEach>
 				</tbody>
 			</table>
 			<br>
-			<br>
 
 		<table class="table2">
 			<colgroup>
 				<col style="width: 25%;" />
-				<col style="width: auto%;" />
+				<col style="width: auto;" />
 			</colgroup>
 			<thead>
 				<tr>
@@ -378,29 +341,34 @@ table {
 				<tr id="dc">
 					<td class="td1"><span>*</span>배송지 선택</td>
 					<td class="td2">
-						<label> <input type="radio"name="deliveryCheck" id="default" value="${member.name}" checked>${member.name}
-						</label> <label> <input type="radio" id="new" name="deliveryCheck"value="">새로운 배송지
-						</label> <input type="button" class="b" id="myDeliveryAddress"value="나의 배송 주소록"></td>
-				</tr>
-				<tr>
-					<td class="td1"><span>*</span>이름<br>
-					<br> <span>*</span>주소<br>
-					<br> <span>*</span>연락처</td>
-					<td class="td2">
-						<p id="deliveryInfo">
-							<input type="text" id="toName" name="toName"value="${member.name}" readonly><br>
-							<br> <input type="text" id="toPost" name="toPost"value="${member.post}" readonly> 
-								 <input type="text"id="toAddress" name="toAddress"value="${member.address} ${member.addressEtc}"style="width: 300px" readonly><br>
-							<br> <input type="text" id="toPhone" name="toPhone"value="${member.phone}" readonly>
-						<p>
+						<label> <input type="radio"name="deliveryCheck" id="default" value="${member.name}" checked>${member.name}</label>
+						<label> <input type="radio" id="new" name="deliveryCheck"value="">새로운 배송지</label> 
+						<input type="button" class="b" id="myDeliveryAddress"value="나의 배송 주소록">
 					</td>
 				</tr>
+				
+				<tr>
+					<td class="td1"><span>*</span>이름
+					<td class="td2"><input type="text" id="toName" name="toName"value="${member.name}" readonly>
+				</tr>
+				<tr>	
+					<td class="td1"><span>*</span>주소
+					<td class="td2"><input type="text" id="toPost" name="toPost"value="${member.post}" readonly>
+									<input type="text"id="toAddress" name="toAddress"value="${member.address} ${member.addressEtc}"style="width: 300px" readonly>
+				</tr>					
+				<tr>
+					<td class="td1"><span>*</span>연락처
+					<td class="td2"><input type="text" id="toPhone" name="toPhone"value="${member.phone}" readonly>
+				</tr>
+
 				<tr id="dm">
 					<td class="td1">배송 메시지</td>
-					<td class="td2"><input type="text" id="deliveryMessage"name="deliveryMessage" maxlength="50"></td>
+					<td class="td2"><input type="text" id="deliveryMessage" name="deliveryMessage" maxlength="50"></td>
 				</tr>
 			</tbody>
 		</table>
+		
+		
 		<div class="tb3">
 			<table class="table3">
 				<colgroup>
@@ -418,7 +386,7 @@ table {
 						<td class="right">결제 수단</td>
 						<td rowspan="2" id="rowspan"><b><span class="s1">
 							${totalPrice}</span></b>
-							<span class="s2">원</span><br>
+							<span class="s2">원</span>
 							<br>
 							<input type="hidden" name="orderJson"value='${orderJson}' /> 
 							<input type="hidden"name="orderListJsonArray" value='${orderListJsonArray}' /> 
@@ -431,7 +399,8 @@ table {
 							</label>&nbsp;&nbsp;&nbsp; 
 							<label> 
 								<input type="radio"name="payingSelect" class="payingSelect" id="payCard">신용카드 결제
-							</label><br>
+							</label>
+
 							<p id="payBankInfo">
 								입금 은행 <select name="bankCode">
 											<option value="none">은행을 선택해 주세요</option>
@@ -439,7 +408,8 @@ table {
 											<option value="${bankCode.bankCode}">${bankCode.bankName}</option>
 												</c:forEach>
 										</select>
-							</p></td>
+							</p>
+							</td>
 					</tr>
 				</tbody>
 			</table>
@@ -455,7 +425,8 @@ table {
 	
 
 	
-	<script>
+<script>
+
 var defaultInfo;
 var newInfo;
 
@@ -492,7 +463,7 @@ $('input[name=deliveryCheck]').click(function(){
 
 $('#myDeliveryAddress').click(function(){
 	var popTitle = "popupOpener"
-	window.open("",popTitle, "width=800, height=500");
+	window.open("",popTitle, "width=1500, height=500");
 	
 	var frmData = document.deliveryAddress;
 	frmData.target = popTitle;
@@ -518,6 +489,7 @@ $('.payingSelect').click(function(){
 		$("#orderForm").attr("action", "payingCardByBasket");
 	}
 });
+
 </script>
 
 
@@ -528,11 +500,5 @@ $('.payingSelect').click(function(){
 		src='${pageContext.request.contextPath}/resources/js/scripts.js'></script>
 	<script
 		src='${pageContext.request.contextPath}/resources/js/masonry.pkgd.min.js'></script>
-	<!-- 이름 : <input type="text" id="name" name="name" value="" ><br>
-주소 : <input type="text" id="post" name="post" value="" readonly>&nbsp;
-<input type="text" id="address" name="address" value="" style="width : 300px" readonly>&nbsp;
-상세주소:<input type="text" name="addressEtc" id="adressEtc"> &nbsp;<input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /><br>
-연락처 : <input type="text" id="phone" name="phone" value="" ><br>
-배송 메시지 : <input type="text" id="deliveryMessage" name="deliveryMessage" maxlength="50"><br> -->
 </body>
 </html>

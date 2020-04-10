@@ -5,81 +5,124 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>SellerPage</title>
-	<style>
-	
-		#mm {
-    		 text-align: center;
- 			 margin: 0 910px;
-    	}
-    	
-    	body{
-   	  		background-image:url('https://images.pexels.com/photos/1470589/pexels-photo-1470589.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
-   	  		overflow:hidden;
-   	  	}
-   	  	
-   	  	a{
-   	  		text-decoration:none;
-   	  		color:black;
-   	  	}
-   	  	
-   	  	h1{
-   	  		display:inline;
-   	  	}
-   	  	
-   	  	#who{
-      		text-decoration: underline;
-      	}
-      	
-      	.who{
-      		text-align: center;
-      		font-size: 18px;
-      	}
-      	
-      	.t {
-		    width: 100px;
-		    height: 75px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 18px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 25px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		    margin-bottom: 10px;
-		}
 
-		.t:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
-		
-		.menu{
-			margin-left: 20px;
-		}
-   	  	
-	</style>
+<link rel="stylesheet"
+   href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
+
+<link rel='stylesheet'
+   href='${pageContext.request.contextPath}/resources/css/styleSB.css'
+   type='text/css' media='all' />
+   
+<style>
+   
+html {
+   height: 100%;
+}
+
+body {
+   background-image: url('https://images.pexels.com/photos/1470589/pexels-photo-1470589.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260');
+   background-size: cover;
+   padding: 0;
+   margin: 0;
+   height: 100%;
+}
+
+.navbar-nav {
+   width: 100%;
+   text-align: center;
+}
+
+.navbar-nav>li {
+   float: none;
+   display: inline-block;
+}
+
+.navbar-nav>li>a {
+   padding-top: 30px;
+}
+
+.navbar-nav>li.navbar-right {
+   float: right !important;
+}
+
+#container {
+   position: relative;
+   top: 0;
+   left: 0;
+   width: 100%;
+   height: 100%;
+   text-align: center;
+   padding: 20px 0;   
+}
+
+#containerBox {
+   display: inline-block;
+   vertical-align: middle;
+}
+
+h1 {
+   margin-left: 15px;
+   margin-bottom: 20px;
+   text-align: center;
+}
+
+.blank {
+   display: inline-block;
+   width: 0;
+   height: 100%;
+   vertical-align: middle;
+}
+
+#t {
+   width: 200px;
+   height: 150px;
+   font-family: 'Roboto', sans-serif;
+   font-size: 18px;
+   text-transform: uppercase;
+   letter-spacing: 2.5px;
+   font-weight: 500;
+   color: white;
+   background-color: #6B66FF;
+   border: none;
+   border-radius: 35px;
+   box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+   transition: all 0.3s ease 0s;
+   cursor: pointer;
+   outline: none;
+   opacity: 0.8;
+   margin-left: 15px;
+}
+
+#t:hover {
+   background-color: #FFB2F5;
+   box-shadow: 0px 15px 20px hotpink;
+   color: #fff;
+   transform: translateY(-7px);
+}
+           
+   </style>
 </head>
 <body>
-	<div id="mm">
-		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
-	</div>
-	<div class="who">
-		<br><br><b id="who">[${authInfo.name}]</b><b>님의 페이지</b><br><br>
-	</div>
-	<div class="menu">
-		<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/uploadProduct'" value="상품 등록"><br>
-		<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/productManage?page=1'" value="상품 관리"><br>
-		<input type="button" class="t" onclick="location.href='${pageContext.request.contextPath}/orderManage?page=1'" value="주문 관리">
-	</div>
+
+   <nav class="navbar navbar-default">
+      <div id="navBox">
+         <%@ include file="../include/Nav.jsp"%>
+      </div>
+   </nav>   
+
+   <section id="container">
+      <div id="containerBox">
+         <h1><span class="updateComplete">[${authInfo.name}]님의 페이지</span></h1>      
+      <input type="button" id="t" onclick="location.href='${pageContext.request.contextPath}/uploadProduct'" value="상품 등록">
+      <input type="button" id="t" onclick="location.href='${pageContext.request.contextPath}/productManage?page=1'" value="상품 관리">
+      <input type="button" id="t" onclick="location.href='${pageContext.request.contextPath}/orderManage'" value="주문 관리">
+      </div>
+      <span class="blank"></span>
+   </section>
+         
+
+   <script src="${pageContext.request.contextPath}/asset/js/bootstrap.js"></script>
 </body>
 </html>

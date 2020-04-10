@@ -1,16 +1,25 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>	
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <!DOCTYPE html>
 <html>
 <head>
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
-<script type="text/JavaScript" src="http://code.jquery.com/jquery-1.7.min.js"></script>
+<script type="text/JavaScript"
+	src="http://code.jquery.com/jquery-1.7.min.js"></script>
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <meta http-equiv="X-UA-Compatible" content="ie=edge" />
 <title>RegistSeller</title>
+
+<link rel="stylesheet"
+	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
+
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/styleSB.css'
+	type='text/css' media='all' />
+
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
 	integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
 	crossorigin="anonymous">
@@ -146,8 +155,9 @@ function idCheck(){
 
 </script>
 <!-- 카카오 주소 찾기 api -->
-<script src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-	<script type="text/javascript">
+<script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript">
 		function openDaumZipAddress() {
 			new daum.Postcode({
 				oncomplete:function(data) {
@@ -159,283 +169,217 @@ function idCheck(){
 			}).open();
 		}
 	</script>
-	<style>
-		table{
-		    border-collapse: collapse;
-		    line-height: 1.5;
-			width:600px;
-			margin:auto;
-			margin-top:90px;
-		}
-		table thead th {
-		    padding: 10px;
-		    font-weight: bold;
-		    vertical-align: top;
-		    color: #369;
-		    border-bottom: 3px solid #036;
-		}
-		table tbody th {
-		    width: 150px;
-		    padding: 10px;
-		    font-weight: bold;
-		    vertical-align: top;
-		    border-bottom: 1px solid #ccc;
-		    background: #f3f6f7;
-		}
-		table td {
-		    width: 350px;
-		    padding: 10px;
-		    vertical-align: top;
-		    border-bottom: 1px solid #ccc;
-		}
-		
-		.td1{
-			background: silver;
-			text-align:center;
-			vertical-align:middle;
-		}
-		
-		.td2{
-			text-align:left;
-		}
-		
-		.submit{
-			margin-left:850px;;
-		}
-		
-		#mm {
-    		text-align: center;
- 			margin: 0 910px;
-    	}
-    	
-		a{
-   	  		text-decoration:none;
-   	  		color:black;
-   	  	}
-   	  	
-   	  	h1{
-   	  		display:inline;
-   	  	}
-   	  	
-   	  	.b {
-		    width: 90px;
-		    height: 30px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 14px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 35px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		}
+<style>
+.navbar-nav {
+	width: 100%;
+	text-align: center;
+}
 
-		.b:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
-		
-		/* value에 문자열이 5~6글자 정도인 버튼 */
-		.a {
-		    width: 130px;
-		    height: 30px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 14px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 35px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		}
+.navbar-nav>li {
+	float: none;
+	display: inline-block;
+}
 
-		.a:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
-		
-		.idCheck {
-		    width: 90px;
-		    height: 30px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 14px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 35px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		}
+.navbar-nav>li>a {
+	padding-top: 30px;
+}
 
-		.idCheck:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
-		
-		.submit {
-		    width: 130px;
-		    height: 30px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 14px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 35px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		}
+.navbar-nav>li.navbar-right {
+	float: right !important;
+}
 
-		.submit:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
+#container {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	padding: 20px 0;
+}
 
-   	  	
-	</style>
+#containerBox {
+	display: inline-block;
+	vertical-align: middle;
+}
+
+table {
+	border-collapse: collapse;
+	line-height: 1.5;
+	width: 700px;
+	margin: auto;
+}
+
+table thead th {
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	color: #369;
+	border-bottom: 3px solid #036;
+}
+
+table tbody th {
+	width: 150px;
+	padding: 10px;
+	font-weight: bold;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+	background: #f3f6f7;
+}
+
+table td {
+	padding: 10px;
+	vertical-align: top;
+	border-bottom: 1px solid #ccc;
+}
+
+.td1 {
+	background: silver;
+	text-align: center;
+	vertical-align: middle;
+}
+
+.td2 {
+	text-align: left;
+}
+
+.submit {
+	margin-top: 20px;;
+}
+
+#idChk, #regist, #cancel, #check, #send, #a {
+	width: 100px;
+	height: 30px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 14px;
+	text-transform: uppercase;
+	letter-spacing: 2.5px;
+	font-weight: 500;
+	color: white;
+	background-color: #6B66FF;
+	border: none;
+	border-radius: 35px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease 0s;
+	cursor: pointer;
+	outline: none;
+	opacity: 0.8;
+}
+
+#idChk:hover, #regist:hover, #cancel:hover,
+#check:hover, #send:hover, #a:hover {
+	background-color: #FFB2F5;
+	box-shadow: 0px 15px 20px hotpink;
+	color: #fff;
+	transform: translateY(-7px);
+}
+</style>
+
 </head>
 <body>
-	<div id="mm">
-		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
-	</div>
-	<form action="registCompleteSeller" method="post">
-	<table>
-	      <colgroup>
-	         <col style="width:30%;" />
-	         <col style="width:auto;" />
-	      </colgroup>
-	      <thead>
-	         <tr>
-	            <th>항목</th>
-	            <th>내용</th>
-	         </tr>
-	      </thead>
-	      <tbody>
-	      	<tr>
-				<td class="td1">이름</td>
-				<td class="td2">
-					<input type="text" name="name" id="name" required>
-				</td>
-	        </tr>
-	        <tr>
-				<td class="td1">아이디</td>
-				<td class="td2">
-					<input type="text" id="id" name="id" required/>&nbsp;&nbsp;&nbsp;
-					<input type="button" class="idCheck" onClick="idCheck();" value="중복확인">
-				</td>
-	        </tr>
-	        <tr>
-				<td class="td1">비밀번호</td>
-				<td class="td2">
-					<input type="password" name="password" id="pw" required/>
-					<span id="pwChk1"></span>
-				</td>
-	        </tr>
-	        <tr>
-				<td class="td1">비밀번호 재입력</td>
-				<td class="td2">
-					<input type="password" name="passwordCheck" id="pwc" required/>
-					<span id="pwChk2"></span>
-					<span id="yes">O</span>
-				</td>
-	        </tr>
-	        <tr>
-				<td class="td1">휴대폰 번호</td>
-				<td class="td2">
-					<input type="text" name="phone" id="ph" required/>&nbsp;&nbsp;&nbsp;
-					<button type="button" class="b" onclick="sendSms();">전송</button>
-				</td>
-	        </tr>
-	        <tr>
-				<td class="td1">인증 번호</td>
-				<td class="td2">
-					<input type="text" name="confirmNumber" id="confirmNumber" required/>&nbsp;&nbsp;&nbsp;
-					<button type="button" class="b" onclick="phoneCheck();">인증</button> 
-					<input type="hidden" path="random" id="random" value="${random }"/>
-				</td>
-	        </tr>
-	        <tr>
-				<td class="td1">이메일</td>
-				<td class="td2">
-					<input type="email" name="email" id="email" required/>
-				</td>
-	        </tr>
-	        <tr>
-				<td class="td1">스토어 이름</td>
-				<td class="td2">
-					<input type="text" name="storeName" id="storeName" required/>
-				</td>
-	        </tr>
-	        <tr>
-				<td class="td1">스토어 주소</td>
-				<td class="td2">
-					<input type="text" name="storeAddress" id="storeAddress" required/>
-				</td>
-	        </tr>
-	        <tr>
-				<td class="td1">스토어 소개글</td>
-				<td class="td2">
-					<input type="text" name="storeText" id="storeText" />
-				</td>
-	        </tr>
-	        <tr>
-				<td class="td1">주소</td>
-				<td class="td2">
-					<input type="text" name="post" id="post" readonly required/>&nbsp;
-					<input type="button" class="a" onClick="openDaumZipAddress();" value = "주소 찾기" /><br>
-					<input type="text" name="address" id="address" readonly required/>&nbsp;
-					<input type="text" name="addressEtc" id="adressEtc" placeholder="상세주소를 입력해주세요." required>
-				</td>
-	        </tr>
-	        <tr>
-				<td class="td1">계좌번호</td>
-				<td class="td2">
-					<input type="text" name="bankAccount" id="bankAccount" required/>
-				</td>
-	        </tr>
-	        <tr>
-				<td class="td1">은행코드</td>
-				<td class="td2">
-					<input type="number" name="bankCode" id="bankCode" required/>
-				</td>
-	        </tr>
-	      </tbody>
-	   </table>
-		   <br><input type="submit" class="submit" name="regist" id="regist" value="회원가입">
-		   &nbsp;&nbsp;<input type="button" class="b" value="취소" onclick="location.href = '<c:url value='/main'/>'">
-	</form>
 
+	<nav class="navbar navbar-default">
+		<div id="navBox">
+			<%@ include file="../include/Nav.jsp"%>
+		</div>
+	</nav>
+
+	<section id="container">
+		<div id="containerBox">
+			<form action="registCompleteSeller" method="post">
+				<table>
+					<colgroup>
+						<col style="width: 30%;" />
+						<col style="width: auto;" />
+					</colgroup>
+					<thead>
+						<tr>
+							<th>항목</th>
+							<th>내용</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr>
+							<td class="td1">이름</td>
+							<td class="td2">
+								<input type="text" name="name" id="name" required></td>
+						</tr>
+						<tr>
+							<td class="td1">아이디</td>
+							<td class="td2">
+								<input type="text" id="id" name="id" required />
+								<input type="button" id="idChk" onClick="idCheck();" value="중복확인"></td>
+						</tr>
+						<tr>
+							<td class="td1">비밀번호</td>
+							<td class="td2">
+								<input type="password" name="password" id="pw" required /> 
+								<span id="pwChk1"></span></td>
+						</tr>
+						<tr>
+							<td class="td1">비밀번호 재입력</td>
+							<td class="td2">
+								<input type="password" name="passwordCheck" id="pwc" required /> 
+								<span id="pwChk2"></span> 
+								<span id="yes">O</span>
+							</td>
+						</tr>
+						<tr>
+							<td class="td1">휴대폰 번호</td>
+							<td class="td2">
+								<input type="text" name="phone" id="ph" required />
+								<button type="button" id="send" onclick="sendSms();">전송</button>
+							</td>
+						</tr>
+						<tr>
+							<td class="td1">인증 번호</td>
+							<td class="td2">
+								<input type="text" name="confirmNumber" id="confirmNumber" required />
+								<button type="button" id="check" onclick="phoneCheck();">인증</button>
+								<input type="hidden" path="random" id="random" value="${random }" /></td>
+						</tr>
+						<tr>
+							<td class="td1">이메일</td>
+							<td class="td2"><input type="email" name="email" id="email" required /></td>
+						</tr>
+						<tr>
+							<td class="td1">스토어 이름</td>
+							<td class="td2"><input type="text" name="storeName" id="storeName" required /></td>
+						</tr>
+						<tr>
+							<td class="td1">스토어 주소</td>
+							<td class="td2"><input type="text" name="storeAddress" id="storeAddress" required /></td>
+						</tr>
+						<tr>
+							<td class="td1">스토어 소개글</td>
+							<td class="td2"><input type="text" name="storeText" id="storeText" /></td>
+						</tr>
+						<tr>
+							<td class="td1">주소</td>
+							<td class="td2">
+								<input type="text" name="post" id="post" readonly required /> 
+								<input type="button" id="a" onClick="openDaumZipAddress();" value="주소 찾기" /> 
+								<input type="text" name="address" id="address" style="margin-top:10px;margin-bottom:10px; width:250px;" readonly required />
+								<input type="text" name="addressEtc" id="adressEtc" placeholder="상세주소를 입력해주세요." style="width:200px;" required>
+							</td>
+						</tr>
+						<tr>
+							<td class="td1">계좌번호</td>
+							<td class="td2"><input type="text" name="bankAccount" id="bankAccount" required /></td>
+						</tr>
+						<tr>
+							<td class="td1">은행코드</td>
+							<td class="td2"><input type="number" name="bankCode" id="bankCode" required /></td>
+						</tr>
+					</tbody>
+				</table>
+				
+					<input type="submit" class="submit" id="regist" value="회원가입">
+					<input type="button" id="cancel" value="취소" onclick="location.href = '<c:url value='/main'/>'">
+			</form>
+
+		</div>
+	</section>
 
 
 </body>

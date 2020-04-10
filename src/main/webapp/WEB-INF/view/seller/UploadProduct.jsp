@@ -473,6 +473,7 @@
 	   <div align="center">
 	      <br><br><input type="button" id="save" class="btn" value="저장"><br><br><br>
 	   </div>
+	   <input type="hidden" name="page" value="1">
    </form>
    <script>
    

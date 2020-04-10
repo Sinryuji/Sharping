@@ -127,6 +127,7 @@
 	<br>
 	<span id="bankAccount">계좌번호 : ${seller.bankAccount}</span>
 	<br>
+	<br>
 
 		<form>
 			<input type="button" value="삭제하기" id="fake">

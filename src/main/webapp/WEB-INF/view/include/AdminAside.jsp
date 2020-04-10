@@ -4,11 +4,11 @@
 
 <ul>
 	<li><a href="<c:url value='/admin/categoryManage'/>">
-			CategoryManage </a>
+			카테고리 관리 </a>
 	<li><a href="<c:url value='/admin/memberManage'/>">
-			MemberManage </a>
+			회원 관리 </a>
 	<li><a href="<c:url value='/admin/noticeManage?page=1'/>">
-			NoticeManage </a>
+			공지사항 관리 </a>
 	<li><a href="<c:url value='/admin/declProductManage?page=1'/>">
-			DeclProductManage </a>
+			신고게시물 관리 </a>
 </ul>

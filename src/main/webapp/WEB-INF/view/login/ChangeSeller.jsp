@@ -271,25 +271,8 @@ select {
 		<input type="hidden" path="random" id="random" value="${random}"/>
 		<input type="submit" class="submit" id="changeSeller" value="전환하기" disabled="true">
 	</form>
-
-<%-- <form action="changeSellerComplete">
-아이디:<input type="text" name="id" value="${authInfo.id}" readonly>
-<h4>휴대폰 인증</h4>
-휴대폰번호:<input type="text" name="phone" id="phone" />
-<button type="button" onclick="sendSms();">전송</button><br> 
-인증번호:<input type="text" name="confirmNumber" id="confirmNumber" />
-<button type="button" onclick="phoneCheck();">인증</button><br>
-<input type="hidden" path="random" id="random" value="${random }"/>
-스토어이름:<input type="text" name="storeName" /><br> 
-스토어주소:<input type="text" name="storeAddress" /><br>
-스토어소개글:<input type="text" name="storeText" /><br>
-<!-- 우편번호:<input type="text" name="post" id="post" readonly /> &nbsp;
-주소:<input type="text" name="address" id="address" readonly /> &nbsp;
-상세주소:<input type="text" name="addressEtc" id="adressEtc"> &nbsp; <input type="button" onClick="openDaumZipAddress();" value = "주소 찾기" /> <br>  -->
-계좌번호:<input type="text" name="bankAccount" /><br> 
-은행코드:<input type="number" name="bankCode" /><br> 
-<input type="submit" id="changeSeller" value="전환하기" disabled="true">
-</form> --%>		
+	
+		
 		</div>
 	</section>
 

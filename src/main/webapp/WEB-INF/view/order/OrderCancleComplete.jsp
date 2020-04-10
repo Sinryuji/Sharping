@@ -131,7 +131,12 @@ body {
 
 				<div class="cancelBox">
 					<div class="can">
+						<c:if test="${!empty authInfo}">
 						[${authInfo.name}]님<br>
+						</c:if>
+						<c:if test="${empty authInfo}">
+						비회원님<br>
+						</c:if>
 						총 ${result}건의 주문 취소 요청 완료<br> 
 						총 환불 예정 금액 :
 						<c:out value="${orderList.productPrice * orderList.cnt + product.deliveryPrice}"></c:out>

@@ -99,6 +99,7 @@ section#container::after {
 aside {
 	float: left;
 	width: 200px;
+	border-right: 2px solid #eee;
 }
 
 div#containerBox {
@@ -146,6 +147,7 @@ footer#footer div {
 	text-align: center;
 	line-height: 40px;
 	margin-right: 10px;
+	margin-left: 10px;
 }
 
 .big_tab ul li.activeClass {
@@ -381,7 +383,7 @@ footer#footer div {
 			window.name = "MemberManage";
 			var popup = window
 					.open("infoDetail" + "?id=" + id, "회원상세정보",
-							"width = 450, height = 350, resizable = no, scrollbars = no, status = no");
+							"width = 480, height = 450, resizable = no, scrollbars = no, status = no");
 
 			var timer = setInterval(function() {
 				if (popup.closed) {
