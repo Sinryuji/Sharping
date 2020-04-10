@@ -107,7 +107,6 @@ public class AdminController {
 
 		List<CategoryVO> categorys = adminService.selectCategoryByCategoryDepth(1);
 
-
 		mv.setViewName("admin/CategoryManage");
 
 		mv.addObject("cetegorys", categorys);
@@ -119,13 +118,13 @@ public class AdminController {
 	@RequestMapping("/admin/selectCategory")
 	@ResponseBody
 	public List<CategoryVO> selectCategory(int categoryNum) {
-		
+
 		System.out.println("@@@@@@@@@@@@@@@@");
-		
+
 		System.out.println(categoryNum);
 
 		List<CategoryVO> categorys = adminService.selectCategoryByPcNum(categoryNum);
-		
+
 		System.out.println(categorys);
 
 		return categorys;
@@ -181,7 +180,7 @@ public class AdminController {
 		return category;
 
 	}
-	
+
 	// 카테고리 수정
 	@RequestMapping("/admin/updateCategory")
 	@ResponseBody
@@ -194,42 +193,42 @@ public class AdminController {
 		return category;
 
 	}
-	
+
 	// 카테고리 삭제
 	@RequestMapping("/admin/deleteCategory")
 	@ResponseBody
 	public Map<String, Object> deleteCategory(int categoryNum) {
-		
+
 		CategoryVO returnCategory = adminService.selectCategoryByCategoryNum(categoryNum);
-		
+
 		List<CategoryVO> categorys = adminService.selectCategoryByPcNum(categoryNum);
-		
+
 		System.out.println("으아아아아아" + categorys);
-		
+
 		int[] categoryNums = new int[categorys.size()];
-		
+
 		adminService.deleteCategory(categoryNum);
-		
-		for(int i = 0 ; i < categorys.size() ; i++) {
+
+		for (int i = 0; i < categorys.size(); i++) {
 			categoryNums[i] = categorys.get(i).getCategoryNum();
 			adminService.deleteCategory(categorys.get(i).getCategoryNum());
 		}
-		
+
 		List<ProductVO> products = productService.selectProductByCategoryNum(categoryNums);
-		
-		if(products.size() != 0) {
-		for(int i = 0 ; i < products.size() ; i++) {
-			productService.updateProductByCategoryNumZero(products.get(i).getProductNum());
+
+		if (products.size() != 0) {
+			for (int i = 0; i < products.size(); i++) {
+				productService.updateProductByCategoryNumZero(products.get(i).getProductNum());
+			}
 		}
-		}
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+
 		map.put("category", returnCategory);
 		map.put("categorys", categorys);
-		
+
 		return map;
-		
+
 	}
 
 	// 일반회원목록리스트
@@ -251,10 +250,10 @@ public class AdminController {
 	public String memberManage(Model model, @RequestParam(required = false) String keywordM) throws Exception {
 		AdminVO adminVO = new AdminVO();
 		adminVO.setKeywordM(keywordM);
-		
+
 		List<MemberVO> list1 = adminService.getMemberList(adminVO);
 		List<SellerVO> list2 = adminService.getSellerList(adminVO);
-		
+
 		model.addAttribute("memberList", adminService.getMemberList(adminVO));
 		model.addAttribute("sellerList", adminService.getSellerList(adminVO));
 		model.addAttribute("keywordM", keywordM);
@@ -302,8 +301,7 @@ public class AdminController {
 	public String adminPw() {
 		return "admin/AdminPw";
 	}
- 
-	
+
 	// 관리자 비밀번호 확인
 	@RequestMapping(value = "/adminPwChk", produces = "text/json;charset=UTF-8")
 	@ResponseBody
@@ -338,56 +336,56 @@ public class AdminController {
 	@RequestMapping(value = "/admin/noticeManage")
 	public String getnoticeList(Model model, int page) throws Exception {
 		NoticeVO noticeVO = new NoticeVO();
-		
+
 		List<NoticeVO> list1 = adminService.getNoticeList(noticeVO);
-		
+
 		int totCnt = list1.size();
-		
-		if(page == 1) {
+
+		if (page == 1) {
 			noticeVO.setStartNum(1);
 			noticeVO.setEndNum(20);
 		} else {
-			noticeVO.setStartNum(page+(19*(page-1)));
-			noticeVO.setEndNum(page*20);
-			if(noticeVO.getEndNum() < totCnt) {
+			noticeVO.setStartNum(page + (19 * (page - 1)));
+			noticeVO.setEndNum(page * 20);
+			if (noticeVO.getEndNum() < totCnt) {
 				noticeVO.setEndNum(totCnt);
 			}
 		}
-		
+
 		List<NoticeVO> list2 = adminService.getNoticeListPaging(noticeVO);
-		
+
 		model.addAttribute("noticeList", list2);
 		model.addAttribute("totCnt", totCnt);
 		model.addAttribute("startNum", noticeVO.getStartNum());
 
 		return "admin/NoticeManage";
 	}
-	
+
 	// 공지사항관리(페이징)
 	@RequestMapping(value = "/admin/noticeManagePaging")
 	@ResponseBody
 	public Map<String, Object> getnoticeListPaging(Model model, int page) throws Exception {
 		NoticeVO noticeVO = new NoticeVO();
-			
+
 		List<NoticeVO> list1 = adminService.getNoticeList(noticeVO);
-			
+
 		int totCnt = list1.size();
-			
-		if(page == 1) {
+
+		if (page == 1) {
 			noticeVO.setStartNum(1);
 			noticeVO.setEndNum(20);
 		} else {
-			noticeVO.setStartNum(page+(19*(page-1)));
-			noticeVO.setEndNum(page*20);
-			if(noticeVO.getEndNum() < totCnt) {
+			noticeVO.setStartNum(page + (19 * (page - 1)));
+			noticeVO.setEndNum(page * 20);
+			if (noticeVO.getEndNum() < totCnt) {
 				noticeVO.setEndNum(totCnt);
 			}
 		}
-			
+
 		List<NoticeVO> list2 = adminService.getNoticeListPaging(noticeVO);
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+
 		map.put("noticeList", list2);
 		map.put("totCnt", totCnt);
 		map.put("startNum", noticeVO.getStartNum());
@@ -414,7 +412,6 @@ public class AdminController {
 		adminService.deleteNoticeByNoticeNum(noticeNum);
 		return "admin/NoticeManage";
 	}
-
 
 	// 공지사항 등록화면
 	@RequestMapping(value = "/admin/writeNotice")
@@ -474,194 +471,185 @@ public class AdminController {
 
 		return "complete";
 	}
-	
+
 	// 메인에 공지사항 띄우기
 	@RequestMapping("/notice")
 	@ResponseBody
 	public Map<String, Object> notice(NoticeVO noticeVO) throws Exception {
-		
+
 		Timestamp timestamp = noticeVO.getNoticeDate();
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
-		
+
 		Date date = new Date(timestamp.getTime());
-		
+
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd hh:mm");
-		
+
 		String datee = sdf.format(date);
-		
+
 		map.put("notice", noticeVO);
 		map.put("date", datee);
 
 		return map;
 	}
-	
+
 	@RequestMapping("/noticee")
 	public String notice() throws Exception {
-		
-		
 
 		return "/admin/Notice";
 	}
-	
+
 	// 신고상품 관리
 	@RequestMapping(value = "/admin/declProductManage")
-	public ModelAndView declProductManage(
-			@RequestParam(required=false) String declReason,
-			@RequestParam(required=false) String search,
-			int page) {
-		
+	public ModelAndView declProductManage(@RequestParam(required = false) String declReason,
+			@RequestParam(required = false) String search, int page) {
+
 		DeclProductVO declProductVO = new DeclProductVO();
-		
+
 		declProductVO.setDeclReason(declReason);
 		declProductVO.setSearch(search);
-		
+
 		List<DeclProductVO> declList = adminService.selectDeclProduct(declProductVO);
-		
+
 		int totCnt = declList.size();
-		
-		if(page == 1) {
+
+		if (page == 1) {
 			declProductVO.setStartNum(1);
 			declProductVO.setEndNum(20);
 		} else {
-			declProductVO.setStartNum(page+(19*(page-1)));
-			declProductVO.setEndNum(page*20);
-			if(declProductVO.getEndNum() < totCnt) {
+			declProductVO.setStartNum(page + (19 * (page - 1)));
+			declProductVO.setEndNum(page * 20);
+			if (declProductVO.getEndNum() < totCnt) {
 				declProductVO.setEndNum(totCnt);
 			}
 		}
-		
+
 		List<DeclProductVO> declList2 = adminService.selectDeclProductPaging(declProductVO);
-		
+
 		List<ProductVO> productList = new ArrayList<ProductVO>();
-		
-		for(int i = 0 ; i<declList2.size() ; i++) {
+
+		for (int i = 0; i < declList2.size(); i++) {
 			productList.add(productService.selectProduct(declList2.get(i).getProductNum()));
 		}
-		
+
 		ModelAndView mv = new ModelAndView();
-		
+
 		mv.setViewName("/admin/DeclProductManage");
-		
+
 		mv.addObject("declList", declList2);
-		
+
 		mv.addObject("productList", productList);
-		
+
 		mv.addObject("totCnt", totCnt);
-		
+
 		mv.addObject("startNum", declProductVO.getStartNum());
-		
+
 		mv.addObject("currentReason", declReason);
-		
+
 		mv.addObject("search", search);
-		
+
 		return mv;
 	}
-	
+
 	// 신고상품 관리(페이징)
 	@RequestMapping(value = "/admin/declProductManagePaging")
 	@ResponseBody
-	public Map<String, Object> declProductManagePaging(
-			@RequestParam(required=false) String declReason,
-			@RequestParam(required=false) String search,
-			int page) {
-			
+	public Map<String, Object> declProductManagePaging(@RequestParam(required = false) String declReason,
+			@RequestParam(required = false) String search, int page) {
+
 		DeclProductVO declProductVO = new DeclProductVO();
-			
+
 		declProductVO.setDeclReason(declReason);
 		declProductVO.setSearch(search);
-			
+
 		List<DeclProductVO> declList = adminService.selectDeclProduct(declProductVO);
-			
+
 		int totCnt = declList.size();
-			
-		if(page == 1) {
+
+		if (page == 1) {
 			declProductVO.setStartNum(1);
 			declProductVO.setEndNum(20);
 		} else {
-			declProductVO.setStartNum(page+(19*(page-1)));
-			declProductVO.setEndNum(page*20);
-			if(declProductVO.getEndNum() < totCnt) {
+			declProductVO.setStartNum(page + (19 * (page - 1)));
+			declProductVO.setEndNum(page * 20);
+			if (declProductVO.getEndNum() < totCnt) {
 				declProductVO.setEndNum(totCnt);
 			}
 		}
-			
+
 		List<DeclProductVO> declList2 = adminService.selectDeclProductPaging(declProductVO);
-			
+
 		List<ProductVO> productList = new ArrayList<ProductVO>();
-			
-		for(int i = 0 ; i<declList2.size() ; i++) {
+
+		for (int i = 0; i < declList2.size(); i++) {
 			productList.add(productService.selectProduct(declList2.get(i).getProductNum()));
 		}
-			
-		
+
 		Map<String, Object> map = new HashMap<String, Object>();
-			
-			
+
 		map.put("declList", declList2);
-			
+
 		map.put("productList", productList);
-			
+
 		map.put("totCnt", totCnt);
-			
+
 		map.put("startNum", declProductVO.getStartNum());
-			
+
 		map.put("currentReason", declReason);
-			
+
 		map.put("search", search);
-			
+
 		return map;
 	}
-	
+
 	// 신고 내용 확인
 	@RequestMapping(value = "/admin/declText")
 	@ResponseBody
 	public ModelAndView declText(int declNum) {
 
 		DeclProductVO decl = adminService.selectDeclProductByDeclNum(declNum);
-		
+
 		ProductVO product = productService.selectProduct(decl.getProductNum());
-		
+
 		ModelAndView mv = new ModelAndView();
-		
+
 		mv.setViewName("admin/DeclContent");
-		
+
 		mv.addObject("decl", decl);
-		
+
 		mv.addObject("product", product);
-		
+
 		return mv;
 	}
-	
+
 	// 신고 상품 관리 (상품 선택 삭제)
 	@RequestMapping(value = "deleteSelectDeclProductByProductNum")
 	@ResponseBody
-	public void deleteSelectDeclProductByProductNum(
-		@RequestParam(value = "chk[]") List<String> selArr, ProductVO productVO) {
+	public void deleteSelectDeclProductByProductNum(@RequestParam(value = "chk[]") List<String> selArr,
+			ProductVO productVO) {
 
 		int productNum = 0;
-		
+
 		for (String i : selArr) {
 			productNum = Integer.parseInt(i);
 			productVO.setProductNum(productNum);
 			productService.deleteProductByProductNum(productVO);
 		}
 	}
-	
+
 	// 신고 상품 관리 (신고 선택 삭제)
 	@RequestMapping(value = "deleteSelectDeclProductByDeclNum")
 	@ResponseBody
-	public void deleteSelectDeclProductByDeclNum(
-		@RequestParam(value = "chk[]") List<String> selArr, DeclProductVO declProductVO) {
+	public void deleteSelectDeclProductByDeclNum(@RequestParam(value = "chk[]") List<String> selArr,
+			DeclProductVO declProductVO) {
 
 		int declNum = 0;
-		
+
 		for (String i : selArr) {
 			declNum = Integer.parseInt(i);
 			declProductVO.setDeclNum(declNum);
 			adminService.deleteDeclProductByDeclNum(declProductVO);
 		}
 	}
-
 
 }
