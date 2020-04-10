@@ -49,6 +49,10 @@
 		SELECT * FROM NOTICE         
 	</select>
 	
+	<select id="getNoticeListPaging" resultType="noticeVO">
+		SELECT * FROM (SELECT rownum rnum, "noticeNum", "adminId", "noticeSubject", "noticeText", "noticeDate", "noticePost" FROM NOTICE) WHERE rnum &gt;= #{startNum} AND rnum &lt;= #{endNum}        
+	</select>
+	
 	<delete id="deleteNoticeByNoticeNum" parameterType="noticeVO">
 		DELETE FROM NOTICE WHERE "noticeNum"=#{noticeNum}              
 	</delete>
@@ -117,6 +121,19 @@
 		<if test=" search != null and search != '' ">
 			AND "productName" like '%'||#{search}||'%'
 		</if>
+	</select>
+	
+	<select id="selectDeclProductPaging" resultType="declProductVO">
+		SELECT * FROM (SELECT rownum rnum, D."declNum", D."declReason", D."productNum", D."declDate", D."sellerId", D."declId", P."productName", P."productText", P."productPrice", P."productThumb", P."productImage", P."productDisplay", P."stock", P."categoryNum", P."productDate", P."id", P."productMeterial", P."manufacturer", P."mfDate", P."origin", P."deliveryPrice", P."optionOneName", P."optionTwoName", P."optionThreeName"
+		FROM DECLPRODUCT D, PRODUCT P
+		WHERE D."productNum" = P."productNum" 
+		<if test=" declReason != null and declReason != '' ">
+			AND "declReason" = #{declReason}
+		</if>
+		<if test=" search != null and search != '' ">
+			AND "productName" like '%'||#{search}||'%'
+		</if>
+		) WHERE rnum &gt;= #{startNum} AND rnum &lt;= #{endNum} 
 	</select>
 	
 	<select id="selectDeclProductByDeclNum" resultType="declProductVO">

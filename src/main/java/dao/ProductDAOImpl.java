@@ -236,8 +236,8 @@ public class ProductDAOImpl implements ProductDAO{
 	}
 	
 	@Override
-	public OrderVO selectDeliveryInfoById(String id) {
-		return sqlSessionTemplate.selectOne("productDAO.selectDeliveryInfoById", id);
+	public OrderVO selectDeliveryInfoById(OrderVO orderVO) {
+		return sqlSessionTemplate.selectOne("productDAO.selectDeliveryInfoById", orderVO);
 	}
 
 	@Override

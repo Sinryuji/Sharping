@@ -86,4 +86,10 @@ public interface AdminDAO {
 	//신고번호로 신고 삭제하기
 	public abstract int deleteDeclProductByDeclNum(DeclProductVO declProductVO);
 	
+	//공지사항 리스트(페이징)
+	public abstract List<NoticeVO> getNoticeListPaging(NoticeVO noticeVO);
+	
+	//신고 상품 리스트(페이징)
+	public abstract List<DeclProductVO> selectDeclProductPaging(DeclProductVO declProductVO);
+	
 }

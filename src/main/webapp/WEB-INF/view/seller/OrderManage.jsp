@@ -202,7 +202,7 @@
             <th>상태</th>
          </tr>
       </thead>
-      <tbody>
+      <tbody id="tbody">
          <c:choose>
             <c:when test="${empty orderList }" >
                <tr>
@@ -214,7 +214,7 @@
             <c:when test="${!empty orderList}">
                <c:forEach var="list" items="${orderList}" varStatus="status">
                   <tr>
-                     <td><input type="checkbox" class="select" id="chk${status.index}"></td>
+                     <td><input type="checkbox" class="select"></td>
                      <td><c:out value="${list.orderNum}"/></td>
                      <td>
                      	<span style="float:left"><img src="opload/${list.productThumb}" style="width:50px;">&nbsp;&nbsp;</span>
@@ -227,7 +227,7 @@
                      </td>
                      <td><c:out value="${list.payPrice}"/></td>
                      <td><c:out value="${list.payCase}"/></td>
-                     <td><button type="button" class="delivery" data-id="${list.id}">배송정보열람</button></td>
+                     <td><button type="button" class="delivery" data-id="${list.id}" data-orderNum="${list.orderNum}">배송정보열람</button></td>
                      <td><a href="#" class="changeState" data-state="${list.state}" data-orderNum="${list.orderNum}"><c:out value="${list.state}"/></a></td>
                   </tr>
                </c:forEach>
@@ -237,9 +237,83 @@
    </table>
    <script>
    
+   history.scrollRestoration = "manual";
+
+   var page = 1;
+
+   $(function(){
+   	getList(page);
+   	page++;
+   })
+
+   $(window).scroll(function(){   //스크롤이 최하단 으로 내려가면 리스트를 조회하고 page를 증가시킨다.
+        if($(window).scrollTop() >= $(document).height() - $(window).height()){
+       	 getList(page);
+       	 console.log(page);
+       	 page++; 
+        } 
+   });
+   
+   function getList(page) {
+		
+		console.log("되냐");
+		
+		 $.ajax({
+		        type : 'POST',  
+		        dataType : 'json', 
+		        data : {
+		        	page : page,
+		        	searchOrder : $("#searchOrder").val(),
+		        	dSearch : $("#dSearch").val()
+		        	},
+		        url : '<%=request.getContextPath()%>/orderManageScroll',
+		        success : function(data) {
+		        	console.log("되냐1.5");
+		            /* var data = returnData.rows; */
+		            var html = "";
+		            /* if (page==1){ //페이지가 1일경우에만 id가 list인 html을 비운다.
+		                  $("#tbody").html(""); 
+		            } */
+		            
+		            if (data.startNum<=data.totCnt){
+		            	console.log("되냐2");
+		                if(data.orderList.length>0){
+		                	console.log("되냐3");
+		                	// for문을 돌면서 행을 그린다.
+		                	for(var i = 0 ; i < data.orderList.length ; i++) {
+		                		var order = data.orderList[i];
+		                	
+		                		html += "<tr><td><input type='checkbox' class='select'></td><td>" + order.orderNum + "</td><td><span style='float:left'><img src='opload/" + order.productThumb  + "' style='width:50px;'>&nbsp;&nbsp;</span><span style='float:left'>" + order.productName + "</span></td><td><a href='#' onclick='buyerInfo(" + order.id + ")'>" + order.id + "</a></td><td>" + order.payPrice + "</td><td>" + order.payCase + "</td><td><button type='button' class='delivery' data-id='" + order.id + "' data-orderNum='" + order.orderNum + "'>배송정보열람</button></td><td><a href='#' class='changeState' data-state='" + order.state + "' data-orderNum='" + order.orderNum + "'>" + order.state + "</a></td></tr>";
+		                		  	
+		                	}
+																																																																																																																																					                	
+		                }else{
+		                //데이터가 없을경우
+		                }
+		            }
+		           /*  html = html.replace(/%20/gi, " "); */
+		            if (page==1){  //페이지가 1이 아닐경우 데이터를 붙힌다.
+		            	if(data.orderList.length != 0) {
+		                	$("#tbody").html(html); 
+		            	} else {
+		            		$("#tbody").html("<tr><td colspan='10' align='center'><b>주문 정보가 없습니다.</b></td></tr>")
+		            	}
+		            }else{
+		            	console.log("안함?");
+		                $("#tbody").append(html);
+		            }
+		       },error:function(e){
+		           if(e.status==300){
+		               alert("데이터를 가져오는데 실패하였습니다.");
+		           };
+		       }
+		    }); 
+
+	}
+   
    	// 주문 상태 변경하기
    	
-   	$('.changeState').click(function(){
+   	$(document).on("click", ".changeState", function(){
    		var orderNum = $(this).attr("data-orderNum");
    		var state = $(this).attr("data-state");
    		
@@ -282,8 +356,7 @@
 	
    	})
    
-   
-     $("#allSelect").click(function(){
+     $(document).on("click", "#allSelect", function(){
         if($("#allSelect").is(":checked")){
            $(".select").prop("checked",true);
         }else {
@@ -291,18 +364,23 @@
         }
      });
      
-     
-     $(".select").click(function(){
+	$(document).on("click", ".select", function(){
        $("#allSelect").prop("checked", false);
       });
      
      
-     $(".delivery").click(function(){
+	
+	$(document).on("click", ".delivery", function(){
     	 var i = $(this).attr("data-id");
+    	 var orderNum = $(this).attr("data-orderNum");
             $.ajax({
                url : "<%=request.getContextPath()%>/selectDeliveryInfoById",
                   type : "post",
-                  data : { id : i },
+                  data : { 
+                	  id : i,
+                	  orderNum : orderNum
+                	  
+                  },
                   
                   success: function(data) {
                 	  var url = "deliveryInfo?toName=" + data.order.toName + "&toPhone=" + data.order.toPhone + "&toPost=" + data.order.toPost + "&toAddress=" + data.order.toAddress + "&trackingNum=" + data.order.trackingNum ;

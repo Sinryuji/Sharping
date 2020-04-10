@@ -150,4 +150,13 @@ public class AdminDAOImpl implements AdminDAO {
 		return sqlSessionTemplate.delete("adminDAO.deleteDeclProductByDeclNum", declProductVO);
 	}
 	
+	@Override
+	public List<NoticeVO> getNoticeListPaging(NoticeVO noticeVO) {
+		return sqlSessionTemplate.selectList("adminDAO.getNoticeListPaging", noticeVO);
+	}
+	
+	@Override
+	public List<DeclProductVO> selectDeclProductPaging(DeclProductVO declProductVO) {
+		return sqlSessionTemplate.selectList("adminDAO.selectDeclProductPaging", declProductVO);
+	}
 }

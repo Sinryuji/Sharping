@@ -7,8 +7,8 @@
 			CategoryManage </a>
 	<li><a href="<c:url value='/admin/memberManage'/>">
 			MemberManage </a>
-	<li><a href="<c:url value='/admin/noticeManage'/>">
+	<li><a href="<c:url value='/admin/noticeManage?page=1'/>">
 			NoticeManage </a>
-	<li><a href="<c:url value='/admin/declProductManage'/>">
+	<li><a href="<c:url value='/admin/declProductManage?page=1'/>">
 			DeclProductManage </a>
 </ul>

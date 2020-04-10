@@ -302,9 +302,9 @@
 
  	<select id="selectOrderBySellerId" parameterType="orderProductVO" resultType="orderProductVO">
  		SELECT *
-		FROM (SELECT O."orderNum", O."orderDate", O."state", O."payCase", O."payPrice", O."trackingNum", O."toName", O."toPhone", O."toPost", O."toAddress", O."id", O."deliveryMessage", O."payNum", O."trackingCode", OL."olNum", OL."productName", OL."productThumb", OL."optionOneNum", OL."optionTwoNum", OL."optionThreeNum", OL."productPrice", OL."cnt", OL."optionNum", PR."productText", PR."productImage", PR."productDisplay", PR."categoryNum", PR."productDate", PR."productMeterial", PR."manufacturer", PR."mfDate", PR."origin", PR."deliveryPrice", PR."optionOneName", PR."optionTwoName", PR."optionThreeName" 
+		FROM (SELECT rownum rnum, O."orderNum", O."orderDate", O."state", O."payCase", O."payPrice", O."trackingNum", O."toName", O."toPhone", O."toPost", O."toAddress", O."id", O."deliveryMessage", O."payNum", O."trackingCode", OL."olNum", OL."productName", OL."productThumb", OL."optionOneNum", OL."optionTwoNum", OL."optionThreeNum", OL."productPrice", OL."cnt", OL."optionNum", PR."productText", PR."productImage", PR."productDisplay", PR."categoryNum", PR."productDate", PR."productMeterial", PR."manufacturer", PR."mfDate", PR."origin", PR."deliveryPrice", PR."optionOneName", PR."optionTwoName", PR."optionThreeName" 
 		FROM ORDERR O, ORDERLIST OL, OPTIONN OP, PRODUCT PR 
-		WHERE PR."id" = '#{id}' 
+		WHERE PR."id" = #{id} 
 		AND O."orderNum" = OL."orderNum" 
 		AND OL."optionNum" = OP."optionNum" 
 		AND OP."productNum" = PR."productNum"
@@ -332,10 +332,10 @@
 		</if>
  	</select>
  	
- 	<select id="selectDeliveryInfoById" parameterType="String" resultType="orderVO">
+ 	<select id="selectDeliveryInfoById" parameterType="orderVO" resultType="orderVO">
  		SELECT DISTINCT "toName" , "toPhone" , "toPost" , "toAddress" , "trackingNum"
 		FROM ORDERR
-		WHERE "id" = #{id}
+		WHERE "id" = #{id} AND "orderNum" = #{orderNum}
  	</select>
  	
  	<select id="selectLatelyProductNum" parameterType="String" resultType="int">

@@ -10,15 +10,38 @@ public class NoticeVO {
 	private String noticeText;
 	private Timestamp noticeDate;
 	private String noticePost;
+	private int page;
+	private int startNum;
+	private int endNum;
 	
 	
-
+	
+	
+	public int getPage() {
+		return page;
+	}
+	public void setPage(int page) {
+		this.page = page;
+	}
+	public int getStartNum() {
+		return startNum;
+	}
+	public void setStartNum(int startNum) {
+		this.startNum = startNum;
+	}
+	public int getEndNum() {
+		return endNum;
+	}
+	public void setEndNum(int endNum) {
+		this.endNum = endNum;
+	}
+	public void setNoticeNum(int noticeNum) {
+		this.noticeNum = noticeNum;
+	}
 	public int getNoticeNum() {
 		return noticeNum;
 	}
-	public void setNoticeNum(Integer noticeNum) {
-		this.noticeNum = noticeNum;
-	}
+	
 	public String getAdminId() {
 		return adminId;
 	}
@@ -52,9 +75,8 @@ public class NoticeVO {
 	@Override
 	public String toString() {
 		return "NoticeVO [noticeNum=" + noticeNum + ", adminId=" + adminId + ", noticeSubject=" + noticeSubject
-				+ ", noticeText=" + noticeText + ", noticeDate=" + noticeDate + ", noticePost=" + noticePost + "]";
+				+ ", noticeText=" + noticeText + ", noticeDate=" + noticeDate + ", noticePost=" + noticePost + ", page="
+				+ page + ", startNum=" + startNum + ", endNum=" + endNum + "]";
 	}
-	
-	
 	
 }

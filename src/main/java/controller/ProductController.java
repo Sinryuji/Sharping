@@ -547,25 +547,47 @@ public class ProductController {
 		orderProduct.setSearch(search);
 		orderProduct.setState(dSearch);
 		
-
-		List<OrderProductVO> orderList = productService.selectOrderBySellerId(orderProduct);
+		List<OrderProductVO> orderList2 = productService.selectOrderBySellerIdTotal(orderProduct);
+		int totCnt = orderList2.size();
+		
+		
+		
+		if(page == 1) {
+			orderProduct.setStartNum(1);
+			orderProduct.setEndNum(20);
+		} else {
+			orderProduct.setStartNum(page+(19*(page-1)));
+			orderProduct.setEndNum(page*20);
+			if(orderProduct.getEndNum() < totCnt) {
+				orderProduct.setEndNum(totCnt);
+			}
+		}
+		
+		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@" + orderProduct);
+		
+		List<OrderProductVO> orderList1 = productService.selectOrderBySellerId(orderProduct);
 
 		ModelAndView mv = new ModelAndView();
 
 		mv.setViewName("seller/OrderManage");
 
-		mv.addObject("orderList", orderList);
+		mv.addObject("orderList", orderList1);
 		
 		mv.addObject("currentState", dSearch);
 		
 		mv.addObject("search", search);
+		
+		mv.addObject("totCnt", totCnt);
+		
+		mv.addObject("startNum", orderProduct.getStartNum());
 
 		return mv;
 	}
 	
 	// 주문 관리 탭 스크롤
 		@RequestMapping("/orderManageScroll")
-		public ModelAndView orderManageScroll(HttpServletRequest req, String id, @RequestParam(required=false) String search, @RequestParam(required=false) String dSearch, int page) {
+		@ResponseBody
+		public Map<String, Object> orderManageScroll(HttpServletRequest req, String id, @RequestParam(required=false) String search, @RequestParam(required=false) String dSearch, int page) {
 
 			HttpSession session = req.getSession();
 
@@ -579,20 +601,38 @@ public class ProductController {
 			orderProduct.setSearch(search);
 			orderProduct.setState(dSearch);
 			
-
-			List<OrderProductVO> orderList = productService.selectOrderBySellerId(orderProduct);
-
-			ModelAndView mv = new ModelAndView();
-
-			mv.setViewName("seller/OrderManage");
-
-			mv.addObject("orderList", orderList);
+			List<OrderProductVO> orderList2 = productService.selectOrderBySellerIdTotal(orderProduct);
+			int totCnt = orderList2.size();
 			
-			mv.addObject("currentState", dSearch);
 			
-			mv.addObject("search", search);
+			
+			if(page == 1) {
+				orderProduct.setStartNum(1);
+				orderProduct.setEndNum(20);
+			} else {
+				orderProduct.setStartNum(page+(19*(page-1)));
+				orderProduct.setEndNum(page*20);
+				if(orderProduct.getEndNum() < totCnt) {
+					orderProduct.setEndNum(totCnt);
+				}
+			}
+			
+			List<OrderProductVO> orderList1 = productService.selectOrderBySellerId(orderProduct);
 
-			return mv;
+			Map<String, Object> map = new HashMap<String, Object>();
+
+
+		    map.put("orderList", orderList1);
+			
+		    map.put("currentState", dSearch);
+			
+		    map.put("search", search);
+		    
+		    map.put("totCnt", totCnt);
+		    
+		    map.put("startNum", orderProduct.getStartNum());
+
+			return map;
 		}
 
 	// 구매자 정보 조회
@@ -613,11 +653,16 @@ public class ProductController {
 	// 배송 정보 조회
 	@RequestMapping(value = "/selectDeliveryInfoById")
 	@ResponseBody
-	public Map<String, Object> selectDeliveryInfoById(@RequestParam String id) {
+	public Map<String, Object> selectDeliveryInfoById(@RequestParam String id, int orderNum) {
 
 		OrderVO order = new OrderVO();
+		
+		OrderVO orderVO = new OrderVO();
+		
+		orderVO.setId(id);
+		orderVO.setOrderNum(orderNum);
 
-		order = productService.selectDeliveryInfoById(id);
+		order = productService.selectDeliveryInfoById(orderVO);
 
 		ModelAndView mv = new ModelAndView();
 

@@ -8,7 +8,6 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
-import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -27,7 +26,6 @@ import service.AdminService;
 import service.MemberService;
 import service.ProductService;
 import vo.AdminVO;
-import vo.AuthInfo;
 import vo.CategoryVO;
 import vo.DeclProductVO;
 import vo.MemberVO;
@@ -253,7 +251,10 @@ public class AdminController {
 	public String memberManage(Model model, @RequestParam(required = false) String keywordM) throws Exception {
 		AdminVO adminVO = new AdminVO();
 		adminVO.setKeywordM(keywordM);
-
+		
+		List<MemberVO> list1 = adminService.getMemberList(adminVO);
+		List<SellerVO> list2 = adminService.getSellerList(adminVO);
+		
 		model.addAttribute("memberList", adminService.getMemberList(adminVO));
 		model.addAttribute("sellerList", adminService.getSellerList(adminVO));
 		model.addAttribute("keywordM", keywordM);
@@ -334,12 +335,64 @@ public class AdminController {
 	}
 
 	// 공지사항관리
-	@RequestMapping(value = "/admin/noticeManage", method = RequestMethod.GET)
-	public String getnoticeList(Model model) throws Exception {
+	@RequestMapping(value = "/admin/noticeManage")
+	public String getnoticeList(Model model, int page) throws Exception {
 		NoticeVO noticeVO = new NoticeVO();
-		model.addAttribute("noticeList", adminService.getNoticeList(noticeVO));
+		
+		List<NoticeVO> list1 = adminService.getNoticeList(noticeVO);
+		
+		int totCnt = list1.size();
+		
+		if(page == 1) {
+			noticeVO.setStartNum(1);
+			noticeVO.setEndNum(20);
+		} else {
+			noticeVO.setStartNum(page+(19*(page-1)));
+			noticeVO.setEndNum(page*20);
+			if(noticeVO.getEndNum() < totCnt) {
+				noticeVO.setEndNum(totCnt);
+			}
+		}
+		
+		List<NoticeVO> list2 = adminService.getNoticeListPaging(noticeVO);
+		
+		model.addAttribute("noticeList", list2);
+		model.addAttribute("totCnt", totCnt);
+		model.addAttribute("startNum", noticeVO.getStartNum());
 
 		return "admin/NoticeManage";
+	}
+	
+	// 공지사항관리(페이징)
+	@RequestMapping(value = "/admin/noticeManagePaging")
+	@ResponseBody
+	public Map<String, Object> getnoticeListPaging(Model model, int page) throws Exception {
+		NoticeVO noticeVO = new NoticeVO();
+			
+		List<NoticeVO> list1 = adminService.getNoticeList(noticeVO);
+			
+		int totCnt = list1.size();
+			
+		if(page == 1) {
+			noticeVO.setStartNum(1);
+			noticeVO.setEndNum(20);
+		} else {
+			noticeVO.setStartNum(page+(19*(page-1)));
+			noticeVO.setEndNum(page*20);
+			if(noticeVO.getEndNum() < totCnt) {
+				noticeVO.setEndNum(totCnt);
+			}
+		}
+			
+		List<NoticeVO> list2 = adminService.getNoticeListPaging(noticeVO);
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+		
+		map.put("noticeList", list2);
+		map.put("totCnt", totCnt);
+		map.put("startNum", noticeVO.getStartNum());
+
+		return map;
 	}
 
 	// 공지사항 열람
@@ -455,7 +508,8 @@ public class AdminController {
 	@RequestMapping(value = "/admin/declProductManage")
 	public ModelAndView declProductManage(
 			@RequestParam(required=false) String declReason,
-			@RequestParam(required=false) String search) {
+			@RequestParam(required=false) String search,
+			int page) {
 		
 		DeclProductVO declProductVO = new DeclProductVO();
 		
@@ -464,25 +518,99 @@ public class AdminController {
 		
 		List<DeclProductVO> declList = adminService.selectDeclProduct(declProductVO);
 		
+		int totCnt = declList.size();
+		
+		if(page == 1) {
+			declProductVO.setStartNum(1);
+			declProductVO.setEndNum(20);
+		} else {
+			declProductVO.setStartNum(page+(19*(page-1)));
+			declProductVO.setEndNum(page*20);
+			if(declProductVO.getEndNum() < totCnt) {
+				declProductVO.setEndNum(totCnt);
+			}
+		}
+		
+		List<DeclProductVO> declList2 = adminService.selectDeclProductPaging(declProductVO);
+		
 		List<ProductVO> productList = new ArrayList<ProductVO>();
 		
-		for(int i = 0 ; i<declList.size() ; i++) {
-			productList.add(productService.selectProduct(declList.get(i).getProductNum()));
+		for(int i = 0 ; i<declList2.size() ; i++) {
+			productList.add(productService.selectProduct(declList2.get(i).getProductNum()));
 		}
 		
 		ModelAndView mv = new ModelAndView();
 		
 		mv.setViewName("/admin/DeclProductManage");
 		
-		mv.addObject("declList", declList);
+		mv.addObject("declList", declList2);
 		
 		mv.addObject("productList", productList);
+		
+		mv.addObject("totCnt", totCnt);
+		
+		mv.addObject("startNum", declProductVO.getStartNum());
 		
 		mv.addObject("currentReason", declReason);
 		
 		mv.addObject("search", search);
 		
 		return mv;
+	}
+	
+	// 신고상품 관리(페이징)
+	@RequestMapping(value = "/admin/declProductManagePaging")
+	@ResponseBody
+	public Map<String, Object> declProductManagePaging(
+			@RequestParam(required=false) String declReason,
+			@RequestParam(required=false) String search,
+			int page) {
+			
+		DeclProductVO declProductVO = new DeclProductVO();
+			
+		declProductVO.setDeclReason(declReason);
+		declProductVO.setSearch(search);
+			
+		List<DeclProductVO> declList = adminService.selectDeclProduct(declProductVO);
+			
+		int totCnt = declList.size();
+			
+		if(page == 1) {
+			declProductVO.setStartNum(1);
+			declProductVO.setEndNum(20);
+		} else {
+			declProductVO.setStartNum(page+(19*(page-1)));
+			declProductVO.setEndNum(page*20);
+			if(declProductVO.getEndNum() < totCnt) {
+				declProductVO.setEndNum(totCnt);
+			}
+		}
+			
+		List<DeclProductVO> declList2 = adminService.selectDeclProductPaging(declProductVO);
+			
+		List<ProductVO> productList = new ArrayList<ProductVO>();
+			
+		for(int i = 0 ; i<declList2.size() ; i++) {
+			productList.add(productService.selectProduct(declList2.get(i).getProductNum()));
+		}
+			
+		
+		Map<String, Object> map = new HashMap<String, Object>();
+			
+			
+		map.put("declList", declList2);
+			
+		map.put("productList", productList);
+			
+		map.put("totCnt", totCnt);
+			
+		map.put("startNum", declProductVO.getStartNum());
+			
+		map.put("currentReason", declReason);
+			
+		map.put("search", search);
+			
+		return map;
 	}
 	
 	// 신고 내용 확인

@@ -238,8 +238,8 @@ public class ProductServiceImpl implements ProductService {
 	}
 	
 	@Override
-	public OrderVO selectDeliveryInfoById(String id) {
-		return productDAO.selectDeliveryInfoById(id);
+	public OrderVO selectDeliveryInfoById(OrderVO orderVO) {
+		return productDAO.selectDeliveryInfoById(orderVO);
 	}
 	
 	@Override
