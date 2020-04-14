@@ -382,10 +382,10 @@ table{
 		            }
 		           /*  html = html.replace(/%20/gi, " "); */
 		            if (page==1){  //페이지가 1이 아닐경우 데이터를 붙힌다.
-		            	if(data.notice.length != 0) {
+		            	if(data.noticeList.length != 0) {
 		                	$("#tbody").html(html); 
 		                } else {
-		                	$("#tbody").html("<tr><td colspan="10" align="center"><b>검색결과가 없습니다.</b></td></tr>")       ;       
+		                	$("#tbody").html("<tr><td colspan='10' align='center'><b>검색결과가 없습니다.</b></td></tr>");       
 		                	}
 		            }else{
 		                $("#tbody").append(html);

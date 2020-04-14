@@ -104,7 +104,7 @@
 	<article>
 		<section id="container">
 			<div id="containerBox">
-				<h5>배송주소록 등록</h5>
+				<h5>배송주소록 수정</h5>
 
 			<form name="form" id="form" action="deliveryAddressUpdateComplete">
 				<div class="dm">

@@ -187,8 +187,8 @@
 				<main id="main" class="site-main" role="main">
 				<div id="container">
 					<div id="content" role="main">
-						<nav class="woocommerce-breadcrumb" itemprop="breadcrumb">카테고리 가져오면 될듯</nav>
-						<nav class="woocommerce-breadcrumb" itemprop="breadcrumb">상품번호:</nav>
+<!-- 						<nav class="woocommerce-breadcrumb" itemprop="breadcrumb">카테고리 가져오면 될듯</nav>
+						<nav class="woocommerce-breadcrumb" itemprop="breadcrumb">상품번호:</nav> -->
 						<div itemscope itemtype="http://schema.org/Product" class="product"><!-- 사진 및 상품옵션 보는 묶음 -->
 							<div class="images">
 								<img src="opload/${product.productImage}">
