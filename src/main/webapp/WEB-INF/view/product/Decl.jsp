@@ -87,7 +87,7 @@
 			</select>
 		</div>
 		<br>
-		<textarea name="declText" placeholder="신고 내용을 자세히 작성해주십시오." required></textarea>
+		<textarea name="declText" id="txt" placeholder="신고 내용을 자세히 작성해주십시오." required></textarea>
 		<input type="hidden" name="productNum" id="productNum" value="">
 		<input type="hidden" name="sellerId" id="sellerId" value="">
 	   <br>
@@ -106,8 +106,13 @@
 	});
 	
 	$("#submit").click(function(){
-		alert('신고가 접수되었습니다.');
-		window.close();
+		if($("#txt").val() != null && $("#txt").val() != ''){
+			alert('신고가 접수되었습니다.');
+			window.close();
+		} else {
+			alert('신고 내용을 입력해주세요.');
+			return false;
+		}
 	});
 	
 </script>

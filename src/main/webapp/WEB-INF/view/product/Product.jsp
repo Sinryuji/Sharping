@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"  %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt"%>
 
 <!DOCTYPE html>
 <html>
@@ -167,6 +169,11 @@
 		#underline{
 			border-bottom: 3px solid #036;
 		}
+		
+		.star{
+			width: 90px;
+    		height: 20px;
+		}
 
     </style>
 	
@@ -212,8 +219,47 @@
 								<input type="hidden" name="productNum" id="productNum" value="${product.productNum}">
 								<h1 itemprop="name" class="product_title entry-title">${product.productName}</h1><!-- 상품명 -->
 								<div class="woocommerce-product-rating" itemprop="aggregateRating" itemscope itemtype="http://schema.org/AggregateRating">
-									<i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i>
-									<a href="#reviews" class="woocommerce-review-link" rel="nofollow">(<span itemprop="reviewCount" class="count">리뷰남긴사람수)</span>고객리뷰</a>
+									<!-- <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> <i class="fa fa-star"></i> -->
+									<c:if test="${sum == 0 && all == 0}">
+										<img class="star" src="${pageContext.request.contextPath}/resources/images/0.png">
+									</c:if>
+									<c:if test="${0 < sum/all && sum/all <= 0.5 }">
+										<img class="star" src="${pageContext.request.contextPath}/resources/images/0.5.png">
+									</c:if>
+									<c:if test="${0.5 < sum/all && sum/all <= 1.0 }">
+										<img class="star" src="${pageContext.request.contextPath}/resources/images/1.png">
+									</c:if>
+									<c:if test="${1.0 < sum/all && sum/all <= 1.5 }">
+										<img class="star" src="${pageContext.request.contextPath}/resources/images/1.5.png">
+									</c:if>
+									<c:if test="${1.5 < sum/all && sum/all <= 2.0 }">
+										<img class="star" src="${pageContext.request.contextPath}/resources/images/2.png">
+									</c:if>
+									<c:if test="${2.0 < sum/all && sum/all <= 2.5 }">
+										<img class="star" src="${pageContext.request.contextPath}/resources/images/2.5.png">
+									</c:if>
+									<c:if test="${2.5 < sum/all && sum/all <= 3.0 }">
+										<img class="star" src="${pageContext.request.contextPath}/resources/images/3.png">
+									</c:if>
+									<c:if test="${3.0 < sum/all && sum/all <= 3.5 }">
+										<img class="star" src="${pageContext.request.contextPath}/resources/images/3.5.png">
+									</c:if>
+									<c:if test="${3.5 < sum/all && sum/all <= 4.0 }">
+										<img class="star" src="${pageContext.request.contextPath}/resources/images/4.png">
+									</c:if>
+									<c:if test="${4.0 < sum/all && sum/all <= 4.5 }">
+										<img class="star" src="${pageContext.request.contextPath}/resources/images/4.5.png">
+									</c:if>
+									<c:if test="${4.5 < sum/all && sum/all <= 5.0 }">
+										<img class="star" src="${pageContext.request.contextPath}/resources/images/5.png">
+									</c:if>
+									<c:if test="${sum == 0 && all == 0}">
+										(평점 : 0 )<a href="#reviews" class="woocommerce-review-link" rel="nofollow"> / 고객리뷰(<span itemprop="reviewCount" class="count">${all })</span></a>
+									</c:if>
+									<c:if test="${sum != 0 || all != 0}">
+										(평점 : <fmt:formatNumber value="${sum/all }" pattern=".00"/>)<a href="#reviews" class="woocommerce-review-link" rel="nofollow"> / 고객리뷰(<span itemprop="reviewCount" class="count">${all })</span></a>
+									</c:if>
+									
 								</div>
 								<div itemprop="offers" itemscope itemtype="http://schema.org/Offer">
 									<p class="price">
@@ -341,14 +387,51 @@
 															<td class="td2">${review.id }</td>
 															<td class="td1">평점</td>
 															<td class="td2">
-																<input type="hidden" id="score" value="${review.score }">
-																<p id="star_grade">
-															        <a data-num="1" href="#">★</a>
-															        <a data-num="2" href="#">★</a>
-															        <a data-num="3" href="#">★</a>
-															        <a data-num="4" href="#">★</a>
-															        <a data-num="5" href="#">★</a>
-																</p>
+																<c:if test="${review.score eq 1}">
+																	<p id="star_grade">
+																        <a data-num="1" class="on">★</a>
+																        <a data-num="2">★</a>
+																        <a data-num="3">★</a>
+																        <a data-num="4">★</a>
+																        <a data-num="5">★</a>
+																	</p>
+																</c:if>
+																<c:if test="${review.score eq 2}">
+																	<p id="star_grade">
+																        <a data-num="1" class="on">★</a>
+																        <a data-num="2" class="on">★</a>
+																        <a data-num="3">★</a>
+																        <a data-num="4">★</a>
+																        <a data-num="5">★</a>
+																	</p>
+																</c:if>
+																<c:if test="${review.score eq 3}">
+																	<p id="star_grade">
+																        <a data-num="1" class="on">★</a>
+																        <a data-num="2" class="on">★</a>
+																        <a data-num="3" class="on">★</a>
+																        <a data-num="4">★</a>
+																        <a data-num="5">★</a>
+																	</p>
+																</c:if>
+																<c:if test="${review.score eq 4}">
+																	<p id="star_grade">
+																        <a data-num="1" class="on">★</a>
+																        <a data-num="2" class="on">★</a>
+																        <a data-num="3" class="on">★</a>
+																        <a data-num="4" class="on">★</a>
+																        <a data-num="5">★</a>
+																	</p>
+																</c:if>
+																<c:if test="${review.score eq 5}">
+																	<p id="star_grade">
+																        <a data-num="1" class="on">★</a>
+																        <a data-num="2" class="on">★</a>
+																        <a data-num="3" class="on">★</a>
+																        <a data-num="4" class="on">★</a>
+																        <a data-num="5" class="on">★</a>
+																	</p>
+																</c:if>
 															</td>
 														</tr>
 														<tr>
@@ -636,21 +719,6 @@ $('#cnt').change(function(){
  		var option = "width = 500, height = 350, top = 100, left = 800";
  		pop = window.open(url, name, option);
  	}
- 	
- 	/* 불러온 평점으로 별 체크 */
- 	$(document).ready(function(){
- 		if($("#score").val() == 1){
- 			$('a[data-num="1"]').addClass("on");
- 		}else if($("#score").val() == 2){
- 			$('a[data-num="2"]').addClass("on").prevAll("a").addClass("on");
- 		}else if($("#score").val() == 3){
- 			$('a[data-num="3"]').addClass("on").prevAll("a").addClass("on");
- 		}else if($("#score").val() == 4){
- 			$('a[data-num="4"]').addClass("on").prevAll("a").addClass("on");
- 		}else if($("#score").val() == 5){
- 			$('a[data-num="5"]').addClass("on").prevAll("a").addClass("on");
- 		}
- 	});
 	
 </script>
 
