@@ -178,6 +178,7 @@
 			<input type="submit" class="a" value="검색" style="height:30px;">
 		</div>
 		<hr color="black" width="13.5%" size="2px" style="margin-left:100px;" noshade>
+		<input type="hidden" name="page" value="1">
 	</form>
    <table>
       <colgroup>
@@ -263,7 +264,7 @@
 		        dataType : 'json', 
 		        data : {
 		        	page : page,
-		        	searchOrder : $("#searchOrder").val(),
+		        	search : $("#search").val(),
 		        	dSearch : $("#dSearch").val()
 		        	},
 		        url : '<%=request.getContextPath()%>/orderManageScroll',
@@ -282,8 +283,7 @@
 		                	// for문을 돌면서 행을 그린다.
 		                	for(var i = 0 ; i < data.orderList.length ; i++) {
 		                		var order = data.orderList[i];
-		                	
-		                		html += "<tr><td><input type='checkbox' class='select'></td><td>" + order.orderNum + "</td><td><span style='float:left'><img src='opload/" + order.productThumb  + "' style='width:50px;'>&nbsp;&nbsp;</span><span style='float:left'>" + order.productName + "</span></td><td><a href='#' onclick='buyerInfo(" + order.id + ")'>" + order.id + "</a></td><td>" + order.payPrice + "</td><td>" + order.payCase + "</td><td><button type='button' class='delivery' data-id='" + order.id + "' data-orderNum='" + order.orderNum + "'>배송정보열람</button></td><td><a href='#' class='changeState' data-state='" + order.state + "' data-orderNum='" + order.orderNum + "'>" + order.state + "</a></td></tr>";
+		                		html += "<tr><td><input type='checkbox' class='select'></td><td>" + order.orderNum + "</td><td><span style='float:left'><img src='opload/" + order.productThumb  + "' style='width:50px;'>&nbsp;&nbsp;</span><span style='float:left'>" + order.productName + "</span></td><td><a class='buyerInfo' href='#'>" + order.id + "</a></td><td>" + order.payPrice + "</td><td>" + order.payCase + "</td><td><button type='button' class='delivery' data-id='" + order.id + "' data-orderNum='" + order.orderNum + "'>배송정보열람</button></td><td><a href='#' class='changeState' data-state='" + order.state + "' data-orderNum='" + order.orderNum + "'>" + order.state + "</a></td></tr>";
 		                		  	
 		                	}
 																																																																																																																																					                	
@@ -391,11 +391,18 @@
             });
      });
      
-     function buyerInfo(id){   
+	$(document).on("click", ".buyerInfo", function(){
+		window.name = "buyerInfo";   
+		var id = $(this).html();
+	     var popup = window.open("buyerInfo" + "?id=" + id , "회원상세정보",
+	                 "width = 520, height = 310, resizable = no, , left = 700, top = 200");
+		
+	})
+    /*  function buyerInfo(id){   
          window.name = "buyerInfo";   
      var popup = window.open("buyerInfo" + "?id=" + id , "회원상세정보",
                  "width = 520, height = 310, resizable = no, , left = 700, top = 200");
-	}
+	} */
      
     $('#dSearch').change(function(){
     	

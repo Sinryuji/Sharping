@@ -17,6 +17,16 @@
 			<mvc:mapping path="/infoChangeMember/**" />
 			<mvc:mapping path="/infoChangeSeller/**" />
 			<mvc:mapping path="/uploadProduct/**" />
+			<mvc:mapping path="/myPage/**" />
+			<mvc:mapping path="/sellerPage/**" />
+			<mvc:mapping path="/uploadProduct/**" />
+			<mvc:mapping path="/productManage/**" />
+			<mvc:mapping path="/orderManage/**" />
+			<mvc:mapping path="/basket/**" />
+			<mvc:mapping path="/deliveryAddress/**" />
+			<mvc:mapping path="/deliveryAddressUpload/**" />
+			<mvc:mapping path="/deliveryAddressUpdate/**" />
+			<mvc:mapping path="/wishList/**" />
 
 			<bean class="interceptor.AuthCheckInterceptor" />
 

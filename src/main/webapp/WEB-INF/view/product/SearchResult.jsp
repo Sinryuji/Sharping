@@ -313,11 +313,7 @@ var categoryNum = "${categoryNum}";
 
 var page = 1;
 
-<<<<<<< HEAD
 var categoryNum = "${categoryNum}";
-=======
-var categoryNum = "${catgoryNum}";
->>>>>>> branSB
 
 $(function(){
 	getList(page);

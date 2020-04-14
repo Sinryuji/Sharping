@@ -153,7 +153,7 @@ footer#footer div {
 								<c:choose>
 									<c:when test="${empty products}">
 										<tr>
-											<td colspan="10" align="center"><b>관심상품이 없습니다.</b></td>
+											<td colspan="10" align="center"><b>최근 본 상품이 없습니다.</b></td>
 										</tr>
 									</c:when>
 									<c:when test="${!empty products}">

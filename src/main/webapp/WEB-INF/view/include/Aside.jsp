@@ -11,4 +11,6 @@
    </c:if>
    <li><a href="<c:url value='/deliveryAddress'/>">
          배송주소록 </a>
+   <li><a href="<c:url value='/wishList'/>">
+         관심상품 </a>
 </ul>
