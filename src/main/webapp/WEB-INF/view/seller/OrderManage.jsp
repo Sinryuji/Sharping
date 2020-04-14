@@ -394,7 +394,6 @@ select {
        $("#allSelect").prop("checked", false);
       });
      
-     
 	
 	$(document).on("click", ".delivery", function(){
     	 var i = $(this).attr("data-id");
