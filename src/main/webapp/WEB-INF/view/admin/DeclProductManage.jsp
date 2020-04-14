@@ -6,36 +6,18 @@
 <head>
 
 <meta charset="UTF-8">
-<meta name="viewport" content="width=device-width" initial-scale="1">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <!-- jquery -->
 <script src="//code.jquery.com/jquery.min.js"></script>
 
 
 <title>DeclProductManage</title>
 
-<link rel='stylesheet'
+<link rel="stylesheet"
 	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
 
 <link rel='stylesheet'
-	href='${pageContext.request.contextPath}/resources/css/woocommerce-layout.css'
-	type='text/css' media='all' />
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/resources/css/woocommerce-smallscreen.css'
-	type='text/css' media='only screen and (max-width: 768px)' />
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/resources/css/woocommerce.css'
-	type='text/css' media='all' />
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/resources/css/font-awesome.min.css'
-	type='text/css' media='all' />
-<link rel='stylesheet'
 	href='${pageContext.request.contextPath}/resources/css/styleSB.css'
-	type='text/css' media='all' />
-<link rel='stylesheet'
-	href='https://fonts.googleapis.com/css?family=Oswald:400,500,700%7CRoboto:400,500,700%7CHerr+Von+Muellerhoff:400,500,700%7CQuattrocento+Sans:400,500,700'
-	type='text/css' media='all' />
-<link rel='stylesheet'
-	href='${pageContext.request.contextPath}/resources/css/easy-responsive-shortcodes.css'
 	type='text/css' media='all' />
 
 <script type="text/javascript">
@@ -125,6 +107,13 @@ footer#footer div {
 	margin-right: 10px;
 }
 
+select {
+	border: 1px solid #ccc;
+	border-radius: 50px;
+	color: #666;
+	text-align: center;
+	padding: 6px;
+}
 
 .cen{
 	width: 300px;
@@ -158,20 +147,13 @@ footer#footer div {
 	transform: translateY(-7px);
 }
 
-#search{
-	height:24px;
-	border:0px;
-	text-align:left;
-	outline: 0;
-}
+
 
 .declReason{
 	height:40px;
 }
 
 #searchBox{
-	border: 1px solid white;
-	background: white;
 	display: inline;
 }
 
@@ -204,6 +186,7 @@ footer#footer div {
 .box{
 	width: 500px;
 	margin-left: 400px;
+	margin-bottom: 10px;
 }
 
 .hr{
@@ -253,7 +236,6 @@ footer#footer div {
 						<input type="text" name="search" id="search" placeholder="키워드를 입력하세요." value="${search}"/>
 						<input type="submit" id="a" class="a" value="검색">
 					</div>
-					<hr class="hr">
 				</form>
 			</div>
 				<table class="infoNotice">

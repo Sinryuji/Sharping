@@ -123,6 +123,5 @@ h1 {
    </section>
          
 
-   <script src="${pageContext.request.contextPath}/asset/js/bootstrap.js"></script>
 </body>
 </html>

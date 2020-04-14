@@ -385,7 +385,7 @@ table{
 		            	if(data.noticeList.length != 0) {
 		                	$("#tbody").html(html); 
 		                } else {
-		                	$("#tbody").html("<tr><td colspan='10' align='center'><b>검색결과가 없습니다.</b></td></tr>")       ;       
+		                	$("#tbody").html("<tr><td colspan='10' align='center'><b>검색결과가 없습니다.</b></td></tr>");       
 		                	}
 		            }else{
 		                $("#tbody").append(html);
