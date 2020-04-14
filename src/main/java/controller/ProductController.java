@@ -260,8 +260,15 @@ public class ProductController {
 				result = list.size();
 			}
 		}
-		
+		int sum = 0;
+		int all = 0;
 		List<ReviewVO> reviewList = productService.selectReviewByProductNum(productNum);
+		if(reviewList != null) {
+			for(int i = 0 ; i < reviewList.size() ; i++) {
+				sum += reviewList.get(i).getScore();
+			}
+			all = reviewList.size();
+		}
 	
 		ProductVO productVO = productService.selectProduct(productNum);
 		SellerVO sellerVO = memberService.searchSellerById(productVO.getId());
@@ -309,6 +316,9 @@ public class ProductController {
 		mv.addObject("result", result);
 		
 		mv.addObject("reviewList", reviewList);
+		
+		mv.addObject("sum", sum);
+		mv.addObject("all", all);
 
 		return mv;
 	}

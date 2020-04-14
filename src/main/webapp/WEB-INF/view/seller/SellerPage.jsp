@@ -117,7 +117,7 @@ h1 {
          <h1><span class="updateComplete">[${authInfo.name}]님의 페이지</span></h1>      
       <input type="button" id="t" onclick="location.href='${pageContext.request.contextPath}/uploadProduct'" value="상품 등록">
       <input type="button" id="t" onclick="location.href='${pageContext.request.contextPath}/productManage?page=1'" value="상품 관리">
-      <input type="button" id="t" onclick="location.href='${pageContext.request.contextPath}/orderManage'" value="주문 관리">
+      <input type="button" id="t" onclick="location.href='${pageContext.request.contextPath}/orderManage?page=1'" value="주문 관리">
       </div>
       <span class="blank"></span>
    </section>
