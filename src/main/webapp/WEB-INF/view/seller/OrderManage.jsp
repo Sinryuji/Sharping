@@ -87,7 +87,7 @@ table {
 	margin: auto;
 }
 
-table td {
+table td, table th {
 	vertical-align: middle;
 	padding-left: 10px;
 }
@@ -164,7 +164,6 @@ select {
 		<div id="navBox">
 			<%@ include file="../include/Nav.jsp"%>
 		</div>
-
 	</nav>
 
 	<section id="container">

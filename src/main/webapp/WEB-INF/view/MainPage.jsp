@@ -67,10 +67,6 @@ body {
    padding-top: 30px;
 }
 
-.navbar-nav>li>a {
-	padding-top: 30px;
-}
-
 .navbar-nav>li.navbar-right {
    float: right !important;
 }
@@ -154,7 +150,7 @@ body {
 .cate {
 	float: left;
 	width: 33.33%;
-	height: 400px;
+	height: auto;
 	background: white;
 	background-color: rgba(255, 255, 255, 0.5);
 } 

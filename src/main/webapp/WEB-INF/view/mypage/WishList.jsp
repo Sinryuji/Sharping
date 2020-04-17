@@ -5,110 +5,130 @@
 <html>
 <head>
 <meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
 <title>관심상품</title>
 <script src="https://code.jquery.com/jquery-2.2.4.min.js"
       integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
       crossorigin="anonymous"></script>
+
+<link rel="stylesheet"
+	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
+
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/styleSB.css'
+	type='text/css' media='all' />
       
 <style>
-	#mm {
-		text-align: center;
-		margin: 0 910px;
-	}
-   	
-	a{
-		text-decoration:none;
-		color:black;
-	}
-	
-	.menu{
-		margin-top: 20px;
-		margin-left: 20px;
-	}
-	
-	.my {
-	    width: 140px;
-	    height: 50px;
-	    font-family: 'Roboto', sans-serif;
-	    font-size: 16px;
-	    text-transform: uppercase;
-	    letter-spacing: 2.5px;
-	    font-weight: 500;
-	    color: white;
-	    background-color: #6B66FF;
-	    border: none;
-	    border-radius: 35px;
-	    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-	    transition: all 0.3s ease 0s;
-	    cursor: pointer;
-	    outline: none;
-	    opacity: 0.8;
-	}
 
-	.my:hover {
-  		background-color: #FFB2F5;
-  		box-shadow: 0px 15px 20px hotpink;
-  		color: #fff;
-  		transform: translateY(-7px);
-	}
-	
-	table{
-        text-align: center;
-        border-collapse:separate;
-        border-spacing:0 10px;
-        width: 700px;
-        margin:auto;
-    }
-     
-     th{
-  	  	border-bottom: 3px solid silver;
-  	 }
-  	  
-     td{
-     	border-bottom: 2px solid silver;
-     }
-     
-     #selDelete{
-	    width: 80px;
-	    height: 30px;
-	    font-family: 'Roboto', sans-serif;
-	    font-size: 12px;
-	    text-transform: uppercase;
-	    letter-spacing: 2.5px;
-	    font-weight: 500;
-	    color: white;
-	    background-color: #6B66FF;
-	    border: none;
-	    border-radius: 35px;
-	    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-	    transition: all 0.3s ease 0s;
-	    cursor: pointer;
-	    outline: none;
-	    opacity: 0.8;
-	}
+html {
+	height: 100%;
+}
 
-	#selDelete:hover {
- 		background-color: #FFB2F5;
- 		box-shadow: 0px 15px 20px hotpink;
- 		color: #fff;
- 		transform: translateY(-7px);
- 	}
+body {
+	/* background-image: url('https://images.pexels.com/photos/1470589/pexels-photo-1470589.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'); */
+	background-size: cover;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
+
+.navbar-nav {
+	width: 100%;
+	text-align: center;
+}
+
+.navbar-nav>li {
+	float: none;
+	display: inline-block;
+}
+
+.navbar-nav>li>a {
+	padding-top: 30px;
+}
+
+.navbar-nav>li.navbar-right {
+	float: right !important;
+}
+
+#container {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	padding: 20px 0;
+}
+
+#containerBox {
+	display: inline-block;
+	vertical-align: middle;
+}
+	
+table{
+       text-align: center;
+       border-collapse:separate;
+       border-spacing:0 10px;
+       width: 800px;
+       margin:auto;
+}
+
+table td, table th {
+	vertical-align: middle;
+	padding-left: 10px;
+}
+ 
+th{
+ 	border-bottom: 3px solid silver;
+}
+ 
+td{
+ 	border-bottom: 2px solid silver;
+}
+    
+#selDelete{
+    width: 90px;
+    height: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: white;
+    background-color: #6B66FF;
+    border: none;
+    border-radius: 35px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    opacity: 0.8;
+}
+
+#selDelete:hover {
+	background-color: #FFB2F5;
+	box-shadow: 0px 15px 20px hotpink;
+	color: #fff;
+	transform: translateY(-7px);
+}
  	
- 	.cen{
- 		width: 100px;
- 		margin: auto;
- 	}
+.cen{
+	float:right;
+}
      
 </style>
       
 </head>
 <body>
-	<div class="menu">
-		<input type="button" class="my" onclick="location.href='${pageContext.request.contextPath}/myPage'" value="마이 페이지"><br>
-	</div>
-	<div id="mm">
-		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
-	</div>
+
+	<nav class="navbar navbar-default">
+		<div id="navBox">
+			<%@ include file="../include/Nav.jsp"%>
+		</div>
+	</nav>
+	
+	<section id="container">
+		<div id="containerBox">
 	<table>
 		<colgroup>
          <col style="width:5%;" />
@@ -126,6 +146,7 @@
             <th>배송비</th>
          </tr>
       </thead>
+      
       <tbody>
       	<c:choose>
       		<c:when test="${empty productList }">
@@ -164,7 +185,12 @@
 	<br>
 	<div class="cen">
 		<button type="button" id="selDelete">삭제</button>
-	</div>
+	</div>		
+		</div>
+	</section>
+	
+	
+
 <script>
 /* 체크박스 전체 선택 / 해제 */
 $("#allSelect").click(function(){

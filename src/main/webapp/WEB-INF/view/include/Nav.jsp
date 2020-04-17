@@ -20,7 +20,8 @@
 				<li class="navbar-left"><a href="<c:url value='/login'/>">로그인</a>
 				<li class="navbar-left"><a href="<c:url value='/regist'/>">회원가입</a>
 				<li class="active"><h4><a href="<c:url value='/main'/>"><img src="${pageContext.request.contextPath}/resources/images/ing작은.png"></a></h4>
-				<li class="navbar-right"><a href="<c:url value='latelyViewProduct'/>">최근 본 상품</a></li>
+				<li class="navbar-right"><a href="<c:url value='/csCenter'/>">고객 센터</a></li>
+				<li class="navbar-right"><a href="<c:url value='/latelyViewProduct'/>">최근 본 상품</a></li>
 			</c:if>
 			<c:if test="${!empty authInfo}">
 				<li class="navbar-left"><a href="#"><b>[${authInfo.name}]</b>님 환영합니다.</a></li>
@@ -29,7 +30,7 @@
 				<li class="active"><h4><i><a href="<c:url value='/main'/>"><img src="${pageContext.request.contextPath}/resources/images/ing작은.png"></a></i></h4>
 				<li class="navbar-right"><a href="<c:url value='/basket'/>">장바구니</a></li>
 				<li class="navbar-right"><a href="<c:url value='/myPage'/>">마이페이지</a></li>			
-				<li class="navbar-right"><a href="<c:url value='latelyViewProduct'/>">최근 본 상품</a></li>
+				<li class="navbar-right"><a href="<c:url value='/latelyViewProduct'/>">최근 본 상품</a></li>
 			
 			<c:if test="${authInfo.sellerCheck == 'false' }">
 				<li class="navbar-right"><a href="<c:url value='/changeSeller'/>">판매하기</a></li>

@@ -70,171 +70,123 @@ body {
 	margin-bottom: 10px;
 	margin-left: 15px;
 }
-
-
    	  
-   	  th{
-   	  	border-bottom: 3px solid silver;
-   	  }
+th{
+	border-bottom: 3px solid silver;
+}
    	  
-      td{
-      border-bottom: 2px solid silver;
-      }
+td{
+	border-bottom: 2px solid silver;
+}
       
-      table{
-         text-align: center;
-         border-collapse:separate;
-         border-spacing:0 10px;
-         width: 1000px;
-         margin:auto;
-      }
-      
-      .del{
-      	float:right;
-      	margin-right: 455px;
-      }		
-      
-      .switch {
-        position: relative;
-        display: inline-block;
-        width: 52px;
-        height: 25px;
-        vertical-align:middle;
-      }
+table{
+	text-align: center;
+	border-collapse:separate;
+	border-spacing:0 10px;
+	width: 1000px;
+	margin:auto;
+}
 
-      /* Hide default HTML checkbox */
-      .switch input {display:none;}
-      
-      /* The slider */
-      .slider {
-        position: absolute;
-        cursor: pointer;
-        top: 0;
-        left: 0;
-        right: 0;
-        bottom: 0;
-        background-color: #ccc;
-        -webkit-transition: .4s;
-        transition: .4s;
-      }
-      
-      .slider:before {
-        position: absolute;
-        content: "";
-        height: 18px;
-        width: 18px;
-        left: 4px;
-        bottom: 4px;
-        background-color: white;
-        -webkit-transition: .4s;
-        transition: .4s;
-      }
-      
-      input:checked + .slider {
-        background-color: #2196F3;
-      }
-      
-      input:focus + .slider {
-        box-shadow: 0 0 1px #2196F3;
-      }
-      
-      input:checked + .slider:before {
-        -webkit-transform: translateX(26px);
-        -ms-transform: translateX(26px);
-        transform: translateX(26px);
-      }
-      
-      /* Rounded sliders */
-      .slider.round {
-        border-radius: 34px;
-      }
-      
-      .slider.round:before {
-        border-radius: 50%;
-      }
-      
-   	  	
-   	  	.updateProduct {
-		    width: 60px;
-		    height: 30px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 12px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 35px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		}
+table td, table th {
+	vertical-align: middle;
+	padding-left: 10px;
+}
+            
+.del{
+	float:right;
+}		
+     
+.switch {
+	position: relative;
+	display: inline-block;
+	width: 52px;
+	height: 25px;
+	vertical-align:middle;
+}
 
-		.updateProduct:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
+/* Hide default HTML checkbox */
+.switch input {
+	display:none;
+}
+
+/* The slider */
+.slider {
+	position: absolute;
+	cursor: pointer;
+	top: 0;
+	left: 0;
+	right: 0;
+	bottom: 0;
+	background-color: #ccc;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+.slider:before {
+	position: absolute;
+	content: "";
+	height: 18px;
+	width: 18px;
+	left: 4px;
+	bottom: 4px;
+	background-color: white;
+	-webkit-transition: .4s;
+	transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
+	
 		
-		.deleteProduct {
-		    width: 60px;
-		    height: 30px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 12px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 35px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		}
+#selDelete, .updateProduct, .deleteProduct {
+    width: 80px;
+    height: 30px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: white;
+    background-color: #6B66FF;
+    border: none;
+    border-radius: 35px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    opacity: 0.8;
+}
 
-		.deleteProduct:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
-		
-		#selDelete {
-		    width: 60px;
-		    height: 30px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 12px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 35px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		}
-
-		#selDelete:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
+#selDelete:hover, .updateProduct:hover, .deleteProduct:hover  {
+	background-color: #FFB2F5;
+	box-shadow: 0px 15px 20px hotpink;
+	color: #fff;
+	transform: translateY(-7px);
+}
 		
 
 		
-#btnUpload, .sellP {
+#btnUpload {
     width: 100px;
     height: 40px;
     font-family: 'Roboto', sans-serif;
@@ -253,7 +205,7 @@ body {
     opacity: 0.8;
 }
 
-#btnUpload:hover, .sellP:hover {
+#btnUpload:hover {
  		background-color: #FFB2F5;
  		box-shadow: 0px 15px 20px hotpink;
  		color: #fff;
@@ -275,17 +227,9 @@ body {
 		<div id="containerBox">
 
    		<input type="button" id="btnUpload" onclick="location.href='${pageContext.request.contextPath}/uploadProduct'" value="신규등록">
-
+	<br>
    <table>
-      <colgroup>
-         <col style="width:5%;" />
-         <col style="width:auto;" />
-         <col style="width:10%;" />
-         <col style="width:10%;" />
-         <col style="width:10%;" />
-         <col style="width:20%;" />
-         <col style="width:10%;" />
-      </colgroup>
+
       <thead>
          <tr>
             <th><input type="checkbox" id="allSelect"></th>
@@ -328,7 +272,9 @@ body {
                         </label>
                      </td>
                      <td><%--<input type="hidden" id="productNum${status.index}" value="${list.productNum}"> --%>
-                     <button type="button" class="updateProduct" value="${list.productNum}">수정</button>&nbsp;<button type="button" class="deleteProduct" value="${list.productNum}">삭제</button></td>
+	                     <button type="button" class="updateProduct" value="${list.productNum}">수정</button>
+	                     <button type="button" class="deleteProduct" value="${list.productNum}">삭제</button>
+                     </td>
                   </tr>
                </c:forEach>
             </c:when>

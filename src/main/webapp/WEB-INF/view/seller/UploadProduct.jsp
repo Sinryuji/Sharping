@@ -4,296 +4,300 @@
 <!DOCTYPE html>
 <html>
 <head>
-   <meta charset="UTF-8">
-   <title>상품관리</title>
-   <script src="https://code.jquery.com/jquery-2.2.4.min.js"
-      integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
-      crossorigin="anonymous"></script>
-   <style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>상품관리</title>
+<script src="https://code.jquery.com/jquery-2.2.4.min.js"
+   integrity="sha256-BbhdlvQf/xTY9gja0Dq3HiwQF8LaCRTXxZKRutelT44="
+   crossorigin="anonymous"></script>
+   
+<link rel="stylesheet"
+	href='${pageContext.request.contextPath}/asset/css/bootstrap.css'>
+
+<link rel='stylesheet'
+	href='${pageContext.request.contextPath}/resources/css/styleSB.css'
+	type='text/css' media='all' />
+	   
+<style>
+
+html {
+	height: 100%;
+}
+
+body {
+	/* background-image: url('https://images.pexels.com/photos/1470589/pexels-photo-1470589.jpeg?auto=compress&cs=tinysrgb&dpr=2&h=750&w=1260'); */
+	background-size: cover;
+	padding: 0;
+	margin: 0;
+	height: 100%;
+}
+
+.wrap {
+	min-height: 100%;
+	position: relative;
+	padding-bottom: 190px; /* footer height */
+}
+
+.navbar-nav {
+	width: 100%;
+	text-align: center;
+}
+
+.navbar-nav>li {
+	float: none;
+	display: inline-block;
+}
+
+.navbar-nav>li>a {
+	padding-top: 30px;
+}
+
+.navbar-nav>li.navbar-right {
+	float: right !important;
+}
+
+#container {
+	position: relative;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	text-align: center;
+	padding: 20px 0;
+}
+
+#containerBox {
+	display: inline-block;
+	vertical-align: middle;
+}
       
-	    table{
-		    border-collapse: collapse;
-		    line-height: 1.5;
-			width:800px;
-			margin:auto;
-		}
-		table thead th {
-		    padding: 10px;
-		    font-weight: bold;
-		    vertical-align: top;
-		    color: #369;
-		    border-bottom: 3px solid #036;
-		}
-		table tbody th {
-		    width: 150px;
-		    padding: 10px;
-		    font-weight: bold;
-		    vertical-align: top;
-		    border-bottom: 1px solid #ccc;
-		    background: #f3f6f7;
-		}
-		table td {
-		    width: 350px;
-		    padding: 10px;
-		    vertical-align: top;
-		    border-bottom: 1px solid #ccc;
-		}
+table{
+	border-collapse: collapse;
+	line-height: 1.5;
+	width:800px;
+	margin:auto;
+}
 		
-		.td1{
-			background: silver;
-			text-align:center;
-			vertical-align:middle;
-		}
+table thead th {
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    color: #369;
+    border-bottom: 3px solid #036;
+}
 		
-		.td2{
-			text-align:left;
-		}
+table tbody th {
+    width: 150px;
+    padding: 10px;
+    font-weight: bold;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+    background: #f3f6f7;
+}
 		
-		.detail{
-			border:2px solid black;
-		}
+table td {
+    width: 350px;
+    padding: 10px;
+    vertical-align: top;
+    border-bottom: 1px solid #ccc;
+}
 		
-		.detail textarea{
-			border:0;
-			min-width:600px;
-			min-height:200px;
-			resize:none;
-			overflow:hidden;
-		}
+.td1{
+	background: silver;
+	text-align:center;
+	vertical-align:middle;
+}
 		
-		.detail textarea:focus{
-		     outline: none; 
-		}
+.td2{
+	text-align:left;
+}
 		
-		.cnt{
-			text-align:right;
-		}
+.detail{
+	border:2px solid black;
+}
+		
+.detail textarea{
+	border:0;
+	min-width:600px;
+	min-height:200px;
+	resize:none;
+	overflow:hidden;
+	text-align: left;
+	border-radius: 0px;
+}
+		
+.detail textarea:focus{
+     outline: none; 
+}
 
-		.switch {
-		  position: relative;
-		  display: inline-block;
-		  width: 60px;
-		  height: 34px;
-		  vertical-align:middle;
-		}
-		
-		/* Hide default HTML checkbox */
-		.switch input {display:none;}
-		
-		/* The slider */
-		.slider {
-		  position: absolute;
-		  cursor: pointer;
-		  top: 0;
-		  left: 0;
-		  right: 0;
-		  bottom: 0;
-		  background-color: #ccc;
-		  -webkit-transition: .4s;
-		  transition: .4s;
-		}
-		
-		.slider:before {
-		  position: absolute;
-		  content: "";
-		  height: 26px;
-		  width: 26px;
-		  left: 4px;
-		  bottom: 4px;
-		  background-color: white;
-		  -webkit-transition: .4s;
-		  transition: .4s;
-		}
-		
-		input:checked + .slider {
-		  background-color: #2196F3;
-		}
-		
-		input:focus + .slider {
-		  box-shadow: 0 0 1px #2196F3;
-		}
-		
-		input:checked + .slider:before {
-		  -webkit-transform: translateX(26px);
-		  -ms-transform: translateX(26px);
-		  transform: translateX(26px);
-		}
-		
-		/* Rounded sliders */
-		.slider.round {
-		  border-radius: 34px;
-		}
-		
-		.slider.round:before {
-		  border-radius: 50%;
-		}
-		
-		p {
-			margin:0px;
-			display:inline-block;
-			font-size:15px;
-			font-weight:bold;
-		}
-		
-		.optiondetail-scroll {
-		
-		background:#ffffff;
-		
-		border:2px solid #eeeeee;
-		
-		height:300px;
-		
-		display:none;
-		
-		position:absolute;
-		
-		z-index:1000;
-		
-		padding-top:15px;
-		
-		overflow-y:scroll;
-		
-		overflow-x:hidden;
-		
-		}
-		
-		
-		
-		.optiondetail {
-		
-		background:#ffffff;
-		
-		border:2px solid #eeeeee;
-		
-		display:none;
-		
-		position:absolute;
-		
-		z-index:1000;
-		
-		padding-top:15px;
-		
-		overflow:hidden;
-		
-		}
-		
-		#mm {
-    		text-align: center;
- 			margin: 0 910px;
-    	}
-    	
-    	a{
-   	  		text-decoration:none;
-   	  		color:black;
-   	  	}
-   	  	
-   	  	.cate{ 
-			float: left; 
-			width: 33%; 
-			height: 300px; 
-			text-align: center; 
-			background-color: rgba( 140, 140, 140, 0.2);
-		}
-		
-		#medium{
-			border-right: 2px solid black;
-			border-left: 2px solid black;
-		}
-		
-		.depthOne{
-			border-bottom:1px solid black;
-		}
-		
-		.depthTwo{
-			border-bottom:1px solid black;
-		}
-		
-		.depthThree{
-			border-bottom:1px solid black;
-		}
-		
-		.td2 #categoryNameView{
-			background: white;
-			color: black;
-			border: 0;
-			outline: 0;
-		}
-		
-		.select_img{
-			border: 1px solid black;
-			height: 500px;
-			width: 500px;
-		}
-		
-		.select_thumbImg{
-			border: 1px solid black;
-			height:250px;
-			width: 250px;
-		}
-		
-		.detail div{
-			text-align: right;
-			margin-right: 10px;
-		}
-		
-		.btn {
-		    width: 90px;
-		    height: 40px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 16px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 35px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		}
+.detail div{
+	text-align: right;
+	margin-right: 10px;
+}
+				
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 60px;
+  height: 34px;
+  vertical-align:middle;
+}
 
-		.btn:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
-		
-		.sellP {
-		    width: 140px;
-		    height: 50px;
-		    font-family: 'Roboto', sans-serif;
-		    font-size: 16px;
-		    text-transform: uppercase;
-		    letter-spacing: 2.5px;
-		    font-weight: 500;
-		    color: white;
-		    background-color: #6B66FF;
-		    border: none;
-		    border-radius: 35px;
-		    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
-		    transition: all 0.3s ease 0s;
-		    cursor: pointer;
-		    outline: none;
-		    opacity: 0.8;
-		}
+/* Hide default HTML checkbox */
+.switch input {display:none;}
 
-		.sellP:hover {
-	  		background-color: #FFB2F5;
-	  		box-shadow: 0px 15px 20px hotpink;
-	  		color: #fff;
-	  		transform: translateY(-7px);
-		}
+/* The slider */
+.slider {
+  position: absolute;
+  cursor: pointer;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background-color: #ccc;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 26px;
+  width: 26px;
+  left: 4px;
+  bottom: 4px;
+  background-color: white;
+  -webkit-transition: .4s;
+  transition: .4s;
+}
+
+input:checked + .slider {
+  background-color: #2196F3;
+}
+
+input:focus + .slider {
+  box-shadow: 0 0 1px #2196F3;
+}
+
+input:checked + .slider:before {
+  -webkit-transform: translateX(26px);
+  -ms-transform: translateX(26px);
+  transform: translateX(26px);
+}
+
+/* Rounded sliders */
+.slider.round {
+  border-radius: 34px;
+}
+
+.slider.round:before {
+  border-radius: 50%;
+}
 		
-		.menu{
-			margin-top: 20px;
-			margin-left: 20px;
-		}
+p {
+	margin:0px;
+	display:inline-block;
+	font-size:15px;
+	font-weight:bold;
+}
+		   	  	
+.cate{ 
+	float: left; 
+	width: 33%; 
+	height: auto; 
+	text-align: center; 
+	background-color: rgba( 140, 140, 140, 0.2);
+}
+		
+#medium{
+	border-right: 2px solid black;
+	border-left: 2px solid black;
+}
+
+#DepthOneSpace h4, #DepthTwoSpace h4, #DepthThreeSpace h4, #DepthOneNameStr {
+	text-align: center;
+}
+		
+.select_img{
+	border: 1px solid black;
+	height: 500px;
+	width: 500px;
+}
+
+.select_thumbImg{
+	border: 1px solid black;
+	height:250px;
+	width: 250px;
+}
+				
+#save {
+    width: 90px;
+    height: 40px;
+    font-family: 'Roboto', sans-serif;
+    font-size: 16px;
+    text-transform: uppercase;
+    letter-spacing: 2.5px;
+    font-weight: 500;
+    color: white;
+    background-color: #6B66FF;
+    border: none;
+    border-radius: 35px;
+    box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+    transition: all 0.3s ease 0s;
+    cursor: pointer;
+    outline: none;
+    opacity: 0.8;
+    margin-top: 15px;
+}
+
+#save:hover {
+	background-color: #FFB2F5;
+	box-shadow: 0px 15px 20px hotpink;
+	color: #fff;
+	transform: translateY(-7px);
+}
+
+#mfDate {
+	border: 1px solid #ccc;
+	border-radius: 50px;
+	color: #666;
+	text-align: center;
+	padding: 6px;
+}
+
+#o1, #o2, #o3 {
+	margin-top: 10px;
+}
+
+#plus, #minus {
+	width: 100px;
+	height: 30px;
+	font-family: 'Roboto', sans-serif;
+	font-size: 13px;
+	text-transform: uppercase;
+	letter-spacing: 2.5px;
+	font-weight: 500;
+	color: white;
+	background-color: #6B66FF;
+	border: none;
+	border-radius: 35px;
+	box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.1);
+	transition: all 0.3s ease 0s;
+	cursor: pointer;
+	outline: none;
+	opacity: 0.8;
+}
+
+#plus:hover, #minus:hover {
+	background-color: #FFB2F5;
+	box-shadow: 0px 15px 20px hotpink;
+	color: #fff;
+	transform: translateY(-7px);
+}
+		
       
 </style>
+
 <script src='https://code.jquery.com/jquery-3.3.1.min.js'></script>
 <script>
 		
@@ -328,13 +332,16 @@
 </script>
 </head>
 <body>
-	<div class="menu">
-		<input type="button" class="sellP" onclick="location.href='${pageContext.request.contextPath}/sellerPage'" value="판매자 페이지"><br>
-	</div>
-	<br>
-	<div id="mm">
-		<h1><i><a href="<c:url value='/main'/>">#ing</a></i></h1>
-	</div>
+
+	<div class="wrap">
+	<nav class="navbar navbar-default">
+		<div id="navBox">
+			<%@ include file="../include/Nav.jsp"%>
+		</div>
+	</nav>
+	
+	<section id="container">
+		<div id="containerBox">
 	<form action="uploadCompleteProduct" method="post" enctype="multipart/form-data" id="uploadCompleteProduct">
 	   <table>
 	      <colgroup>
@@ -454,10 +461,11 @@
 	        <tr>
 				<td class="td1">옵션설정</td>
 				<td class="td2">
-					<input type="button" id="plus" value="옵션 추가">&nbsp;&nbsp;<input type="button" id="minus" value="옵션 삭제" >
+					<input type="button" id="plus" value="옵션 추가">
+					<input type="button" id="minus" value="옵션 삭제" >
 					<div id="optionBox">
 					  <span id="op1">
-					    <br>1차 옵션명  <input type="text" name="optionOneName" id="o1"><br>
+					    1차 옵션명  <input type="text" name="optionOneName" id="o1"><br>
 					  </span>
 					  <span id="op2">
 					    2차 옵션명  <input type="text" name="optionTwoName" id="o2"><br>
@@ -471,10 +479,17 @@
 	      </tbody>
 	   </table>
 	   <div align="center">
-	      <br><br><input type="button" id="save" class="btn" value="저장"><br><br><br>
+	      <input type="button" id="save" value="저장">
 	   </div>
 	   <input type="hidden" name="page" value="1">
-   </form>
+   </form>		
+		</div>
+	</section>
+	
+	</div>
+	
+	
+
    <script>
    
    $(document).on("click", "#save", function(){

@@ -21,6 +21,7 @@
 </script>
 
 <style>
+
 html {
 	height: 100%;
 }
@@ -83,6 +84,7 @@ div#filterBox {
 aside {
 	float: left;
 	width: 200px;
+	position: fixed;
 }
 
 aside ul li {
@@ -152,6 +154,7 @@ footer#footer div {
 	display: inline-block;
 	margin-right: 10px;
 }
+
 </style>
 </head>
 <body>
