@@ -603,7 +603,7 @@
 		</table>
 		<div class="last">
 			<input type="hidden" id="productNum" name="productNum" value="${product.productNum }">
-			<br><br><input type="submit" value="저장">&nbsp;&nbsp;
+			<br><br><input type="button" value="저장">&nbsp;&nbsp;
 			<input type="reset" value="초기화"><br><br><br>
 		</div>
 		<input type="hidden" name="page" value="1">

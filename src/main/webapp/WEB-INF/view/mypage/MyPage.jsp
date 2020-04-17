@@ -250,7 +250,7 @@ footer#footer div {
 											</td>
 										</c:if>
 										<td class="td2"><img src="opload/${orderList.productThumb}" style="width: 50px;"><br>
-											상품명 : ${orderList.productName}<br> 
+											상품명 : <a href="#" onclick="productView(${orderList.productNum})">${orderList.productName}</a><br> 
 											주문 옵션 : ${orderList.optionName}<br> 
 											주문 번호 : ${order.orderNum}
 										</td>
@@ -317,6 +317,12 @@ footer#footer div {
    $('#state').val(state).prop("selected", true);
    }
 }) --%>
+
+function productView(productNum){
+	var url = "${pageContext.request.contextPath}"+"/product";
+	url = url + "?productNum=" + productNum;
+	location.href = url;
+}
 
 $(document).ready(function() {
     $("#keywordO").keydown(function(key) {

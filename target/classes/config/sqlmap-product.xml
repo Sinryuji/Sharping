@@ -11,20 +11,20 @@
 									#{productDisplay} , #{stock} , #{categoryNum} , SYSDATE , 
 									#{id} , #{productMeterial} , #{manufacturer} , #{mfDate} , 
 									#{origin} , #{deliveryPrice} ,
-									#{optionOneName} , #{optionTwoName} , #{optionThreeName})
+									#{optionOneName} , #{optionTwoName} , #{optionThreeName}, #{productSale})
 	</insert>
 	
 	<insert id="insertProductDateIsNull" parameterType="productVO">
 		INSERT INTO PRODUCT ("productNum" , "productName" , "productText" , "productPrice" ,
 							 "productThumb" , "productImage" , "productDisplay" , "stock" , 
 							 "categoryNum" , "productDate" , "id" , "productMeterial" , 
-							 "manufacturer" , "origin" , "deliveryPrice" ,"optionOneName" , "optionTwoName" , "optionThreeName") 
+							 "manufacturer" , "origin" , "deliveryPrice" ,"optionOneName" , "optionTwoName" , "optionThreeName", "productSale") 
 					VALUES 
                        (PRODUCT_SEQ.nextval, #{productName}, #{productText}, #{productPrice}, 
                        						#{productThumb}, #{productImage}, #{productDisplay} ,
                        						 #{stock} , #{categoryNum} , SYSDATE , #{id} , 
                        						 #{productMeterial} , #{manufacturer} , #{origin} , #{deliveryPrice} ,
-											#{optionOneName} , #{optionTwoName} , #{optionThreeName})
+											#{optionOneName} , #{optionTwoName} , #{optionThreeName}, #{productSale})
 	</insert>
 	
 	<insert id="insertOption" parameterType="optionVO">
@@ -79,7 +79,7 @@
 	
 	<select id="selectProductByIdPaging" parameterType="productVO" resultType="productVO">
 		SELECT * FROM (SELECT rownum rnum, "productNum", "productName", "productText", "productPrice", "productThumb", "productImage", "productDisplay", "stock", "categoryNum", "productDate", "id",  
-		"productMeterial", "manufacturer", "mfDate", "origin", "deliveryPrice", "optionOneName", "optionTwoName", "optionThreeName" FROM PRODUCT WHERE "id" = #{id}) WHERE rnum &gt;= #{startNum} AND rnum &lt;= #{endNum}
+		"productMeterial", "manufacturer", "mfDate", "origin", "deliveryPrice", "optionOneName", "optionTwoName", "optionThreeName", "productSale" FROM PRODUCT WHERE "id" = #{id}) WHERE rnum &gt;= #{startNum} AND rnum &lt;= #{endNum}
 		
 		
 	</select>
@@ -144,7 +144,7 @@
 
 	
 		 <select id="getProductListTotal"  resultType="productVO">
-		SELECT "productNum", "productName", "productThumb", "productPrice","deliveryPrice" ,"id" FROM PRODUCT WHERE "productDisplay" like 'TRUE' AND "productName" like '%'||#{keyword}||'%'	
+		SELECT "productNum", "productName", "productThumb", "productPrice","deliveryPrice" ,"id", "productSale" FROM PRODUCT WHERE "productDisplay" like 'TRUE' AND "productSale" like 'YES' AND "productName" like '%'||#{keyword}||'%'	
 	
 			<if test="searchType=='productNum' and keyword2 != null and keyword2 != '' ">
 				AND "productNum" like '%'||#{keyword2}||'%'
@@ -179,7 +179,7 @@
 	
 	
 	<select id="getProductList"  resultType="productVO">
-		SELECT * FROM (SELECT rownum rnum, "productNum", "productName", "productThumb", "productPrice","deliveryPrice" ,"id", "categoryNum", "productDate" FROM PRODUCT WHERE "productDisplay" like 'TRUE' AND "productName" like '%'||#{keyword}||'%'	
+		SELECT * FROM (SELECT rownum rnum, "productNum", "productName", "productThumb", "productPrice","deliveryPrice" ,"id", "categoryNum", "productDate", "productSale" FROM PRODUCT WHERE "productDisplay" like 'TRUE' AND "productSale" like 'YES' AND "productName" like '%'||#{keyword}||'%'	
 	
 			<if test="searchType=='productNum' and keyword2 != null and keyword2 != '' ">
 				AND "productNum" like '%'||#{keyword2}||'%'
@@ -232,9 +232,13 @@
 	  WHERE "productNum" = #{productNum}
    </update>
    
-   <delete id="deleteProductByProductNum" parameterType="productVO">
+<!--    <delete id="deleteProductByProductNum" parameterType="productVO">
    		DELETE FROM PRODUCT WHERE "productNum" = #{productNum}
-   </delete>
+   </delete> -->
+   
+   <update id="deleteProductByProductNum" parameterType="productVO">
+   	UPDATE PRODUCT SET "productSale" = #{productSale} WHERE "productNum" = #{productNum}
+   </update>
    
    <delete id="deleteDetailOption" parameterType="int">
    		DELETE FROM DETAILOPTION WHERE "doNum" = #{doNum}
@@ -301,7 +305,7 @@
 
  	<select id="selectOrderBySellerId" parameterType="orderProductVO" resultType="orderProductVO">
  		SELECT *
-		FROM (SELECT rownum rnum, O."orderNum", O."orderDate", O."state", O."payCase", O."payPrice", O."trackingNum", O."toName", O."toPhone", O."toPost", O."toAddress", O."id", O."deliveryMessage", O."payNum", O."trackingCode", OL."olNum", OL."productName", OL."productThumb", OL."optionOneNum", OL."optionTwoNum", OL."optionThreeNum", OL."productPrice", OL."cnt", OL."optionNum", PR."productText", PR."productImage", PR."productDisplay", PR."categoryNum", PR."productDate", PR."productMeterial", PR."manufacturer", PR."mfDate", PR."origin", PR."deliveryPrice", PR."optionOneName", PR."optionTwoName", PR."optionThreeName" 
+		FROM (SELECT rownum rnum, O."orderNum", O."orderDate", O."state", O."payCase", O."payPrice", O."trackingNum", O."toName", O."toPhone", O."toPost", O."toAddress", O."id", O."deliveryMessage", O."payNum", O."trackingCode", OL."olNum", OL."productName", OL."productThumb", OL."optionOneNum", OL."optionTwoNum", OL."optionThreeNum", OL."productPrice", OL."cnt", OL."optionNum", OP."productNum", PR."productText", PR."productImage", PR."productDisplay", PR."categoryNum", PR."productDate", PR."productMeterial", PR."manufacturer", PR."mfDate", PR."origin", PR."deliveryPrice", PR."optionOneName", PR."optionTwoName", PR."optionThreeName" 
 		FROM ORDERR O, ORDERLIST OL, OPTIONN OP, PRODUCT PR 
 		WHERE PR."id" = #{id} 
 		AND O."orderNum" = OL."orderNum" 

@@ -16,17 +16,15 @@ public class OrderProductVO {
 	private int page;
 	private int startNum;
 	private int endNum;
+	private int productNum;
 	
 	public OrderProductVO() {
 		super();
 	}
 
-	
-	
-
 	public OrderProductVO(int orderNum, String productThumb, String productName, String id, int payPrice,
 			String payCase, String toName, String toPhone, String toPost, String toAddress, String state, String search,
-			int page, int startNum, int endNum) {
+			int page, int startNum, int endNum, int productNum) {
 		super();
 		this.orderNum = orderNum;
 		this.productThumb = productThumb;
@@ -43,9 +41,18 @@ public class OrderProductVO {
 		this.page = page;
 		this.startNum = startNum;
 		this.endNum = endNum;
+		this.productNum = productNum;
 	}
 
 
+	public int getProductNum() {
+		return productNum;
+	}
+
+
+	public void setProductNum(int productNum) {
+		this.productNum = productNum;
+	}
 
 
 	public int getPage() {
@@ -168,12 +175,14 @@ public class OrderProductVO {
 		this.state = state;
 	}
 
+
 	@Override
 	public String toString() {
 		return "OrderProductVO [orderNum=" + orderNum + ", productThumb=" + productThumb + ", productName="
 				+ productName + ", id=" + id + ", payPrice=" + payPrice + ", payCase=" + payCase + ", toName=" + toName
 				+ ", toPhone=" + toPhone + ", toPost=" + toPost + ", toAddress=" + toAddress + ", state=" + state
-				+ ", search=" + search + ", page=" + page + ", startNum=" + startNum + ", endNum=" + endNum + "]";
+				+ ", search=" + search + ", page=" + page + ", startNum=" + startNum + ", endNum=" + endNum
+				+ ", productNum=" + productNum + "]";
 	}
-	
+
 }

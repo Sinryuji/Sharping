@@ -183,6 +183,7 @@ CREATE TABLE PRODUCT (
   "optionOneName" VARCHAR2(20),
   "optionTwoName" VARCHAR2(20),
   "optionThreeName" VARCHAR2(20),
+  "productSale" VARCHAR2(20) CHECK("productSale" IN ('YES', 'NO')) NOT NULL,
   FOREIGN KEY ("categoryNum") REFERENCES CATEGORY("categoryNum") ON DELETE CASCADE,
   FOREIGN KEY ("id") REFERENCES SELLER("id") ON DELETE CASCADE
 );

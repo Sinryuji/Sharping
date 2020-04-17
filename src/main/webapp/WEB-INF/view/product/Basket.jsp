@@ -230,7 +230,7 @@ footer#footer div {
 												<!--상풍명  -->
 											<td>
 												<div class="proInfo">
-													<c:out value="${basket.productName}" />
+													<a href="#" class="productName" onClick="productView(${basket.productNum})">${basket.productName}</a>
 												</div>
 											</td>
 											
@@ -313,6 +313,12 @@ footer#footer div {
 
 
 	<script>
+	
+	function productView(productNum){
+		var url = "${pageContext.request.contextPath}"+"/product";
+		url = url + "?productNum=" + productNum;
+		location.href = url;
+	}
 	
 	$('#order').click(function(){
 		var basketList = "${basketList}";

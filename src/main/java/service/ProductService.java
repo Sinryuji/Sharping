@@ -123,4 +123,5 @@ public interface ProductService {
 
 	// 해당 상품에 대한 후기 리스트 불러오기
 	public abstract List<ReviewVO> selectReviewByProductNum(int productNum);
+	
 }

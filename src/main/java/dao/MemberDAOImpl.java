@@ -151,4 +151,8 @@ public class MemberDAOImpl implements MemberDAO{
 		return sqlSessionTemplate.selectList("memberDAO.selectReviewByOrderNumId", reviewVO);
 	}
 
+	@Override
+	public MemberVO selectMemberByEmail(String email) {
+		return sqlSessionTemplate.selectOne("memberDAO.selectMemberByEmail", email);
+	}
 }

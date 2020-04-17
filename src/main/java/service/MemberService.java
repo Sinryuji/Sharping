@@ -35,11 +35,11 @@ public interface MemberService {
 	
 	public abstract AuthInfo login(String id, String password);
 
-	public abstract String sendSms(String receiver, int random, HttpServletRequest req);
+	public abstract String sendSms(String idd, String receiver, int random, HttpServletRequest req);
 
 	public abstract int idCheck(String id);
 	
-	public boolean sendEmail(String subject, String text, String from, String to, String filePath);
+	public String sendEmail(String subject, String text, String from, String to, String filePath);
 
 	public abstract int updatePwByIdPw(ChangePwVO changePwVO);
 	
@@ -72,4 +72,6 @@ public interface MemberService {
 	public abstract int insertReview(ReviewVO reviewVO);
 	
 	public abstract List<ReviewVO> selectReviewByOrderNumId(ReviewVO reviewVO);
+	
+	public abstract MemberVO selectMemberByEmail(String email);
 }

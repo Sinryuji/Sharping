@@ -127,6 +127,10 @@ public class MemberController {
 		int ran = new Random().nextInt(900000) + 100000;
 		mv.setViewName("login/RegistSeller");
 		mv.addObject("random", ran);
+		
+		List<BankVO> bankVO = orderService.selectBankCodeList();
+
+		mv.addObject("bankInfo", bankVO);
 		return mv;
 	}
 
@@ -196,6 +200,21 @@ public class MemberController {
 		model.addAttribute("id", id);
 		return "login/SearchIdResult";
 	}
+	
+//	// 이메일 존재 여부 확인
+//	@RequestMapping(value = "/searchEmail")
+//	@ResponseBody
+//	public int searchEmail(String email) {
+//		MemberVO member = memberService.selectMemberByEmail(email);
+//		int result = 0;
+//		if(member == null) {
+//			result = -1;
+//		}
+//		else if(member != null) {
+//			result = 1;
+//		}
+//		return result;
+//	}
 
 	// 핸드폰 번호로 아이디 찾기
 	@RequestMapping(value = "/searchIdPhone")
@@ -332,8 +351,23 @@ public class MemberController {
 	// 인증 문자 발송
 	@ResponseBody
 	@RequestMapping("/sendSms")
-	public String sendSms(@RequestParam String receiver, @RequestParam int random, HttpServletRequest req) {
-		String result = memberService.sendSms(receiver, random, req);
+	public String sendSms(@RequestParam(required=false) String id, @RequestParam String receiver, @RequestParam int random, HttpServletRequest req) {
+		if(id != null) {
+			System.out.println("@@@@@@@@@@@@@@@@@1");
+			if(memberService.searchMemberById(id) != null) {
+				System.out.println("@@@@@@@@@@@@@@@@@2");
+				if(!memberService.searchMemberById(id).getPhone().equals(receiver)) {
+					return "noMatch";
+				}
+			}
+			else {
+				System.out.println("@@@@@@@@@@@@@@@@@3");
+				return "noMember";
+			}
+		}
+
+		System.out.println(receiver);
+		String result = memberService.sendSms(id, receiver, random, req);
 		return result;
 //		memberService.sendSms(receiver);
 //		return "redirect:/sendSMS";
@@ -373,11 +407,24 @@ public class MemberController {
 	// 이메일 발송
 	@RequestMapping(value = "/sendEmail")
 	@ResponseBody
-	public boolean sendEmail(@RequestParam String email, @RequestParam int random, HttpServletRequest req) {
+	public String sendEmail(@RequestParam(required=false) String idd, @RequestParam String email, @RequestParam int random, HttpServletRequest req) {
+		
+		if(idd != null) {
+			System.out.println(idd);
+			System.out.println(memberService.searchMemberById(idd));
+			if(memberService.searchMemberById(idd) != null) {
+				if(!memberService.searchMemberById(idd).getEmail().equals(email)) {
+					return "noMatch";
+				}
+			}
+			else {
+				return "noMember";
+			}
+		}
 
 		String id = memberService.searchIdByEmail(email);
 		if (id == null) {
-			return false;
+			return "false";
 		}
 		int ran = new Random().nextInt(900000) + 100000;
 		HttpSession session = req.getSession(true);
@@ -421,6 +468,38 @@ public class MemberController {
 	@ResponseBody
 	public int idCheck(@Valid String id) {
 		int result = memberService.idCheck(id);
+		return result;
+
+	}
+	
+	// 핸드폰 중복확인
+	@RequestMapping(value = "/phoneOverlapCheck")
+	@ResponseBody
+	public int phoneOverlapCheck(@Valid String phone) {
+		String id = memberService.searchIdByPhone(phone);
+		int result = 0;
+		if(id == null ) {
+			result = 1;
+		}
+		else if(id != null) {
+			result = -1;
+		}
+		return result;
+
+	}
+	
+	// 이메일 중복확인
+	@RequestMapping(value = "/emailOverlapCheck")
+	@ResponseBody
+	public int emailOverlapCheck(@Valid String email) {
+		String id = memberService.searchIdByEmail(email);
+		int result = 0;
+		if(id == null ) {
+			result = 1;
+		}
+		else if(id != null) {
+			result = -1;
+		}
 		return result;
 
 	}
@@ -504,8 +583,8 @@ public class MemberController {
 		try {
 			memberService.updatePwByIdPw(changePwVO);
 		} catch (PasswordNotMatchingException e) {
-			e.printStackTrace();
-			return "";
+			model.addAttribute("falsee", "falsee");
+			return "mypage/InfoChangePwResult";
 		}
 		model.addAttribute("newPassword", newPassword);
 		return "mypage/InfoChangePwResult";
@@ -737,6 +816,7 @@ public class MemberController {
 				orderListJson.put("olNum", orderLists.get(j).getOlNum());
 				OptionVO optionVO = productService.selectOptionByOptionNum(orderLists.get(j).getOptionNum());
 				ProductVO productVO = productService.selectProduct(optionVO.getProductNum());
+				orderListJson.put("productNum", optionVO.getProductNum());
 				SellerVO sellerVO = memberService.searchSellerById(productVO.getId());
 				String optionName = "";
 				DetailOptionVO detailOptionVO1 = productService.selectDetailOptionByDoNum(optionVO.getOptionOneNum());
@@ -948,7 +1028,7 @@ public class MemberController {
 		return mv;
 	}
 	
-	// 상품 관리 탭 상품 선택 삭제
+	// 관심상품 상품 선택 삭제
 		@RequestMapping(value = "deleteSelectWishByProductNum")
 		@ResponseBody
 		public ModelAndView deleteSelectWishByProductNum(HttpServletRequest req,

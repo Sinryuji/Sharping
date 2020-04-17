@@ -89,6 +89,15 @@ public class OrderController {
 		int result = 0;
 
 		HttpSession session = req.getSession();
+		
+		ProductVO productVO = productService.selectProduct(productNum);
+		
+		if(productVO.getProductSale().equals("NO")) {
+			mv.setViewName("order/OrderResult");
+			mv.addObject("result", "fail");
+			return mv;
+		}
+		
 
 		if (session != null && session.getAttribute("authInfo") != null) {
 			AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
@@ -270,6 +279,7 @@ public class OrderController {
 		}
 		List<OptionVO> option = productService.selectOptionByOptionNumList(optionNums);
 		
+		
 		System.out.println("어서오소@@@@@@@@@" + option);
 
 		int options = option.size();
@@ -281,6 +291,11 @@ public class OrderController {
 		List<ProductVO> product = productService.selectProducts(productNum);
 		
 		for(int i = 0 ; i < product.size() ; i++) {
+			if(product.get(i).getProductSale().equals("NO")) {
+				mv.setViewName("order/OrderResult");
+				mv.addObject("result", "fail");
+				return mv;
+			}
 			SellerVO seller = memberService.searchSellerById(product.get(i).getId());
 			product.get(i).setStoreName(seller.getStoreName());
 		}
@@ -390,6 +405,9 @@ public class OrderController {
 			@RequestParam int bankCode, GuestVO guestVO, MemberVO memberVO) {
 		HttpSession session = req.getSession();
 		if (session != null && session.getAttribute("authInfo") != null) {
+			
+			
+			
 			AuthInfo authInfo = (AuthInfo) session.getAttribute("authInfo");
 			orderVO.setState("입금 대기");
 			orderVO.setPayCase("무통장 입금");
@@ -427,7 +445,7 @@ public class OrderController {
 			// 오더리스트 인설트 성공여부 받아오고
 			int insertOrderResult = orderService.insertOrderList(orderListVO);
 			// 오더리스트에 해당 옵션상품번호 받아오고
-			int productNum = orderService.selectProductNumByOptionNum(orderListVO.getOptionNum());
+			
 			// 인설트 성공하고 0보다 크면 스탁량 -
 			if (insertOrderResult > 0) {
 				orderService.decrementStockOption(orderListVO);
@@ -478,6 +496,7 @@ public class OrderController {
 			return mv;
 			// 비회원시 결제
 		} else {
+			
 
 			System.out.println(memberVO.getId());
 			System.out.println(guestVO.toString());
@@ -520,7 +539,6 @@ public class OrderController {
 			// 오더리스트 인설트 성공여부 받아오고
 			int insertOrderResult = orderService.insertOrderList(orderListVO);
 			// 오더리스트에 해당 옵션상품번호 받아오고
-			int productNum = orderService.selectProductNumByOptionNum(orderListVO.getOptionNum());
 			// 인설트 성공하고 0보다 크면 스탁량 -
 			if (insertOrderResult > 0) {
 				orderService.decrementStockOption(orderListVO);
