@@ -352,7 +352,7 @@ history.scrollRestoration = "manual";
 		                			checked = '';
 		                		}
 		                		
-		                		html += "<tr><td><input type='checkbox' class='select' data-productNum='" + product.productNum + "'></td><td><span style='float:left'><img src='opload/" + product.productThumb  + "' style='width:50px;'>&nbsp;&nbsp;</span><span style='float:left'>" + product.productName + "<br>상품번호 : " + product.productNum + "&nbsp;&nbsp;</span></td><td>" + product.productPrice + "</td><td>" + deliveryPrice + "</td><td>" + product.buyCount + "</td><td>매출총액 : " + product.sales + "</td><td><label class='switch'><input type='checkbox' class='display' data-productNum='" + product.productNum + "' " + checked + "> <span class='slider round'></span></label></td><td><button type='button' class='updateProduct' value='" + product.productNum + "'>수정</button>&nbsp;<button type='button' class='deleteProduct' value='" + product.productNum  + "'>삭제</button></td></tr>";
+		                		html += "<tr><td><input type='checkbox' class='select' data-productNum='" + product.productNum + "'></td><td><span style='float:left'><img src='opload/" + product.productThumb  + "' style='width:50px;'>&nbsp;&nbsp;</span><span style='float:left'><a href='#' class='productName' data-productNum='" + product.productNum + "'>" + product.productName + "</a><br>상품번호 : " + product.productNum + "&nbsp;&nbsp;</span></td><td>" + product.productPrice + "</td><td>" + deliveryPrice + "</td><td>" + product.buyCount + "</td><td>매출총액 : " + product.sales + "</td><td><label class='switch'><input type='checkbox' class='display' data-productNum='" + product.productNum + "' " + checked + "> <span class='slider round'></span></label></td><td><button type='button' class='updateProduct' value='" + product.productNum + "'>수정</button>&nbsp;<button type='button' class='deleteProduct' value='" + product.productNum  + "'>삭제</button></td></tr>";
 		                             	
 		                	}
 		                }else{
@@ -499,6 +499,14 @@ history.scrollRestoration = "manual";
     		alert('선택된 상품이 없습니다.')
     	}
      });
+     
+     $(document).on("click", ".productName", function(){
+			var productNum = $(this).attr("data-productNum");
+			var url = "${pageContext.request.contextPath}"+"/product";
+			url = url + "?productNum=" + productNum;
+			location.href = url;
+		
+		})
    
    </script>
 </body>

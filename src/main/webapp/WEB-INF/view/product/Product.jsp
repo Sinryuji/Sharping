@@ -230,7 +230,7 @@ select {
 	padding: 6px;
 }
 
-#basketBtn, #t {
+#basketBtn, #t, #basketBtn {
     width: 90px;
     height: 30px;
     font-family: 'Roboto', sans-serif;
@@ -249,7 +249,7 @@ select {
     opacity: 0.8;
 }
 
-#basketBtn:hover, #t:hover {
+#basketBtn:hover, #t:hover, #basketBtn:hover {
     background-color: #FFB2F5;
     box-shadow: 0px 15px 20px hotpink;
     color: #fff;
@@ -449,7 +449,7 @@ select {
 												<div class=chargeBox>
 													<input type="hidden" name="deliveryPrice" id="deliveryPrice" value="${product.deliveryPrice}"> 
 													<c:if test="${product.productSale == 'YES' }">
-														<input type="button" class="basketBtn" style="margin: 0;" value="담기">
+														<input type="button" class="basketBtn" id="basketBtn" style="margin: 0;" value="담기">
 														<input type="button" class="orderBtn" id="t" style="margin: 0;" value="주문">
 													</c:if>
 													<c:if test="${product.productSale == 'NO' }">

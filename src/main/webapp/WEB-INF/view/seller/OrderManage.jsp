@@ -448,9 +448,6 @@ select {
 		
 		})
 
-		$('#dSearch').change(function() {
-
-		})
 	</script>
 </body>
 </html>
