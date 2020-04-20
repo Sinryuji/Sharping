@@ -179,7 +179,7 @@ public class AdminController {
 
 		return category;
 
-	}
+	} 
 
 	// 카테고리 수정
 	@RequestMapping("/admin/updateCategory")
