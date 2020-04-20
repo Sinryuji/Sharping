@@ -351,6 +351,12 @@ $(".emailCheck").click(function(){
 		return;
 	}
 	
+	if(count4 == 0) {
+		alert("올바르지 않은 이메일 형식입니다!");
+		$("#email").focus();
+		return;
+	}
+	
  
  var query = {email : $("#email").val()};
  
