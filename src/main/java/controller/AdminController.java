@@ -112,7 +112,7 @@ public class AdminController {
 		mv.addObject("cetegorys", categorys);
 
 		return mv;
-	}
+	} 
 
 	// 카테고리 선택
 	@RequestMapping("/admin/selectCategory")
