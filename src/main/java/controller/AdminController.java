@@ -128,7 +128,7 @@ public class AdminController {
 		System.out.println(categorys);
 
 		return categorys;
-	}
+	} 
 
 	// 대분류 카테고리 추가
 	@RequestMapping("/admin/insertCategoryDepthOne")
