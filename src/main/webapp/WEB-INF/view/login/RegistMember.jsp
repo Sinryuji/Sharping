@@ -351,6 +351,12 @@ $(".emailCheck").click(function(){
 		return;
 	}
 	
+	if(count4 == 0) {
+		alert("이메일 형식이 올바르지 않습니다!");
+		$("#email").focus();
+		return;
+	}
+	
  
  var query = {email : $("#email").val()};
  
@@ -441,6 +447,11 @@ $(document).on("keyup", "#email", function(){
 	
 	var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	var email = $("#email").val();
+	
+	if($("#email").val() == "") {
+		$("#regZone").html("");
+		return;
+	}
 	
 	if(email.match(regExp) != null) {
 		count4 = 1;
