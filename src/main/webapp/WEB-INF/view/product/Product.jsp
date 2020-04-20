@@ -448,8 +448,13 @@ select {
 												</div>
 												<div class=chargeBox>
 													<input type="hidden" name="deliveryPrice" id="deliveryPrice" value="${product.deliveryPrice}"> 
-													<input type="button" class="basketBtn" id="basketBtn"  value="담기"> 
-													<input type="button" class="orderBtn" id="t"  value="주문">
+													<c:if test="${product.productSale == 'YES' }">
+														<input type="button" class="basketBtn" style="margin: 0;" value="담기">
+														<input type="button" class="orderBtn" id="t" style="margin: 0;" value="주문">
+													</c:if>
+													<c:if test="${product.productSale == 'NO' }">
+														현재 판매가 중지 된 상품입니다.
+													</c:if>
 												</div>
 											</form>																				
 									</div>

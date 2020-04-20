@@ -142,7 +142,7 @@ public class ProductController {
 			if(target.exists()) {
 				thumbnail.getParentFile().mkdirs();
 			}
-			FileCopyUtils.copy(mft.getBytes(), Thum);
+			FileCopyUtils.copy(mft.getBytes(), thumbnail);
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -208,6 +208,8 @@ public class ProductController {
 		productVO.setOptionThreeName(mtfRequest.getParameter("optionThreeName"));
 
 		String d = mtfRequest.getParameter("mfDate");
+		
+		productVO.setProductSale("YES");
 		
 
 		if (mtfRequest.getParameter("hidden").equals("n")) {
@@ -390,10 +392,12 @@ public class ProductController {
 		}
 		
 		List<ProductVO> productList2 = productService.selectProductByIdPaging(productVO);
+		System.out.println(productList2);
 
 		JSONArray productListt = new JSONArray();
 		
 		for(int i = 0 ; i < productList2.size() ; i++) {
+			if(productList2.get(i).getProductSale().equals("YES")) {
 			JSONObject product = new JSONObject();
 			product.put("productNum", productList2.get(i).getProductNum());
 			product.put("productThumb", productList2.get(i).getProductThumb());
@@ -421,6 +425,7 @@ public class ProductController {
 			product.put("buyCount", count);
 			product.put("sales", sales);
 			productListt.add(product);
+		}
 		}
 
 		ModelAndView mv = new ModelAndView();
@@ -465,6 +470,7 @@ public class ProductController {
 			JSONArray productListt = new JSONArray();
 			
 			for(int i = 0 ; i < productList2.size() ; i++) {
+				if(productList2.get(i).getProductSale().equals("YES")) {
 				JSONObject product = new JSONObject();
 				product.put("productNum", productList2.get(i).getProductNum());
 				product.put("productThumb", productList2.get(i).getProductThumb());
@@ -493,6 +499,7 @@ public class ProductController {
 				System.out.println(sales);
 				product.put("sales", sales);
 				productListt.add(product);
+			}
 			}
 
 			Map<String, Object> map = new HashMap<String, Object>();
@@ -581,6 +588,8 @@ public class ProductController {
 		System.out.println("@@@@@@@@@@@@@@@@@@@@@@@" + orderProduct);
 		
 		List<OrderProductVO> orderList1 = productService.selectOrderBySellerId(orderProduct);
+		
+		System.out.println(orderList1);
 
 		ModelAndView mv = new ModelAndView();
 
@@ -1195,8 +1204,11 @@ public class ProductController {
 		ProductVO productVO = new ProductVO();
 
 		productVO.setProductNum(productNum);
+		productVO.setProductSale("NO");
 
 		productService.deleteProductByProductNum(productVO);
+		
+		productService.updateProductByCategoryNumZero(productVO.getProductNum());
 
 		HttpSession session = req.getSession();
 
@@ -1204,7 +1216,7 @@ public class ProductController {
 
 		List<ProductVO> productList = productService.productListById(authInfo.getId());
 
-		mv.setViewName("seller/ProductManage");
+		mv.setViewName("redirect:seller/ProductManage");
 
 		mv.addObject("productList", productList);
 

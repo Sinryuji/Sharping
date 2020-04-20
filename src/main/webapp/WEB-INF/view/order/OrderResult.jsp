@@ -115,6 +115,8 @@ h1 {
 	
 	<section id="container">
 		<div id="containerBox">
+		
+			<c:if test="${result != 'fail' }">
 	
 			<h1><span class="updateComplete">주문이 완료되었습니다!</span></h1>
 			<c:if test="${empty authInfo}">
@@ -123,6 +125,12 @@ h1 {
 			<c:if test="${!empty authInfo}">
 				<input type="button" id="t" class="t" onclick="location.href='${pageContext.request.contextPath}/main'" value="메인으로 이동">
 				<input type="button" id="t" class="t" onclick="location.href='${pageContext.request.contextPath}/myPage'" value="마이 페이지">		
+			</c:if>
+			
+			</c:if>
+			
+			<c:if test="${result == 'fail' }">
+				<h1><span class="updateComplete">판매가 중지 된 상품을 포함하고 있습니다. 확인 후 다시 주문 해 주세요.</span></h1>
 			</c:if>
 			
 		</div>

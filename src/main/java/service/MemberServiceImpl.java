@@ -134,8 +134,21 @@ public class MemberServiceImpl implements MemberService {
 
 
 	@Override
-	public String sendSms(@RequestParam String receiver, @RequestParam int random, HttpServletRequest req) {
+	public String sendSms(@RequestParam(required=false) String idd, @RequestParam String receiver, @RequestParam int random, HttpServletRequest req) {
 		// 6자리 인증 코드 생성
+	
+		String id = memberDAO.selectIdByPhone(receiver);
+		if(idd != null) {
+		
+		
+		if(id == null) {
+			return "noReciver";
+		}
+		}
+		
+		if(id != null) {
+			
+			
 
 		int ran = new Random().nextInt(900000) + 100000;
 		
@@ -208,8 +221,8 @@ public class MemberServiceImpl implements MemberService {
 		} finally {
 			client.getConnectionManager().shutdown();
 		}
+		}
 		return "true";
-
 	}
 
 	@Override
@@ -255,7 +268,7 @@ public class MemberServiceImpl implements MemberService {
 
 	
 	@Override
-	public boolean sendEmail(String subject,String text,String from,String to, String filePath) {
+	public String sendEmail(String subject,String text,String from,String to, String filePath) {
 		MimeMessage message = javaMailSender.createMimeMessage();
 		
 		try {
@@ -273,11 +286,11 @@ public class MemberServiceImpl implements MemberService {
 			}
 			
 			javaMailSender.send(message);
-			return true;
+			return "true";
 		}catch(MessagingException e) {
 			e.printStackTrace();
 		}
-		return false;
+		return "false";
 	}
 	
 	@Override
@@ -338,6 +351,11 @@ public class MemberServiceImpl implements MemberService {
 	@Override
 	public List<ReviewVO> selectReviewByOrderNumId(ReviewVO reviewVO) {
 		return memberDAO.selectReviewByOrderNumId(reviewVO);
+	}
+	
+	@Override
+	public MemberVO selectMemberByEmail(String email) {
+		return memberDAO.selectMemberByEmail(email);
 	}
 
 }

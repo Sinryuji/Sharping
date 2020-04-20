@@ -63,5 +63,7 @@ public interface MemberDAO {
 	public abstract int insertReview(ReviewVO reviewVO);
 	
 	public abstract List<ReviewVO> selectReviewByOrderNumId(ReviewVO reviewVO);
+	
+	public abstract MemberVO selectMemberByEmail(String email);
 
 }

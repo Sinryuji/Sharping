@@ -412,10 +412,14 @@ history.scrollRestoration = "manual";
             },
             
             success: function(data) {
+            	
+            	alert("상품이 삭제 되었습니다!")
+            	
+            	history.go(0);
                
-               setTimeout(function() {
+              /*  setTimeout(function() {
                   history.go(0);
-               }, 800);
+               }, 800); */
             }
       });
    });

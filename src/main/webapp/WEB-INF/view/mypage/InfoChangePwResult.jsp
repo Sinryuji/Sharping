@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -72,7 +73,14 @@
 <article>
 	<section id="container">
 		<div id="containerBox">
+			<c:if test="${falsee != 'falsee' }">
 			<span>변경이 완료되었습니다!</span>
+			</c:if>
+			
+			<c:if test="${falsee == 'falsee' }">
+			<span>새 비밀번호와 새 비밀번호 확인이 일치하지 않습니다!</span>
+			</c:if>
+			<br>
 			<input type='button' id="cancel" value="닫기" onClick='window.close();'>
 		</div>
 		<span class="blank"></span>

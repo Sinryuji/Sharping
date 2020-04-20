@@ -114,7 +114,7 @@ table td {
 	margin-top: 20px;;
 }
 
-#idCheck, #regist, #cancel, #a {
+#idCheck, #regist, #cancel, #a, #phoneCheck, #emailCheck {
 	width: 100px;
 	height: 30px;
 	font-family: 'Roboto', sans-serif;
@@ -133,7 +133,7 @@ table td {
 	opacity: 0.8;
 }
 
-#idCheck:hover, #regist:hover, #cancel:hover, #a:hover
+#idCheck:hover, #regist:hover, #cancel:hover, #a:hover, #phoneCheck:hover, #emailCheck:hover
 	{
 	background-color: #FFB2F5;
 	box-shadow: 0px 15px 20px hotpink;
@@ -154,7 +154,7 @@ table td {
 
 	<section id="container">
 		<div id="containerBox">
-			<form action="registCompleteMember" method="post">
+			<form action="registCompleteMember" method="post" id="registCompleteMember">
 				<table>
 					<colgroup>
 						<col style="width: 30%;" />
@@ -187,11 +187,16 @@ table td {
 						</tr>
 						<tr>
 							<td class="td1">휴대폰 번호</td>
-							<td class="td2"><input type="text" name="phone" id="ph" required /></td>
+							<td class="td2"><input type="text" name="phone" id="ph" required />
+							<button class="phoneCheck" id="phoneCheck" type="button">중복확인</button>
+							<span id="regZone2"></span></td>
 						</tr>
 						<tr>
 							<td class="td1">이메일</td>
-							<td class="td2"><input type="email" name="email" id="email" required /></td>
+							<td class="td2" id="tdEmail"><input type="email" name="email" id="email" required />
+							<button class="emailCheck" id="emailCheck" type="button">중복확인</button>
+							<span id="regZone"></span>
+							</td>
 						</tr>
 						<tr>
 							<td class="td1">주소</td>
@@ -205,16 +210,22 @@ table td {
 					</tbody>
 				</table>
 
-					<input type="submit" class="submit" id="regist" value="회원가입">&nbsp;
+					<input type="button" class="submit" id="regist" value="회원가입">&nbsp;
 					<input type="button" value="취소" id="cancel" onclick="location.href = '<c:url value='/main'/>'">
 
 			</form>
-
 		</div>
 	</section>
 
 
 	<script> 
+	
+	var count1 = 0;
+	var count2 = 0;
+	var count3 = 0;
+	var count4 = 0;
+	var count5 = 0;
+
 
 $('#pw').blur(function(){
     if($('#pw').val() == ""){
@@ -266,6 +277,12 @@ $(function(){
 	  
 
 $(".idCheck").click(function(){
+	
+	if($("#id").val() == "") {
+		alert("아이디를 입력하세요!");
+		$("#id").focus();
+		return;
+	}
  
  var query = {id : $("#id").val()};
  
@@ -281,12 +298,162 @@ $(".idCheck").click(function(){
 	   $(".submit").attr("disabled", "disabled");
 	   $("#id").val('');
 	   $("#id").focus();
+	   count1 = 0;
    	} else if(data == 0){
 	   alert("사용가능한 아이디입니다.");
+	   count1 = 1;
    	}
+	
+	disabledCheck();
   }
  });  // ajax 끝
 })
+
+$(".phoneCheck").click(function(){
+	
+	if($("#ph").val() == "") {
+		alert("휴대폰 번호 입력하세요!");
+		$("#ph").focus();
+		return;
+	}
+	
+ 
+ var query = {phone : $("#ph").val()};
+ 
+ $.ajax({
+  url : "/Sharping/phoneOverlapCheck",
+  type : "post",
+  data : query,
+  dataType : "json",
+  success : function(data) {
+  
+	if(data ==  -1){
+	   alert("중복된 핸드폰 번호입니다");
+	   $(".submit").attr("disabled", "disabled");
+	   $("#ph").val('');
+	   $("#ph").focus();
+	   count2 = 0;
+   	} else if(data == 1){
+	   alert("사용가능한 핸드폰 번호 입니다.");
+	   count2 = 1;
+   	}
+	
+	disabledCheck();
+  }
+ });  // ajax 끝
+})
+
+$(".emailCheck").click(function(){
+	
+	if($("#email").val() == "") {
+		alert("이메일을 입력하세요!");
+		$("#email").focus();
+		return;
+	}
+	
+ 
+ var query = {email : $("#email").val()};
+ 
+ $.ajax({
+  url : "/Sharping/emailOverlapCheck",
+  type : "post",
+  data : query,
+  dataType : "json",
+  success : function(data) {
+  
+	if(data ==  -1){
+	   alert("중복된 이메일입니다");
+	   $(".submit").attr("disabled", "disabled");
+	   $("#email").val('');
+	   $("#email").focus();
+	   count3 = 0;
+   	} else if(data == 1){
+	   alert("사용가능한 이메일 입니다.");
+	   count3 = 1;
+   	}
+	
+	disabledCheck();
+  }
+ });  // ajax 끝
+})
+
+function disabledCheck() {
+	if(count1 == 1 && count2 == 1 && count3 == 1) {
+		$(".submit").removeAttr("disabled");
+	}
+	else {
+		$(".submit").attr("disabled", "disabled");
+	}
+}
+
+$(".submit").click(function(){
+	if($("#name").val() == "") {
+		alert("이름을 입력하세요!");
+		$("#name").focus();
+	}
+	else if($("#id").val() == "") {
+		alert("아이디를 입력하세요!");
+		$("#id").focus();
+	}
+	else if($("#pw").val() == "") {
+		alert("비밀번호를 입력하세요!");
+		$("#pw").focus();
+	}
+	else if($("#pwc").val() == "") {
+		alert("비밀번호 재입력을 입력하세요!");
+		$("#pwc").focus();
+	}
+	else if($("#ph").val() == "") {
+		alert("전화번호를 입력하세요!");
+		$("#ph").focus();
+	}
+	else if($("#email").val() == "") {
+		alert("이메일을 입력하세요!");
+		$("#email").focus();
+	}
+	else if($("#post").val() == "") {
+		alert("주소를 입력하세요!");
+		$("#post").focus();
+	}
+	else if(count1 == 0) {
+		alert("아이디 중복을 확인하세요!")
+		$("#id").focus();
+	}
+	else if(count2 == 0) {
+		alert("휴대폰 번호 중복을 확인하세요!");
+		$("#ph").focus();
+	}
+	else if(count3 == 0) {
+		alert("이메일 중복을 확인하세요!");
+		$("#email").focus();
+	}
+	else if(count4 == 0) {
+		alert("이메일 형식이 올바르지 않습니다!");
+		$("#email").focus();
+	}
+	
+	else {
+		$("#registCompleteMember").submit();
+	}
+})
+
+$(document).on("keyup", "#email", function(){
+	
+	var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	var email = $("#email").val();
+	
+	if(email.match(regExp) != null) {
+		count4 = 1;
+		$("#regZone").html("올바른 이메일 형식입니다!");
+	}
+	else {
+		$("#regZone").html("이메일 형식이 올바르지 않습니다!");
+		count4 = 0;
+	}
+	
+})
+
+
 
 </script>
 </body>

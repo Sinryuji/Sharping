@@ -25,150 +25,7 @@
 	crossorigin="anonymous">
 </script>
 <!-- 문자 인증 -->
-<script>
 
-var phoneChk = false;
-var idChk = false;
-
-/* 인증번호 발송 */
-function sendSms() {
-	
-	
-	
-	$.ajax({
-		url : "<%=request.getContextPath()%>/sendSms",
-		data : {
-			receiver : $("#ph").val(),
-			random : $("#random").val()
-		},
-		type : "post",
-		success : function(result) {
-			if (result == "true") {
-				alert("인증번호 전송!")
-				console.log(result);
-			} else {
-				alert("인증번호 전송 실패");
-			}
-		}
-	});
-}
-
-/* 인증번호 체크 */
-function phoneCheck() {
-	$.ajax({
-		url : "<%=request.getContextPath()%>/smsCheck",
-			type : "post",
-			data : {
-				authCode : $("#confirmNumber").val(),
-				random : $("#random").val()
-				
-			},
-			success : function(result) {
-				if (result == "ok") {
-					alert("번호 인증 성공");
-					phoneChk = true;
-					if(phoneChk == true && idChk == true){
-					$("#regist").removeAttr("disabled");
-					}
-				} else {
-					alert("번호 인증 실패");
-				}
-			}
-		});
-	}
-
-
-function idCheck(){
-
-	 var query = {id : $("#id").val()};
-	 
-	 $.ajax({
-	  url : "/Sharping/idCheck",
-	  type : "post",
-	  data : query,
-	  dataType : "json",
-	  success : function(data) {
-	  
-		if(data == 1){
-		   alert("중복된 아이디입니다.");
-		  /*  $(".submit").attr("disabled", "disabled"); */
-		   $("#id").val('');
-		   $("#id").focus();
-	   	} else if(data == 0){
-		   alert("사용가능한 아이디입니다.");
-		   idChk = true;
-		   if(phoneChk == true && idChk == true){
-		   $("#regist").removeAttr("disabled");
-		   }
-	   	}
-	  }
-	 });  // ajax 끝
-	};
-	
-	$('#pw').blur(function(){
-	    if($('#pw').val() == ""){
-	    	$('#pwChk1').css("color","red")
-	    	$('#pwChk1').html('  비밀번호를 입력 해주세요.');
-	    	$('#pw').focus();
-	    }else if($('#pwc').val() == ""){
-	    	$('#pwChk1').html('');
-	    	$('#pwc').focus();
-	    	$('#pwChk1').css("color","black")
-	    	$('#pwChk2').html('  비밀번호를 확인 해주세요.');
-	    }else{
-	    	$('#pwChk1').html('');
-	    }
-	});
-
-	$('#pwc').blur(function(){
-	    if($('#pwc').val() == ""){
-	    	$('#pwChk2').css("color","red")
-	    	$('#pwChk2').html('  비밀번호를 확인 해주세요.');
-	    	$('#pwc').focus();
-	    }else{
-	    	$('#pwChk2').html('');
-	    }
-	});
-
-	var pw1;
-	var pw2;
-	$(function(){
-	    $('#yes').hide();
-	    $('#pwc').blur(function(){
-	    	pw1 = $('#pw').val();
-	        pw2 = $('#pwc').val();
-	        if(pw1 != "" && pw2 != "") {
-	            if(pw1 == pw2) {
-	                $('#yes').css("color","blue");
-	                $('#yes').show();
-	                $('#pwChk2').html('');
-	            }else{
-	                $('#yes').hide();
-	                $('#pwc').val('');
-	                $('#pwChk2').css("color","red")
-	                $('#pwChk2').html('  비밀번호가 일치하지 않습니다. 비밀번호를 확인 해주세요.');
-	            	$('#pwc').focus();
-	            }
-	        }
-	    });
-	});	
-
-</script>
-<!-- 카카오 주소 찾기 api -->
-<script
-	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
-<script type="text/javascript">
-		function openDaumZipAddress() {
-			new daum.Postcode({
-				oncomplete:function(data) {
-					$("#post").val(data.zonecode);
-					$("#address").val(data.address);
-					$("#addressEtc").focus();
-					console.log(data);
-				}
-			}).open();
-		}
-	</script>
 <style>
 .navbar-nav {
 	width: 100%;
@@ -247,7 +104,7 @@ table td {
 	margin-top: 20px;;
 }
 
-#idChk, #regist, #cancel, #check, #send, #a {
+#idChk, #regist, #cancel, #check, #send, #a, #phoneCheck, #emailCheck {
 	width: 100px;
 	height: 30px;
 	font-family: 'Roboto', sans-serif;
@@ -267,7 +124,7 @@ table td {
 }
 
 #idChk:hover, #regist:hover, #cancel:hover,
-#check:hover, #send:hover, #a:hover {
+#check:hover, #send:hover, #a:hover, #phoneCheck:hover , #emailCheck:hover {
 	background-color: #FFB2F5;
 	box-shadow: 0px 15px 20px hotpink;
 	color: #fff;
@@ -328,7 +185,10 @@ table td {
 							<td class="td1">휴대폰 번호</td>
 							<td class="td2">
 								<input type="text" name="phone" id="ph" required />
-								<button type="button" id="send" onclick="sendSms();">전송</button>
+								<div class="phoneArea" id="phoneArea" style="display:inline">
+								<button class="phoneCheck" id="phoneCheck" type="button">중복확인</button>
+								<!-- <button type="button" id="send" onclick="sendSms();">전송</button> -->
+								</div>
 							</td>
 						</tr>
 						<tr>
@@ -340,7 +200,11 @@ table td {
 						</tr>
 						<tr>
 							<td class="td1">이메일</td>
-							<td class="td2"><input type="email" name="email" id="email" required /></td>
+							<td class="td2">
+							
+							<input type="email" name="email" id="email" required />
+							<button class="emailCheck" id="emailCheck" type="button">중복확인</button>
+							</td>
 						</tr>
 						<tr>
 							<td class="td1">스토어 이름</td>
@@ -369,18 +233,346 @@ table td {
 						</tr>
 						<tr>
 							<td class="td1">은행코드</td>
-							<td class="td2"><input type="number" name="bankCode" id="bankCode" required /></td>
+							<td class="td2"><select name="bankCode">
+								<option value="none">은행을 선택해 주세요</option>
+								<c:forEach var="bankCode" items="${bankInfo}" varStatus="status">
+									<option value="${bankCode.bankCode}">${bankCode.bankName}</option>
+								</c:forEach>
+							</select></td>
 						</tr>
 					</tbody>
 				</table>
 				
-					<input type="submit" class="submit" id="regist" value="회원가입">
+					<input type="button" class="submit" id="regist" value="회원가입">
 					<input type="button" id="cancel" value="취소" onclick="location.href = '<c:url value='/main'/>'">
 			</form>
 
 		</div>
 	</section>
 
+<script>
 
+var count1 = 0;
+var count2 = 0;
+var count3 = 0;
+var count4 = 0;
+var count5 = 0;
+
+var phoneChk = false;
+var idChk = false;
+
+/* 인증번호 발송 */
+function sendSms() {
+	
+	
+	
+	$.ajax({
+		url : "<%=request.getContextPath()%>/sendSms",
+		data : {
+			receiver : $("#ph").val(),
+			random : $("#random").val()
+		},
+		type : "post",
+		success : function(result) {
+			if (result == "true") {
+				alert("인증번호 전송!")
+				console.log(result);
+			} else {
+				alert("인증번호 전송 실패");
+			}
+		}
+	});
+}
+
+/* 인증번호 체크 */
+function phoneCheck() {
+	$.ajax({
+		url : "<%=request.getContextPath()%>/smsCheck",
+			type : "post",
+			data : {
+				authCode : $("#confirmNumber").val(),
+				random : $("#random").val()
+				
+			},
+			success : function(result) {
+				if (result == "ok") {
+					alert("번호 인증 성공");
+					phoneChk = true;
+					if(phoneChk == true && idChk == true){
+					$("#regist").removeAttr("disabled");
+					count4 = 1;
+					}
+				} else {
+					alert("번호 인증 실패");
+				}
+			}
+		});
+	}
+
+
+function idCheck(){
+	
+	if($("#id").val() == "") {
+		alert("아이디를 입력하세요!");
+		$("#id").focus();
+		return;
+	}
+
+	 var query = {id : $("#id").val()};
+	 
+	 $.ajax({
+	  url : "/Sharping/idCheck",
+	  type : "post",
+	  data : query,
+	  dataType : "json",
+	  success : function(data) {
+	  
+		if(data == 1){
+		   alert("중복된 아이디입니다.");
+		  /*  $(".submit").attr("disabled", "disabled"); */
+		   $("#id").val('');
+		   $("#id").focus();
+		   count1 = 0;
+	   	} else if(data == 0){
+		   alert("사용가능한 아이디입니다.");
+		   count1 = 1;
+		   idChk = true;
+		   if(phoneChk == true && idChk == true){
+		   $("#regist").removeAttr("disabled");
+		   }
+	   	}
+	  }
+	 });  // ajax 끝
+	};
+	
+	$('#pw').blur(function(){
+	    if($('#pw').val() == ""){
+	    	$('#pwChk1').css("color","red")
+	    	$('#pwChk1').html('  비밀번호를 입력 해주세요.');
+	    	$('#pw').focus();
+	    }else if($('#pwc').val() == ""){
+	    	$('#pwChk1').html('');
+	    	$('#pwc').focus();
+	    	$('#pwChk1').css("color","black")
+	    	$('#pwChk2').html('  비밀번호를 확인 해주세요.');
+	    }else{
+	    	$('#pwChk1').html('');
+	    }
+	});
+
+	$('#pwc').blur(function(){
+	    if($('#pwc').val() == ""){
+	    	$('#pwChk2').css("color","red")
+	    	$('#pwChk2').html('  비밀번호를 확인 해주세요.');
+	    	$('#pwc').focus();
+	    }else{
+	    	$('#pwChk2').html('');
+	    }
+	});
+
+	var pw1;
+	var pw2;
+	$(function(){
+	    $('#yes').hide();
+	    $('#pwc').blur(function(){
+	    	pw1 = $('#pw').val();
+	        pw2 = $('#pwc').val();
+	        if(pw1 != "" && pw2 != "") {
+	            if(pw1 == pw2) {
+	                $('#yes').css("color","blue");
+	                $('#yes').show();
+	                $('#pwChk2').html('');
+	            }else{
+	                $('#yes').hide();
+	                $('#pwc').val('');
+	                $('#pwChk2').css("color","red")
+	                $('#pwChk2').html('  비밀번호가 일치하지 않습니다. 비밀번호를 확인 해주세요.');
+	            	$('#pwc').focus();
+	            }
+	        }
+	    });
+	});	
+	
+	
+	$(".phoneCheck").click(function(){
+		
+		if($("#ph").val() == "") {
+			alert("휴대폰 번호 입력하세요!");
+			$("#ph").focus();
+			return;
+		}
+		
+	 
+	 var query = {phone : $("#ph").val()};
+	 
+	 $.ajax({
+	  url : "/Sharping/phoneOverlapCheck",
+	  type : "post",
+	  data : query,
+	  dataType : "json",
+	  success : function(data) {
+	  
+		if(data ==  -1){
+		   alert("중복된 핸드폰 번호입니다");
+		   $(".submit").attr("disabled", "disabled");
+		   $("#ph").val('');
+		   $("#ph").focus();
+		   count2 = 0;
+	   	} else if(data == 1){
+		   alert("사용가능한 핸드폰 번호 입니다.");
+		   count2 = 1;
+		   $("#phoneArea").html('<button type="button" id="send" onclick="sendSms();">전송</button>');
+	   	}
+		
+		disabledCheck();
+	  }
+	 });  // ajax 끝
+	})
+
+	$(".emailCheck").click(function(){
+		
+		if($("#email").val() == "") {
+			alert("이메일을 입력하세요!");
+			$("#email").focus();
+			return;
+		}
+		
+	 
+	 var query = {email : $("#email").val()};
+	 
+	 $.ajax({
+	  url : "/Sharping/emailOverlapCheck",
+	  type : "post",
+	  data : query,
+	  dataType : "json",
+	  success : function(data) {
+	  
+		if(data ==  -1){
+		   alert("중복된 이메일입니다");
+		   $(".submit").attr("disabled", "disabled");
+		   $("#email").val('');
+		   $("#email").focus();
+		   count3 = 0;
+	   	} else if(data == 1){
+		   alert("사용가능한 이메일 입니다.");
+		   count3 = 1;
+	   	}
+		
+		disabledCheck();
+	  }
+	 });  // ajax 끝
+	})
+
+	function disabledCheck() {
+		if(count1 == 1 && count2 == 1 && count3 == 1) {
+			$(".submit").removeAttr("disabled");
+		}
+		else {
+			$(".submit").attr("disabled", "disabled");
+		}
+	}
+	
+	$(document).on("click", ".submit", function(){
+		if($("#name").val() == "") {
+			alert("이름을 입력하세요!");
+			$("#name").focus();
+		}
+		else if($("#id").val() == "") {
+			alert("아이디를 입력하세요!");
+			$("#id").focus();
+		}
+		else if($("#pw").val() == "") {
+			alert("비밀번호를 입력하세요!");
+			$("#pw").focus();
+		}
+		else if($("#pwc").val() == "") {
+			alert("비밀번호 재입력을 입력하세요!");
+			$("#pwc").focus();
+		}
+		else if($("#ph").val() == "") {
+			alert("전화번호를 입력하세요!");
+			$("#ph").focus();
+		}
+		else if($("#email").val() == "") {
+			alert("이메일을 입력하세요!");
+			$("#email").focus();
+		}
+		else if($("#post").val() == "") {
+			alert("주소를 입력하세요!");
+			$("#post").focus();
+		}
+		else if($("#storeName").val() == "") {
+			alert("스토어 이름을 입력하세요!");
+			$("#storeName").focus();
+		}
+		else if($("#sotreAddress").val() == "") {
+			alert("스토어 주소를 입력하세요!");
+			$("#sotreAddress").focus();
+		}
+		else if($("#storeText").val() == "") {
+			alert("주소를 입력하세요!");
+			$("#").focus();
+		}
+		else if($("#bankAccount").val() == "") {
+			alert("계좌번호를 입력하세요!");
+			$("#bankAccount").focus();
+		}
+		else if(count1 == 0) {
+			alert("아이디 중복을 확인하세요!")
+			$("#id").focus();
+		}
+		else if(count2 == 0) {
+			alert("휴대폰 번호 중복을 확인하세요!");
+			$("#ph").focus();
+		}
+		else if(count3 == 0) {
+			alert("이메일 중복을 확인하세요!");
+			$("#email").focus();
+		}
+		else if(count4 == 0) {
+			alert("휴대폰 번호 인증을 진행하세요!");
+			$("#confirmNumber").focus();
+		}
+		else if(count5 == 0) {
+			alert("이메일 형식이 올바르지 않습니다!");
+			$("#email").focus();
+		}
+		else {
+			$("#registCompleteMember").submit();
+		}
+	})
+	
+	$(document).on("keyup", "#email", function(){
+	
+	var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
+	var email = $("#email").val();
+	
+	if(email.match(regExp) != null) {
+		count5 = 1;
+		$("#regZone").html("올바른 이메일 형식입니다!");
+	}
+	else {
+		$("#regZone").html("이메일 형식이 올바르지 않습니다!");
+		count5 = 0;
+	}
+	
+})
+
+</script>
+<!-- 카카오 주소 찾기 api -->
+<script
+	src="https://t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+<script type="text/javascript">
+		function openDaumZipAddress() {
+			new daum.Postcode({
+				oncomplete:function(data) {
+					$("#post").val(data.zonecode);
+					$("#address").val(data.address);
+					$("#addressEtc").focus();
+					console.log(data);
+				}
+			}).open();
+		}
+	</script>
 </body>
 </html>

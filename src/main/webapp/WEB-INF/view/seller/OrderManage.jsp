@@ -308,7 +308,7 @@ select {
 		                	// for문을 돌면서 행을 그린다.
 		                	for(var i = 0 ; i < data.orderList.length ; i++) {
 		                		var order = data.orderList[i];
-		                		html += "<tr><td><input type='checkbox' class='select'></td><td>" + order.orderNum + "</td><td><span style='float:left'><img src='opload/" + order.productThumb  + "' style='width:50px;'>&nbsp;&nbsp;</span><span style='float:left'>" + order.productName + "</span></td><td><a class='buyerInfo' href='#'>" + order.id + "</a></td><td>" + order.payPrice + "</td><td>" + order.payCase + "</td><td><button type='button' class='delivery' data-id='" + order.id + "' data-orderNum='" + order.orderNum + "'>배송정보열람</button></td><td><a href='#' class='changeState' data-state='" + order.state + "' data-orderNum='" + order.orderNum + "'>" + order.state + "</a></td></tr>";
+		                		html += "<tr><td><input type='checkbox' class='select'></td><td>" + order.orderNum + "</td><td><span style='float:left'><img src='opload/" + order.productThumb  + "' style='width:50px;'>&nbsp;&nbsp;</span><span style='float:left'><a href='#' class='productName' data-productNum='" + order.productNum + "'>" + order.productName + "</a></span></td><td><a class='buyerInfo' href='#'>" + order.id + "</a></td><td>" + order.payPrice + "</td><td>" + order.payCase + "</td><td><button type='button' class='delivery' data-id='" + order.id + "' data-orderNum='" + order.orderNum + "'>배송정보열람</button></td><td><a href='#' class='changeState' data-state='" + order.state + "' data-orderNum='" + order.orderNum + "'>" + order.state + "</a></td></tr>";
 		                		  	
 		                	}
 																																																																																																																																					                	
@@ -424,12 +424,29 @@ select {
 									});
 						});
 
-		function buyerInfo(id) {
+		/* function buyerInfo(id) {
 			window.name = "buyerInfo";
 			var popup = window
 					.open("buyerInfo" + "?id=" + id, "회원상세정보",
 							"width = 520, height = 310, resizable = no, , left = 700, top = 200");
-		}
+		
+		} */
+		
+		$(document).on("click", ".buyerInfo", function(){
+			window.name = "buyerInfo";
+			var id = $(this).html();
+			var popup = window
+					.open("buyerInfo" + "?id=" + id, "회원상세정보",
+							"width = 520, height = 310, resizable = no, , left = 700, top = 200");
+		})
+		
+		$(document).on("click", ".productName", function(){
+			var productNum = $(this).attr("data-productNum");
+			var url = "${pageContext.request.contextPath}"+"/product";
+			url = url + "?productNum=" + productNum;
+			location.href = url;
+		
+		})
 
 		$('#dSearch').change(function() {
 

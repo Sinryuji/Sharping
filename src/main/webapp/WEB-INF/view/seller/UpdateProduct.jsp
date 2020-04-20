@@ -732,8 +732,8 @@ p {
 		
 		<div align="center">
 			<input type="hidden" id="productNum" name="productNum" value="${product.productNum }">
-			<input type="button" id="save" value="저장">
-			<input type="reset" id="reset" value="초기화">
+			<br><br><input type="button" value="저장">&nbsp;&nbsp;
+			<input type="reset" value="초기화"><br><br><br>
 		</div>
 		
 		<input type="hidden" name="page" value="1">

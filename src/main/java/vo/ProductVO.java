@@ -28,6 +28,20 @@ public class ProductVO {
 	private int page;
 	private int startNum;
 	private int endNum;
+	private String productSale;
+	
+
+	public String getProductSale() {
+		return productSale;
+	}
+
+
+
+	public void setProductSale(String productSale) {
+		this.productSale = productSale;
+	}
+
+
 
 	public ProductVO() {
 		super();
@@ -195,8 +209,6 @@ public class ProductVO {
 		this.optionThreeName = optionThreeName;
 	}
 
-
-
 	@Override
 	public String toString() {
 		return "ProductVO [productNum=" + productNum + ", productName=" + productName + ", productText=" + productText
@@ -206,11 +218,8 @@ public class ProductVO {
 				+ ", manufacturer=" + manufacturer + ", mfDate=" + mfDate + ", origin=" + origin + ", deliveryPrice="
 				+ deliveryPrice + ", optionOneName=" + optionOneName + ", optionTwoName=" + optionTwoName
 				+ ", optionThreeName=" + optionThreeName + ", storeName=" + storeName + ", page=" + page + ", startNum="
-				+ startNum + ", endNum=" + endNum + "]";
+				+ startNum + ", endNum=" + endNum + ", productSale=" + productSale + "]";
 	}
-
-	
-
 
 	
 }

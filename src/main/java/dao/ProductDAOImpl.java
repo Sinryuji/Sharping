@@ -144,7 +144,7 @@ public class ProductDAOImpl implements ProductDAO{
 	
 	@Override
 	public int deleteProductByproductNum(ProductVO productVO) {
-		return sqlSessionTemplate.delete("productDAO.deleteProductByProductNum", productVO);
+		return sqlSessionTemplate.update("productDAO.deleteProductByProductNum", productVO);
 	}
 	
 	@Override
@@ -266,4 +266,5 @@ public class ProductDAOImpl implements ProductDAO{
 	public List<ReviewVO> selectReviewByProductNum(int productNum) {
 		return sqlSessionTemplate.selectList("productDAO.selectReviewByProductNum", productNum);
 	}
+	
 }

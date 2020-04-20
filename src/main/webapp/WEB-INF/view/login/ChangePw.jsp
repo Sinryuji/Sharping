@@ -32,14 +32,24 @@ function sendSms() {
 		url : "<%=request.getContextPath()%>/sendSms",
 		data : {
 			receiver : $("#phone").val(),
-			random : $("#random").val()
+			random : $("#random").val(),
+			id : $("#id").val()
 		},
 		type : "post",
 		success : function(result) {
 			if (result == "true") {
 				alert("인증번호 전송!")
-				console.log(result);
-			} else {
+			} 
+			else if(result == "noReciver") {
+				alert("존재하지 않는 번호 입니다!");
+			}
+			else if(result == "noMatch") {
+				alert("입력하신 아이디와 휸대폰 번호가 일치하지 않습니다!");
+			}
+			else if(result == "noMember") {
+				alert("존재하지 않는 회원입니다!");
+			}
+			else {
 				alert("인증번호 전송 실패");
 			}
 		}
@@ -88,7 +98,7 @@ function idCheck(){
 		   alert("확인 되었습니다.");
 		   idChk = true;
 		   $('.in').slideToggle("slow");
-		   $('#id').val('');
+		   /* $('#id').val(''); */
 		   if(phoneChk == true && idChk == true){
 		   $("#changePwPhone").removeAttr("disabled");
 		   }
@@ -108,12 +118,20 @@ $(function(){
 		$.ajax({
 			type:"get",
 			url:"<%=request.getContextPath()%>/sendEmail",
-			data:"email="+ $("#email").val() + "&random=" + $("#random").val(),
+			data:"email="+ $("#email").val() + "&random=" + $("#random").val() + "&idd=" +$("#id").val(),
 			success : function(data){
-				if(data == false){
+				if(data == "false"){
 					alert("존재하지 않는 이메일입니다.");
 				}
+				else if(data == "noMatch") {
+					alert("입력하신 아이디와 이메일이 일치하지 않습니다!");
+				}
+				else if(data == "noMember") {
+					alert("존재하지 않는 회원입니다!");
+				}
+				else {
 				alert("사용가능한 이메일입니다. 인증번호를 입력하세요");
+				}
 			},
 		error: function(data){
 			alert("에러발생");

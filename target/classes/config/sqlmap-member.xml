@@ -109,5 +109,10 @@
 	<select id="selectReviewByOrderNumId" parameterType="reviewVO" resultType="reviewVO">
 		SELECT * FROM REVIEW WHERE "orderNum" = #{orderNum} AND "id" = #{id}
 	</select>
+	
+	<select id="selectMemberByEmail" resultType="memberVO">
+		SELECT * FROM MEMBER WHERE "email" = #{email}
+	</select>
+	
 
 </mapper>

@@ -36,7 +36,11 @@ function sendSms() {
 			if (result == "true") {
 				alert("인증번호 전송!")
 				console.log(result);
-			} else {
+			} 
+			else if(result == "noReciver") {
+				alert("존재하지 않는 번호입니다!");
+			}
+			else {
 				alert("인증번호 전송 실패");
 			}
 		}
@@ -327,7 +331,7 @@ table td {
 			    <tbody>
 			    	<tr>
 			    		<td class="td1">이메일</td>
-			    		<td class="td2">
+			    		<td class="td2" id="emailZone">
 			    			<input type="text" id="email" name="email"/>
 							<button type="button" id="emailBtn">발송</button>
 			    		</td>
@@ -390,5 +394,6 @@ table td {
 	</section>
 	
 	<script src="${pageContext.request.contextPath}/asset/js/bootstrap.js"></script>
+	
 </body>
 </html>
