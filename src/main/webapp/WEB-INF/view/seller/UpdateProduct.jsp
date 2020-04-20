@@ -405,7 +405,7 @@ p {
 
    <section id="container">
       <div id="containerBox">
-   <form action="updateProductResult" method="post" enctype="multipart/form-data">
+   <form action="updateProductResult" id="updateProductResult" method="post" enctype="multipart/form-data">
       <table>
          <colgroup>
                <col style="width:20%;" />
@@ -757,12 +757,6 @@ $(document).on("click", "#save", function(){
    }
    else if($('input[name=productPrice]').val() == '') {
       alert("상품 가격을 입력해주세요!")
-   }
-   else if($('input[name=productImage]').val() == '') {
-      alert("상품 이미지를 등록해주세요!")
-   }
-   else if($('input[name=productThumb]').val() == '') {
-      alert("상품 썸네일 이미지를 등록해주세요!")
    }
    else if($('input[name=productText]').val() == '') {
       alert("상품 설명을 입력해주세요!")

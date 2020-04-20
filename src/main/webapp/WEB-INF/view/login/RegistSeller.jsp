@@ -143,7 +143,7 @@ table td {
 
 	<section id="container">
 		<div id="containerBox">
-			<form action="registCompleteSeller" method="post">
+			<form action="registCompleteSeller" id="registCompleteSeller" method="post">
 				<table>
 					<colgroup>
 						<col style="width: 30%;" />
@@ -204,6 +204,7 @@ table td {
 							
 							<input type="email" name="email" id="email" required />
 							<button class="emailCheck" id="emailCheck" type="button">중복확인</button>
+							<span id="regZone"></span>
 							</td>
 						</tr>
 						<tr>
@@ -437,8 +438,8 @@ function idCheck(){
 			return;
 		}
 		
-		if(count4 == 0) {
-			alert("올바르지 않은 이메일 형식입니다!");
+		if(count5 == 0) {
+			alert("이메일 형식이 올바르지 않습니다!");
 			$("#email").focus();
 			return;
 		}
@@ -544,7 +545,7 @@ function idCheck(){
 			$("#email").focus();
 		}
 		else {
-			$("#registCompleteMember").submit();
+			$("#registCompleteSeller").submit();
 		}
 	})
 	
@@ -552,6 +553,11 @@ function idCheck(){
 	
 	var regExp = /^[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*@[0-9a-zA-Z]([-_.]?[0-9a-zA-Z])*.[a-zA-Z]{2,3}$/i;
 	var email = $("#email").val();
+	
+	if($("#email").val() == "") {
+		$("#regZone").html("");
+		return;
+	}
 	
 	if(email.match(regExp) != null) {
 		count5 = 1;

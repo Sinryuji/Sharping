@@ -143,10 +143,9 @@ public class MemberServiceImpl implements MemberService {
 		
 		if(id == null) {
 			return "noReciver";
-		}
+			}
 		}
 		
-		if(id != null) {
 			
 			
 
@@ -220,7 +219,6 @@ public class MemberServiceImpl implements MemberService {
 			System.err.println("Error: " + e.getLocalizedMessage());
 		} finally {
 			client.getConnectionManager().shutdown();
-		}
 		}
 		return "true";
 	}
