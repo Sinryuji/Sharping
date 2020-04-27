@@ -135,47 +135,28 @@ public class MemberServiceImpl implements MemberService {
 
 	@Override
 	public String sendSms(@RequestParam(required=false) String idd, @RequestParam String receiver, @RequestParam int random, HttpServletRequest req) {
-		// 6자리 인증 코드 생성
 	
 		String id = memberDAO.selectIdByPhone(receiver);
 		if(idd != null) {
-		
 		
 		if(id == null) {
 			return "noReciver";
 			}
 		}
-		
-			
-			
 
 		int ran = new Random().nextInt(900000) + 100000;
-		
 		HttpSession session = req.getSession(true);
-		
 		System.out.println(ran);
-		
 		String authCode = String.valueOf(ran);
-		
-
 		session.setAttribute("authCode", authCode);
-		
 		session.setAttribute("random", random);
-		
 		String sender="01096580540";
 
-
-
-		// 인증 코드를 데이터베이스에 저장하는 코드는 생략했습니다.
-
-		// 문자 보내기
 		String hostname = "api.bluehouselab.com";
 		String url = "https://" + hostname + "/smscenter/v1.0/sendsms";
 
 		CredentialsProvider credsProvider = new BasicCredentialsProvider();
-		credsProvider.setCredentials(new AuthScope(hostname, 443, AuthScope.ANY_REALM),
-
-				// 청기와랩에 등록한 Application Id 와 API key 를 입력합니다.
+		credsProvider.setCredentials(new AuthScope(hostname, 443, AuthScope.ANY_REALM), 
 				new UsernamePasswordCredentials("chjj", "3643d0c864f611eab34f0cc47a1fcfae"));
 
 		AuthCache authCache = new BasicAuthCache();
@@ -191,10 +172,7 @@ public class MemberServiceImpl implements MemberService {
 			HttpPost httpPost = new HttpPost(url);
 			httpPost.setHeader("Content-type", "application/json; charset=utf-8");
 
-			// 문자에 대한 정보
-
 			String json = "{\"sender\":\""+sender+"\",\"receivers\":[\"" + receiver + "\"],\"content\":\""+authCode+"\"}";
-
 
 			StringEntity se = new StringEntity(json, "UTF-8");
 

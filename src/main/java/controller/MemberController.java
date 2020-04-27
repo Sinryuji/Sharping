@@ -159,15 +159,7 @@ public class MemberController {
 
 	// 판매자 회원 가입 완료
 	@RequestMapping(value = "/registCompleteSeller")
-	public String registCompleteSeller(@Valid MemberVO memberVO, @Valid SellerVO sellerVO) {
-
-//		String addressEtc = memberVO.getAddressEtc();
-//
-//		String address = memberVO.getAddress();
-//
-//		String addressFinal = address + " " + addressEtc;
-//
-//		memberVO.setAddress(addressFinal);
+	public String registCompleteSeller(MemberVO memberVO, SellerVO sellerVO) {
  
 		String pw = memberVO.getPassword();
 		String hashPw = BCrypt.hashpw(pw, BCrypt.gensalt());
@@ -382,8 +374,6 @@ public class MemberController {
 		String inputAuthCode = (String) session.getAttribute("authCode");
 
 		String inputRandom = Integer.toString((int) session.getAttribute("random"));
-
-//		String sendCode = Integer.toString(MemberServiceImpl.rand);
 
 		if (inputAuthCode.equals(authCode) && inputRandom.equals(random)) {
 

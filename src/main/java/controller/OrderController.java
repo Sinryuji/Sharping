@@ -814,26 +814,19 @@ public class OrderController {
 			orderVO.setTrackingNum("");
 			orderVO.setTrackingCode("");
 			
-			
 			int payNum = new Random().nextInt(900000) + 100000;
-			
 			orderVO.setPayNum(payNum);
 			
 			orderService.insertOrder(orderVO);
-
 			OrderVO order = new OrderVO();
 
 			order = orderService.selectLatelyOrderNum(orderVO.getId());
-
 			orderVO.setOrderNum(order.getOrderNum());
 
 			orderListVO.setOrderNum(order.getOrderNum());
-			
 
 			int insertPayCardResult = orderService.insertPayCard(orderVO);
-
 			int insertOrderResult = orderService.insertOrderList(orderListVO);
-
 			int productNum = orderService.selectProductNumByOptionNum(orderListVO.getOptionNum());
 
 			orderListVO.setProductNum(productNum);
@@ -844,7 +837,6 @@ public class OrderController {
 			}
 			
 			mv.setViewName("order/OrderResult");
-
 
 			return mv;
 		} else {
