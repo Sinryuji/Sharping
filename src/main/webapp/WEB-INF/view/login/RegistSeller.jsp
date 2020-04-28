@@ -265,8 +265,6 @@ var idChk = false;
 /* 인증번호 발송 */
 function sendSms() {
 	
-	
-	
 	$.ajax({
 		url : "<%=request.getContextPath()%>/sendSms",
 		data : {
@@ -287,6 +285,7 @@ function sendSms() {
 
 /* 인증번호 체크 */
 function phoneCheck() {
+	
 	$.ajax({
 		url : "<%=request.getContextPath()%>/smsCheck",
 			type : "post",

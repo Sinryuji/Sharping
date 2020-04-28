@@ -374,7 +374,11 @@ table{
 		                			noticePost = '';
 		                		}
 		                		
-		                		html += "<tr><td>" + notice.noticeNum + "</td><td>" + notice.adminId + "</td><td><a href='#' onclick='noticeView(" + notice.noticeNum + ")'>" + notice.noticeSubject + "</a></td><td>" + notice.noticeDate + "</td><td><label class='switch'><input type='checkbox' class='display' id='chk" + notice.noticeNum + "' data-noticeNum='" + notice.noticeNum + "' " + noticePost  + "><span class='slider round'</span></labe></td></tr>"
+		                		var timestamp = notice.noticeDate;
+		                		var date = new Date(timestamp);
+		                		var viewDate = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
+		                		
+		                		html += "<tr><td>" + notice.noticeNum + "</td><td>" + notice.adminId + "</td><td><a href='#' onclick='noticeView(" + notice.noticeNum + ")'>" + notice.noticeSubject + "</a></td><td>" + viewDate + "</td><td><label class='switch'><input type='checkbox' class='display' id='chk" + notice.noticeNum + "' data-noticeNum='" + notice.noticeNum + "' " + noticePost  + "><span class='slider round'</span></labe></td></tr>"
 		                	}
 		                }else{
 		                //데이터가 없을경우

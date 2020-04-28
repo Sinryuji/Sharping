@@ -356,8 +356,12 @@ select {
 			                	for(var i = 0 ; i < data.declList.length ; i++) {
 			                		var decl = data.declList[i];
 			                		var product = data.productList[i];
+			                		
+			                		var timestamp = decl.declDate;
+			                		var date = new Date(timestamp);
+			                		var viewDate = date.getFullYear() + "/" + (date.getMonth() + 1) + "/" + date.getDate();
 			                	
-			                		html += "<tr><td><input type='checkbox' class='select' data-productNum='" + decl.productNum + "' data-declNum='" + decl.declNum + "'></td><td>" + decl.declNum + "</td><td>" + decl.declReason + "</td><td><a href='#' onclick='productView(" + decl.productNum + ")'>" + product.productName + "</a></td><td><a href='#' onclick='declView(" + decl.declNum + ")'>내용 확인</a></td><td>" + decl.declDate + "</td><td>" + decl.sellerId + "</td><td>" + decl.declId + "</td></tr>";
+			                		html += "<tr><td><input type='checkbox' class='select' data-productNum='" + decl.productNum + "' data-declNum='" + decl.declNum + "'></td><td>" + decl.declNum + "</td><td>" + decl.declReason + "</td><td><a href='#' onclick='productView(" + decl.productNum + ")'>" + product.productName + "</a></td><td><a href='#' onclick='declView(" + decl.declNum + ")'>내용 확인</a></td><td>" + viewDate + "</td><td>" + decl.sellerId + "</td><td>" + decl.declId + "</td></tr>";
 			                		  	
 			                	}
 			                	
